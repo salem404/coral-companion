@@ -10,16 +10,19 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create("profiles", function (Blueprint $table) {
+        Schema::create("families", function (Blueprint $table) {
             $table->increments("id");
-            $table->integer("user_id")->unsigned();
+            $table->integer("character_id")->unsigned();
             $table
-                ->foreign("user_id")
+                ->foreign("character_id")
                 ->references("id")
-                ->on("users")
-                ->onDelete("cascade");
-            $table->string("farmer_name");
-            $table->string("farm_name");
+                ->on("characters");
+            $table->integer("familiar_id")->unsigned();
+            $table
+                ->foreign("familiar_id")
+                ->references("id")
+                ->on("characters");
+            $table->string("relationship");
             $table->timestamps();
         });
     }
@@ -29,6 +32,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists("profiles");
+        Schema::dropIfExists("families");
     }
 };

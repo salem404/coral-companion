@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Item extends Model
 {
     use HasFactory;
+
+    protected $fillable = ["name", "type_id", "icon"];
+
+    public function type()
+    {
+        return $this->belongsTo(Type::class);
+    }
+
+    public function tasks()
+    {
+        return $this->belongsToMany(Task::class);
+    }
 }

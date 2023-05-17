@@ -5,19 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class FavList extends Model
+class Family extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["character_id", "item_id"];
+    protected $fillable = ["character_id", "familiar_id", "relationship"];
 
     public function character()
     {
         return $this->belongsTo(Character::class);
     }
 
-    public function item()
+    public function familiar()
     {
-        return $this->belongsTo(Item::class);
+        return $this->belongsTo(Character::class);
     }
 }
