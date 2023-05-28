@@ -4,15 +4,21 @@
     "version": "0.0.0",
     "type": "module",
     "scripts": {
+        "document": "jsdoc -c docs/conf.json",
         "dev": "vite",
         "build": "vite build",
         "preview": "vite preview"
     },
     "dependencies": {
-        "vue": "^3.2.47"
+        "vue": "^3.2.47",
+        "vue-router": "^4.0.13"
     },
     "devDependencies": {
         "@vitejs/plugin-vue": "^4.1.0",
+        "@vue/compiler-sfc": "^3.2.47",
+        "jsdoc": "^4.0.1",
+        "jsdoc-vuejs": "^4.0.0",
+        "sass": "^1.58.1",
         "vite": "^4.3.2"
     }
 }
