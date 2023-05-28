@@ -20,8 +20,8 @@
 </template>
 <script>
 import ToDoList from "@/components/ToDoList.vue";
-import Crops from "../components/Crops.vue";
-import People from "../components/People.vue";
+import Crops from "@/components/Crops.vue";
+import People from "@/components/People.vue";
 /**
  * @vue-data {String} selectedSeasons - Estación seleccionada
  * @vue-computed {Prop} componentProps - Devuelve el prop de la estación seleccionada

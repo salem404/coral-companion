@@ -53,6 +53,12 @@ Install dependencies in the project directory and in frontend
   npm install
 ```
 
+Create environment file
+
+```bash
+  cp .env.example .env
+```
+
 Start the server in the project directory
 
 ```bash
@@ -74,6 +80,7 @@ Start the server in the project directory
 
 ![Docker](https://img.shields.io/badge/Docker-2496ED?logo=Docker&logoColor=white)
 ![Netlify](https://img.shields.io/badge/Netlify-00C7B7?logo=Netlify&logoColor=white)
+![Railway](https://img.shields.io/badge/Railway-FF0000?logo=Railway&logoColor=white)
 
 **Client:**
 
@@ -82,6 +89,8 @@ Start the server in the project directory
 ![Sass](https://img.shields.io/badge/Sass-CC6699?logo=Sass&logoColor=white)
 ![Vue](https://img.shields.io/badge/Vue.js-4FC08D?logo=Vue.js&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-646CFF?logo=Vite&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-339933?logo=Node.js&logoColor=white)
+![NPM](https://img.shields.io/badge/NPM-CB3837?logo=NPM&logoColor=white)
 
 **Server:**
 
@@ -89,6 +98,7 @@ Start the server in the project directory
 ![Laravel](https://img.shields.io/badge/Laravel-FF2D20?logo=Laravel&logoColor=white)
 ![PhpMyAdmin](https://img.shields.io/badge/PhpMyAdmin-0175B2?logo=PhpMyAdmin&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1?logo=MySQL&logoColor=white)
+![Composer](https://img.shields.io/badge/Composer-885630?logo=Composer&logoColor=white)
 
 ## License
 

@@ -4,6 +4,11 @@ import App from "@/App.vue";
 import Home from "@/views/Home.vue";
 import Dashboard from "@/views/Dashboard.vue";
 
+// Changes url depending on the environment
+const API_URL = import.meta.env.PROD
+    ? "https://proyectotema3api.onrender.com/api"
+    : "http://localhost/api";
+
 const routes = [
     {
         path: "/",
