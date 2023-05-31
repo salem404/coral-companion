@@ -13,7 +13,14 @@ class User extends Authenticatable
     protected $table = "users";
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $fillable = ["username", "email", "password", "name", "surname"];
+    protected $fillable = [
+        "username",
+        "email",
+        "password",
+        "name",
+        "surname",
+        "isAdmin",
+    ];
 
     /**
      * The attributes that should be hidden for serialization.

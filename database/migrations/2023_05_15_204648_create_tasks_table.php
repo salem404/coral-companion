@@ -19,7 +19,7 @@ return new class extends Migration {
                 ->on("profiles")
                 ->onDelete("cascade");
             $table->string("description");
-            $table->boolean("completed")->default(false);
+            $table->tinyInteger("isCompleted")->default(0);
             $table
                 ->integer("character_id")
                 ->unsigned()

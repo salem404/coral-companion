@@ -12,58 +12,72 @@ class SanctumController extends Controller
     public function register(Request $request)
     {
         $this->validate($request, [
-            'username' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|min:6'
+            "username" => "required",
+            "email" => "required|email",
+            "password" => "required|min:6",
         ]);
 
         $user = User::create([
-            'username' => $request->name,
-            'email' => $request->mail,
-            'password' => bcrypt($request->password)
+            "username" => $request->username,
+            "email" => $request->email,
+            "password" => bcrypt($request->password),
         ]);
         //add the sanctum token to the user and store it in a variable
-        $token = $user->createToken('authToken')->plainTextToken;
+        $token = $user->createToken("authToken")->plainTextToken;
 
-        return response()->json([
-            'message' => 'User created successfully',
-            'token' => $token
-        ], 201);
+        return response()->json(
+            [
+                "message" => "User created successfully",
+                "token" => $token,
+            ],
+            201
+        );
     }
     //login
     public function login(Request $request)
     {
         $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required|min:6'
+            "email" => "required|email",
+            "password" => "required|min:6",
         ]);
 
-        $user = User::where('mail', $request->mail)->first();
+        $user = User::where("email", $request->email)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json([
-                'message' => 'Invalid login details'
-            ], 401);
+            return response()->json(
+                [
+                    "message" => "Invalid login details",
+                ],
+                401
+            );
         }
 
         //add the sanctum token to the user
-        $token = $user->createToken('authToken')->plainTextToken;
+        $token = $user->createToken("authToken")->plainTextToken;
 
-        return response()->json([
-            'message' => 'User logged in successfully',
-            'token' => $token
-        ], 200);
+        return response()->json(
+            [
+                "message" => "User logged in successfully",
+                "token" => $token,
+            ],
+            200
+        );
     }
 
     //logout
     public function logout(Request $request)
     {
         //delete the token of the loged in user with sanctum
-        $request->user()->currentAccessToken()->delete();
+        $request
+            ->user()
+            ->currentAccessToken()
+            ->delete();
         //devolver mensaje "logout exitoso"
-        return response()->json([
-            'message' => 'User logged out successfully'
-        ], 200);
-
+        return response()->json(
+            [
+                "message" => "User logged out successfully",
+            ],
+            200
+        );
     }
 }
