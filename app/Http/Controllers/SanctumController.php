@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class SanctumController extends Controller
 {
-    //register
-    public function register(Request $request)
+    // Register
+    /**
+     * @throws ValidationException
+     */
+    public function register(Request $request): \Illuminate\Http\JsonResponse
     {
         $this->validate($request, [
             "username" => "required",
@@ -22,7 +26,8 @@ class SanctumController extends Controller
             "email" => $request->email,
             "password" => bcrypt($request->password),
         ]);
-        //add the sanctum token to the user and store it in a variable
+
+        // Add the sanctum token to the user and store it in a variable
         $token = $user->createToken("authToken")->plainTextToken;
 
         return response()->json(
@@ -33,7 +38,8 @@ class SanctumController extends Controller
             201
         );
     }
-    //login
+
+    // Login
     public function login(Request $request)
     {
         $this->validate($request, [
@@ -52,32 +58,26 @@ class SanctumController extends Controller
             );
         }
 
-        //add the sanctum token to the user
+        // Add the sanctum token to the user
         $token = $user->createToken("authToken")->plainTextToken;
 
-        return response()->json(
-            [
-                "message" => "User logged in successfully",
-                "token" => $token,
-            ],
-            200
-        );
+        return response()->json([
+            "message" => "User logged in successfully",
+            "token" => $token,
+        ]);
     }
 
-    //logout
+    // Logout
     public function logout(Request $request)
     {
-        //delete the token of the loged in user with sanctum
+        // Delete the token of the loged in user with sanctum
         $request
             ->user()
             ->currentAccessToken()
             ->delete();
-        //devolver mensaje "logout exitoso"
-        return response()->json(
-            [
-                "message" => "User logged out successfully",
-            ],
-            200
-        );
+
+        return response()->json([
+            "message" => "User logged out successfully",
+        ]);
     }
 }

@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\CharacterController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SeasonController;
+use App\Http\Controllers\SanctumController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,38 +23,38 @@ Route::middleware("auth:sanctum")->get("/user", function (Request $request) {
 });
 
 // Users
-Route::post("/register", "App\Http\Controllers\SanctumController@register");
-Route::post("/login", "App\Http\Controllers\SanctumController@login");
-Route::get(
-    "/logout",
-    "App\Http\Controllers\SanctumController@logout"
-)->middleware("auth:sanctum");
+Route::controller(SanctumController::class)->group(function () {
+    Route::post("/register", "register");
+    Route::post("/login", "login");
+    Route::get("/logout", "logout")->middleware("auth:sanctum");
+});
 
 // Seasons
-Route::get("/seasons", "App\Http\Controllers\SeasonController@getAllSeasons");
-Route::get(
-    "/seasons/{id}",
-    "App\Http\Controllers\SeasonController@getSeasonById"
-);
+Route::controller(SeasonController::class)->group(function () {
+    Route::get("/seasons", "getAllSeasons");
+    Route::get("/seasons/{id}", "getSeasonById");
+});
 
 // Characters
-Route::get(
-    "/characters",
-    "App\Http\Controllers\CharacterController@getAllCharacters"
-);
-Route::get(
-    "/characters/{id}",
-    "App\Http\Controllers\CharacterController@getCharacterById"
-);
-Route::delete(
-    "/characters/{id}",
-    "App\Http\Controllers\CharacterController@deleteCharacter"
-)->middleware("auth:sanctum");
-Route::post(
-    "/characters",
-    "App\Http\Controllers\CharacterController@createCharacter"
-)->middleware("auth:sanctum");
-Route::put(
-    "/characters/{id}",
-    "App\Http\Controllers\CharacterController@updateCharacter"
-)->middleware("auth:sanctum");
+Route::controller(CharacterController::class)->group(function () {
+    Route::get("/characters", "getAllCharacters");
+    Route::get("/characters/{id}", "getCharacterById");
+    Route::delete("/characters/{id}", "deleteCharacter")->middleware(
+        "auth:sanctum"
+    );
+    Route::post("/characters", "createCharacter")->middleware("auth:sanctum");
+    Route::put("/characters/{id}", "updateCharacter")->middleware(
+        "auth:sanctum"
+    );
+});
+
+// Profiles
+Route::controller(ProfileController::class)->group(function () {
+    Route::get("/profiles", "getAllProfiles");
+    Route::get("/profiles/{id}", "getProfileById");
+    Route::delete("/profiles/{id}", "deleteProfile")->middleware(
+        "auth:sanctum"
+    );
+    Route::post("/profiles", "createProfile")->middleware("auth:sanctum");
+    Route::put("/profiles/{id}", "updateProfile")->middleware("auth:sanctum");
+});

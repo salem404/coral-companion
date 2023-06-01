@@ -11,6 +11,7 @@ class SeasonController extends Controller
     public function getAllSeasons(): \Illuminate\Http\JsonResponse
     {
         $seasons = Season::all();
+        // Check if seasons exist
         if (count($seasons) === 0) {
             return response()->json(
                 [
@@ -26,6 +27,7 @@ class SeasonController extends Controller
     public function getSeasonById($id): \Illuminate\Http\JsonResponse
     {
         $season = Season::find($id);
+        // Check if season exists
         if (!$season) {
             return response()->json(
                 [
