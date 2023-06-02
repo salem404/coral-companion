@@ -47,7 +47,12 @@ Clone the project
   git clone https://github.com/salem404/coral-companion
 ```
 
-Install dependencies in the project directory and in frontend
+Install dependencies in the project directory
+
+```bash
+  npm install && composer install
+```
+and in the subdirectory frontend
 
 ```bash
   npm install
@@ -63,6 +68,18 @@ Start the server in the project directory
 
 ```bash
   vendor/bin/sail up
+```
+
+Create laravel application key
+
+```bash
+  vendor/bin/sail artisan key:generate
+```
+
+Create the database and seed it with data
+
+```bash
+  vendor/bin/sail artisan migrate --seed
 ```
 
 ## Tech Stack
