@@ -11,12 +11,12 @@ class Family extends Model
 
     protected $fillable = ["character_id", "familiar_id", "relationship"];
 
-    public function character()
+    public function character(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Character::class);
     }
 
-    public function familiar()
+    public function familiar(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Character::class);
     }

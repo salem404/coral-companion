@@ -19,17 +19,17 @@ class Character extends Model
         "icon",
     ];
 
-    public function season()
+    public function season(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Season::class);
     }
 
-    public function favorites()
+    public function favorites(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(FavList::class);
     }
 
-    public function family()
+    public function family(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(
             Character::class,
@@ -39,7 +39,7 @@ class Character extends Model
         );
     }
 
-    public function tasks()
+    public function tasks(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Task::class);
     }

@@ -16,7 +16,7 @@ class Item extends Model
         return $this->belongsTo(Type::class);
     }
 
-    public function tasks()
+    public function tasks(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Task::class);
     }

@@ -17,17 +17,17 @@ class Task extends Model
         "item_id",
     ];
 
-    public function profile()
+    public function profile(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Profile::class);
     }
 
-    public function character()
+    public function character(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Character::class);
     }
 
-    public function item()
+    public function item(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Item::class);
     }

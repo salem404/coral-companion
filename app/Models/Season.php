@@ -14,7 +14,7 @@ class Season extends Model
     protected $hidden = ["created_at", "updated_at"];
 
     // Characters
-    public function characters()
+    public function characters(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Character::class);
     }

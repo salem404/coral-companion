@@ -20,6 +20,7 @@ return new class extends Migration {
                 ->onDelete("cascade");
             $table->string("farmer_name");
             $table->string("farm_name");
+            $table->string("color")->default("#000000");
             $table->timestamps();
         });
     }

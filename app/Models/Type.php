@@ -11,7 +11,7 @@ class Type extends Model
 
     protected $fillable = ["name"];
 
-    public function items()
+    public function items(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Item::class);
     }

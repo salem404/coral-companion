@@ -5,21 +5,23 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
 class SanctumController extends Controller
 {
     // Register
-    /**
-     * @throws ValidationException
-     */
     public function register(Request $request): \Illuminate\Http\JsonResponse
     {
-        $this->validate($request, [
+        // Validate request
+        $validator = Validator::make($request->all(), [
             "username" => "required",
             "email" => "required|email",
             "password" => "required|min:6",
         ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
 
         $user = User::create([
             "username" => $request->username,
@@ -42,10 +44,14 @@ class SanctumController extends Controller
     // Login
     public function login(Request $request)
     {
-        $this->validate($request, [
+        // Validate request
+        $validator = Validator::make($request->all(), [
             "email" => "required|email",
             "password" => "required|min:6",
         ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
 
         $user = User::where("email", $request->email)->first();
 
@@ -70,7 +76,7 @@ class SanctumController extends Controller
     // Logout
     public function logout(Request $request)
     {
-        // Delete the token of the loged in user with sanctum
+        // Delete the token of the logged in user with sanctum
         $request
             ->user()
             ->currentAccessToken()

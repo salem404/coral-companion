@@ -11,12 +11,12 @@ class FavList extends Model
 
     protected $fillable = ["character_id", "item_id"];
 
-    public function character()
+    public function character(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Character::class);
     }
 
-    public function item()
+    public function item(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Item::class);
     }

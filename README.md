@@ -52,6 +52,7 @@ Install dependencies in the project directory
 ```bash
   npm install && composer install
 ```
+
 and in the subdirectory frontend
 
 ```bash
