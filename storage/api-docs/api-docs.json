@@ -1,0 +1,418 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Coral Companion API Documentation",
+        "description": "Documentation for the API used in the Coral Companion app",
+        "contact": {
+            "name": "Paula Rumeu",
+            "email": "paururo08@hotmail.com"
+        },
+        "license": {
+            "name": "Creative Commons Attribution Share Alike 4.0 International",
+            "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+        },
+        "version": "1.0.0",
+        "x-logo": {
+            "url": "https://raw.githubusercontent.com/salem404/coral-companion/02b2826183f4a25dbc0cd79d8ea361067ef74ea0/frontend/src/assets/img/logo-color.svg"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://localhost/api",
+            "description": "Localhost"
+        },
+        {
+            "url": "https://coral-companion.railway.com/api",
+            "description": "Railway"
+        }
+    ],
+    "paths": {
+        "/api/characters": {
+            "get": {
+                "tags": [
+                    "Characters"
+                ],
+                "summary": "Get all characters",
+                "description": "Get all characters",
+                "operationId": "6556edd730dd94a181d1507ccfd934ea",
+                "responses": {
+                    "200": {
+                        "description": "Success: Get all characters",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Character"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No characters found"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Characters"
+                ],
+                "summary": "Create a new character",
+                "description": "Create a new character using the data provided in the request body. (Admin only)",
+                "operationId": "fab6dce8840347f01930bb8dc00f4b80",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/Character"
+                },
+                "responses": {
+                    "201": {
+                        "description": "Character created successfully"
+                    },
+                    "401": {
+                        "description": "You are not authorized to create a character"
+                    },
+                    "400": {
+                        "description": "Bad request. Please enter valid data"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/characters/{id}": {
+            "get": {
+                "tags": [
+                    "Characters"
+                ],
+                "summary": "Get a character",
+                "description": "Get a character by id",
+                "operationId": "b68d4491a3ce60ee188d0d99d9849b47",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Character id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success: Return the character",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Character"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Character not found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Characters"
+                ],
+                "summary": "Update a character",
+                "description": "Update a character by id and a request body (ADMIN ONLY)",
+                "operationId": "6fabac5f25380af819deb0c84aa9de6a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Character id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/Character"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success: Character updated successfully"
+                    },
+                    "404": {
+                        "description": "Character not found"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Characters"
+                ],
+                "summary": "Delete a character",
+                "description": "Delete a character",
+                "operationId": "c2924443f6c0a9ab045f9dae7fe09f6c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Character id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success: Character deleted successfully"
+                    },
+                    "404": {
+                        "description": "Character not found"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/families": {
+            "get": {
+                "tags": [
+                    "Families"
+                ],
+                "summary": "Get all families",
+                "description": "Get all families",
+                "operationId": "376a0d61dc3d81a3900f2aa4c415420a",
+                "responses": {
+                    "200": {
+                        "description": "All families",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Family"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No families found"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Families"
+                ],
+                "summary": "Create a new family",
+                "description": "Create a new family",
+                "operationId": "77653e126705f1b57567930c7011cae6",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Family"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Family created successfully"
+                    },
+                    "401": {
+                        "description": "You are not authorized to create a family"
+                    },
+                    "400": {
+                        "description": "Bad request. Please enter valid data"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Character": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Season"
+                    },
+                    {
+                        "properties": {
+                            "id": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "name": {
+                                "type": "string",
+                                "example": "John Doe"
+                            },
+                            "birthday": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "season_id": {
+                                "properties": {
+                                    "": {
+                                        "$ref": "#/components/schemas/Season"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "id": 4,
+                                    "name": "Winter"
+                                }
+                            },
+                            "gender": {
+                                "type": "string",
+                                "example": "Female"
+                            },
+                            "occupation": {
+                                "type": "string",
+                                "example": "Doctor"
+                            },
+                            "romanceable": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "icon": {
+                                "type": "string",
+                                "example": "https://www.example.com/image.jpg"
+                            }
+                        }
+                    }
+                ]
+            },
+            "Season": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Winter"
+                    }
+                },
+                "type": "object"
+            },
+            "Family": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Season"
+                    },
+                    {
+                        "properties": {
+                            "family_id": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "character_id": {
+                                "properties": {
+                                    "": {
+                                        "$ref": "#/components/schemas/Character"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "familiar_id": {
+                                "type": "integer",
+                                "example": 2
+                            },
+                            "relationship": {
+                                "type": "string",
+                                "example": "Mother"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "requestBodies": {
+            "Character": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "name": {
+                                    "type": "string",
+                                    "example": "John Doe"
+                                },
+                                "birthday": {
+                                    "type": "integer",
+                                    "example": 1
+                                },
+                                "season_id": {
+                                    "type": "integer",
+                                    "example": 1
+                                },
+                                "gender": {
+                                    "type": "string",
+                                    "example": "Female"
+                                },
+                                "occupation": {
+                                    "type": "string",
+                                    "example": "Doctor"
+                                },
+                                "romanceable": {
+                                    "type": "integer",
+                                    "example": 1
+                                },
+                                "icon": {
+                                    "type": "string",
+                                    "example": "https://www.example.com/image.jpg"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "sanctum": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Characters",
+            "description": "Everything about Characters"
+        },
+        {
+            "name": "Families",
+            "description": "Everything about Families"
+        }
+    ]
+}

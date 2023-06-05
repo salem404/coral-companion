@@ -3,16 +3,76 @@
 namespace App\Http\Controllers;
 
 use App\Models\Family;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * @OA\Tag(name="Families",description="Everything about Families")
+ * @OA\Component (
+ *     @OA\Schema(
+ *      schema="Family",
+ *           @OA\Property(
+ *              property="family_id",
+ *              type="integer",
+ *              example=1
+ *          ),
+ *          @OA\Property(
+ *              property="character_id",
+ *              type="object",
+ *                  @OA\Property(
+ *                      ref="#/components/schemas/Character"
+ *                  )
+ *          ),
+ *          @OA\Property(
+ *              property="familiar_id",
+ *              type="integer",
+ *              example=2
+ *          ),
+ *          @OA\Property(
+ *              property="relationship",
+ *              type="string",
+ *              example="Mother"
+ *          )
+ *      )
+ * ),
+ */
 class FamilyController extends Controller
 {
-    // Create a family
+    /**
+     * Create a new family
+     * @OA\Post(
+     *     path="/api/families",
+     *     summary="Create a new family",
+     *     tags={"Families"},
+     *     security={{"sanctum":{}}},
+     *     @OA\RequestBody(
+     *          required=true,
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *              @OA\Schema(ref="#/components/schemas/Family")
+     *          )
+     *      ),
+     *     @OA\Response(
+     *      response=201,
+     *      description="Family created successfully"
+     *      ),
+     *     @OA\Response(
+     *      response=401,
+     *      description="You are not authorized to create a family",
+     *     ),
+     *     @OA\Response(
+     *      response=400,
+     *      description="Bad request. Please enter valid data"
+     *     )
+     * )
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function createFamily(
         Request $request
-    ): \Illuminate\Http\JsonResponse {
+    ): JsonResponse {
         // Validate request
         $validator = Validator::make($request->all(), [
             "character_id" => "required|integer",
@@ -24,7 +84,7 @@ class FamilyController extends Controller
         }
 
         // Create family
-        $family = Family::create([
+        Family::create([
             "character_id" => $request["character_id"],
             "familiar_id" => $request["familiar_id"],
             "relationship" => $request["relationship"],
@@ -38,8 +98,28 @@ class FamilyController extends Controller
         );
     }
 
-    // Get all families
-    public function getAllFamilies(): \Illuminate\Http\JsonResponse
+    /**
+     * Get all families
+     * @OA\Get(
+     *     path="/api/families",
+     *     summary="Get all families",
+     *     tags={"Families"},
+     *     @OA\Response(
+     *      response=200,
+     *      description="All families",
+     *      @OA\JsonContent(
+     *          type="array",
+     *          @OA\Items(ref="#/components/schemas/Family")
+     *      )
+     *    ),
+     *     @OA\Response(
+     *      response=404,
+     *      description="No families found"
+     *   )
+     * )
+     * @return JsonResponse
+     */
+    public function getAllFamilies(): JsonResponse
     {
         $families = Family::with("character", "familiar")->get();
         // Check if families exist
@@ -55,7 +135,7 @@ class FamilyController extends Controller
     }
 
     // Get a family
-    public function getFamily($id): \Illuminate\Http\JsonResponse
+    public function getFamily($id): JsonResponse
     {
         $family = Family::with("character", "familiar")->find($id);
         // Check if family exists
@@ -74,7 +154,7 @@ class FamilyController extends Controller
     public function updateFamily(
         Request $request,
         $id
-    ): \Illuminate\Http\JsonResponse {
+    ): JsonResponse {
         $family = Family::find($id);
         // Check if family exists
         if (!$family) {
@@ -120,7 +200,7 @@ class FamilyController extends Controller
     }
 
     // Delete a family
-    public function deleteFamily($id): \Illuminate\Http\JsonResponse
+    public function deleteFamily($id): JsonResponse
     {
         $family = Family::find($id);
         // Check if family exists
