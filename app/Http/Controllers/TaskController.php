@@ -109,7 +109,7 @@ class TaskController extends Controller
         $validator = Validator::make($request->all(), [
             "profile_id" => "required|integer",
             "description" => "required|string",
-            "completed" => "required|tinyint",
+            "isCompleted" => "required|tinyint max:1 min:0",
             "character_id" => "integer",
             "item_id" => "integer",
         ]);
@@ -122,7 +122,7 @@ class TaskController extends Controller
         $task->update([
             "profile_id" => $request->profile_id,
             "description" => $request->description,
-            "completed" => $request->completed,
+            "isCompleted" => $request->isCompleted,
             "character_id" => $request->character_id,
             "item_id" => $request->item_id,
         ]);

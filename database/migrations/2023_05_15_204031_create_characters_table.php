@@ -13,11 +13,13 @@ return new class extends Migration {
         Schema::create("characters", function (Blueprint $table) {
             $table->increments("id");
             $table->string("name");
-            $table->integer("birthday")->nullable();
+            $table->integer("birthday")->nullable()->min(1)->max(28);
             $table
                 ->integer("season_id")
                 ->unsigned()
-                ->nullable();
+                ->nullable()
+            ->min(1)
+            ->max(4);
             $table
                 ->foreign("season_id")
                 ->references("id")
@@ -25,7 +27,7 @@ return new class extends Migration {
                 ->onDelete("cascade");
             $table->string("gender")->nullable();
             $table->string("occupation")->nullable();
-            $table->boolean("romanceable");
+            $table->tinyInteger("isRomanceable")->default(0)->min(0)->max(1);
             $table->string("icon");
             $table->timestamps();
         });

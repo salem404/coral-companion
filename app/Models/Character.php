@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Character extends Model
 {
@@ -15,21 +17,21 @@ class Character extends Model
         "season_id",
         "gender",
         "occupation",
-        "romanceable",
+        "isRomanceable",
         "icon",
     ];
 
-    public function season(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function season(): BelongsTo
     {
         return $this->belongsTo(Season::class);
     }
 
-    public function favorites(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function favorites(): BelongsToMany
     {
         return $this->belongsToMany(FavList::class);
     }
 
-    public function family(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function family(): BelongsToMany
     {
         return $this->belongsToMany(
             Character::class,
@@ -39,7 +41,7 @@ class Character extends Model
         );
     }
 
-    public function tasks(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function tasks(): BelongsToMany
     {
         return $this->belongsToMany(Task::class);
     }

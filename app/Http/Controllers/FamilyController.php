@@ -12,24 +12,17 @@ use Illuminate\Support\Facades\Validator;
  * @OA\Tag(name="Families",description="Everything about Families")
  * @OA\Component (
  *     @OA\Schema(
- *      schema="Family",
- *           @OA\Property(
- *              property="family_id",
- *              type="integer",
- *              example=1
- *          ),
- *          @OA\Property(
- *              property="character_id",
- *              type="object",
+ *     schema="Family",
+ *          @OA\Property(property="id",type="integer",example=1),
+ *          @OA\Property(property="character_id",type="object",
  *                  @OA\Property(
  *                      ref="#/components/schemas/Character"
- *                  )
+ *                  ),
  *          ),
- *          @OA\Property(
- *              property="familiar_id",
- *              type="integer",
- *              example=2
- *          ),
+ *          @OA\Property(property="familiar_id",type="object",
+ *                  @OA\Property(
+ *                      ref="#/components/schemas/Character"
+ *                      ),
  *          @OA\Property(
  *              property="relationship",
  *              type="string",

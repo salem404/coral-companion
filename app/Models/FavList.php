@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class FavList extends Model
 {
@@ -11,12 +12,12 @@ class FavList extends Model
 
     protected $fillable = ["character_id", "item_id"];
 
-    public function character(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function character(): BelongsTo
     {
         return $this->belongsTo(Character::class);
     }
 
-    public function item(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function item(): BelongsTo
     {
         return $this->belongsTo(Item::class);
     }

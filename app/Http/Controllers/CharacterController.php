@@ -11,21 +11,21 @@ use Illuminate\Support\Facades\Validator;
 /**
  * @OA\Tag(name="Characters",description="Everything about Characters")
  * @OA\Component (
- *     @OA\Schema(
- *     schema="Character",
+ *      @OA\Schema(
+ *      schema="Character",
  *          @OA\Property(property="id",type="integer",example=1),
  *          @OA\Property(property="name",type="string",example="John Doe"),
- *          @OA\Property(property="birthday",type="integer",example=1),
+ *          @OA\Property(property="birthday",type="integer",example=1, minimum=1, maximum=28),
  *          @OA\Property(property="season_id", type="object",
- *                  @OA\Property(
- *                      ref="#/components/schemas/Season"
- *                  ),
+ *              @OA\Property(
+ *                  ref="#/components/schemas/Season"
+ *              ),
  *              example={ "id":4,"name": "Winter"}
  *           ),
- *           @OA\Property(property="gender",type="string",example="Female"),
- *           @OA\Property(property="occupation",type="string",example="Doctor"),
- *           @OA\Property(property="romanceable",type="integer",example=1),
- *           @OA\Property(property="icon",type="string",example="https://www.example.com/image.jpg")
+ *          @OA\Property(property="gender",type="string",example="Female"),
+ *          @OA\Property(property="occupation",type="string",example="Doctor"),
+ *          @OA\Property(property="romanceable",type="integer",example=1),
+ *          @OA\Property(property="icon",type="string",example="https://www.example.com/image.jpg")
  *      )
  * ),
  * @OA\Component (
@@ -33,11 +33,11 @@ use Illuminate\Support\Facades\Validator;
  *          @OA\MediaType(mediaType="application/json",
  *              @OA\Schema(
  *                  @OA\Property(property="name",type="string",example="John Doe"),
- *                  @OA\Property(property="birthday",type="integer",example=1),
- *                  @OA\Property(property="season_id",type="integer",example=1),
+ *                  @OA\Property(property="birthday",type="integer",example=1,minimum=1,maximum=28),
+ *                  @OA\Property(property="season_id",type="integer",example=1,minimum=1,maximum=4),
  *                  @OA\Property(property="gender",type="string",example="Female"),
  *                  @OA\Property(property="occupation",type="string",example="Doctor"),
- *                  @OA\Property(property="romanceable",type="integer",example=1),
+ *                  @OA\Property(property="romanceable",type="integer",example=1,minimum=0,maximum=1),
  *                  @OA\Property(property="icon",type="string",example="https://www.example.com/image.jpg")
  *              )
  *          )
@@ -55,9 +55,15 @@ class CharacterController extends Controller
      *     tags={"Characters"},
      *     security={{"sanctum":{}}},
      *     @OA\RequestBody(ref="#/components/requestBodies/Character"),
-     *     @OA\Response(response=201,description="Character created successfully"),
-     *     @OA\Response(response=401,description="You are not authorized to create a character"),
-     *     @OA\Response(response=400,description="Bad request. Please enter valid data")
+     *     @OA\Response(response=201,description="Character created successfully",
+     *          @OA\JsonContent(example={"message":"Character created successfully"})
+     *     ),
+     *     @OA\Response(response=401,description="You are not authorized to create a character",
+     *          @OA\JsonContent(example={"message":"You are not authorized to create a character"})
+     *      ),
+     *     @OA\Response(response=400,description="Bad request. Please enter valid data",
+     *          @OA\JsonContent(example={"message":"Bad request. Please enter valid data"})
+     *      )
      * )
      *
      * @param Request $request
@@ -79,11 +85,11 @@ class CharacterController extends Controller
         // Validate request
         $validator = Validator::make($request->all(), [
             "name" => "required|string",
-            "birthday" => "integer",
-            "season_id" => "integer",
+            "birthday" => "integer | min:1 | max:28",
+            "season_id" => "integer | min:1 | max:4",
             "gender" => "string",
             "occupation" => "string",
-            "romanceable" => "required|tinyint",
+            "isRomanceable" => "required | tinyint | min:0 | max:1",
             "icon" => "required|string",
         ]);
         if ($validator->fails()) {
@@ -97,7 +103,7 @@ class CharacterController extends Controller
             "season_id" => $request->season_id,
             "gender" => $request->gender,
             "occupation" => $request->occupation,
-            "romanceable" => $request->romanceable,
+            "isRomanceable" => $request->isRomanceable,
             "icon" => $request->icon,
         ]);
 
@@ -117,12 +123,13 @@ class CharacterController extends Controller
      *      description="Get all characters",
      *      tags={"Characters"},
      *      @OA\Response(response=200,description="Success: Get all characters",
-     *          @OA\MediaType(mediaType="application/json",
-     *                  @OA\Schema(ref="#/components/schemas/Character")
-     *          )
+     *          @OA\JsonContent(ref="#/components/schemas/Character"),
      *     ),
-     *      @OA\Response(response=404,description="No characters found")
+     *      @OA\Response(response=404,description="No characters found",
+     *          @OA\JsonContent(example={"message":"No characters found"})
+     *      ),
      * )
+     *
      * @return JsonResponse
      */
     public function getAllCharacters(): JsonResponse
@@ -151,18 +158,17 @@ class CharacterController extends Controller
      * @OA\Get(
      *     path="/api/characters/{id}",
      *     summary="Get a character",
-     *     description="Get a character by id",
+     *     description="Get a character by id sent in the url",
      *     tags={"Characters"},
-     *     security={{"sanctum":{}}},
      *     @OA\Parameter(name="id",in="path",description="Character id",required=true,
      *          @OA\Schema(type="integer")
      *      ),
-     *     @OA\Response(response=200,description="Success: Return the character",
-     *      @OA\MediaType(mediaType="application/json",
-     *          @OA\Schema(ref="#/components/schemas/Character")
-     *      )
+     *     @OA\Response(response=200,description="Success: Returns the character",
+     *          @OA\JsonContent(ref="#/components/schemas/Character")),
      *     ),
-     *     @OA\Response(response=404,description="Character not found")
+     *     @OA\Response(response=404,description="Character not found",
+     *          @OA\JsonContent(example={"message":"Character with id 1 not found"})
+     *      )
      * )
      *
      * @param $id
@@ -194,16 +200,22 @@ class CharacterController extends Controller
      * @OA\Put(
      *     path="/api/characters/{id}",
      *     summary="Update a character",
-     *     description="Update a character by id and a request body (ADMIN ONLY)",
+     *     description="Update a character by id in the url and a request body (Admin only)",
      *     tags={"Characters"},
      *     security={{"sanctum":{}}},
      *     @OA\Parameter(name="id",in="path",description="Character id",required=true,
      *          @OA\Schema(type="integer")
      *     ),
      *     @OA\RequestBody(ref="#/components/requestBodies/Character"),
-     *     @OA\Response(response=200,description="Success: Character updated successfully"),
-     *     @OA\Response(response=404,description="Character not found"),
-     *     @OA\Response(response=401,description="Unauthorized")
+     *     @OA\Response(response=200,description="Success: Character updated successfully",
+     *          @OA\JsonContent(example={"message":"Character updated successfully"})
+     *      ),
+     *     @OA\Response(response=404,description="Character not found",
+     *          @OA\JsonContent(example={"message":"Character with id 1 not found"})
+     *      ),
+     *     @OA\Response(response=401,description="Unauthorized",
+     *          @OA\JsonContent(example={"message":"You are not authorized to update a character"})
+     *     ),
      * )
      *
      * @param Request $request
@@ -237,11 +249,11 @@ class CharacterController extends Controller
         // Validate request
         $validator = Validator::make($request->all(), [
             "name" => "required|string",
-            "birthday" => "integer",
-            "season_id" => "integer",
+            "birthday" => "integer | min:1 | max:28",
+            "season_id" => "integer | min:1 | max:4",
             "gender" => "string",
             "occupation" => "string",
-            "romanceable" => "required|boolean",
+            "isRomanceable" => "required|tinyInteger | min:0 | max:1",
             "icon" => "required|string",
         ]);
         if ($validator->fails()) {
@@ -255,7 +267,7 @@ class CharacterController extends Controller
             "season_id" => $request->season_id,
             "gender" => $request->gender,
             "occupation" => $request->occupation,
-            "romanceable" => $request->romanceable,
+            "isRomanceable" => $request->isRomanceable,
             "icon" => $request->icon,
         ]);
 
@@ -269,14 +281,18 @@ class CharacterController extends Controller
      * @OA\Delete(
      *     path="/api/characters/{id}",
      *     summary="Delete a character",
+     *     description="Delete a character by id sent in the url (Admin only)",
      *     tags={"Characters"},
      *     security={{"sanctum":{}}},
      *     @OA\Parameter(name="id",in="path",description="Character id",required=true,
      *          @OA\Schema(type="integer")
      *    ),
-     *     @OA\Response(response=200,description="Success: Character deleted successfully"),
-     *     @OA\Response(response=404,description="Character not found"),
-     *     @OA\Response(response=401,description="Unauthorized")
+     *     @OA\Response(response=200,description="Success: Character deleted successfully",
+     *          @OA\JsonContent(example={"message":"Character deleted successfully"})),
+     *     @OA\Response(response=404,description="Character not found",
+     *          @OA\JsonContent(example={"message":"Character with id 1 not found"})),
+     *     @OA\Response(response=401,description="Unauthorized",
+     *          @OA\JsonContent(example={"message":"You are not authorized to delete a character"}))
      * )
      *
      * @param $id

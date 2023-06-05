@@ -47,7 +47,15 @@
                         }
                     },
                     "404": {
-                        "description": "No characters found"
+                        "description": "No characters found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "No characters found"
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -63,13 +71,37 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Character created successfully"
+                        "description": "Character created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "Character created successfully"
+                                }
+                            }
+                        }
                     },
                     "401": {
-                        "description": "You are not authorized to create a character"
+                        "description": "You are not authorized to create a character",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "You are not authorized to create a character"
+                                }
+                            }
+                        }
                     },
                     "400": {
-                        "description": "Bad request. Please enter valid data"
+                        "description": "Bad request. Please enter valid data",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "Bad request. Please enter valid data"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -85,7 +117,7 @@
                     "Characters"
                 ],
                 "summary": "Get a character",
-                "description": "Get a character by id",
+                "description": "Get a character by id sent in the url",
                 "operationId": "b68d4491a3ce60ee188d0d99d9849b47",
                 "parameters": [
                     {
@@ -100,7 +132,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success: Return the character",
+                        "description": "Success: Returns the character",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -108,23 +140,15 @@
                                 }
                             }
                         }
-                    },
-                    "404": {
-                        "description": "Character not found"
                     }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
+                }
             },
             "put": {
                 "tags": [
                     "Characters"
                 ],
                 "summary": "Update a character",
-                "description": "Update a character by id and a request body (ADMIN ONLY)",
+                "description": "Update a character by id in the url and a request body (Admin only)",
                 "operationId": "6fabac5f25380af819deb0c84aa9de6a",
                 "parameters": [
                     {
@@ -142,13 +166,37 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Success: Character updated successfully"
+                        "description": "Success: Character updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "Character updated successfully"
+                                }
+                            }
+                        }
                     },
                     "404": {
-                        "description": "Character not found"
+                        "description": "Character not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "Character with id 1 not found"
+                                }
+                            }
+                        }
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "You are not authorized to update a character"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -162,7 +210,7 @@
                     "Characters"
                 ],
                 "summary": "Delete a character",
-                "description": "Delete a character",
+                "description": "Delete a character by id sent in the url (Admin only)",
                 "operationId": "c2924443f6c0a9ab045f9dae7fe09f6c",
                 "parameters": [
                     {
@@ -177,13 +225,37 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success: Character deleted successfully"
+                        "description": "Success: Character deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "Character deleted successfully"
+                                }
+                            }
+                        }
                     },
                     "404": {
-                        "description": "Character not found"
+                        "description": "Character not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "Character with id 1 not found"
+                                }
+                            }
+                        }
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "You are not authorized to delete a character"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -276,6 +348,8 @@
                             },
                             "birthday": {
                                 "type": "integer",
+                                "maximum": 28,
+                                "minimum": 1,
                                 "example": 1
                             },
                             "season_id": {
@@ -331,7 +405,7 @@
                     },
                     {
                         "properties": {
-                            "family_id": {
+                            "id": {
                                 "type": "integer",
                                 "example": 1
                             },
@@ -344,16 +418,33 @@
                                 "type": "object"
                             },
                             "familiar_id": {
-                                "type": "integer",
-                                "example": 2
-                            },
-                            "relationship": {
-                                "type": "string",
-                                "example": "Mother"
+                                "properties": {
+                                    "": {
+                                        "$ref": "#/components/schemas/Character"
+                                    },
+                                    "relationship": {
+                                        "type": "string",
+                                        "example": "Mother"
+                                    }
+                                },
+                                "type": "object"
                             }
                         }
                     }
                 ]
+            }
+        },
+        "responses": {
+            "404": {
+                "description": "Character not found",
+                "content": {
+                    "application/json": {
+                        "schema": {},
+                        "example": {
+                            "message": "Character with id 1 not found"
+                        }
+                    }
+                }
             }
         },
         "requestBodies": {
@@ -369,10 +460,14 @@
                                 },
                                 "birthday": {
                                     "type": "integer",
+                                    "maximum": 28,
+                                    "minimum": 1,
                                     "example": 1
                                 },
                                 "season_id": {
                                     "type": "integer",
+                                    "maximum": 4,
+                                    "minimum": 1,
                                     "example": 1
                                 },
                                 "gender": {
@@ -385,6 +480,8 @@
                                 },
                                 "romanceable": {
                                     "type": "integer",
+                                    "maximum": 1,
+                                    "minimum": 0,
                                     "example": 1
                                 },
                                 "icon": {

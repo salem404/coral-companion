@@ -18,7 +18,7 @@ use Illuminate\Routing\Controller as BaseController;
  *      title="Coral Companion API Documentation",
  *      description="Documentation for the API used in the Coral Companion app",
  *      @OA\Contact(name="Paula Rumeu",email="paururo08@hotmail.com"),
- *     @OA\License(
+ *      @OA\License(
  *         name="Creative Commons Attribution Share Alike 4.0 International",
  *         url="https://creativecommons.org/licenses/by-sa/4.0/"
  *     )
@@ -35,6 +35,7 @@ use Illuminate\Routing\Controller as BaseController;
  *     @OA\Property(property="name",type="string",example="Winter")
  *     )
  * )
+ * TODO: Change Railway server when deployed
  */
 class Controller extends BaseController
 {

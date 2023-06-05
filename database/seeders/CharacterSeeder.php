@@ -19,7 +19,7 @@ class CharacterSeeder extends Seeder
             "season_id" => "1",
             "gender" => "male",
             "occupation" => "occupation",
-            "romanceable" => "1",
+            "isRomanceable" => "1",
             "icon" => "icon",
         ]);
     }
