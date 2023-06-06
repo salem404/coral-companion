@@ -7,6 +7,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * @OA\Tag(name="Items",description="Endpoints for items"),
+ * @OA\Schema(
+ *     schema="Item",
+ *     @OA\Property(property="id", type="integer", example=1),
+ *     @OA\Property(property="name", type="string", example="Sea Grapes"),
+ *     @OA\Property(property="type_id", type="integer", example=1),
+ *     @OA\Property(property="icon", type="string", example="https://www.nookipedia.com/w/images/thumb/4/4a/NH-Sea_Grapes.png/64px-NH-Sea_Grapes.png")
+ * )
+ * TODO: Add request body
+ */
 class ItemController extends Controller
 {
     //Create a new item

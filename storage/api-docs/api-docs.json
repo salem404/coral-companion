@@ -13,7 +13,7 @@
         },
         "version": "1.0.0",
         "x-logo": {
-            "url": "https://raw.githubusercontent.com/salem404/coral-companion/02b2826183f4a25dbc0cd79d8ea361067ef74ea0/frontend/src/assets/img/logo-color.svg"
+            "url": "https://github.com/salem404/coral-companion/raw/master/frontend/src/assets/img/logo-color.svg"
         }
     },
     "servers": [
@@ -27,32 +27,40 @@
         }
     ],
     "paths": {
-        "/api/characters": {
+        "/characters": {
             "get": {
                 "tags": [
                     "Characters"
                 ],
                 "summary": "Get all characters",
-                "description": "Get all characters",
-                "operationId": "6556edd730dd94a181d1507ccfd934ea",
+                "description": "Get all characters from the database",
+                "operationId": "062f3e5f302f1c8c029712b6dc62ad81",
                 "responses": {
                     "200": {
-                        "description": "Success: Get all characters",
+                        "description": "Success: Returns all characters",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Character"
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Character"
+                                    }
                                 }
                             }
                         }
                     },
                     "404": {
-                        "description": "No characters found",
+                        "description": "Not found: Characters don't exist",
                         "content": {
                             "application/json": {
-                                "schema": {},
-                                "example": {
-                                    "message": "No characters found"
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No characters found"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -65,40 +73,55 @@
                 ],
                 "summary": "Create a new character",
                 "description": "Create a new character using the data provided in the request body. (Admin only)",
-                "operationId": "fab6dce8840347f01930bb8dc00f4b80",
+                "operationId": "b84959a16c4034a36d49d2de19fb76d6",
                 "requestBody": {
                     "$ref": "#/components/requestBodies/Character"
                 },
                 "responses": {
                     "201": {
-                        "description": "Character created successfully",
+                        "description": "Success: Character created successfully",
                         "content": {
                             "application/json": {
-                                "schema": {},
-                                "example": {
-                                    "message": "Character created successfully"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "You are not authorized to create a character",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": {
-                                    "message": "You are not authorized to create a character"
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Character created successfully"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
                     },
                     "400": {
-                        "description": "Bad request. Please enter valid data",
+                        "description": "Bad request: Data validation error",
                         "content": {
                             "application/json": {
-                                "schema": {},
-                                "example": {
-                                    "message": "Bad request. Please enter valid data"
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The name field is required"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized. Only admins can create characters",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to create a character"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -111,19 +134,19 @@
                 ]
             }
         },
-        "/api/characters/{id}": {
+        "/characters/{id}": {
             "get": {
                 "tags": [
                     "Characters"
                 ],
                 "summary": "Get a character",
-                "description": "Get a character by id sent in the url",
-                "operationId": "b68d4491a3ce60ee188d0d99d9849b47",
+                "description": "Get a character by ID sent in the URL",
+                "operationId": "1db5dfb3034a9dce2f29410306c43565",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Character id",
+                        "description": "ID of character to return",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -140,6 +163,22 @@
                                 }
                             }
                         }
+                    },
+                    "404": {
+                        "description": "Not found: Character doesn't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Character with id 1 not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -148,13 +187,13 @@
                     "Characters"
                 ],
                 "summary": "Update a character",
-                "description": "Update a character by id in the url and a request body (Admin only)",
-                "operationId": "6fabac5f25380af819deb0c84aa9de6a",
+                "description": "Update a character by ID in the URL and a request body (Admin only)",
+                "operationId": "758175665123747d5b16cf07baa74966",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Character id",
+                        "description": "ID of character to update",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -169,31 +208,46 @@
                         "description": "Success: Character updated successfully",
                         "content": {
                             "application/json": {
-                                "schema": {},
-                                "example": {
-                                    "message": "Character updated successfully"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Character not found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": {
-                                    "message": "Character with id 1 not found"
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Character updated successfully"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
                     },
                     "401": {
-                        "description": "Unauthorized",
+                        "description": "Unauthorized: Only admins can update characters",
                         "content": {
                             "application/json": {
-                                "schema": {},
-                                "example": {
-                                    "message": "You are not authorized to update a character"
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to update a character"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found: Character doesn't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Character with id 1 not found"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -210,13 +264,13 @@
                     "Characters"
                 ],
                 "summary": "Delete a character",
-                "description": "Delete a character by id sent in the url (Admin only)",
-                "operationId": "c2924443f6c0a9ab045f9dae7fe09f6c",
+                "description": "Delete a character by ID sent in the URL (Admin only)",
+                "operationId": "1f0a8733db435da1923b66d501b6eca9",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Character id",
+                        "description": "ID of the character to delete",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -228,31 +282,46 @@
                         "description": "Success: Character deleted successfully",
                         "content": {
                             "application/json": {
-                                "schema": {},
-                                "example": {
-                                    "message": "Character deleted successfully"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Character not found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": {
-                                    "message": "Character with id 1 not found"
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Character deleted successfully"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
                     },
                     "401": {
-                        "description": "Unauthorized",
+                        "description": "Unauthorized: Only admins can delete characters",
                         "content": {
                             "application/json": {
-                                "schema": {},
-                                "example": {
-                                    "message": "You are not authorized to delete a character"
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to delete a character"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found: Character doesn't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Character with id 1 not found"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -265,17 +334,17 @@
                 ]
             }
         },
-        "/api/families": {
+        "/families": {
             "get": {
                 "tags": [
                     "Families"
                 ],
                 "summary": "Get all families",
-                "description": "Get all families",
-                "operationId": "376a0d61dc3d81a3900f2aa4c415420a",
+                "description": "Get all families in the database",
+                "operationId": "e1f361ab32ef6173d6e698dfba7972b5",
                 "responses": {
                     "200": {
-                        "description": "All families",
+                        "description": "Success: Returns all families",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -288,7 +357,20 @@
                         }
                     },
                     "404": {
-                        "description": "No families found"
+                        "description": "Not found: Families don't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No families found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -297,27 +379,59 @@
                     "Families"
                 ],
                 "summary": "Create a new family",
-                "description": "Create a new family",
-                "operationId": "77653e126705f1b57567930c7011cae6",
+                "description": "Create a new family using the data provided in the request body. (Admin only)",
+                "operationId": "d54bac5b85ad80fc410c562776a7d90b",
                 "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Family"
-                            }
-                        }
-                    }
+                    "$ref": "#/components/requestBodies/Family"
                 },
                 "responses": {
                     "201": {
-                        "description": "Family created successfully"
-                    },
-                    "401": {
-                        "description": "You are not authorized to create a family"
+                        "description": "Success: Family created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Family created successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "400": {
-                        "description": "Bad request. Please enter valid data"
+                        "description": "Bad request: Data validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The character_id field is required"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized: Only admins can create a family",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to create a family"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -326,65 +440,609 @@
                     }
                 ]
             }
+        },
+        "/families/{id}": {
+            "get": {
+                "tags": [
+                    "Families"
+                ],
+                "summary": "Get a family",
+                "description": "Get a family by ID in the URL",
+                "operationId": "448b2362aa5b8372a38268599be81631",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the family to return",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success: Returns the family",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Family"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found: Family doesn't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Family with id 1 not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Families"
+                ],
+                "summary": "Update a family",
+                "description": "Update a family by ID in the URL and a request body. (Admin only)",
+                "operationId": "7889218d452c1ae1d0fd363208d71857",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the family to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/Family"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success: Family updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Family updated successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized: Only admins can update a family",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to update a family"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found: Family doesn't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Family with id 1 not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Families"
+                ],
+                "summary": "Delete a family",
+                "description": "Delete a family by ID sent in the URL. (Admin only)",
+                "operationId": "7e1ed5caa6e25fa4e8cfe5e1bf020bd0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the family to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success: Family deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Family with id 1 deleted successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized: Only admins can delete a family",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to delete a family"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found: Family doesn't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Family with id 1 not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/favlists": {
+            "get": {
+                "tags": [
+                    "Favorite Lists"
+                ],
+                "summary": "Get all favorite lists",
+                "description": "Get all favorite lists in the database",
+                "operationId": "f4f6cefcf140c9f957dcb0fcb92d2f56",
+                "responses": {
+                    "200": {
+                        "description": "Success: Returns all favorite lists",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/FavList"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No favorite lists found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No favorite lists found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Favorite Lists"
+                ],
+                "summary": "Create a new favorite list",
+                "description": "Create a new favorite list using the data provided in the request body. (Admin only)",
+                "operationId": "222781dac05a4b259ffb0b9dfbe96d7e",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/FavList"
+                },
+                "responses": {
+                    "201": {
+                        "description": "Sucess: Favorite list created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Favorite list created successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request: Data validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The character_id field is required"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized. Only admins can create new favorite lists",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to create a favorite list"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/favlists/{id}": {
+            "get": {
+                "tags": [
+                    "Favorite Lists"
+                ],
+                "summary": "Get a favorite list",
+                "description": "Get a favorite lists by the ID in the URL",
+                "operationId": "942a4715b4ca715846d535cafc9731f7",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the favorite list",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success: Returns the favorite list",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FavList"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Favorite list not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Favorite list with id 1 not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Favorite Lists"
+                ],
+                "summary": "Update a favorite list",
+                "description": "Update a favorite list by ID in the URL and a request body. (Admin only)",
+                "operationId": "d373b8372aa5a27ae7fbdab031f22238",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the favorite list",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/FavList"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success: Favorite list updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Favorite list updated successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to update a favorite list"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Favorite list not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Favorite list with id 2 not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Favorite Lists"
+                ],
+                "summary": "Delete a favorite list",
+                "description": "Deletes a favorite list by ID in the URL. (Admin only)",
+                "operationId": "f1ad3e7795357423e2fb70705b4ef030",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the favorite list to be deleted",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success: Favorite list deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Favorite list deleted successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized: Only admins can delete favorite lists",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to delete a favorite list"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found: Favorite list doesn't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Favorite list with id 2 not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/seasons": {
+            "get": {
+                "tags": [
+                    "Seasons"
+                ],
+                "summary": "Get all seasons",
+                "description": "Returns all seasons in the database",
+                "operationId": "0397b64587ed051b343a1c883d8411ff",
+                "responses": {
+                    "200": {
+                        "description": "Success: Returns all seasons",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Season"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found: Seasons don't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No seasons found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/seasons/{id}": {
+            "get": {
+                "tags": [
+                    "Seasons"
+                ],
+                "summary": "Get season",
+                "description": "Get a season by ID in the URL",
+                "operationId": "e415eae67ff4978d5797e9fa6c928ca6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of season to return",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success: Returns season",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Season"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found: Season doesn't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Season not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
         "schemas": {
             "Character": {
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/Season"
-                    },
-                    {
-                        "properties": {
-                            "id": {
-                                "type": "integer",
-                                "example": 1
-                            },
-                            "name": {
-                                "type": "string",
-                                "example": "John Doe"
-                            },
-                            "birthday": {
-                                "type": "integer",
-                                "maximum": 28,
-                                "minimum": 1,
-                                "example": 1
-                            },
-                            "season_id": {
-                                "properties": {
-                                    "": {
-                                        "$ref": "#/components/schemas/Season"
-                                    }
-                                },
-                                "type": "object",
-                                "example": {
-                                    "id": 4,
-                                    "name": "Winter"
-                                }
-                            },
-                            "gender": {
-                                "type": "string",
-                                "example": "Female"
-                            },
-                            "occupation": {
-                                "type": "string",
-                                "example": "Doctor"
-                            },
-                            "romanceable": {
-                                "type": "integer",
-                                "example": 1
-                            },
-                            "icon": {
-                                "type": "string",
-                                "example": "https://www.example.com/image.jpg"
-                            }
-                        }
-                    }
-                ]
-            },
-            "Season": {
                 "properties": {
                     "id": {
                         "type": "integer",
@@ -392,59 +1050,105 @@
                     },
                     "name": {
                         "type": "string",
-                        "example": "Winter"
+                        "example": "John Doe"
+                    },
+                    "birthday": {
+                        "type": "integer",
+                        "maximum": 28,
+                        "minimum": 1,
+                        "example": 1
+                    },
+                    "season_id": {
+                        "$ref": "#/components/schemas/Season"
+                    },
+                    "gender": {
+                        "type": "string",
+                        "example": "Female"
+                    },
+                    "occupation": {
+                        "type": "string",
+                        "example": "Doctor"
+                    },
+                    "romanceable": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "icon": {
+                        "type": "string",
+                        "example": "https://www.example.com/image.jpg"
                     }
                 },
                 "type": "object"
             },
             "Family": {
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/Season"
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
                     },
-                    {
-                        "properties": {
-                            "id": {
-                                "type": "integer",
-                                "example": 1
-                            },
-                            "character_id": {
-                                "properties": {
-                                    "": {
-                                        "$ref": "#/components/schemas/Character"
-                                    }
-                                },
-                                "type": "object"
-                            },
-                            "familiar_id": {
-                                "properties": {
-                                    "": {
-                                        "$ref": "#/components/schemas/Character"
-                                    },
-                                    "relationship": {
-                                        "type": "string",
-                                        "example": "Mother"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
+                    "character_id": {
+                        "$ref": "#/components/schemas/Character"
+                    },
+                    "familiar_id": {
+                        "$ref": "#/components/schemas/Character"
+                    },
+                    "relationship": {
+                        "type": "string",
+                        "example": "Mother"
                     }
-                ]
-            }
-        },
-        "responses": {
-            "404": {
-                "description": "Character not found",
-                "content": {
-                    "application/json": {
-                        "schema": {},
-                        "example": {
-                            "message": "Character with id 1 not found"
-                        }
+                },
+                "type": "object"
+            },
+            "FavList": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "character_id": {
+                        "$ref": "#/components/schemas/Character"
+                    },
+                    "item_id": {
+                        "$ref": "#/components/schemas/Item"
                     }
-                }
+                },
+                "type": "object"
+            },
+            "Item": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Sea Grapes"
+                    },
+                    "type_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "icon": {
+                        "type": "string",
+                        "example": "https://www.nookipedia.com/w/images/thumb/4/4a/NH-Sea_Grapes.png/64px-NH-Sea_Grapes.png"
+                    }
+                },
+                "type": "object"
+            },
+            "Season": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "maximum": 4,
+                        "minimum": 1,
+                        "example": 4
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Winter"
+                    }
+                },
+                "type": "object"
             }
         },
         "requestBodies": {
@@ -478,7 +1182,7 @@
                                     "type": "string",
                                     "example": "Doctor"
                                 },
-                                "romanceable": {
+                                "isRomanceable": {
                                     "type": "integer",
                                     "maximum": 1,
                                     "minimum": 0,
@@ -487,6 +1191,50 @@
                                 "icon": {
                                     "type": "string",
                                     "example": "https://www.example.com/image.jpg"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "Family": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "character_id": {
+                                    "type": "integer",
+                                    "example": 1
+                                },
+                                "familiar_id": {
+                                    "type": "integer",
+                                    "example": 2
+                                },
+                                "relationship": {
+                                    "type": "string",
+                                    "example": "Mother"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "FavList": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "character_id": {
+                                    "type": "integer",
+                                    "example": 1
+                                },
+                                "item_id": {
+                                    "type": "integer",
+                                    "example": 1
                                 }
                             },
                             "type": "object"
@@ -505,11 +1253,23 @@
     "tags": [
         {
             "name": "Characters",
-            "description": "Everything about Characters"
+            "description": "Endpoints for characters"
         },
         {
             "name": "Families",
-            "description": "Everything about Families"
+            "description": "Endpoints for families"
+        },
+        {
+            "name": "Favorite Lists",
+            "description": "Endpoints for favorite lists"
+        },
+        {
+            "name": "Items",
+            "description": "Endpoints for items"
+        },
+        {
+            "name": "Seasons",
+            "description": "Endpoints for seasons"
         }
     ]
 }

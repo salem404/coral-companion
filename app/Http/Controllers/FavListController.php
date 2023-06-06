@@ -3,23 +3,66 @@
 namespace App\Http\Controllers;
 
 use App\Models\FavList;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * @OA\Tag(name="Favorite Lists", description="Endpoints for favorite lists")
+ * @OA\Schema(
+ *     schema="FavList",
+ *     @OA\Property(property="id", type="integer", example=1),
+ *     @OA\Property(property="character_id", type="object", ref="#/components/schemas/Character"),
+ *     @OA\Property(property="item_id", type="object", ref="#/components/schemas/Item")
+ * )
+ * @OA\RequestBody(
+ *     request="FavList",
+ *     required=true,
+ *     @OA\JsonContent(
+ *         @OA\Property(property="character_id", type="integer", example=1),
+ *         @OA\Property(property="item_id", type="integer", example=1)
+ *     )
+ * )
+ */
 class FavListController extends Controller
 {
-    // Create a new favlist
-    public function createFavList(
-        Request $request
-    ): \Illuminate\Http\JsonResponse {
+    /**
+     * @OA\Post(
+     *     tags={"Favorite Lists"},
+     *     path="/favlists",
+     *     summary="Create a new favorite list",
+     *     description="Create a new favorite list using the data provided in the request body. (Admin only)",
+     *     security={{"sanctum":{}}},
+     *     @OA\RequestBody(ref="#/components/requestBodies/FavList"),
+     *     @OA\Response(response=201, description="Sucess: Favorite list created successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Favorite list created successfully")
+     *         )
+     *     ),
+     *     @OA\Response(response=400, description="Bad request: Data validation error",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="The character_id field is required")
+     *         )
+     *     ),
+     *     @OA\Response(response=401, description="Unauthorized. Only admins can create new favorite lists",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="You are not authorized to create a favorite list")
+     *         )
+     *     )
+     * )
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function createFavList(Request $request): JsonResponse
+    {
         // Check if user is admin
         $admin = Auth::user()->isAdmin;
         if (!$admin) {
             return response()->json(
                 [
-                    "message" =>
-                        "You are not authorized to create a favorite list",
+                    "message" => "You are not authorized to create a favorite list",
                 ],
                 401
             );
@@ -48,12 +91,38 @@ class FavListController extends Controller
         );
     }
 
-    // Get all favlists
-    public function getAllFavLists(): \Illuminate\Http\JsonResponse
+    /**
+     * Get all favorite lists
+     *
+     * @OA\Get(
+     *     path="/favlists",
+     *     summary="Get all favorite lists",
+     *     description="Get all favorite lists in the database",
+     *     tags={"Favorite Lists"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success: Returns all favorite lists",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/FavList")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="No favorite lists found",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="No favorite lists found")
+     *         )
+     *     )
+     * )
+     *
+     * @return JsonResponse
+     */
+    public function getAllFavLists(): JsonResponse
     {
         $favlists = FavList::with("character", "item")->get();
         // Check if favlists exist
-        if (count($favlists) === 0) {
+        if (count($favlists) < 1) {
             return response()->json(
                 [
                     "message" => "No favorite lists found",
@@ -61,19 +130,49 @@ class FavListController extends Controller
                 404
             );
         }
-
         return response()->json($favlists);
     }
 
-    // Get a favlist
-    public function getFavList(int $id): \Illuminate\Http\JsonResponse
+    /**
+     * Get a favorite list
+     *
+     * @OA\Get(
+     *     tags={"Favorite Lists"},
+     *     path="/favlists/{id}",
+     *     summary="Get a favorite list",
+     *     description="Get a favorite lists by the ID in the URL",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID of the favorite list",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success: Returns the favorite list",
+     *         @OA\JsonContent(ref="#/components/schemas/FavList")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Favorite list not found",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Favorite list with id 1 not found")
+     *         )
+     *     )
+     * )
+     *
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function getFavList(int $id): JsonResponse
     {
         $favlist = FavList::with("character", "item")->find($id);
         // Check if favlist exists
         if (!$favlist) {
             return response()->json(
                 [
-                    "message" => "Favorite list with id {$id} not found",
+                    "message" => "Favorite list with id $id not found",
                 ],
                 404
             );
@@ -82,17 +181,58 @@ class FavListController extends Controller
         return response()->json($favlist);
     }
 
-    // Update a favlist
-    public function updateFavList(
-        Request $request,
-        int $id
-    ): \Illuminate\Http\JsonResponse {
+    /**
+     * Update a favorite list
+     *
+     * @OA\Put(
+     *     tags={"Favorite Lists"},
+     *     path="/favlists/{id}",
+     *     summary="Update a favorite list",
+     *     description="Update a favorite list by ID in the URL and a request body. (Admin only)",
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID of the favorite list",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(ref="#/components/requestBodies/FavList"),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success: Favorite list updated successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Favorite list updated successfully")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="You are not authorized to update a favorite list")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Favorite list not found",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Favorite list with id 2 not found")
+     *         )
+     *     )
+     * )
+     *
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function updateFavList(Request $request,int $id): JsonResponse
+    {
         $favlist = FavList::find($id);
         // Check if favlist exists
         if (!$favlist) {
             return response()->json(
                 [
-                    "message" => "Favorite list with id {$id} not found",
+                    "message" => "Favorite list with id $id not found",
                 ],
                 404
             );
@@ -103,8 +243,7 @@ class FavListController extends Controller
         if (!$admin) {
             return response()->json(
                 [
-                    "message" =>
-                        "You are not authorized to update a favorite list",
+                    "message" =>"You are not authorized to update a favorite list",
                 ],
                 401
             );
@@ -130,15 +269,56 @@ class FavListController extends Controller
         ]);
     }
 
-    // Delete a favlist
-    public function deleteFavList(int $id): \Illuminate\Http\JsonResponse
+    /**
+     * Delete a favorite list
+     *
+     * @OA\Delete(
+     *     path="/favlists/{id}",
+     *     summary="Delete a favorite list",
+     *     description="Deletes a favorite list by ID in the URL. (Admin only)",
+     *     tags={"Favorite Lists"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID of the favorite list to be deleted",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success: Favorite list deleted successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Favorite list deleted successfully")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized: Only admins can delete favorite lists",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="You are not authorized to delete a favorite list")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Not found: Favorite list doesn't exist",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Favorite list with id 2 not found")
+     *         )
+     *     )
+     * )
+     *
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function deleteFavList($id): JsonResponse
     {
         $favlist = FavList::find($id);
         // Check if favlist exists
         if (!$favlist) {
             return response()->json(
                 [
-                    "message" => "Favorite list with id {$id} not found",
+                    "message" => "Favorite list with id $id not found",
                 ],
                 404
             );
@@ -149,8 +329,7 @@ class FavListController extends Controller
         if (!$admin) {
             return response()->json(
                 [
-                    "message" =>
-                        "You are not authorized to delete a favorite list",
+                    "message" => "You are not authorized to delete a favorite list",
                 ],
                 401
             );
@@ -158,7 +337,6 @@ class FavListController extends Controller
 
         // Delete favlist
         $favlist->delete();
-
         return response()->json([
             "message" => "Favorite list deleted successfully",
         ]);

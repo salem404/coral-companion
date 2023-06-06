@@ -76,7 +76,7 @@ class SanctumController extends Controller
     // Logout
     public function logout(Request $request)
     {
-        // Delete the token of the logged in user with sanctum
+        // Delete the token of the logged-in user with sanctum
         $request
             ->user()
             ->currentAccessToken()
