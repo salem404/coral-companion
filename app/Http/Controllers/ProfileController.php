@@ -12,11 +12,14 @@ use Illuminate\Support\Facades\Auth;
  * @OA\Tag(name="Profiles", description="Endpoints for profiles")
  * @OA\Schema(
  *     schema="Profile",
+ *     required={"id", "farmer_name", "farm_name", "color", "user_id"},
  *     @OA\Property(property="id", type="integer", example=4),
  *     @OA\Property(property="farmer_name", type="string", example="John Doe"),
  *     @OA\Property(property="farm_name", type="string", example="John's Farm"),
  *     @OA\Property(property="color", type="string", example="#000000"),
  *     @OA\Property(property="user_id", type="object", ref="#/components/schemas/User"),
+ *     @OA\Property(property="created_at", type="string", format="date-time", example="2021-03-25T20:29:48.000000Z"),
+ *     @OA\Property(property="updated_at", type="string", format="date-time", example="2021-03-25T20:29:48.000000Z"),
  * ),
  *
  * @OA\RequestBody(
@@ -31,7 +34,6 @@ use Illuminate\Support\Facades\Auth;
  * ),
  * @OA\RequestBody(
  *     request="ProfileUpdate",
- *     description="Profile object that needs to be added to the database",
  *     required=true,
  *     @OA\JsonContent(
  *         @OA\Property(property="farmer_name", type="string", example="John Doe"),
@@ -54,7 +56,7 @@ class ProfileController extends Controller
      *     @OA\RequestBody(ref="#/components/requestBodies/ProfileCreate"),
      *     @OA\Response(
      *         response=201,
-     *         description="Success: A profile has been created",
+     *         description="Success: A profile created",
      *         @OA\JsonContent(
      *             @OA\Property(property="message", type="string", example="Profile created successfully")
      *         )

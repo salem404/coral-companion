@@ -69,7 +69,7 @@ class SeasonController extends Controller
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         description="Id of season to return",
+     *         description="ID of season to return",
      *         required=true,
      *         @OA\Schema(type="integer", example=1)
      *     ),

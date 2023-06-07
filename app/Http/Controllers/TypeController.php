@@ -9,49 +9,51 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 /**
- * @OA\Tag(name="Types",description="API Endpoints of Types")
+ * @OA\Tag(name="Types",description="Endpoints of types")
  * @OA\Schema(
  *     schema="Type",
  *     required={"name"},
  *     @OA\Property(property="name",type="string",)
  * )
+ * @OA\RequestBody (
+ *     request="Type",
+ *     required=true,
+ *     @OA\JsonContent(ref="#/components/schemas/Type")
+ * )
+ *
  */
 class TypeController extends Controller
 {
     /**
      * Create a new type
      *
-     * openapi php comment block
-     *
      * @OA\Post(
-     *      path="/types",
      *      tags={"Types"},
-     *      summary="Create a type",
-     *      description="Create a new type",
-     *      @OA\RequestBody(
-     *          required=true,
-     *          @OA\MediaType(
-     *              mediaType="application/json",
-     *              example={"name": "Sword"},
-     *              @OA\Schema(
-     *                  @OA\Property(
-     *                      property="name",
-     *                      type="string",
-     *                  ),
-     *              ),
-     *          ),
-     *      ),
+     *      path="/types",
+     *      summary="Create a new type",
+     *      description="Create a new type using the data provided in the request body.",
+     *     security={{"sanctum":{}}},
+     *      @OA\RequestBody(ref="#/components/requestBodies/Type"),
      *      @OA\Response(
      *          response=201,
-     *          description="Type created successfully",
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="You are not authorized to create a type",
+     *          description="Success: Type created",
+     *          @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Type created successfully")
+     *         )
      *      ),
      *      @OA\Response(
      *          response=400,
-     *          description="Bad request",
+     *          description="Bad request: Data validation error",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="The name field is required")
+     *         )
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized. Only admins can create types",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="You are not authorized to create a type")
+     *         )
      *      ),
      * )
      *
@@ -97,18 +99,25 @@ class TypeController extends Controller
      * openapi php comment block
      *
      * @OA\Get(
-     *      path="/types",
      *      tags={"Types"},
+     *      path="/types",
      *      summary="Get all types",
-     *      description="Get all types",
+     *      description="Get all types from the database",
      *      @OA\Response(
      *          response=200,
-     *          description="Types retrieved successfully",
+     *          description="Success: Returns all types",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/Type")
+     *         )
      *      ),
      *      @OA\Response(
      *          response=404,
-     *          description="No types found",
-     *      ),
+     *          description="Not found: Characters don't exist",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="No characters found")
+     *         )
+     *      )
      * )
      *
      * @return JsonResponse
@@ -129,33 +138,32 @@ class TypeController extends Controller
     }
 
     /**
-     * Get a type by id
-     *
-     * openapi php comment block
+     * Get a type
      *
      * @OA\Get(
-     *      path="/types/{id}",
      *      tags={"Types"},
+     *      path="/types/{id}",
      *      summary="Get a type by id",
-     *      description="Get a type by id",
+     *      description="Get a type by ID sent in the URL from the database",
      *      @OA\Parameter(
      *          name="id",
+     *          in="path",
      *          description="Type id",
      *          required=true,
-     *          in="path",
-     *          example=1,
-     *          @OA\Schema(
-     *              type="integer",
-     *          )
+     *          @OA\Schema(type="integer")
      *      ),
      *      @OA\Response(
      *          response=200,
-     *          description="Type retrieved successfully",
+     *          description="Success: Returns the type",
+     *         @OA\JsonContent(ref="#/components/schemas/Type")
      *      ),
      *      @OA\Response(
-     *          response=404,
-     *          description="Type with id 1 not found",
-     *      ),
+     *         response=404,
+     *         description="Not found: Type doesn't exist",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Type with id 1 not found")
+     *         )
+     *     )
      * )
      *
      * @param $id
@@ -182,49 +190,47 @@ class TypeController extends Controller
      * openapi php comment block
      *
      * @OA\Put(
-     *      path="/types/{id}",
      *      tags={"Types"},
+     *      path="/types/{id}",
      *      summary="Update a type",
-     *      description="Update a type",
+     *      description="Update a type by ID in the URL and data provided in the request body. (Admin only)",
+     *     security={{"sanctum":{}}},
      *      @OA\Parameter(
-     *          name="id",
-     *          description="Type id",
-     *          required=true,
-     *          in="path",
-     *          example=1,
-     *          @OA\Schema(
-     *              type="integer",
-     *          )
-     *      ),
-     *      @OA\RequestBody(
-     *          required=true,
-     *          @OA\MediaType(
-     *              mediaType="application/json",
-     *              example={"name": "Sword"},
-     *              @OA\Schema(
-     *                  @OA\Property(
-     *                      property="name",
-     *                      type="string",
-     *                  ),
-     *              ),
-     *          ),
-     *      ),
+     *         name="id",
+     *         in="path",
+     *         description="ID of type to update",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *      @OA\RequestBody(ref="#/components/requestBodies/Type"),
      *      @OA\Response(
-     *          response=200,
-     *          description="Type updated successfully",
-     *      ),
+     *         response=200,
+     *         description="Success: Type updated",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Type updated successfully")
+     *         )
+     *     ),
      *      @OA\Response(
-     *          response=401,
-     *          description="You are not authorized to update a type",
-     *      ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="Type with id 1 not found",
-     *      ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad request",
-     *      ),
+     *         response=400,
+     *         description="Bad Request: Data validation error",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="The name field is required")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized: Only admins can update types",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="You are not authorized to update a type")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Not found: Type doesn't exist",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Type with id 1 not found")
+     *         )
+     *     )
      * )
      *
      * @param Request $request
@@ -275,40 +281,45 @@ class TypeController extends Controller
     }
 
     /**
-     * Delete a type
-     *
-     * openapi php comment block
+     * Delete a character
      *
      * @OA\Delete(
-     *      path="/types/{id}",
-     *      tags={"Types"},
-     *      summary="Delete a type",
-     *      description="Delete a type",
-     *      @OA\Parameter(
-     *          name="id",
-     *          description="Type id",
-     *          required=true,
-     *          in="path",
-     *          example=1,
-     *          @OA\Schema(
-     *              type="integer",
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Type deleted successfully",
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="You are not authorized to delete a type",
-     *      ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="Type with id 1 not found",
-     *      ),
+     *     tags={"Types"},
+     *     path="/types/{id}",
+     *     summary="Delete a type",
+     *     description="Delete a type by ID sent in the URL (Admin only)",
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID of the type to delete",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success: type deleted successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Type deleted successfully")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized: Only admins can delete types",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="You are not authorized to delete a type")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Not found: Type doesn't exist",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Type with id 1 not found")
+     *         )
+     *     )
      * )
      *
-     * @param $id
+     * @param int $id
      * @return JsonResponse
      */
     public function deleteType($id): JsonResponse

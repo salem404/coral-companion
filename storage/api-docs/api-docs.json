@@ -1371,7 +1371,7 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Success: A profile has been created",
+                        "description": "Success: A profile created",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1655,7 +1655,7 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "User created successfully",
+                        "description": "Success: User created",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1675,7 +1675,7 @@
                         }
                     },
                     "400": {
-                        "description": "Bad Request",
+                        "description": "Bad Request: Validation errors",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1698,14 +1698,14 @@
                     "Users"
                 ],
                 "summary": "Login a user",
-                "description": "Login a user.\nOpenapi php comment block",
+                "description": "Login a user.",
                 "operationId": "999b75abea65a7e2cab3f78195ab68cf",
                 "requestBody": {
                     "$ref": "#/components/requestBodies/UserLogin"
                 },
                 "responses": {
                     "200": {
-                        "description": "User logged in successfully",
+                        "description": "Success: User logged in",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1725,7 +1725,7 @@
                         }
                     },
                     "400": {
-                        "description": "Bad Request",
+                        "description": "Bad Request: Validation errors",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1764,11 +1764,11 @@
                     "Users"
                 ],
                 "summary": "Logout a user",
-                "description": "Logout a user.\nOpenapi php comment block",
+                "description": "Logout a user.",
                 "operationId": "df53fbe1b232f646afb1bc32ecba141f",
                 "responses": {
                     "200": {
-                        "description": "User logged out successfully",
+                        "description": "Success: User logged out",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1784,7 +1784,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Unauthenticated: The user must be logged in to log out",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1860,7 +1860,7 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Id of season to return",
+                        "description": "ID of season to return",
                         "required": true,
                         "schema": {
                             "type": "integer",
@@ -1904,9 +1904,22 @@
                     "Task"
                 ],
                 "summary": "Get all tasks",
-                "description": "Returns all tasks",
+                "description": "Get all tasks from the database",
                 "operationId": "b132a5f14cb1c055f33ef7d94af79438",
                 "responses": {
+                    "200": {
+                        "description": "Success: Returns all tasks",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Task"
+                                    }
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "Not found: Tasks don't exist",
                         "content": {
@@ -1929,20 +1942,67 @@
                 "tags": [
                     "Task"
                 ],
-                "summary": "Create a task",
-                "description": "Create a new task",
+                "summary": "Create a new task",
+                "description": "Create a new task using the data provided in the request body. (Admins can create tasks for other users)",
                 "operationId": "4dbf3e760f46296529098c64a16b6549",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/TaskCreate"
+                },
                 "responses": {
                     "201": {
-                        "description": "Task created successfully"
-                    },
-                    "401": {
-                        "description": "You are not authorized to create a task"
+                        "description": "Success: Task created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Task created successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "400": {
-                        "description": "Bad request"
+                        "description": "Bad request: Data validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The description field is required"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized: Tasks can only be created by admins or the user themself",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to create a task"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             }
         },
         "/tasks/{id}": {
@@ -1950,27 +2010,46 @@
                 "tags": [
                     "Task"
                 ],
-                "summary": "Get a task by id",
-                "description": "Returns a task",
+                "summary": "Get a task",
+                "description": "Get a task by ID sent in the URL from the database",
                 "operationId": "42e07aa4bda2700f1c22a049e01cd7a0",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Task id",
+                        "description": "ID of task to return",
                         "required": true,
                         "schema": {
                             "type": "integer"
-                        },
-                        "example": 1
+                        }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation"
+                        "description": "Success: Returns a task",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Task"
+                                }
+                            }
+                        }
                     },
                     "404": {
-                        "description": "Task not found"
+                        "description": "Not found: Task doesn't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Task not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -1979,65 +2058,167 @@
                     "Task"
                 ],
                 "summary": "Update a task",
-                "description": "Update a task",
+                "description": "Update a task by ID sent in the URL and data provided in the request body. Only the user who created the task and admins can update it.",
                 "operationId": "caa557a9905d8dc7f6b329db3d4b6a98",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Task id",
+                        "description": "ID of task to update",
                         "required": true,
                         "schema": {
                             "type": "integer"
-                        },
-                        "example": 1
+                        }
                     }
                 ],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/TaskUpdate"
+                },
                 "responses": {
                     "200": {
-                        "description": "Task updated successfully"
-                    },
-                    "401": {
-                        "description": "You are not authorized to update this task"
-                    },
-                    "404": {
-                        "description": "Task not found"
+                        "description": "Success: Task updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Task updated successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "400": {
-                        "description": "Bad request"
+                        "description": "Bad request: Data validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The isCompleted field must be 0 or 1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized: Only the user who created the task and admins can update it",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to update this task"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found: Task doesn't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Task not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
                     "Task"
                 ],
                 "summary": "Delete a task",
-                "description": "Delete a task",
+                "description": "Delete a task by ID sent in the URL. Only the user who created the task and admins can delete it.",
                 "operationId": "6f5697c2a7171f21f3455412a4ea996d",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Task id",
+                        "description": "ID of task to delete",
                         "required": true,
                         "schema": {
                             "type": "integer"
-                        },
-                        "example": 1
+                        }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Task deleted successfully"
+                        "description": "Success: Task deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Task deleted successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "401": {
-                        "description": "You are not authorized to delete this task"
+                        "description": "You are not authorized to delete this task",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to delete this task"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "404": {
-                        "description": "Task not found"
+                        "description": "Task not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Task with id 1 not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             }
         },
         "/types": {
@@ -2046,14 +2227,37 @@
                     "Types"
                 ],
                 "summary": "Get all types",
-                "description": "Get all types",
+                "description": "Get all types from the database",
                 "operationId": "4644f0d196eea1f70f5a4d6f84d905d2",
                 "responses": {
                     "200": {
-                        "description": "Types retrieved successfully"
+                        "description": "Success: Returns all types",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Type"
+                                    }
+                                }
+                            }
+                        }
                     },
                     "404": {
-                        "description": "No types found"
+                        "description": "Not found: Characters don't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No characters found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -2061,38 +2265,67 @@
                 "tags": [
                     "Types"
                 ],
-                "summary": "Create a type",
-                "description": "Create a new type",
+                "summary": "Create a new type",
+                "description": "Create a new type using the data provided in the request body.",
                 "operationId": "e80661fcbc076451294c631d1c39e693",
                 "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "name": {
-                                        "type": "string"
-                                    }
-                                },
-                                "type": "object"
-                            },
-                            "example": {
-                                "name": "Sword"
+                    "$ref": "#/components/requestBodies/Type"
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success: Type created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Type created successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request: Data validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The name field is required"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized. Only admins can create types",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to create a type"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     }
                 },
-                "responses": {
-                    "201": {
-                        "description": "Type created successfully"
-                    },
-                    "401": {
-                        "description": "You are not authorized to create a type"
-                    },
-                    "400": {
-                        "description": "Bad request"
+                "security": [
+                    {
+                        "sanctum": []
                     }
-                }
+                ]
             }
         },
         "/types/{id}": {
@@ -2101,7 +2334,7 @@
                     "Types"
                 ],
                 "summary": "Get a type by id",
-                "description": "Get a type by id",
+                "description": "Get a type by ID sent in the URL from the database",
                 "operationId": "83d01d2bbc8314c51263b6d3f336456f",
                 "parameters": [
                     {
@@ -2111,16 +2344,35 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
-                        },
-                        "example": 1
+                        }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Type retrieved successfully"
+                        "description": "Success: Returns the type",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Type"
+                                }
+                            }
+                        }
                     },
                     "404": {
-                        "description": "Type with id 1 not found"
+                        "description": "Not found: Type doesn't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Type with id 1 not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -2129,83 +2381,167 @@
                     "Types"
                 ],
                 "summary": "Update a type",
-                "description": "Update a type",
+                "description": "Update a type by ID in the URL and data provided in the request body. (Admin only)",
                 "operationId": "e7e536492cc11bf2f8ad953b01101c28",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Type id",
+                        "description": "ID of type to update",
                         "required": true,
                         "schema": {
                             "type": "integer"
-                        },
-                        "example": 1
+                        }
                     }
                 ],
                 "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "name": {
-                                        "type": "string"
-                                    }
-                                },
-                                "type": "object"
-                            },
-                            "example": {
-                                "name": "Sword"
+                    "$ref": "#/components/requestBodies/Type"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success: Type updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Type updated successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request: Data validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The name field is required"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized: Only admins can update types",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to update a type"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found: Type doesn't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Type with id 1 not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     }
                 },
-                "responses": {
-                    "200": {
-                        "description": "Type updated successfully"
-                    },
-                    "401": {
-                        "description": "You are not authorized to update a type"
-                    },
-                    "404": {
-                        "description": "Type with id 1 not found"
-                    },
-                    "400": {
-                        "description": "Bad request"
+                "security": [
+                    {
+                        "sanctum": []
                     }
-                }
+                ]
             },
             "delete": {
                 "tags": [
                     "Types"
                 ],
                 "summary": "Delete a type",
-                "description": "Delete a type",
+                "description": "Delete a type by ID sent in the URL (Admin only)",
                 "operationId": "ea424d1117d38228c4d01f64402459b4",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Type id",
+                        "description": "ID of the type to delete",
                         "required": true,
                         "schema": {
                             "type": "integer"
-                        },
-                        "example": 1
+                        }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Type deleted successfully"
+                        "description": "Success: type deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Type deleted successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "401": {
-                        "description": "You are not authorized to delete a type"
+                        "description": "Unauthorized: Only admins can delete types",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to delete a type"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "404": {
-                        "description": "Type with id 1 not found"
+                        "description": "Not found: Type doesn't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Type with id 1 not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             }
         },
         "/users": {
@@ -2214,11 +2550,11 @@
                     "Users"
                 ],
                 "summary": "Get all users",
-                "description": "Get all users\n\nOpenapi php comment block",
+                "description": "Returns all users from the database",
                 "operationId": "78451c34a9c0e7701cd034b2ff700027",
                 "responses": {
                     "200": {
-                        "description": "List of users",
+                        "description": "Success: Returns all users",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2231,7 +2567,20 @@
                         }
                     },
                     "404": {
-                        "description": "No users found"
+                        "description": "No users found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No users found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -2241,18 +2590,17 @@
                 "tags": [
                     "Users"
                 ],
-                "summary": "Get user by id",
-                "description": "Get user by id\n\nOpenapi php comment block",
+                "summary": "Get user by ID in the URL",
+                "description": "Get user by id",
                 "operationId": "4b3b292dd9efff069b7e7b5575f80560",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "User id",
+                        "description": "ID of user to return",
                         "required": true,
                         "schema": {
                             "type": "integer",
-                            "format": "int64",
                             "minimum": 1,
                             "example": 1
                         }
@@ -2260,7 +2608,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "User with id",
+                        "description": "Success: Returns the user",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2270,7 +2618,20 @@
                         }
                     },
                     "404": {
-                        "description": "User with id not found"
+                        "description": "Not found: User doesn't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User with id 1 not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -2433,6 +2794,13 @@
                 "type": "object"
             },
             "Profile": {
+                "required": [
+                    "id",
+                    "farmer_name",
+                    "farm_name",
+                    "color",
+                    "user_id"
+                ],
                 "properties": {
                     "id": {
                         "type": "integer",
@@ -2452,6 +2820,16 @@
                     },
                     "user_id": {
                         "$ref": "#/components/schemas/User"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2021-03-25T20:29:48.000000Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2021-03-25T20:29:48.000000Z"
                     }
                 },
                 "type": "object"
@@ -2479,13 +2857,11 @@
                 "required": [
                     "profile_id",
                     "description",
-                    "completed"
+                    "isCompleted"
                 ],
                 "properties": {
                     "profile_id": {
-                        "description": "The id of the profile",
-                        "type": "integer",
-                        "example": 1
+                        "$ref": "#/components/schemas/Profile"
                     },
                     "description": {
                         "description": "The description of the task",
@@ -2498,14 +2874,20 @@
                         "example": 0
                     },
                     "character_id": {
-                        "description": "The id of the character",
-                        "type": "integer",
-                        "example": 2
+                        "$ref": "#/components/schemas/Character"
                     },
                     "item_id": {
-                        "description": "The id of the item",
-                        "type": "integer",
-                        "example": 4
+                        "$ref": "#/components/schemas/Item"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2021-03-25 12:00:00"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2021-03-25 12:00:00"
                     }
                 },
                 "type": "object"
@@ -2837,7 +3219,6 @@
                 }
             },
             "ProfileUpdate": {
-                "description": "Profile object that needs to be added to the database",
                 "required": true,
                 "content": {
                     "application/json": {
@@ -2903,6 +3284,11 @@
                 "content": {
                     "application/json": {
                         "schema": {
+                            "required": [
+                                "profile_id",
+                                "description",
+                                "isCompleted"
+                            ],
                             "properties": {
                                 "profile_id": {
                                     "description": "The id of the profile",
@@ -2931,11 +3317,16 @@
                                 }
                             },
                             "type": "object"
-                        },
-                        "example": {
-                            "profile_id": 1,
-                            "description": "Kill the Night King",
-                            "completed": 0
+                        }
+                    }
+                }
+            },
+            "Type": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Type"
                         }
                     }
                 }
@@ -3023,11 +3414,11 @@
         },
         {
             "name": "Task",
-            "description": "API Endpoints of Task Controller"
+            "description": "Endpoints of tasks"
         },
         {
             "name": "Types",
-            "description": "API Endpoints of Types"
+            "description": "Endpoints of types"
         },
         {
             "name": "Users",

@@ -37,15 +37,14 @@ class UsersController extends Controller
     /**
      * Get all users
      *
-     * Openapi php comment block
-     *
      * @OA\Get(
      *     tags={"Users"},
      *     path="/users",
      *     summary="Get all users",
+     *     description="Returns all users from the database",
      *     @OA\Response(
      *         response=200,
-     *         description="List of users",
+     *         description="Success: Returns all users",
      *         @OA\JsonContent(
      *             type="array",
      *             @OA\Items(ref="#/components/schemas/User")
@@ -53,7 +52,10 @@ class UsersController extends Controller
      *     ),
      *     @OA\Response(
      *         response=404,
-     *         description="No users found"
+     *         description="No users found",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="No users found")
+     *         )
      *     )
      * )
      *
@@ -63,7 +65,7 @@ class UsersController extends Controller
     {
         $users = User::all();
         // Check if users exist
-        if (count($users) === 0) {
+        if (count($users) < 1) {
             return response()->json(
                 [
                     "message" => "No users found",
@@ -77,27 +79,28 @@ class UsersController extends Controller
     /**
      * Get user by id
      *
-     * Openapi php comment block
-     *
      * @OA\Get(
      *     tags={"Users"},
      *     path="/users/{id}",
-     *     summary="Get user by id",
+     *     summary="Get user by ID in the URL",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         description="User id",
+     *         description="ID of user to return",
      *         required=true,
-     *         @OA\Schema(type="integer", format="int64", example=1, minimum=1)
+     *         @OA\Schema(type="integer", example=1, minimum=1)
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="User with id",
+     *         description="Success: Returns the user",
      *         @OA\JsonContent(ref="#/components/schemas/User")
      *     ),
      *     @OA\Response(
      *         response=404,
-     *         description="User with id not found"
+     *         description="Not found: User doesn't exist",
+     *         @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="User with id 1 not found")
+     *        )
      *     )
      * )
      *
@@ -106,7 +109,7 @@ class UsersController extends Controller
      */
     public function getUserById($id): JsonResponse
     {
-        $user = User::find($id);
+        $user = User::with("profiles")->find($id);
         // Check if user exists
         if (!$user) {
             return response()->json(

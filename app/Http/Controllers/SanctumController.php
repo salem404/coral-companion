@@ -20,19 +20,15 @@ class SanctumController extends Controller
      *     @OA\RequestBody(ref="#/components/requestBodies/UserRegister"),
      *     @OA\Response(
      *         response=201,
-     *         description="User created successfully",
+     *         description="Success: User created",
      *         @OA\JsonContent(
-     *             @OA\Property(
-     *                 property="message",
-     *                 type="string",
-     *                 example="User created successfully"
-     *             ),
-     *     @OA\Property(property="token", type="string", example="2|3f4e5d6c7b8a9z0x")
+     *             @OA\Property(property="message",type="string",example="User created successfully"),
+     *             @OA\Property(property="token", type="string", example="2|3f4e5d6c7b8a9z0x")
      *         )
      *     ),
      *     @OA\Response(
      *         response=400,
-     *         description="Bad Request",
+     *         description="Bad Request: Validation errors",
      *         @OA\JsonContent(
      *             @OA\Property(
      *                 property="errors",
@@ -74,7 +70,7 @@ class SanctumController extends Controller
 
     /**
      * Login a user.
-     * Openapi php comment block
+     *
      * @OA\Post(
      *     tags={"Users"},
      *     path="/login",
@@ -82,35 +78,24 @@ class SanctumController extends Controller
      *     @OA\RequestBody(ref="#/components/requestBodies/UserLogin"),
      *     @OA\Response(
      *         response=200,
-     *         description="User logged in successfully",
+     *         description="Success: User logged in",
      *         @OA\JsonContent(
-     *             @OA\Property(
-     *                 property="message",
-     *                 type="string",
-     *                 example="User logged in successfully"
-     *             ),
-     *     @OA\Property(property="token", type="string", example="2|3f4e5d6c7b8a9z0x")
+     *             @OA\Property(property="message",type="string",example="User logged in successfully"),
+     *             @OA\Property(property="token", type="string", example="2|3f4e5d6c7b8a9z0x")
      *         )
      *     ),
      *     @OA\Response(
      *         response=400,
-     *         description="Bad Request",
+     *         description="Bad Request: Validation errors",
      *         @OA\JsonContent(
-     *             @OA\Property(
-     *                 property="errors",
-     *                 type="object",
-     *             )
+     *             @OA\Property(property="errors",type="object",)
      *         )
      *     ),
      *     @OA\Response(
      *         response=401,
      *         description="Invalid login details",
      *         @OA\JsonContent(
-     *             @OA\Property(
-     *                 property="message",
-     *                 type="string",
-     *                 example="Invalid login details"
-     *             )
+     *             @OA\Property(property="message",type="string",example="Invalid login details")
      *         )
      *     )
      * )
@@ -151,7 +136,7 @@ class SanctumController extends Controller
 
     /**
      * Logout a user.
-     * Openapi php comment block
+     *
      * @OA\Post(
      *     tags={"Users"},
      *     path="/logout",
@@ -159,7 +144,7 @@ class SanctumController extends Controller
      *     security={{"sanctum":{}}},
      *     @OA\Response(
      *         response=200,
-     *         description="User logged out successfully",
+     *         description="Success: User logged out",
      *         @OA\JsonContent(
      *             @OA\Property(
      *                 property="message",
@@ -170,13 +155,9 @@ class SanctumController extends Controller
      *     ),
      *     @OA\Response(
      *         response=401,
-     *         description="Unauthenticated",
+     *         description="Unauthenticated: The user must be logged in to log out",
      *         @OA\JsonContent(
-     *             @OA\Property(
-     *                 property="message",
-     *                 type="string",
-     *                 example="Unauthenticated"
-     *             )
+     *             @OA\Property(property="message",type="string",example="Unauthenticated")
      *         )
      *     )
      * )

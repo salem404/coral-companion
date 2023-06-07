@@ -12,16 +12,18 @@ use Illuminate\Support\Facades\Validator;
 /**
  * @OA\Tag(
  *     name="Task",
- *     description="API Endpoints of Task Controller"
+ *     description="Endpoints of tasks"
  * )
  * @OA\Schema(
  *     schema="Task",
- *     required={"profile_id", "description", "completed"},
- *     @OA\Property(property="profile_id", type="integer", description="The id of the profile", example=1),
+ *     required={"profile_id", "description", "isCompleted"},
+ *     @OA\Property(property="profile_id", type="object", ref="#/components/schemas/Profile"),
  *     @OA\Property(property="description", type="string", description="The description of the task", example="Kill the Night King"),
  *     @OA\Property(property="isCompleted", type="int", description="The status of the task", example=0),
- *     @OA\Property(property="character_id", type="integer", description="The id of the character", example=2),
- *     @OA\Property(property="item_id", type="integer", description="The id of the item", example=4)
+ *     @OA\Property(property="character_id", type="object", ref="#/components/schemas/Character"),
+ *     @OA\Property(property="item_id", type="object", ref="#/components/schemas/Item"),
+ *     @OA\Property(property="created_at", type="string", format="date-time", example="2021-03-25 12:00:00"),
+ *     @OA\Property(property="updated_at", type="string", format="date-time", example="2021-03-25 12:00:00")
  * )
  * @OA\RequestBody (
  *     request="TaskUpdate",
@@ -37,16 +39,12 @@ use Illuminate\Support\Facades\Validator;
  * @OA\RequestBody(
  *     request="TaskCreate",
  *     required=true,
- *     @OA\MediaType(
- *         mediaType="application/json",
- *         example={"profile_id": 1, "description": "Kill the Night King", "completed": 0},
- *         @OA\Schema(
+ *     @OA\JsonContent(required={"profile_id", "description", "isCompleted"},
  *             @OA\Property(property="profile_id", type="integer", description="The id of the profile", example=1),
  *             @OA\Property(property="description", type="string", description="The description of the task", example="Kill the Night King"),
  *             @OA\Property(property="isCompleted", type="int", description="The status of the task", example=0),
  *             @OA\Property(property="character_id", type="integer", description="The id of the character", example=1),
  *             @OA\Property(property="item_id", type="integer", description="The id of the item", example=1)
- *         )
  *     )
  * )
  *
@@ -59,22 +57,33 @@ class TaskController extends Controller
      * openapi php comment block
      *
      * @OA\Post(
-     *      path="/tasks",
      *      tags={"Task"},
-     *      summary="Create a task",
-     *      description="Create a new task",
+     *      path="/tasks",
+     *      summary="Create a new task",
+     *      description="Create a new task using the data provided in the request body. (Admins can create tasks for other users)",
+     *     security={{"sanctum":{}}},
+     *     @OA\RequestBody(ref="#/components/requestBodies/TaskCreate"),
      *      @OA\Response(
      *          response=201,
-     *          description="Task created successfully",
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="You are not authorized to create a task",
+     *          description="Success: Task created",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Task created successfully")
+     *         )
      *      ),
      *      @OA\Response(
      *          response=400,
-     *          description="Bad request",
+     *          description="Bad request: Data validation error",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="The description field is required")
+     *         )
      *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized: Tasks can only be created by admins or the user themself",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="You are not authorized to create a task")
+     *         )
+     *      )
      * )
      *
      * @param Request $request
@@ -83,38 +92,48 @@ class TaskController extends Controller
     public function createTask(Request $request): JsonResponse
     {
         // Check if the profile belongs to the user or is Admin
-        $user = Auth::user();
-        $profile = Profile::find($request->profile_id);
-        if ($profile->user_id !== $user->id || !$user->isAdmin) {
-            return response()->json(
-                [
-                    "message" =>
-                        "You are not authorized to delete this profile",
-                ],
-                401
-            );
-        }
+        $admin = Auth::user();
+        if ($admin) {
+            // Validate request
+            $validator = Validator::make($request->all(), [
+                "description" => "required|string",
+                "isCompleted" => "required|tinyInteger",
+                "profile_id" => "required|integer",
+                "character_id" => "integer",
+                "item_id" => "integer",
+            ]);
+            if ($validator->fails()) {
+                return response()->json($validator->errors(), 400);
+            }
+            // Create task (admin)
+            Task::create([
+                "description" => $request->description,
+                "isCompleted" => $request->isCompleted,
+                "profile_id" => $request->profile_id,
+                "character_id" => $request->character_id,
+                "item_id" => $request->item_id,
+            ]);
+        } else {
+            // Validate request
+            $validator = Validator::make($request->all(), [
+                "description" => "required|string",
+                "isCompleted" => "required|tinyInteger",
+                "character_id" => "integer",
+                "item_id" => "integer",
+            ]);
+            if ($validator->fails()) {
+                return response()->json($validator->errors(), 400);
+            }
 
-        // Validate request
-        $validator = Validator::make($request->all(), [
-            "profile_id" => "required|integer",
-            "description" => "required|string",
-            "completed" => "required|tinyint",
-            "character_id" => "integer",
-            "item_id" => "integer",
-        ]);
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
+            // Create task
+            Task::create([
+                "description" => $request->description,
+                "isCompleted" => $request->isCompleted,
+                "profile_id" => Auth::user()->profile->id,
+                "character_id" => $request->character_id,
+                "item_id" => $request->item_id,
+            ]);
         }
-
-        // Create task
-        $task = Task::create([
-            "profile_id" => $request->profile_id,
-            "description" => $request->description,
-            "completed" => $request->completed,
-            "character_id" => $request->character_id,
-            "item_id" => $request->item_id,
-        ]);
 
         return response()->json(
             [
@@ -128,17 +147,25 @@ class TaskController extends Controller
      * Get all tasks
      *
      * @OA\Get(
-     *      path="/tasks",
      *      tags={"Task"},
+     *      path="/tasks",
      *      summary="Get all tasks",
-     *      description="Returns all tasks",
+     *      description="Get all tasks from the database",
      *      @OA\Response(
-     *         response=404,
-     *         description="Not found: Tasks don't exist",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="No tasks found")
-     *         )
-     *     )
+     *          response=200,
+     *          description="Success: Returns all tasks",
+     *          @OA\JsonContent(
+     *              type="array",
+     *              @OA\Items(ref="#/components/schemas/Task")
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Not found: Tasks don't exist",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="No tasks found")
+     *          )
+     *      )
      * )
      *
      * @return JsonResponse
@@ -147,7 +174,7 @@ class TaskController extends Controller
     {
         $tasks = Task::with("profile", "character", "item")->get();
         // Check if tasks exist
-        if (count($tasks) === 0) {
+        if (count($tasks) < 1) {
             return response()->json(
                 [
                     "message" => "No tasks found",
@@ -159,40 +186,41 @@ class TaskController extends Controller
     }
 
     /**
-     * Get a task by id
+     * Get a task
      *
      * @OA\Get(
-     *      path="/tasks/{id}",
      *      tags={"Task"},
-     *      summary="Get a task by id",
-     *      description="Returns a task",
+     *      path="/tasks/{id}",
+     *      summary="Get a task",
+     *      description="Get a task by ID sent in the URL from the database",
      *      @OA\Parameter(
      *          name="id",
-     *          description="Task id",
-     *          required=true,
      *          in="path",
-     *          example=1,
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
+     *          description="ID of task to return",
+     *          required=true,
+     *          @OA\Schema(type="integer")
      *      ),
      *      @OA\Response(
      *          response=200,
-     *          description="Successful operation",
-     *
+     *          description="Success: Returns a task",
+     *          @OA\JsonContent(ref="#/components/schemas/Task")
      *       ),
      *      @OA\Response(
      *          response=404,
-     *          description="Task not found",
+     *          description="Not found: Task doesn't exist",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Task not found")
+     *         )
      *       ),
      * )
      *
      * @param int $id
      * @return JsonResponse
      */
-    public function getTaskById(int $id): JsonResponse
+    public function getTaskById($id): JsonResponse
     {
         $task = Task::with("profile", "character", "item")->find($id);
+
         // Check if task exists
         if (!$task) {
             return response()->json(
@@ -207,37 +235,48 @@ class TaskController extends Controller
 
     /**
      * Update a task
-     * openapi php comment block
+     *
      * @OA\Put(
-     *      path="/tasks/{id}",
      *      tags={"Task"},
+     *      path="/tasks/{id}",
      *      summary="Update a task",
-     *      description="Update a task",
+     *      description="Update a task by ID sent in the URL and data provided in the request body. Only the user who created the task and admins can update it.",
+     *      security={{"sanctum":{}}},
      *      @OA\Parameter(
      *          name="id",
-     *          description="Task id",
-     *          required=true,
      *          in="path",
-     *          example=1,
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
+     *          description="ID of task to update",
+     *          required=true,
+     *          @OA\Schema(type="integer")
      *      ),
+     *     @OA\RequestBody(ref="#/components/requestBodies/TaskUpdate"),
      *      @OA\Response(
      *          response=200,
-     *          description="Task updated successfully",
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="You are not authorized to update this task",
-     *      ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="Task not found",
+     *          description="Success: Task updated",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Task updated successfully")
+     *         )
      *      ),
      *      @OA\Response(
      *          response=400,
-     *          description="Bad request",
+     *          description="Bad request: Data validation error",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="The isCompleted field must be 0 or 1")
+     *         )
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized: Only the user who created the task and admins can update it",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="You are not authorized to update this task")
+     *         )
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Not found: Task doesn't exist",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Task not found")
+     *         )
      *      ),
      * )
      *
@@ -260,7 +299,7 @@ class TaskController extends Controller
             );
         }
 
-        // Validate request
+        // Validate request TODO: ADD DIFFERENT VALIDATION FOR USER
         $validator = Validator::make($request->all(), [
             "profile_id" => "required|integer",
             "description" => "required|string",
@@ -289,33 +328,40 @@ class TaskController extends Controller
 
     /**
      * Delete a task
-     * openapi php comment block
+     *
      * @OA\Delete(
-     *      path="/tasks/{id}",
      *      tags={"Task"},
+     *      path="/tasks/{id}",
      *      summary="Delete a task",
-     *      description="Delete a task",
+     *      description="Delete a task by ID sent in the URL. Only the user who created the task and admins can delete it.",
+     *      security={{"sanctum":{}}},
      *      @OA\Parameter(
      *          name="id",
-     *          description="Task id",
-     *          required=true,
      *          in="path",
-     *          example=1,
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
+     *          description="ID of task to delete",
+     *          required=true,
+     *          @OA\Schema(type="integer")
      *      ),
      *      @OA\Response(
      *          response=200,
-     *          description="Task deleted successfully",
+     *          description="Success: Task deleted",
+     *          @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Task deleted successfully")
+     *         )
      *      ),
      *      @OA\Response(
      *          response=401,
      *          description="You are not authorized to delete this task",
+     *          @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="You are not authorized to delete this task")
+     *         )
      *      ),
      *      @OA\Response(
      *          response=404,
      *          description="Task not found",
+     *          @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Task with id 1 not found")
+     *         )
      *      ),
      * )
      *
