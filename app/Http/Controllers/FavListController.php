@@ -12,14 +12,25 @@ use Illuminate\Support\Facades\Validator;
  * @OA\Tag(name="Favorite Lists", description="Endpoints for favorite lists")
  * @OA\Schema(
  *     schema="FavList",
+ *     required={"id","character_id", "item_id"},
  *     @OA\Property(property="id", type="integer", example=1),
  *     @OA\Property(property="character_id", type="object", ref="#/components/schemas/Character"),
- *     @OA\Property(property="item_id", type="object", ref="#/components/schemas/Item")
+ *     @OA\Property(property="item_id", type="object", ref="#/components/schemas/Item"),
+ *     @OA\Property(property="created_at", type="string", format="date-time", example="2021-03-26T13:26:14.000000Z"),
+ *     @OA\Property(property="updated_at", type="string", format="date-time", example="2021-03-26T13:26:14.000000Z")
  * )
  * @OA\RequestBody(
- *     request="FavList",
+ *     request="FavListCreate",
  *     required=true,
- *     @OA\JsonContent(
+ *     @OA\JsonContent(required={"character_id", "item_id"},
+ *         @OA\Property(property="character_id", type="integer", example=1),
+ *         @OA\Property(property="item_id", type="integer", example=1)
+ *     )
+ * ),
+ * @OA\RequestBody(
+ *     request="FavListUpdate",
+ *     required=true,
+ *     @OA\JsonContent(required={"character_id", "item_id"},
  *         @OA\Property(property="character_id", type="integer", example=1),
  *         @OA\Property(property="item_id", type="integer", example=1)
  *     )
@@ -34,8 +45,8 @@ class FavListController extends Controller
      *     summary="Create a new favorite list",
      *     description="Create a new favorite list using the data provided in the request body. (Admin only)",
      *     security={{"sanctum":{}}},
-     *     @OA\RequestBody(ref="#/components/requestBodies/FavList"),
-     *     @OA\Response(response=201, description="Sucess: Favorite list created successfully",
+     *     @OA\RequestBody(ref="#/components/requestBodies/FavListCreate"),
+     *     @OA\Response(response=201, description="Sucess: Favorite list created",
      *         @OA\JsonContent(
      *             @OA\Property(property="message", type="string", example="Favorite list created successfully")
      *         )
@@ -62,7 +73,8 @@ class FavListController extends Controller
         if (!$admin) {
             return response()->json(
                 [
-                    "message" => "You are not authorized to create a favorite list",
+                    "message" =>
+                        "You are not authorized to create a favorite list",
                 ],
                 401
             );
@@ -95,10 +107,10 @@ class FavListController extends Controller
      * Get all favorite lists
      *
      * @OA\Get(
+     *     tags={"Favorite Lists"},
      *     path="/favlists",
      *     summary="Get all favorite lists",
-     *     description="Get all favorite lists in the database",
-     *     tags={"Favorite Lists"},
+     *     description="Get all favorite lists from the database",
      *     @OA\Response(
      *         response=200,
      *         description="Success: Returns all favorite lists",
@@ -155,7 +167,7 @@ class FavListController extends Controller
      *     ),
      *     @OA\Response(
      *         response=404,
-     *         description="Favorite list not found",
+     *         description="Not Found: Favorite list doesn't exist",
      *         @OA\JsonContent(
      *             @OA\Property(property="message", type="string", example="Favorite list with id 1 not found")
      *         )
@@ -188,7 +200,7 @@ class FavListController extends Controller
      *     tags={"Favorite Lists"},
      *     path="/favlists/{id}",
      *     summary="Update a favorite list",
-     *     description="Update a favorite list by ID in the URL and a request body. (Admin only)",
+     *     description="Update a favorite list by ID in the URL and data provided in the request body. (Admin only)",
      *     security={{"sanctum":{}}},
      *     @OA\Parameter(
      *         name="id",
@@ -197,12 +209,19 @@ class FavListController extends Controller
      *         description="ID of the favorite list",
      *         @OA\Schema(type="integer")
      *     ),
-     *     @OA\RequestBody(ref="#/components/requestBodies/FavList"),
+     *     @OA\RequestBody(ref="#/components/requestBodies/FavListUpdate"),
      *     @OA\Response(
      *         response=200,
-     *         description="Success: Favorite list updated successfully",
+     *         description="Success: Favorite list updated",
      *         @OA\JsonContent(
      *             @OA\Property(property="message", type="string", example="Favorite list updated successfully")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad Request: Data validation error",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="The name field is required")
      *         )
      *     ),
      *     @OA\Response(
@@ -225,7 +244,7 @@ class FavListController extends Controller
      * @param int $id
      * @return JsonResponse
      */
-    public function updateFavList(Request $request,int $id): JsonResponse
+    public function updateFavList(Request $request, int $id): JsonResponse
     {
         $favlist = FavList::find($id);
         // Check if favlist exists
@@ -243,7 +262,8 @@ class FavListController extends Controller
         if (!$admin) {
             return response()->json(
                 [
-                    "message" =>"You are not authorized to update a favorite list",
+                    "message" =>
+                        "You are not authorized to update a favorite list",
                 ],
                 401
             );
@@ -273,10 +293,10 @@ class FavListController extends Controller
      * Delete a favorite list
      *
      * @OA\Delete(
+     *     tags={"Favorite Lists"},
      *     path="/favlists/{id}",
      *     summary="Delete a favorite list",
      *     description="Deletes a favorite list by ID in the URL. (Admin only)",
-     *     tags={"Favorite Lists"},
      *     security={{"sanctum":{}}},
      *     @OA\Parameter(
      *         name="id",
@@ -287,7 +307,7 @@ class FavListController extends Controller
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="Success: Favorite list deleted successfully",
+     *         description="Success: Favorite list deleted",
      *         @OA\JsonContent(
      *             @OA\Property(property="message", type="string", example="Favorite list deleted successfully")
      *         )
@@ -329,7 +349,8 @@ class FavListController extends Controller
         if (!$admin) {
             return response()->json(
                 [
-                    "message" => "You are not authorized to delete a favorite list",
+                    "message" =>
+                        "You are not authorized to delete a favorite list",
                 ],
                 401
             );
@@ -337,6 +358,7 @@ class FavListController extends Controller
 
         // Delete favlist
         $favlist->delete();
+
         return response()->json([
             "message" => "Favorite list deleted successfully",
         ]);

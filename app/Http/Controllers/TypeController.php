@@ -3,14 +3,62 @@
 namespace App\Http\Controllers;
 
 use App\Models\Type;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * @OA\Tag(name="Types",description="API Endpoints of Types")
+ * @OA\Schema(
+ *     schema="Type",
+ *     required={"name"},
+ *     @OA\Property(property="name",type="string",)
+ * )
+ */
 class TypeController extends Controller
 {
-    // Create a new type
-    public function createType(Request $request): \Illuminate\Http\JsonResponse
+    /**
+     * Create a new type
+     *
+     * openapi php comment block
+     *
+     * @OA\Post(
+     *      path="/types",
+     *      tags={"Types"},
+     *      summary="Create a type",
+     *      description="Create a new type",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *              example={"name": "Sword"},
+     *              @OA\Schema(
+     *                  @OA\Property(
+     *                      property="name",
+     *                      type="string",
+     *                  ),
+     *              ),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="Type created successfully",
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="You are not authorized to create a type",
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad request",
+     *      ),
+     * )
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function createType(Request $request): JsonResponse
     {
         // Check if user is admin
         $admin = Auth::user()->isAdmin;
@@ -43,12 +91,33 @@ class TypeController extends Controller
         );
     }
 
-    // Get all types
-    public function getAllTypes(): \Illuminate\Http\JsonResponse
+    /**
+     * Get all types
+     *
+     * openapi php comment block
+     *
+     * @OA\Get(
+     *      path="/types",
+     *      tags={"Types"},
+     *      summary="Get all types",
+     *      description="Get all types",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Types retrieved successfully",
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="No types found",
+     *      ),
+     * )
+     *
+     * @return JsonResponse
+     */
+    public function getAllTypes(): JsonResponse
     {
         $types = Type::with("items")->get();
         // Check if types exist
-        if (count($types) === 0) {
+        if (count($types) < 1) {
             return response()->json(
                 [
                     "message" => "No types found",
@@ -59,15 +128,47 @@ class TypeController extends Controller
         return response()->json($types);
     }
 
-    // Get a type
-    public function getTypeById($id): \Illuminate\Http\JsonResponse
+    /**
+     * Get a type by id
+     *
+     * openapi php comment block
+     *
+     * @OA\Get(
+     *      path="/types/{id}",
+     *      tags={"Types"},
+     *      summary="Get a type by id",
+     *      description="Get a type by id",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Type id",
+     *          required=true,
+     *          in="path",
+     *          example=1,
+     *          @OA\Schema(
+     *              type="integer",
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Type retrieved successfully",
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Type with id 1 not found",
+     *      ),
+     * )
+     *
+     * @param $id
+     * @return JsonResponse
+     */
+    public function getTypeById($id): JsonResponse
     {
         $type = Type::with("items")->find($id);
         // Check if type exists
         if (!$type) {
             return response()->json(
                 [
-                    "message" => "Type with id {$id} not found",
+                    "message" => "Type with id $id not found",
                 ],
                 404
             );
@@ -75,11 +176,63 @@ class TypeController extends Controller
         return response()->json($type);
     }
 
-    // Update a type
-    public function updateType(
-        Request $request,
-        $id
-    ): \Illuminate\Http\JsonResponse {
+    /**
+     * Update a type
+     *
+     * openapi php comment block
+     *
+     * @OA\Put(
+     *      path="/types/{id}",
+     *      tags={"Types"},
+     *      summary="Update a type",
+     *      description="Update a type",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Type id",
+     *          required=true,
+     *          in="path",
+     *          example=1,
+     *          @OA\Schema(
+     *              type="integer",
+     *          )
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *              example={"name": "Sword"},
+     *              @OA\Schema(
+     *                  @OA\Property(
+     *                      property="name",
+     *                      type="string",
+     *                  ),
+     *              ),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Type updated successfully",
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="You are not authorized to update a type",
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Type with id 1 not found",
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad request",
+     *      ),
+     * )
+     *
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse
+     */
+    public function updateType(Request $request, $id): JsonResponse
+    {
         // Check if user is admin
         $admin = Auth::user()->isAdmin;
         if (!$admin) {
@@ -104,7 +257,7 @@ class TypeController extends Controller
         if (!$type) {
             return response()->json(
                 [
-                    "message" => "Type with id {$id} not found",
+                    "message" => "Type with id $id not found",
                 ],
                 404
             );
@@ -121,8 +274,44 @@ class TypeController extends Controller
         );
     }
 
-    // Delete a type
-    public function deleteType($id): \Illuminate\Http\JsonResponse
+    /**
+     * Delete a type
+     *
+     * openapi php comment block
+     *
+     * @OA\Delete(
+     *      path="/types/{id}",
+     *      tags={"Types"},
+     *      summary="Delete a type",
+     *      description="Delete a type",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Type id",
+     *          required=true,
+     *          in="path",
+     *          example=1,
+     *          @OA\Schema(
+     *              type="integer",
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Type deleted successfully",
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="You are not authorized to delete a type",
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Type with id 1 not found",
+     *      ),
+     * )
+     *
+     * @param $id
+     * @return JsonResponse
+     */
+    public function deleteType($id): JsonResponse
     {
         // Check if user is admin
         $admin = Auth::user()->isAdmin;
@@ -139,7 +328,7 @@ class TypeController extends Controller
         if (!$type) {
             return response()->json(
                 [
-                    "message" => "Type with id {$id} not found",
+                    "message" => "Type with id $id not found",
                 ],
                 404
             );

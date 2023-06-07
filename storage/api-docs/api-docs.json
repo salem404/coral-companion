@@ -75,11 +75,11 @@
                 "description": "Create a new character using the data provided in the request body. (Admin only)",
                 "operationId": "b84959a16c4034a36d49d2de19fb76d6",
                 "requestBody": {
-                    "$ref": "#/components/requestBodies/Character"
+                    "$ref": "#/components/requestBodies/CharacterCreate"
                 },
                 "responses": {
                     "201": {
-                        "description": "Success: Character created successfully",
+                        "description": "Success: Character created",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -140,7 +140,7 @@
                     "Characters"
                 ],
                 "summary": "Get a character",
-                "description": "Get a character by ID sent in the URL",
+                "description": "Get a character by ID sent in the URL from the database",
                 "operationId": "1db5dfb3034a9dce2f29410306c43565",
                 "parameters": [
                     {
@@ -187,7 +187,7 @@
                     "Characters"
                 ],
                 "summary": "Update a character",
-                "description": "Update a character by ID in the URL and a request body (Admin only)",
+                "description": "Update a character by ID in the URL and data provided in the request body. (Admin only)",
                 "operationId": "758175665123747d5b16cf07baa74966",
                 "parameters": [
                     {
@@ -201,11 +201,11 @@
                     }
                 ],
                 "requestBody": {
-                    "$ref": "#/components/requestBodies/Character"
+                    "$ref": "#/components/requestBodies/CharacterUpdate"
                 },
                 "responses": {
                     "200": {
-                        "description": "Success: Character updated successfully",
+                        "description": "Success: Character updated",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -213,6 +213,22 @@
                                         "message": {
                                             "type": "string",
                                             "example": "Character updated successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request: Data validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The name field is required"
                                         }
                                     },
                                     "type": "object"
@@ -340,7 +356,7 @@
                     "Families"
                 ],
                 "summary": "Get all families",
-                "description": "Get all families in the database",
+                "description": "Get all families from the database",
                 "operationId": "e1f361ab32ef6173d6e698dfba7972b5",
                 "responses": {
                     "200": {
@@ -382,11 +398,11 @@
                 "description": "Create a new family using the data provided in the request body. (Admin only)",
                 "operationId": "d54bac5b85ad80fc410c562776a7d90b",
                 "requestBody": {
-                    "$ref": "#/components/requestBodies/Family"
+                    "$ref": "#/components/requestBodies/FamilyCreate"
                 },
                 "responses": {
                     "201": {
-                        "description": "Success: Family created successfully",
+                        "description": "Success: Family created",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -494,7 +510,7 @@
                     "Families"
                 ],
                 "summary": "Update a family",
-                "description": "Update a family by ID in the URL and a request body. (Admin only)",
+                "description": "Update a family by ID in the URL and data provided in the request body. (Admin only)",
                 "operationId": "7889218d452c1ae1d0fd363208d71857",
                 "parameters": [
                     {
@@ -508,11 +524,11 @@
                     }
                 ],
                 "requestBody": {
-                    "$ref": "#/components/requestBodies/Family"
+                    "$ref": "#/components/requestBodies/FamilyUpdate"
                 },
                 "responses": {
                     "200": {
-                        "description": "Success: Family updated successfully",
+                        "description": "Success: Family updated",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -520,6 +536,22 @@
                                         "message": {
                                             "type": "string",
                                             "example": "Family updated successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request: Data validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The relationship field is required"
                                         }
                                     },
                                     "type": "object"
@@ -647,7 +679,7 @@
                     "Favorite Lists"
                 ],
                 "summary": "Get all favorite lists",
-                "description": "Get all favorite lists in the database",
+                "description": "Get all favorite lists from the database",
                 "operationId": "f4f6cefcf140c9f957dcb0fcb92d2f56",
                 "responses": {
                     "200": {
@@ -689,11 +721,11 @@
                 "description": "Create a new favorite list using the data provided in the request body. (Admin only)",
                 "operationId": "222781dac05a4b259ffb0b9dfbe96d7e",
                 "requestBody": {
-                    "$ref": "#/components/requestBodies/FavList"
+                    "$ref": "#/components/requestBodies/FavListCreate"
                 },
                 "responses": {
                     "201": {
-                        "description": "Sucess: Favorite list created successfully",
+                        "description": "Sucess: Favorite list created",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -779,7 +811,7 @@
                         }
                     },
                     "404": {
-                        "description": "Favorite list not found",
+                        "description": "Not Found: Favorite list doesn't exist",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -801,7 +833,7 @@
                     "Favorite Lists"
                 ],
                 "summary": "Update a favorite list",
-                "description": "Update a favorite list by ID in the URL and a request body. (Admin only)",
+                "description": "Update a favorite list by ID in the URL and data provided in the request body. (Admin only)",
                 "operationId": "d373b8372aa5a27ae7fbdab031f22238",
                 "parameters": [
                     {
@@ -815,11 +847,11 @@
                     }
                 ],
                 "requestBody": {
-                    "$ref": "#/components/requestBodies/FavList"
+                    "$ref": "#/components/requestBodies/FavListUpdate"
                 },
                 "responses": {
                     "200": {
-                        "description": "Success: Favorite list updated successfully",
+                        "description": "Success: Favorite list updated",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -827,6 +859,22 @@
                                         "message": {
                                             "type": "string",
                                             "example": "Favorite list updated successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request: Data validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The name field is required"
                                         }
                                     },
                                     "type": "object"
@@ -893,7 +941,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success: Favorite list deleted successfully",
+                        "description": "Success: Favorite list deleted",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -948,13 +996,824 @@
                 ]
             }
         },
+        "/items": {
+            "get": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Get all items",
+                "description": "Get all items from the database",
+                "operationId": "64b466e68402b0763a8b7dc3b586a5ad",
+                "responses": {
+                    "200": {
+                        "description": "Success: Return all items",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Item"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found: Items don't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No items found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Create a new item",
+                "description": "Create a new item using the data provided in the request body. (Admin only)",
+                "operationId": "38910978a79a2a2fe1af9fb02e683d81",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/ItemCreate"
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success: Item created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Item created"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request: Data validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The name field is required"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized: Only admins can create items",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to create an item"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/items/{id}": {
+            "get": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Get an item",
+                "description": "Get an item using the id provided in the request URL",
+                "operationId": "3ca89cbe80fb724b4e571eea43f8da7e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of item to return",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success: Return an item",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Item"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found: Item doesn't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Item with id 1 not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Update an item",
+                "description": "Update an item by ID in the URL and data provided in the request body. (Admin only)",
+                "operationId": "5bee0c1299b966d54c3d44e6fc41b7df",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of item to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/ItemUpdate"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success: Item updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Item updated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request: Data validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The name field is required"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized: Only admins can update items",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to update an item"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found: Item doesn't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Item with id 1 not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Delete an item",
+                "description": "Delete an item by ID sent in the URL. (Admin only)",
+                "operationId": "b2f163bf1735121598620e780afbe870",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of item to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success: Item deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Item deleted"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized: Only admins can delete items",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to delete an item"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found: Item doesn't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Item with id 1 not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/profiles": {
+            "get": {
+                "tags": [
+                    "Profiles"
+                ],
+                "summary": "Get all profiles",
+                "description": "Get all profiles from the database",
+                "operationId": "1afd045c87391eb70de9615a4e03cf91",
+                "responses": {
+                    "200": {
+                        "description": "Success: Return all profiles",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Profile"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No profiles found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No profiles found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Profiles"
+                ],
+                "summary": "Create a profile",
+                "description": "Create a new profile using the data provided in the request body. The user must be an admin to create a profile for other users. An user can create a profile for themselves (user_id not required).",
+                "operationId": "14ca107420d028924052574e1d385c1c",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/ProfileCreate"
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success: A profile has been created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Profile created successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request: The request you sent was invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "farmer_name, farm_name and color are required"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized: Only admins or the user themselves can create a profile",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to create a profile"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/profiles/{id}": {
+            "get": {
+                "tags": [
+                    "Profiles"
+                ],
+                "summary": "Get a profile",
+                "description": "Get a profile by ID in the URL",
+                "operationId": "9aafb9b7a4b31cb41fa18c41e18dd6e0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of profile",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success: Returns a profile",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Profile"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found: Profile doesn't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Profile with id 4 not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Profiles"
+                ],
+                "summary": "Update a profile",
+                "description": "Update a profile by ID in the URL and data provided in the request body. Admins can update any profile, users can only update their own profiles",
+                "operationId": "fad658ba45fe7dab378d24861bf22f4c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of profile",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/ProfileUpdate"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success: Profile has been updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Profile updated successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request: Data validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The farmer name field is required"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized: Only admins or the user who created the profile can update it",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to update this profile"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found: Profile doesn't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Profile with id 4 not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Profiles"
+                ],
+                "summary": "Delete a profile",
+                "description": "Delete a profile by ID in the URL. Admins can delete any profile, users can only delete their own profiles",
+                "operationId": "b3f355620753ead8a083666cdd71362c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of profile to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success: Profile deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Profile deleted successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized: Only admins or the user who created the profile can delete it",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to delete this profile"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found: Profile doesn't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Profile with id 4 not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/register": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Register a new user",
+                "description": "Register a new user.",
+                "operationId": "cffdb69e5b176093c7abd7ad6a9ab6e5",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/UserRegister"
+                },
+                "responses": {
+                    "201": {
+                        "description": "User created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User created successfully"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "2|3f4e5d6c7b8a9z0x"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Login a user",
+                "description": "Login a user.\nOpenapi php comment block",
+                "operationId": "999b75abea65a7e2cab3f78195ab68cf",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/UserLogin"
+                },
+                "responses": {
+                    "200": {
+                        "description": "User logged in successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User logged in successfully"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "2|3f4e5d6c7b8a9z0x"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid login details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid login details"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Logout a user",
+                "description": "Logout a user.\nOpenapi php comment block",
+                "operationId": "df53fbe1b232f646afb1bc32ecba141f",
+                "responses": {
+                    "200": {
+                        "description": "User logged out successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User logged out successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
         "/seasons": {
             "get": {
                 "tags": [
                     "Seasons"
                 ],
                 "summary": "Get all seasons",
-                "description": "Returns all seasons in the database",
+                "description": "Returns all seasons from the database",
                 "operationId": "0397b64587ed051b343a1c883d8411ff",
                 "responses": {
                     "200": {
@@ -1038,14 +1897,398 @@
                     }
                 }
             }
+        },
+        "/tasks": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Get all tasks",
+                "description": "Returns all tasks",
+                "operationId": "b132a5f14cb1c055f33ef7d94af79438",
+                "responses": {
+                    "404": {
+                        "description": "Not found: Tasks don't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No tasks found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Create a task",
+                "description": "Create a new task",
+                "operationId": "4dbf3e760f46296529098c64a16b6549",
+                "responses": {
+                    "201": {
+                        "description": "Task created successfully"
+                    },
+                    "401": {
+                        "description": "You are not authorized to create a task"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/tasks/{id}": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Get a task by id",
+                "description": "Returns a task",
+                "operationId": "42e07aa4bda2700f1c22a049e01cd7a0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Task id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Task not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Update a task",
+                "description": "Update a task",
+                "operationId": "caa557a9905d8dc7f6b329db3d4b6a98",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Task id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Task updated successfully"
+                    },
+                    "401": {
+                        "description": "You are not authorized to update this task"
+                    },
+                    "404": {
+                        "description": "Task not found"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Delete a task",
+                "description": "Delete a task",
+                "operationId": "6f5697c2a7171f21f3455412a4ea996d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Task id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Task deleted successfully"
+                    },
+                    "401": {
+                        "description": "You are not authorized to delete this task"
+                    },
+                    "404": {
+                        "description": "Task not found"
+                    }
+                }
+            }
+        },
+        "/types": {
+            "get": {
+                "tags": [
+                    "Types"
+                ],
+                "summary": "Get all types",
+                "description": "Get all types",
+                "operationId": "4644f0d196eea1f70f5a4d6f84d905d2",
+                "responses": {
+                    "200": {
+                        "description": "Types retrieved successfully"
+                    },
+                    "404": {
+                        "description": "No types found"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Types"
+                ],
+                "summary": "Create a type",
+                "description": "Create a new type",
+                "operationId": "e80661fcbc076451294c631d1c39e693",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "name": "Sword"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Type created successfully"
+                    },
+                    "401": {
+                        "description": "You are not authorized to create a type"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/types/{id}": {
+            "get": {
+                "tags": [
+                    "Types"
+                ],
+                "summary": "Get a type by id",
+                "description": "Get a type by id",
+                "operationId": "83d01d2bbc8314c51263b6d3f336456f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Type id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Type retrieved successfully"
+                    },
+                    "404": {
+                        "description": "Type with id 1 not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Types"
+                ],
+                "summary": "Update a type",
+                "description": "Update a type",
+                "operationId": "e7e536492cc11bf2f8ad953b01101c28",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Type id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "name": "Sword"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Type updated successfully"
+                    },
+                    "401": {
+                        "description": "You are not authorized to update a type"
+                    },
+                    "404": {
+                        "description": "Type with id 1 not found"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Types"
+                ],
+                "summary": "Delete a type",
+                "description": "Delete a type",
+                "operationId": "ea424d1117d38228c4d01f64402459b4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Type id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Type deleted successfully"
+                    },
+                    "401": {
+                        "description": "You are not authorized to delete a type"
+                    },
+                    "404": {
+                        "description": "Type with id 1 not found"
+                    }
+                }
+            }
+        },
+        "/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get all users",
+                "description": "Get all users\n\nOpenapi php comment block",
+                "operationId": "78451c34a9c0e7701cd034b2ff700027",
+                "responses": {
+                    "200": {
+                        "description": "List of users",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/User"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No users found"
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get user by id",
+                "description": "Get user by id\n\nOpenapi php comment block",
+                "operationId": "4b3b292dd9efff069b7e7b5575f80560",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "User id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64",
+                            "minimum": 1,
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User with id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User with id not found"
+                    }
+                }
+            }
         }
     },
     "components": {
         "schemas": {
             "Character": {
+                "required": [
+                    "id",
+                    "name",
+                    "isRomanceable",
+                    "icon"
+                ],
                 "properties": {
                     "id": {
                         "type": "integer",
+                        "minimum": 1,
                         "example": 1
                     },
                     "name": {
@@ -1069,18 +2312,33 @@
                         "type": "string",
                         "example": "Doctor"
                     },
-                    "romanceable": {
+                    "isRomanceable": {
                         "type": "integer",
                         "example": 1
                     },
                     "icon": {
                         "type": "string",
-                        "example": "https://www.example.com/image.jpg"
+                        "example": "image.jpg"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2021-01-01 00:00:00"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2021-01-01 00:00:00"
                     }
                 },
                 "type": "object"
             },
             "Family": {
+                "required": [
+                    "character_id",
+                    "familiar_id",
+                    "relationship"
+                ],
                 "properties": {
                     "id": {
                         "type": "integer",
@@ -1095,11 +2353,26 @@
                     "relationship": {
                         "type": "string",
                         "example": "Mother"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2021-03-24 14:48:00"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2021-03-24 14:48:00"
                     }
                 },
                 "type": "object"
             },
             "FavList": {
+                "required": [
+                    "id",
+                    "character_id",
+                    "item_id"
+                ],
                 "properties": {
                     "id": {
                         "type": "integer",
@@ -1110,11 +2383,26 @@
                     },
                     "item_id": {
                         "$ref": "#/components/schemas/Item"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2021-03-26T13:26:14.000000Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2021-03-26T13:26:14.000000Z"
                     }
                 },
                 "type": "object"
             },
             "Item": {
+                "required": [
+                    "name",
+                    "id",
+                    "icon"
+                ],
                 "properties": {
                     "id": {
                         "type": "integer",
@@ -1125,17 +2413,54 @@
                         "example": "Sea Grapes"
                     },
                     "type_id": {
-                        "type": "integer",
-                        "example": 1
+                        "$ref": "#/components/schemas/Type"
                     },
                     "icon": {
                         "type": "string",
-                        "example": "https://www.nookipedia.com/w/images/thumb/4/4a/NH-Sea_Grapes.png/64px-NH-Sea_Grapes.png"
+                        "example": "sea-grapes.png"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2021-03-10T17:26:00.000000Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2021-03-10T17:26:00.000000Z"
+                    }
+                },
+                "type": "object"
+            },
+            "Profile": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 4
+                    },
+                    "farmer_name": {
+                        "type": "string",
+                        "example": "John Doe"
+                    },
+                    "farm_name": {
+                        "type": "string",
+                        "example": "John's Farm"
+                    },
+                    "color": {
+                        "type": "string",
+                        "example": "#000000"
+                    },
+                    "user_id": {
+                        "$ref": "#/components/schemas/User"
                     }
                 },
                 "type": "object"
             },
             "Season": {
+                "required": [
+                    "id",
+                    "name"
+                ],
                 "properties": {
                     "id": {
                         "type": "integer",
@@ -1149,10 +2474,137 @@
                     }
                 },
                 "type": "object"
+            },
+            "Task": {
+                "required": [
+                    "profile_id",
+                    "description",
+                    "completed"
+                ],
+                "properties": {
+                    "profile_id": {
+                        "description": "The id of the profile",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "description": {
+                        "description": "The description of the task",
+                        "type": "string",
+                        "example": "Kill the Night King"
+                    },
+                    "isCompleted": {
+                        "description": "The status of the task",
+                        "type": "integer",
+                        "example": 0
+                    },
+                    "character_id": {
+                        "description": "The id of the character",
+                        "type": "integer",
+                        "example": 2
+                    },
+                    "item_id": {
+                        "description": "The id of the item",
+                        "type": "integer",
+                        "example": 4
+                    }
+                },
+                "type": "object"
+            },
+            "Type": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "User": {
+                "required": [
+                    "id",
+                    "username",
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "example": 1
+                    },
+                    "username": {
+                        "type": "string",
+                        "example": "john_doe"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "example@email.es"
+                    },
+                    "password": {
+                        "type": "string",
+                        "format": "password",
+                        "example": "password123"
+                    }
+                },
+                "type": "object"
             }
         },
         "requestBodies": {
-            "Character": {
+            "CharacterCreate": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "required": [
+                                "name",
+                                "isRomanceable",
+                                "icon"
+                            ],
+                            "properties": {
+                                "name": {
+                                    "type": "string",
+                                    "example": "John Doe"
+                                },
+                                "birthday": {
+                                    "type": "integer",
+                                    "maximum": 28,
+                                    "minimum": 1,
+                                    "example": 1
+                                },
+                                "season_id": {
+                                    "type": "integer",
+                                    "maximum": 4,
+                                    "minimum": 1,
+                                    "example": 1
+                                },
+                                "gender": {
+                                    "type": "string",
+                                    "example": "Female"
+                                },
+                                "occupation": {
+                                    "type": "string",
+                                    "example": "Doctor"
+                                },
+                                "isRomanceable": {
+                                    "type": "integer",
+                                    "maximum": 1,
+                                    "minimum": 0,
+                                    "example": 1
+                                },
+                                "icon": {
+                                    "type": "string",
+                                    "example": "image.jpg"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "CharacterUpdate": {
                 "required": true,
                 "content": {
                     "application/json": {
@@ -1190,7 +2642,7 @@
                                 },
                                 "icon": {
                                     "type": "string",
-                                    "example": "https://www.example.com/image.jpg"
+                                    "example": "image.jpg"
                                 }
                             },
                             "type": "object"
@@ -1198,7 +2650,36 @@
                     }
                 }
             },
-            "Family": {
+            "FamilyCreate": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "required": [
+                                "character_id",
+                                "familiar_id",
+                                "relationship"
+                            ],
+                            "properties": {
+                                "character_id": {
+                                    "type": "integer",
+                                    "example": 1
+                                },
+                                "familiar_id": {
+                                    "type": "integer",
+                                    "example": 2
+                                },
+                                "relationship": {
+                                    "type": "string",
+                                    "example": "Mother"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "FamilyUpdate": {
                 "required": true,
                 "content": {
                     "application/json": {
@@ -1222,11 +2703,15 @@
                     }
                 }
             },
-            "FavList": {
+            "FavListCreate": {
                 "required": true,
                 "content": {
                     "application/json": {
                         "schema": {
+                            "required": [
+                                "character_id",
+                                "item_id"
+                            ],
                             "properties": {
                                 "character_id": {
                                     "type": "integer",
@@ -1235,6 +2720,267 @@
                                 "item_id": {
                                     "type": "integer",
                                     "example": 1
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "FavListUpdate": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "required": [
+                                "character_id",
+                                "item_id"
+                            ],
+                            "properties": {
+                                "character_id": {
+                                    "type": "integer",
+                                    "example": 1
+                                },
+                                "item_id": {
+                                    "type": "integer",
+                                    "example": 1
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "ItemUpdate": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "name": {
+                                    "type": "string",
+                                    "example": "Sea Grapes"
+                                },
+                                "type_id": {
+                                    "type": "integer",
+                                    "example": 1
+                                },
+                                "icon": {
+                                    "type": "string",
+                                    "example": "sea-grapes.png"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "ItemCreate": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "required": [
+                                "name",
+                                "icon"
+                            ],
+                            "properties": {
+                                "name": {
+                                    "type": "string",
+                                    "example": "Sea Grapes"
+                                },
+                                "type_id": {
+                                    "type": "integer",
+                                    "example": 1
+                                },
+                                "icon": {
+                                    "type": "string",
+                                    "example": "sea-grapes.png"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "ProfileCreate": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "required": [
+                                "farmer_name",
+                                "farm_name",
+                                "color"
+                            ],
+                            "properties": {
+                                "farmer_name": {
+                                    "type": "string",
+                                    "example": "John Doe"
+                                },
+                                "farm_name": {
+                                    "type": "string",
+                                    "example": "John's Farm"
+                                },
+                                "color": {
+                                    "type": "string",
+                                    "example": "#000000"
+                                },
+                                "user_id": {
+                                    "type": "integer",
+                                    "example": 1
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "ProfileUpdate": {
+                "description": "Profile object that needs to be added to the database",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "farmer_name": {
+                                    "type": "string",
+                                    "example": "John Doe"
+                                },
+                                "farm_name": {
+                                    "type": "string",
+                                    "example": "John's Farm"
+                                },
+                                "color": {
+                                    "type": "string",
+                                    "example": "#000000"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "TaskUpdate": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "profile_id": {
+                                    "description": "The id of the profile",
+                                    "type": "integer",
+                                    "example": 1
+                                },
+                                "description": {
+                                    "description": "The description of the task",
+                                    "type": "string",
+                                    "example": "Kill the Night King"
+                                },
+                                "isCompleted": {
+                                    "description": "The status of the task",
+                                    "type": "integer",
+                                    "example": 0
+                                },
+                                "character_id": {
+                                    "description": "The id of the character",
+                                    "type": "integer",
+                                    "example": 1
+                                },
+                                "item_id": {
+                                    "description": "The id of the item",
+                                    "type": "integer",
+                                    "example": 1
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "TaskCreate": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "profile_id": {
+                                    "description": "The id of the profile",
+                                    "type": "integer",
+                                    "example": 1
+                                },
+                                "description": {
+                                    "description": "The description of the task",
+                                    "type": "string",
+                                    "example": "Kill the Night King"
+                                },
+                                "isCompleted": {
+                                    "description": "The status of the task",
+                                    "type": "integer",
+                                    "example": 0
+                                },
+                                "character_id": {
+                                    "description": "The id of the character",
+                                    "type": "integer",
+                                    "example": 1
+                                },
+                                "item_id": {
+                                    "description": "The id of the item",
+                                    "type": "integer",
+                                    "example": 1
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "example": {
+                            "profile_id": 1,
+                            "description": "Kill the Night King",
+                            "completed": 0
+                        }
+                    }
+                }
+            },
+            "UserLogin": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "email": {
+                                    "type": "string",
+                                    "format": "email",
+                                    "example": "example@email.es"
+                                },
+                                "password": {
+                                    "type": "string",
+                                    "format": "password",
+                                    "example": "password123"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "UserRegister": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "username": {
+                                    "type": "string",
+                                    "example": "john_doe"
+                                },
+                                "email": {
+                                    "type": "string",
+                                    "format": "email",
+                                    "example": "example@email.es"
+                                },
+                                "password": {
+                                    "type": "string",
+                                    "format": "password",
+                                    "example": "password123"
                                 }
                             },
                             "type": "object"
@@ -1268,8 +3014,24 @@
             "description": "Endpoints for items"
         },
         {
+            "name": "Profiles",
+            "description": "Endpoints for profiles"
+        },
+        {
             "name": "Seasons",
             "description": "Endpoints for seasons"
+        },
+        {
+            "name": "Task",
+            "description": "API Endpoints of Task Controller"
+        },
+        {
+            "name": "Types",
+            "description": "API Endpoints of Types"
+        },
+        {
+            "name": "Users",
+            "description": "Endpoints for users"
         }
     ]
 }

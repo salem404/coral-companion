@@ -12,13 +12,25 @@ use Illuminate\Support\Facades\Validator;
  * @OA\Tag(name="Families", description="Endpoints for families")
  * @OA\Schema(
  *     schema="Family",
+ *     required={"character_id", "familiar_id", "relationship"},
  *     @OA\Property(property="id", type="integer", example=1),
  *     @OA\Property(property="character_id", type="object", ref="#/components/schemas/Character"),
  *     @OA\Property(property="familiar_id", type="object", ref="#/components/schemas/Character"),
- *     @OA\Property(property="relationship", type="string", example="Mother")
+ *     @OA\Property(property="relationship", type="string", example="Mother"),
+ *     @OA\Property(property="created_at", type="string", format="date-time", example="2021-03-24 14:48:00"),
+ *     @OA\Property(property="updated_at", type="string", format="date-time", example="2021-03-24 14:48:00")
  * )
  * @OA\RequestBody(
- *     request="Family",
+ *     request="FamilyCreate",
+ *     required=true,
+ *     @OA\JsonContent(required={"character_id", "familiar_id", "relationship"},
+ *             @OA\Property(property="character_id", type="integer", example=1),
+ *             @OA\Property(property="familiar_id", type="integer", example=2),
+ *             @OA\Property(property="relationship", type="string", example="Mother")
+ *     )
+ * ),
+ * @OA\RequestBody(
+ *     request="FamilyUpdate",
  *     required=true,
  *     @OA\JsonContent(
  *             @OA\Property(property="character_id", type="integer", example=1),
@@ -36,8 +48,8 @@ class FamilyController extends Controller
      *     summary="Create a new family",
      *     description="Create a new family using the data provided in the request body. (Admin only)",
      *     security={{"sanctum":{}}},
-     *     @OA\RequestBody(ref="#/components/requestBodies/Family"),
-     *     @OA\Response(response=201, description="Success: Family created successfully",
+     *     @OA\RequestBody(ref="#/components/requestBodies/FamilyCreate"),
+     *     @OA\Response(response=201, description="Success: Family created",
      *         @OA\JsonContent(
      *             @OA\Property(property="message", type="string", example="Family created successfully")
      *         )
@@ -101,7 +113,7 @@ class FamilyController extends Controller
      *     tags={"Families"},
      *     path="/families",
      *     summary="Get all families",
-     *     description="Get all families in the database",
+     *     description="Get all families from the database",
      *     @OA\Response(
      *         response=200,
      *         description="Success: Returns all families",
@@ -191,7 +203,7 @@ class FamilyController extends Controller
      *     tags={"Families"},
      *     path="/families/{id}",
      *     summary="Update a family",
-     *     description="Update a family by ID in the URL and a request body. (Admin only)",
+     *     description="Update a family by ID in the URL and data provided in the request body. (Admin only)",
      *     security={{"sanctum":{}}},
      *     @OA\Parameter(
      *         name="id",
@@ -200,12 +212,19 @@ class FamilyController extends Controller
      *         description="ID of the family to update",
      *         @OA\Schema(type="integer")
      *     ),
-     *     @OA\RequestBody(ref="#/components/requestBodies/Family"),
+     *     @OA\RequestBody(ref="#/components/requestBodies/FamilyUpdate"),
      *     @OA\Response(
      *         response=200,
-     *         description="Success: Family updated successfully",
+     *         description="Success: Family updated",
      *         @OA\JsonContent(
      *             @OA\Property(property="message", type="string", example="Family updated successfully")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad Request: Data validation error",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="The relationship field is required")
      *         )
      *     ),
      *     @OA\Response(
@@ -341,6 +360,7 @@ class FamilyController extends Controller
 
         // Delete family
         $family->delete();
+
         return response()->json([
             "message" => "Family deleted successfully",
         ]);

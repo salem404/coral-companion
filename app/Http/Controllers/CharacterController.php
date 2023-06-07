@@ -12,18 +12,34 @@ use Illuminate\Support\Facades\Validator;
  * @OA\Tag(name="Characters", description="Endpoints for characters")
  * @OA\Schema(
  *     schema="Character",
- *     @OA\Property(property="id", type="integer", example=1),
+ *     required={"id","name","isRomanceable","icon"},
+ *     @OA\Property(property="id", type="integer", example=1, minimum=1),
  *     @OA\Property(property="name", type="string", example="John Doe"),
  *     @OA\Property(property="birthday", type="integer", example=1, minimum=1, maximum=28),
  *     @OA\Property(property="season_id", type="object", ref="#/components/schemas/Season"),
  *     @OA\Property(property="gender", type="string", example="Female"),
  *     @OA\Property(property="occupation", type="string", example="Doctor"),
- *     @OA\Property(property="romanceable", type="integer", example=1),
- *     @OA\Property(property="icon", type="string", example="https://www.example.com/image.jpg")
+ *     @OA\Property(property="isRomanceable", type="integer", example=1),
+ *     @OA\Property(property="icon", type="string", example="image.jpg"),
+ *     @OA\Property(property="created_at", type="string", format="date-time", example="2021-01-01 00:00:00"),
+ *     @OA\Property(property="updated_at", type="string", format="date-time", example="2021-01-01 00:00:00")
  * )
  *
  * @OA\RequestBody(
- *     request="Character",
+ *     request="CharacterCreate",
+ *     required=true,
+ *     @OA\JsonContent(required={"name","isRomanceable","icon"},
+ *         @OA\Property(property="name", type="string", example="John Doe"),
+ *         @OA\Property(property="birthday", type="integer", example=1, minimum=1, maximum=28),
+ *         @OA\Property(property="season_id", type="integer", example=1, minimum=1, maximum=4),
+ *         @OA\Property(property="gender", type="string", example="Female"),
+ *         @OA\Property(property="occupation", type="string", example="Doctor"),
+ *         @OA\Property(property="isRomanceable", type="integer", example=1, minimum=0, maximum=1),
+ *         @OA\Property(property="icon", type="string", example="image.jpg")
+ *     )
+ * ),
+ * @OA\RequestBody(
+ *     request="CharacterUpdate",
  *     required=true,
  *     @OA\JsonContent(
  *         @OA\Property(property="name", type="string", example="John Doe"),
@@ -32,7 +48,7 @@ use Illuminate\Support\Facades\Validator;
  *         @OA\Property(property="gender", type="string", example="Female"),
  *         @OA\Property(property="occupation", type="string", example="Doctor"),
  *         @OA\Property(property="isRomanceable", type="integer", example=1, minimum=0, maximum=1),
- *         @OA\Property(property="icon", type="string", example="https://www.example.com/image.jpg")
+ *         @OA\Property(property="icon", type="string", example="image.jpg")
  *     )
  * )
  */
@@ -47,10 +63,10 @@ class CharacterController extends Controller
      *     summary="Create a new character",
      *     description="Create a new character using the data provided in the request body. (Admin only)",
      *     security={{"sanctum":{}}},
-     *     @OA\RequestBody(ref="#/components/requestBodies/Character"),
+     *     @OA\RequestBody(ref="#/components/requestBodies/CharacterCreate"),
      *     @OA\Response(
      *         response=201,
-     *         description="Success: Character created successfully",
+     *         description="Success: Character created",
      *         @OA\JsonContent(
      *             @OA\Property(property="message", type="string", example="Character created successfully")
      *         )
@@ -175,7 +191,7 @@ class CharacterController extends Controller
      *     tags={"Characters"},
      *     path="/characters/{id}",
      *     summary="Get a character",
-     *     description="Get a character by ID sent in the URL",
+     *     description="Get a character by ID sent in the URL from the database",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -228,7 +244,7 @@ class CharacterController extends Controller
      *     tags={"Characters"},
      *     path="/characters/{id}",
      *     summary="Update a character",
-     *     description="Update a character by ID in the URL and a request body (Admin only)",
+     *     description="Update a character by ID in the URL and data provided in the request body. (Admin only)",
      *     security={{"sanctum":{}}},
      *     @OA\Parameter(
      *         name="id",
@@ -237,12 +253,19 @@ class CharacterController extends Controller
      *         required=true,
      *         @OA\Schema(type="integer")
      *     ),
-     *     @OA\RequestBody(ref="#/components/requestBodies/Character"),
+     *     @OA\RequestBody(ref="#/components/requestBodies/CharacterUpdate"),
      *     @OA\Response(
      *         response=200,
-     *         description="Success: Character updated successfully",
+     *         description="Success: Character updated",
      *         @OA\JsonContent(
      *             @OA\Property(property="message", type="string", example="Character updated successfully")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad Request: Data validation error",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="The name field is required")
      *         )
      *     ),
      *     @OA\Response(
@@ -387,6 +410,7 @@ class CharacterController extends Controller
 
         // Delete character
         $character->delete();
+
         return response()->json([
             "message" => "Character deleted successfully",
         ]);

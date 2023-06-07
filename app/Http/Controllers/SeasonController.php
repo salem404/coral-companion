@@ -9,6 +9,7 @@ use Illuminate\Http\JsonResponse;
  * @OA\Tag(name="Seasons",description="Endpoints for seasons")
  * @OA\Schema(
  *     schema="Season",
+ *     required={"id", "name"},
  *     @OA\Property(property="id", type="integer", example=4, minimum=1, maximum=4),
  *     @OA\Property(property="name", type="string", example="Winter")
  * )
@@ -22,7 +23,7 @@ class SeasonController extends Controller
      *     tags={"Seasons"},
      *     path="/seasons",
      *     summary="Get all seasons",
-     *     description="Returns all seasons in the database",
+     *     description="Returns all seasons from the database",
      *     @OA\Response(
      *         response=200,
      *         description="Success: Returns all seasons",

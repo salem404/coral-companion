@@ -3,16 +3,83 @@
 namespace App\Http\Controllers;
 
 use App\Models\Profile;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * @OA\Tag(name="Profiles", description="Endpoints for profiles")
+ * @OA\Schema(
+ *     schema="Profile",
+ *     @OA\Property(property="id", type="integer", example=4),
+ *     @OA\Property(property="farmer_name", type="string", example="John Doe"),
+ *     @OA\Property(property="farm_name", type="string", example="John's Farm"),
+ *     @OA\Property(property="color", type="string", example="#000000"),
+ *     @OA\Property(property="user_id", type="object", ref="#/components/schemas/User"),
+ * ),
+ *
+ * @OA\RequestBody(
+ *     request="ProfileCreate",
+ *     required=true,
+ *     @OA\JsonContent(required={"farmer_name", "farm_name", "color"},
+ *         @OA\Property(property="farmer_name", type="string", example="John Doe"),
+ *         @OA\Property(property="farm_name", type="string", example="John's Farm"),
+ *         @OA\Property(property="color", type="string", example="#000000"),
+ *         @OA\Property(property="user_id", type="integer", example=1)
+ *     )
+ * ),
+ * @OA\RequestBody(
+ *     request="ProfileUpdate",
+ *     description="Profile object that needs to be added to the database",
+ *     required=true,
+ *     @OA\JsonContent(
+ *         @OA\Property(property="farmer_name", type="string", example="John Doe"),
+ *         @OA\Property(property="farm_name", type="string", example="John's Farm"),
+ *         @OA\Property(property="color", type="string", example="#000000"),
+ *     )
+ * )
+ */
 class ProfileController extends Controller
 {
-    // Create a profile
-    public function createProfile(
-        Request $request
-    ): \Illuminate\Http\JsonResponse {
+    /**
+     * Create a profile
+     *
+     * @OA\Post(
+     *     tags={"Profiles"},
+     *     path="/profiles",
+     *     summary="Create a profile",
+     *     description="Create a new profile using the data provided in the request body. The user must be an admin to create a profile for other users. An user can create a profile for themselves (user_id not required).",
+     *     security={{"sanctum":{}}},
+     *     @OA\RequestBody(ref="#/components/requestBodies/ProfileCreate"),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Success: A profile has been created",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Profile created successfully")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad request: The request you sent was invalid",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="farmer_name, farm_name and color are required"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized: Only admins or the user themselves can create a profile",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="You are not authorized to create a profile"),
+     *         )
+     *     )
+     * )
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function createProfile(Request $request): JsonResponse
+    {
         // Check if user is admin
         $admin = Auth::user()->isAdmin;
         if ($admin) {
@@ -27,11 +94,11 @@ class ProfileController extends Controller
                 return response()->json($validator->errors(), 400);
             }
             // Create profile (admin)
-            $profile = Profile::create([
-                "farmer_name" => $request["farmer_name"],
-                "farm_name" => $request["farm_name"],
-                "color" => $request["color"],
-                "user_id" => $request["user_id"],
+            Profile::create([
+                "farmer_name" => $request->farmer_name,
+                "farm_name" => $request->farm_name,
+                "color" => $request->color,
+                "user_id" => $request->user_id,
             ]);
         } else {
             // Validate request
@@ -45,10 +112,10 @@ class ProfileController extends Controller
             }
 
             // Create profile
-            $profile = Profile::create([
-                "farmer_name" => $request["farmer_name"],
-                "farm_name" => $request["farm_name"],
-                "color" => $request["color"],
+            Profile::create([
+                "farmer_name" => $request->farmer_name,
+                "farm_name" => $request->farm_name,
+                "color" => $request->color,
                 "user_id" => Auth::user()->id,
             ]);
         }
@@ -61,8 +128,34 @@ class ProfileController extends Controller
         );
     }
 
-    // Get all profiles
-    public function getAllProfiles(): \Illuminate\Http\JsonResponse
+    /**
+     * Get all profiles
+     *
+     * @OA\Get(
+     *     tags={"Profiles"},
+     *     path="/profiles",
+     *     summary="Get all profiles",
+     *     description="Get all profiles from the database",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success: Return all profiles",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/Profile")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="No profiles found",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="No profiles found")
+     *         )
+     *     )
+     * )
+     *
+     * @return JsonResponse
+     */
+    public function getAllProfiles(): JsonResponse
     {
         $profiles = Profile::with("user", "tasks")->get();
         // Check if profiles exist
@@ -77,15 +170,47 @@ class ProfileController extends Controller
         return response()->json($profiles);
     }
 
-    // Get a profile
-    public function getProfileById($id): \Illuminate\Http\JsonResponse
+    /**
+     * Get a profile
+     *
+     * @OA\Get(
+     *     tags={"Profiles"},
+     *     path="/profiles/{id}",
+     *     summary="Get a profile",
+     *     description="Get a profile by ID in the URL",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID of profile",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success: Returns a profile",
+     *         @OA\JsonContent(ref="#/components/schemas/Profile")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Not Found: Profile doesn't exist",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Profile with id 4 not found")
+     *         )
+     *     )
+     * )
+     *
+     * @param $id
+     * @return JsonResponse
+     */
+
+    public function getProfileById($id): JsonResponse
     {
         $profile = Profile::with("user", "tasks")->find($id);
         // Check if profile exists
         if (!$profile) {
             return response()->json(
                 [
-                    "message" => "Profile with id {$id} not found",
+                    "message" => "Profile with id $id not found",
                 ],
                 404
             );
@@ -93,17 +218,64 @@ class ProfileController extends Controller
         return response()->json($profile);
     }
 
-    // Update a profile
-    public function updateProfile(
-        Request $request,
-        $id
-    ): \Illuminate\Http\JsonResponse {
+    /**
+     * Update a profile
+     * @OA\Put(
+     *     tags={"Profiles"},
+     *     path="/profiles/{id}",
+     *     summary="Update a profile",
+     *     description="Update a profile by ID in the URL and data provided in the request body. Admins can update any profile, users can only update their own profiles",
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID of profile",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(ref="#/components/requestBodies/ProfileUpdate"),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success: Profile has been updated successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Profile updated successfully")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad Request: Data validation error",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="The farmer name field is required")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized: Only admins or the user who created the profile can update it",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="You are not authorized to update this profile")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Not Found: Profile doesn't exist",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Profile with id 4 not found")
+     *         )
+     *     )
+     * )
+     *
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse
+     */
+    public function updateProfile(Request $request, $id): JsonResponse
+    {
         $profile = Profile::find($id);
         // Check if profile exists
         if (!$profile) {
             return response()->json(
                 [
-                    "message" => "Profile with id {$id} not found",
+                    "message" => "Profile with id {id}not found",
                 ],
                 404
             );
@@ -121,20 +293,77 @@ class ProfileController extends Controller
             );
         }
 
-        $profile->update($request->all());
+        // Validate request
+        $validator = Validator::make($request->all(), [
+            "farmer_name" => "required|string|max:255",
+            "farm_name" => "required|string|max:255",
+            "color" => "required|string|max:255",
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+
+        // Update profile
+        $profile->update($request->all(), [
+            "farmer_name" => $request->farmer_name,
+            "farm_name" => $request->farm_name,
+            "color" => $request->color,
+        ]);
         return response()->json([
-            "message" => "Profile with id {$id} updated successfully",
+            "message" => "Profile updated successfully",
         ]);
     }
-    // Delete a profile
-    public function deleteProfile($id): \Illuminate\Http\JsonResponse
+
+    /**
+     * Delete a profile
+     *
+     * @OA\Delete(
+     *     tags={"Profiles"},
+     *     path="/profiles/{id}",
+     *     summary="Delete a profile",
+     *     description="Delete a profile by ID in the URL. Admins can delete any profile, users can only delete their own profiles",
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID of profile to delete",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success: Profile deleted successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Profile deleted successfully"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized: Only admins or the user who created the profile can delete it",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="You are not authorized to delete this profile"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Not Found: Profile doesn't exist",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Profile with id 4 not found"),
+     *         )
+     *     )
+     * )
+     *
+     * @param $id
+     * @return JsonResponse
+     */
+    public function deleteProfile($id): JsonResponse
     {
         $profile = Profile::find($id);
         // Check if profile exists
         if (!$profile) {
             return response()->json(
                 [
-                    "message" => "Profile with id {$id} not found",
+                    "message" => "Profile with id $id not found",
                 ],
                 404
             );
@@ -152,9 +381,11 @@ class ProfileController extends Controller
             );
         }
 
+        // Delete profile
         $profile->delete();
+
         return response()->json([
-            "message" => "Profile with id {$id} deleted successfully",
+            "message" => "Profile deleted successfully",
         ]);
     }
 }
