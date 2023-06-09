@@ -54,12 +54,6 @@ Install dependencies in the project directory
   npm install && composer install
 ```
 
-and in the subdirectory frontend
-
-```bash
-  npm install
-```
-
 Create environment file
 
 ```bash
