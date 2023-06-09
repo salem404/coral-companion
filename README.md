@@ -14,7 +14,7 @@
     <br/>
     <br/>
     <img alt="GitHub" src="https://img.shields.io/github/license/salem404/coral-companion?label=License">
-    <img src="https://api.netlify.com/api/v1/badges/66e9e79f-2055-4632-ade3-ccbd40d120be/deploy-status" alt="License"> 
+    <img src="https://api.netlify.com/api/v1/badges/66e9e79f-2055-4632-ade3-ccbd40d120be/deploy-status" alt="License">
   </p>
 </p>
 
@@ -24,6 +24,7 @@
 -   [Features](#features)
 -   [Documentation](#documentation)
 -   [Run Locally](#run-locally)
+-   [Resources](#resources)
 -   [Tech Stack](#tech-stack)
 -   [License](#license)
 
@@ -83,6 +84,15 @@ Create the database and seed it with data
   vendor/bin/sail artisan migrate --seed
 ```
 
+## Resources
+
+| Resource         | Name     | Author                                             | Source                                         | License                                     |
+| :--------------- | :------- | :------------------------------------------------- | :--------------------------------------------- | :------------------------------------------ |
+| Application logo | logo.svg | [Paula Rumeu](https://github.com/salem404)         | Own creation                                   | [![CC BY-SA 4.0][cc-by-sa-image]][cc-by-sa] |
+| Icon -           |          | [Stairway Games](https://www.stairwaygames.com)    | [Coral Island Wiki](https://coralisland.wiki/) | [![CC BY-SA 4.0][cc-by-sa-image]][cc-by-sa] |
+| Icon -           |          | [Abhimanyu Rana](https://github.com/planetabhi)    | [SargamIcons](https://sargamicons.com)         | [![CC BY 4.0][cc-by-image]][cc-by]          |
+| Trash icon       |          | [Mikhail Kolomietc](https://www.figma.com/@demiko) | [Figma](https://www.figma.com)                 | [![CC BY 4.0][cc-by-image]][cc-by]          |
+
 ## Tech Stack
 
 **Version Control:**
@@ -114,9 +124,25 @@ Create the database and seed it with data
 
 ![PHP](https://img.shields.io/badge/PHP-777BB4?logo=PHP&logoColor=white)
 ![Laravel](https://img.shields.io/badge/Laravel-FF2D20?logo=Laravel&logoColor=white)
+![Sail](https://img.shields.io/badge/Sail-FF2D20?logo=Laravel&logoColor=white)
 ![PhpMyAdmin](https://img.shields.io/badge/PhpMyAdmin-0175B2?logo=PhpMyAdmin&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1?logo=MySQL&logoColor=white)
 ![Composer](https://img.shields.io/badge/Composer-885630?logo=Composer&logoColor=white)
+
+**Testing:**
+
+![PHPUnit](https://img.shields.io/badge/PHPUnit-993399?logo=PHPUnit&logoColor=white)
+
+**Linting:**
+
+![ESLint](https://img.shields.io/badge/ESLint-4B32C3?logo=ESLint&logoColor=white)
+![Prettier](https://img.shields.io/badge/Prettier-F7B93E?logo=Prettier&logoColor=white)
+
+**Documentation:**
+
+![Insomnia](https://img.shields.io/badge/Insomnia-5849BE?logo=Insomnia&logoColor=white)
+![Swagger](https://img.shields.io/badge/Swagger-85EA2D?logo=Swagger&logoColor=white)
+![JSDoc](https://img.shields.io/badge/JSDoc-FA7343?logo=JSDoc&logoColor=white)
 
 ## License
 
@@ -127,4 +153,5 @@ This work is licensed under a
 
 [cc-by-sa]: http://creativecommons.org/licenses/by-sa/4.0/
 [cc-by-sa-image]: https://licensebuttons.net/l/by-sa/4.0/88x31.png
-[cc-by-sa-shield]: https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg
+[cc-by]: https://creativecommons.org/licenses/by/4.0/
+[cc-by-image]: https://licensebuttons.net/l/by/4.0/88x31.png

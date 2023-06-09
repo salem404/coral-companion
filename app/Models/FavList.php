@@ -10,6 +10,7 @@ class FavList extends Model
 {
     use HasFactory;
 
+    protected $table = "fav_lists";
     protected $fillable = ["character_id", "item_id"];
 
     public function character(): BelongsTo

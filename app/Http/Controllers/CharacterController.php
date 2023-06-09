@@ -165,12 +165,8 @@ class CharacterController extends Controller
      */
     public function getAllCharacters(): JsonResponse
     {
-        $characters = Character::with(
-            "season",
-            "favorites",
-            "family",
-            "tasks"
-        )->get();
+        $characters = Character::with("season", "favorites", "family")->get();
+        // TODO: Add other relationships
 
         // Check if characters exist
         if (count($characters) < 1) {

@@ -177,7 +177,7 @@ class FavListController extends Controller
      * @param int $id
      * @return JsonResponse
      */
-    public function getFavList(int $id): JsonResponse
+    public function getFavListById(int $id): JsonResponse
     {
         $favlist = FavList::with("character", "item")->find($id);
         // Check if favlist exists

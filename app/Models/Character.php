@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Character extends Model
 {
@@ -26,23 +27,18 @@ class Character extends Model
         return $this->belongsTo(Season::class);
     }
 
-    public function favorites(): BelongsToMany
+    public function favorites(): HasMany
     {
-        return $this->belongsToMany(FavList::class);
+        return $this->hasMany(FavList::class);
     }
 
-    public function family(): BelongsToMany
+    public function family(): HasMany
     {
-        return $this->belongsToMany(
-            Character::class,
-            "family",
-            "character_id",
-            "relative_id"
-        );
+        return $this->hasMany(Family::class);
     }
 
-    public function tasks(): BelongsToMany
+    public function tasks(): HasMany
     {
-        return $this->belongsToMany(Task::class);
+        return $this->hasMany(Task::class);
     }
 }

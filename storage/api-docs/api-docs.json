@@ -787,7 +787,7 @@
                 ],
                 "summary": "Get a favorite list",
                 "description": "Get a favorite lists by the ID in the URL",
-                "operationId": "942a4715b4ca715846d535cafc9731f7",
+                "operationId": "05c452e213c352c8ee485c32f89ee26d",
                 "parameters": [
                     {
                         "name": "id",
@@ -2590,8 +2590,8 @@
                 "tags": [
                     "Users"
                 ],
-                "summary": "Get user by ID in the URL",
-                "description": "Get user by id",
+                "summary": "Get user",
+                "description": "Get an user by ID sent in the URL from the database",
                 "operationId": "4b3b292dd9efff069b7e7b5575f80560",
                 "parameters": [
                     {

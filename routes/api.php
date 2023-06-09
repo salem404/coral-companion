@@ -9,6 +9,7 @@ use App\Http\Controllers\SeasonController;
 use App\Http\Controllers\SanctumController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TypeController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +33,10 @@ Route::controller(SanctumController::class)->group(function () {
     Route::post("/register", "register");
     Route::post("/login", "login");
     Route::get("/logout", "logout")->middleware("auth:sanctum");
+});
+Route::controller(UsersController::class)->group(function () {
+    Route::get("/users", "getAllUsers");
+    Route::get("/users/{id}", "getUserById");
 });
 
 // Seasons

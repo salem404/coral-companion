@@ -82,7 +82,8 @@ class UsersController extends Controller
      * @OA\Get(
      *     tags={"Users"},
      *     path="/users/{id}",
-     *     summary="Get user by ID in the URL",
+     *     summary="Get user",
+     *     description="Get an user by ID sent in the URL from the database",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",

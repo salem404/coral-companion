@@ -10,6 +10,7 @@ class Family extends Model
 {
     use HasFactory;
 
+    protected $table = "families";
     protected $fillable = ["character_id", "familiar_id", "relationship"];
 
     public function character(): BelongsTo
