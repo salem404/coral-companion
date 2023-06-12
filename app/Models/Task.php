@@ -18,6 +18,8 @@ class Task extends Model
         "item_id",
     ];
 
+    protected $hidden = ["created_at", "updated_at"];
+
     public function profile(): BelongsTo
     {
         return $this->belongsTo(Profile::class);

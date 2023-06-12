@@ -63,7 +63,24 @@ class CharacterController extends Controller
      *     summary="Create a new character",
      *     description="Create a new character using the data provided in the request body. (Admin only)",
      *     security={{"sanctum":{}}},
-     *     @OA\RequestBody(ref="#/components/requestBodies/CharacterCreate"),
+     *     @OA\RequestBody(ref="#/components/requestBodies/CharacterCreate"),@OA\Parameter(
+     *         name="Content-Type",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="Accept",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
      *     @OA\Response(
      *         response=201,
      *         description="Success: Character created",
@@ -249,6 +266,24 @@ class CharacterController extends Controller
      *         required=true,
      *         @OA\Schema(type="integer")
      *     ),
+     *     @OA\Parameter(
+     *         name="Content-Type",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="Accept",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
      *     @OA\RequestBody(ref="#/components/requestBodies/CharacterUpdate"),
      *     @OA\Response(
      *         response=200,
@@ -353,6 +388,15 @@ class CharacterController extends Controller
      *         description="ID of the character to delete",
      *         required=true,
      *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Parameter(
+     *         name="Accept",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
      *     ),
      *     @OA\Response(
      *         response=200,

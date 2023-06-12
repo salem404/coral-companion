@@ -18,6 +18,15 @@ class SanctumController extends Controller
      *     path="/register",
      *     summary="Register a new user",
      *     @OA\RequestBody(ref="#/components/requestBodies/UserRegister"),
+     *     @OA\Parameter(
+     *         name="Content-Type",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
      *     @OA\Response(
      *         response=201,
      *         description="Success: User created",
@@ -40,6 +49,7 @@ class SanctumController extends Controller
      */
     public function register(Request $request): JsonResponse
     {
+        // TODO: Add preexisting user check
         // Validate request
         $validator = Validator::make($request->all(), [
             "username" => "required",
@@ -76,6 +86,24 @@ class SanctumController extends Controller
      *     path="/login",
      *     summary="Login a user",
      *     @OA\RequestBody(ref="#/components/requestBodies/UserLogin"),
+     *     @OA\Parameter(
+     *         name="Content-Type",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="Accept",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Success: User logged in",
@@ -102,6 +130,7 @@ class SanctumController extends Controller
      *
      * @param Request $request
      * @return JsonResponse
+     * @header Content-Type application/json
      */
     public function login(Request $request): JsonResponse
     {
@@ -142,6 +171,15 @@ class SanctumController extends Controller
      *     path="/logout",
      *     summary="Logout a user",
      *     security={{"sanctum":{}}},
+     *     @OA\Parameter(
+     *         name="Accept",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Success: User logged out",

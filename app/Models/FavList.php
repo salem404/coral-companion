@@ -13,6 +13,8 @@ class FavList extends Model
     protected $table = "fav_lists";
     protected $fillable = ["character_id", "item_id"];
 
+    protected $hidden = ["created_at", "updated_at"];
+
     public function character(): BelongsTo
     {
         return $this->belongsTo(Character::class);

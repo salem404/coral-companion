@@ -74,6 +74,26 @@
                 "summary": "Create a new character",
                 "description": "Create a new character using the data provided in the request body. (Admin only)",
                 "operationId": "b84959a16c4034a36d49d2de19fb76d6",
+                "parameters": [
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
+                    },
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "$ref": "#/components/requestBodies/CharacterCreate"
                 },
@@ -198,6 +218,24 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
+                    },
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
                     }
                 ],
                 "requestBody": {
@@ -290,6 +328,15 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
                         }
                     }
                 ],
@@ -464,7 +511,7 @@
                 ],
                 "summary": "Get a family",
                 "description": "Get a family by ID in the URL",
-                "operationId": "448b2362aa5b8372a38268599be81631",
+                "operationId": "a80062fd4c781deda21728cea1e09835",
                 "parameters": [
                     {
                         "name": "id",
@@ -720,6 +767,26 @@
                 "summary": "Create a new favorite list",
                 "description": "Create a new favorite list using the data provided in the request body. (Admin only)",
                 "operationId": "222781dac05a4b259ffb0b9dfbe96d7e",
+                "parameters": [
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
+                    },
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "$ref": "#/components/requestBodies/FavListCreate"
                 },
@@ -844,6 +911,24 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
+                    },
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
                     }
                 ],
                 "requestBody": {
@@ -937,6 +1022,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
                     }
                 ],
                 "responses": {
@@ -1003,7 +1097,7 @@
                 ],
                 "summary": "Get all items",
                 "description": "Get all items from the database",
-                "operationId": "64b466e68402b0763a8b7dc3b586a5ad",
+                "operationId": "f3c786df279db88370a791ca6978bd29",
                 "responses": {
                     "200": {
                         "description": "Success: Return all items",
@@ -1043,6 +1137,26 @@
                 "summary": "Create a new item",
                 "description": "Create a new item using the data provided in the request body. (Admin only)",
                 "operationId": "38910978a79a2a2fe1af9fb02e683d81",
+                "parameters": [
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
+                    },
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "$ref": "#/components/requestBodies/ItemCreate"
                 },
@@ -1110,7 +1224,7 @@
                 ],
                 "summary": "Get an item",
                 "description": "Get an item using the id provided in the request URL",
-                "operationId": "3ca89cbe80fb724b4e571eea43f8da7e",
+                "operationId": "fc4b4ba3d04f59c12ba55019510f3be2",
                 "parameters": [
                     {
                         "name": "id",
@@ -1166,6 +1280,24 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
+                    },
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
                         }
                     }
                 ],
@@ -1259,6 +1391,15 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
                         }
                     }
                 ],
@@ -1366,6 +1507,26 @@
                 "summary": "Create a profile",
                 "description": "Create a new profile using the data provided in the request body. The user must be an admin to create a profile for other users. An user can create a profile for themselves (user_id not required).",
                 "operationId": "14ca107420d028924052574e1d385c1c",
+                "parameters": [
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
+                    },
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "$ref": "#/components/requestBodies/ProfileCreate"
                 },
@@ -1490,6 +1651,24 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
+                    },
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
                     }
                 ],
                 "requestBody": {
@@ -1583,6 +1762,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
                     }
                 ],
                 "responses": {
@@ -1650,6 +1838,17 @@
                 "summary": "Register a new user",
                 "description": "Register a new user.",
                 "operationId": "cffdb69e5b176093c7abd7ad6a9ab6e5",
+                "parameters": [
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "$ref": "#/components/requestBodies/UserRegister"
                 },
@@ -1700,6 +1899,26 @@
                 "summary": "Login a user",
                 "description": "Login a user.",
                 "operationId": "999b75abea65a7e2cab3f78195ab68cf",
+                "parameters": [
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
+                    },
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "$ref": "#/components/requestBodies/UserLogin"
                 },
@@ -1766,6 +1985,17 @@
                 "summary": "Logout a user",
                 "description": "Logout a user.",
                 "operationId": "df53fbe1b232f646afb1bc32ecba141f",
+                "parameters": [
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success: User logged out",
@@ -1945,6 +2175,26 @@
                 "summary": "Create a new task",
                 "description": "Create a new task using the data provided in the request body. (Admins can create tasks for other users)",
                 "operationId": "4dbf3e760f46296529098c64a16b6549",
+                "parameters": [
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
+                    },
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "$ref": "#/components/requestBodies/TaskCreate"
                 },
@@ -2069,6 +2319,24 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
+                    },
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
                     }
                 ],
                 "requestBody": {
@@ -2161,6 +2429,15 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
                         }
                     }
                 ],
@@ -2268,6 +2545,26 @@
                 "summary": "Create a new type",
                 "description": "Create a new type using the data provided in the request body.",
                 "operationId": "e80661fcbc076451294c631d1c39e693",
+                "parameters": [
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
+                    },
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "$ref": "#/components/requestBodies/Type"
                 },
@@ -2484,6 +2781,15 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
                         }
                     }
                 ],

@@ -46,6 +46,24 @@ class FavListController extends Controller
      *     description="Create a new favorite list using the data provided in the request body. (Admin only)",
      *     security={{"sanctum":{}}},
      *     @OA\RequestBody(ref="#/components/requestBodies/FavListCreate"),
+     *     @OA\Parameter(
+     *         name="Content-Type",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="Accept",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
      *     @OA\Response(response=201, description="Sucess: Favorite list created",
      *         @OA\JsonContent(
      *             @OA\Property(property="message", type="string", example="Favorite list created successfully")
@@ -209,6 +227,24 @@ class FavListController extends Controller
      *         description="ID of the favorite list",
      *         @OA\Schema(type="integer")
      *     ),
+     *     @OA\Parameter(
+     *         name="Content-Type",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="Accept",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
      *     @OA\RequestBody(ref="#/components/requestBodies/FavListUpdate"),
      *     @OA\Response(
      *         response=200,
@@ -304,6 +340,15 @@ class FavListController extends Controller
      *         description="ID of the favorite list to be deleted",
      *         required=true,
      *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Parameter(
+     *         name="Accept",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
      *     ),
      *     @OA\Response(
      *         response=200,

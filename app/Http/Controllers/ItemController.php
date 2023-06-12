@@ -51,6 +51,24 @@ class ItemController extends Controller
      *     description="Create a new item using the data provided in the request body. (Admin only)",
      *     security={{"sanctum":{}}},
      *     @OA\RequestBody(ref="#/components/requestBodies/ItemCreate"),
+     *     @OA\Parameter(
+     *         name="Content-Type",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="Accept",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
      *     @OA\Response(
      *         response=201,
      *         description="Success: Item created successfully",
@@ -142,7 +160,7 @@ class ItemController extends Controller
      *
      * @return JsonResponse
      */
-    public function getItems(): JsonResponse
+    public function getAllItems(): JsonResponse
     {
         $items = Item::with("type", "tasks")->get();
         // Check if items exist
@@ -189,7 +207,7 @@ class ItemController extends Controller
      * @param int $id
      * @return JsonResponse
      */
-    public function getItem($id): JsonResponse
+    public function getItemById($id): JsonResponse
     {
         $item = Item::with("type", "tasks")->find($id);
         // Check if item exists
@@ -219,6 +237,24 @@ class ItemController extends Controller
      *         description="ID of item to update",
      *         required=true,
      *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Parameter(
+     *         name="Content-Type",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="Accept",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
      *     ),
      *     @OA\RequestBody(ref="#/components/requestBodies/ItemUpdate"),
      *     @OA\Response(
@@ -319,6 +355,15 @@ class ItemController extends Controller
      *         required=true,
      *         description="ID of item to delete",
      *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Parameter(
+     *         name="Accept",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
      *     ),
      *     @OA\Response(
      *         response=200,

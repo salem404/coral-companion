@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Character;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class CharacterSeeder extends Seeder
@@ -13,16 +12,6 @@ class CharacterSeeder extends Seeder
      */
     public function run(): void
     {
-        Character::create([
-            "name" => "Test",
-            "birthday" => "1",
-            "season_id" => "1",
-            "gender" => "test",
-            "occupation" => "test",
-            "isRomanceable" => "1",
-            "icon" => "icon",
-        ]);
-
         // Aaliyah
         Character::create([
             "name" => "Aaliyah",

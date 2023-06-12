@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Profile;
 use Illuminate\Database\Seeder;
 
 class ProfileSeeder extends Seeder
@@ -12,6 +12,12 @@ class ProfileSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        // Testing profile
+        Profile::create([
+            "farmer_name" => "Test",
+            "farm_name" => "Test Farm",
+            "user_id" => 2,
+            "color" => "#88b5da",
+        ]);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\FavList;
 use Illuminate\Database\Seeder;
 
 class FavListSeeder extends Seeder
@@ -12,6 +12,10 @@ class FavListSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        // Test
+        FavList::create([
+            "character_id" => 1,
+            "item_id" => 1,
+        ]);
     }
 }

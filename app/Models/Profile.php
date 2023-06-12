@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Profile extends Model
 {
@@ -14,13 +15,15 @@ class Profile extends Model
 
     protected $fillable = ["farmer_name", "farm_name", "user_id", "color"];
 
+    protected $hidden = ["created_at", "updated_at"];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function tasks(): BelongsToMany
+    public function tasks(): HasMany
     {
-        return $this->belongsToMany(Task::class);
+        return $this->hasMany(Task::class);
     }
 }

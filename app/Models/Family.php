@@ -13,6 +13,8 @@ class Family extends Model
     protected $table = "families";
     protected $fillable = ["character_id", "familiar_id", "relationship"];
 
+    protected $hidden = ["created_at", "updated_at"];
+
     public function character(): BelongsTo
     {
         return $this->belongsTo(Character::class);

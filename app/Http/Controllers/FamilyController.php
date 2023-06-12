@@ -180,7 +180,7 @@ class FamilyController extends Controller
      * @param int $id
      * @return JsonResponse
      */
-    public function getFamily($id): JsonResponse
+    public function getFamilyById($id): JsonResponse
     {
         $family = Family::with("character", "familiar")->find($id);
 
