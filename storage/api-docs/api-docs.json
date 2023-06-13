@@ -444,6 +444,17 @@
                 "summary": "Create a new family",
                 "description": "Create a new family using the data provided in the request body. (Admin only)",
                 "operationId": "d54bac5b85ad80fc410c562776a7d90b",
+                "parameters": [
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "$ref": "#/components/requestBodies/FamilyCreate"
                 },
@@ -660,6 +671,24 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
+                    },
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
                         }
                     }
                 ],
@@ -2688,6 +2717,24 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
+                    },
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
                         }
                     }
                 ],

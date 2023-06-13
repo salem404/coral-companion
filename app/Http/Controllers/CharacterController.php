@@ -127,7 +127,7 @@ class CharacterController extends Controller
             "season_id" => "integer | min:1 | max:4",
             "gender" => "string",
             "occupation" => "string",
-            "isRomanceable" => "required | tinyint | min:0 | max:1",
+            "isRomanceable" => "required | integer | min:0 | max:1",
             "icon" => "required|string",
         ]);
         if ($validator->fails()) {
@@ -350,7 +350,7 @@ class CharacterController extends Controller
             "season_id" => "integer | min:1 | max:4",
             "gender" => "string",
             "occupation" => "string",
-            "isRomanceable" => "required|tinyInteger | min:0 | max:1",
+            "isRomanceable" => "required| integer | min:0 | max:1",
             "icon" => "required|string",
         ]);
         if ($validator->fails()) {

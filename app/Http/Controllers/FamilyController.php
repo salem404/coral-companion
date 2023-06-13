@@ -49,6 +49,15 @@ class FamilyController extends Controller
      *     description="Create a new family using the data provided in the request body. (Admin only)",
      *     security={{"sanctum":{}}},
      *     @OA\RequestBody(ref="#/components/requestBodies/FamilyCreate"),
+     *     @OA\Parameter(
+     *         name="Accept",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
      *     @OA\Response(response=201, description="Success: Family created",
      *         @OA\JsonContent(
      *             @OA\Property(property="message", type="string", example="Family created successfully")
@@ -307,6 +316,24 @@ class FamilyController extends Controller
      *         required=true,
      *         description="ID of the family to delete",
      *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Parameter(
+     *         name="Content-Type",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="Accept",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
      *     ),
      *     @OA\Response(
      *         response=200,

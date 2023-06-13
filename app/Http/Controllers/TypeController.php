@@ -34,6 +34,24 @@ class TypeController extends Controller
      *      description="Create a new type using the data provided in the request body.",
      *     security={{"sanctum":{}}},
      *      @OA\RequestBody(ref="#/components/requestBodies/Type"),
+     *     @OA\Parameter(
+     *         name="Content-Type",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="Accept",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
      *      @OA\Response(
      *          response=201,
      *          description="Success: Type created",
@@ -203,6 +221,24 @@ class TypeController extends Controller
      *         @OA\Schema(type="integer")
      *     ),
      *      @OA\RequestBody(ref="#/components/requestBodies/Type"),
+     *     @OA\Parameter(
+     *         name="Content-Type",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="Accept",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
      *      @OA\Response(
      *         response=200,
      *         description="Success: Type updated",
@@ -295,6 +331,15 @@ class TypeController extends Controller
      *         description="ID of the type to delete",
      *         required=true,
      *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Parameter(
+     *         name="Accept",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
      *     ),
      *     @OA\Response(
      *         response=200,

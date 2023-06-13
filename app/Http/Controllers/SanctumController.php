@@ -49,7 +49,6 @@ class SanctumController extends Controller
      */
     public function register(Request $request): JsonResponse
     {
-        // TODO: Add preexisting user check
         // Validate request
         $validator = Validator::make($request->all(), [
             "username" => "required",
@@ -59,20 +58,26 @@ class SanctumController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
+        $userEmail = User::where("email", $request->email)->first();
+        $userName = User::where("username", $request->username)->first();
+        if ($userEmail || $userName) {
+            return response()->json(
+                [
+                    "message" => "User already exists",
+                ],
+                400
+            );
+        }
 
-        $user = User::create([
+        User::create([
             "username" => $request->username,
             "email" => $request->email,
             "password" => bcrypt($request->password),
         ]);
 
-        // Add the Sanctum token to the user and store it in a variable
-        $token = $user->createToken("authToken")->plainTextToken;
-
         return response()->json(
             [
                 "message" => "User created successfully",
-                "token" => $token,
             ],
             201
         );
@@ -130,7 +135,6 @@ class SanctumController extends Controller
      *
      * @param Request $request
      * @return JsonResponse
-     * @header Content-Type application/json
      */
     public function login(Request $request): JsonResponse
     {

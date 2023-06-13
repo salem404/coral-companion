@@ -54,6 +54,24 @@ class ProfileController extends Controller
      *     description="Create a new profile using the data provided in the request body. The user must be an admin to create a profile for other users. An user can create a profile for themselves (user_id not required).",
      *     security={{"sanctum":{}}},
      *     @OA\RequestBody(ref="#/components/requestBodies/ProfileCreate"),
+     *     @OA\Parameter(
+     *         name="Content-Type",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="Accept",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
      *     @OA\Response(
      *         response=201,
      *         description="Success: A profile created",
@@ -235,6 +253,24 @@ class ProfileController extends Controller
      *         description="ID of profile",
      *         @OA\Schema(type="integer")
      *     ),
+     *     @OA\Parameter(
+     *         name="Content-Type",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="Accept",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
      *     @OA\RequestBody(ref="#/components/requestBodies/ProfileUpdate"),
      *     @OA\Response(
      *         response=200,
@@ -331,6 +367,15 @@ class ProfileController extends Controller
      *         description="ID of profile to delete",
      *         required=true,
      *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Parameter(
+     *         name="Accept",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
      *     ),
      *     @OA\Response(
      *         response=200,

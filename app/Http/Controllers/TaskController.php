@@ -63,6 +63,24 @@ class TaskController extends Controller
      *      description="Create a new task using the data provided in the request body. (Admins can create tasks for other users)",
      *     security={{"sanctum":{}}},
      *     @OA\RequestBody(ref="#/components/requestBodies/TaskCreate"),
+     *     @OA\Parameter(
+     *         name="Content-Type",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="Accept",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
      *      @OA\Response(
      *          response=201,
      *          description="Success: Task created",
@@ -96,9 +114,9 @@ class TaskController extends Controller
         if ($admin) {
             // Validate request
             $validator = Validator::make($request->all(), [
-                "description" => "required|string",
-                "isCompleted" => "required|tinyInteger",
                 "profile_id" => "required|integer",
+                "description" => "required|string",
+                "isCompleted" => "required|integer",
                 "character_id" => "integer",
                 "item_id" => "integer",
             ]);
@@ -117,7 +135,7 @@ class TaskController extends Controller
             // Validate request
             $validator = Validator::make($request->all(), [
                 "description" => "required|string",
-                "isCompleted" => "required|tinyInteger",
+                "isCompleted" => "required|integer max:1 min:0",
                 "character_id" => "integer",
                 "item_id" => "integer",
             ]);
@@ -249,6 +267,24 @@ class TaskController extends Controller
      *          required=true,
      *          @OA\Schema(type="integer")
      *      ),
+     *     @OA\Parameter(
+     *         name="Content-Type",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="Accept",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
      *     @OA\RequestBody(ref="#/components/requestBodies/TaskUpdate"),
      *      @OA\Response(
      *          response=200,
@@ -292,8 +328,7 @@ class TaskController extends Controller
         if ($profile->user_id !== $user->id || !$user->isAdmin) {
             return response()->json(
                 [
-                    "message" =>
-                        "You are not authorized to delete this profile",
+                    "message" => "You are not authorized to update this task",
                 ],
                 401
             );
@@ -303,7 +338,7 @@ class TaskController extends Controller
         $validator = Validator::make($request->all(), [
             "profile_id" => "required|integer",
             "description" => "required|string",
-            "isCompleted" => "required|tinyint max:1 min:0",
+            "isCompleted" => "required|integer",
             "character_id" => "integer",
             "item_id" => "integer",
         ]);
@@ -342,6 +377,15 @@ class TaskController extends Controller
      *          required=true,
      *          @OA\Schema(type="integer")
      *      ),
+     *     @OA\Parameter(
+     *         name="Accept",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
      *      @OA\Response(
      *          response=200,
      *          description="Success: Task deleted",
@@ -384,17 +428,18 @@ class TaskController extends Controller
 
         // Check if the profile belongs to the user or is Admin
         $user = Auth::user();
-        $profile = Profile::find($request->profile_id);
-        if ($profile->user_id !== $user->id || !$user->isAdmin) {
-            return response()->json(
-                [
-                    "message" =>
-                        "You are not authorized to delete this profile",
-                ],
-                401
-            );
+        if (!$user->isAdmin) {
+            $profile = Profile::find($request->profile_id);
+            if ($profile->user_id !== $user->id) {
+                return response()->json(
+                    [
+                        "message" =>
+                            "You are not authorized to delete this task",
+                    ],
+                    401
+                );
+            }
         }
-
         // Delete task
         $task->delete();
         return response()->json([

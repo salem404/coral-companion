@@ -111,7 +111,7 @@ class ItemController extends Controller
         // Validate request
         $validator = Validator::make($request->all(), [
             "name" => "required|string",
-            "type_id" => "required|integer",
+            "type_id" => "integer",
             "icon" => "required|string",
         ]);
         if ($validator->fails()) {
