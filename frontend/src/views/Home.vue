@@ -9,10 +9,12 @@ export default {
 </script>
 
 <template>
-    <main class="home">
-        <h1 class="home__heading">Coral Companion</h1>
-        <Access />
-    </main>
+    <transition name="slide-left">
+        <main class="home">
+            <h1 class="home__heading">Coral Companion</h1>
+            <Access />
+        </main>
+    </transition>
 </template>
 
 <style lang="scss" scoped>

@@ -13,7 +13,7 @@ class Item extends Model
 
     protected $fillable = ["name", "type_id", "icon"];
 
-    protected $hidden = ["created_at", "updated_at"];
+    protected $hidden = ["created_at", "updated_at", "type_id"];
 
     public function type(): BelongsTo
     {

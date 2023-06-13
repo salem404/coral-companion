@@ -4,7 +4,7 @@
         <div class="access__welcome">
             <div>
                 <p class="access__welcome-user">Username</p>
-                <router-link to="/dashboard" class="access__welcome-btn">
+                <router-link to="/profiles" class="access__welcome-btn">
                     Let's go
                 </router-link>
             </div>

@@ -321,7 +321,7 @@ class ProfileController extends Controller
 
         // Check if the profile belongs to the user or is Admin
         $user = Auth::user();
-        if ($profile->user_id !== $user->id || !$user->isAdmin) {
+        if ($profile->user_id !== $user->id and !$user->isAdmin) {
             return response()->json(
                 [
                     "message" =>
@@ -418,7 +418,7 @@ class ProfileController extends Controller
 
         // Check if the profile belongs to the user or is Admin
         $user = Auth::user();
-        if ($profile->user_id !== $user->id || !$user->isAdmin) {
+        if ($profile->user_id !== $user->id and !$user->isAdmin) {
             return response()->json(
                 [
                     "message" =>

@@ -102,6 +102,7 @@ Route::controller(FavListController::class)->group(function () {
 Route::controller(TaskController::class)->group(function () {
     Route::get("/tasks", "getAllTasks");
     Route::get("/tasks/{id}", "getTaskById");
+    Route::get("/tasks/profile/{id}", "getTasksByProfileId");
     Route::delete("/tasks/{id}", "deleteTask")->middleware("auth:sanctum");
     Route::post("/tasks", "createTask")->middleware("auth:sanctum");
     Route::put("/tasks/{id}", "updateTask")->middleware("auth:sanctum");

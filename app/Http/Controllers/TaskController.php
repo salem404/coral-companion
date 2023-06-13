@@ -123,6 +123,7 @@ class TaskController extends Controller
             if ($validator->fails()) {
                 return response()->json($validator->errors(), 400);
             }
+
             // Create task (admin)
             Task::create([
                 "description" => $request->description,
@@ -252,6 +253,75 @@ class TaskController extends Controller
     }
 
     /**
+     * Get tasks by profile ID
+     *
+     * @OA\Get(
+     *      tags={"Task"},
+     *      path="/tasks/profile/{id}",
+     *      summary="Get tasks by profile ID",
+     *      description="Get a task by the profile ID sent in the URL from the database",
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="ID of profile of tasks to return",
+     *          required=true,
+     *          @OA\Schema(type="integer")
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Success: Returns all tasks from a profile",
+     *          @OA\JsonContent(
+     *              type="array",
+     *              @OA\Items(ref="#/components/schemas/Task")
+     *          )
+     *      ),
+     *     @OA\Response(
+     *          response=400,
+     *          description="Bad Request: Profile doesn't exist",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Profile not found")
+     *         )
+     *       ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Not found: Tasks don't exist",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Task not found")
+     *         )
+     *       ),
+     * )
+     *
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function getTasksByProfileId($id): JsonResponse
+    {
+        $profile = Profile::find($id);
+        if (!$profile) {
+            return response()->json(
+                [
+                    "message" => "Profile not found",
+                ],
+                401
+            );
+        }
+        $task = Task::with("profile", "character", "item")
+            ->where("profile_id", $id)
+            ->get();
+
+        // Check if tasks exists
+        if (!$task) {
+            return response()->json(
+                [
+                    "message" => "Tasks not found",
+                ],
+                404
+            );
+        }
+        return response()->json($task);
+    }
+
+    /**
      * Update a task
      *
      * @OA\Put(
@@ -325,7 +395,7 @@ class TaskController extends Controller
         // Check if the profile belongs to the user or is Admin
         $user = Auth::user();
         $profile = Profile::find($request->profile_id);
-        if ($profile->user_id !== $user->id || !$user->isAdmin) {
+        if ($profile->user_id !== $user->id and !$user->isAdmin) {
             return response()->json(
                 [
                     "message" => "You are not authorized to update this task",
@@ -334,7 +404,6 @@ class TaskController extends Controller
             );
         }
 
-        // Validate request TODO: ADD DIFFERENT VALIDATION FOR USER
         $validator = Validator::make($request->all(), [
             "profile_id" => "required|integer",
             "description" => "required|string",

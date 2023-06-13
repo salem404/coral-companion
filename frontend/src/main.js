@@ -3,6 +3,8 @@ import { createWebHistory, createRouter } from "vue-router";
 import App from "@/App.vue";
 import Home from "@/views/Home.vue";
 import Dashboard from "@/views/Dashboard.vue";
+import Profiles from "@/views/Profiles.vue";
+import Settings from "@/views/Settings.vue";
 
 // Changes url depending on the environment
 const API_URL = import.meta.env.PROD
@@ -14,6 +16,16 @@ const routes = [
         path: "/",
         name: "home",
         component: Home,
+    },
+    {
+        path: "/profiles",
+        name: "profiles",
+        component: Profiles,
+    },
+    {
+        path: "/settings",
+        name: "settings",
+        component: Settings,
     },
     {
         path: "/dashboard",
