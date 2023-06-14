@@ -20,23 +20,24 @@
 
 ## Table of Contents
 
--   [Table of Contents](#table-of-contents)
--   [Features](#features)
--   [Documentation](#documentation)
--   [Run Locally](#run-locally)
--   [Resources](#resources)
--   [Tech Stack](#tech-stack)
--   [License](#license)
+- [Table of Contents](#table-of-contents)
+- [Features](#features)
+- [Documentation](#documentation)
+- [Run Locally](#run-locally)
+- [Resources](#resources)
+- [Tech Stack](#tech-stack)
+- [License](#license)
 
 ## Features
 
--   Task list
--   Seasonal dashboard
--   Resources information
+- Multiple profiles
+- Task list
+- Seasonal dashboard
+- Resources information
 
 ## Documentation
 
-[Documentation](https://linktodocumentation)
+[API-Documentation](https://salem404.github.io/coral-companion/)
 
 ## Run Locally
 
@@ -80,12 +81,12 @@ Create the database and seed it with data
 
 ## Resources
 
-| Resource         | Name     | Author                                             | Source                                         | License                                     |
-| :--------------- | :------- | :------------------------------------------------- | :--------------------------------------------- | :------------------------------------------ |
-| Application logo | logo.svg | [Paula Rumeu](https://github.com/salem404)         | Own creation                                   | [![CC BY-SA 4.0][cc-by-sa-image]][cc-by-sa] |
-| Icon -           |          | [Stairway Games](https://www.stairwaygames.com)    | [Coral Island Wiki](https://coralisland.wiki/) | [![CC BY-SA 4.0][cc-by-sa-image]][cc-by-sa] |
-| Icon -           |          | [Abhimanyu Rana](https://github.com/planetabhi)    | [SargamIcons](https://sargamicons.com)         | [![CC BY 4.0][cc-by-image]][cc-by]          |
-| Trash icon       |          | [Mikhail Kolomietc](https://www.figma.com/@demiko) | [Figma](https://www.figma.com)                 | [![CC BY 4.0][cc-by-image]][cc-by]          |
+| Resource                 | Name     | Author                                             | Source                                         | License                                     |
+| :----------------------- | :------- | :------------------------------------------------- | :--------------------------------------------- | :------------------------------------------ |
+| Application logo         | logo.svg | [Paula Rumeu](https://github.com/salem404)         | Own creation                                   | [![CC BY-SA 4.0][cc-by-sa-image]][cc-by-sa] |
+| Character and Item icons |          | [Stairway Games](https://www.stairwaygames.com)    | [Coral Island Wiki](https://coralisland.wiki/) | [![CC BY-SA 4.0][cc-by-sa-image]][cc-by-sa] |
+| Icon -                   |          | [Abhimanyu Rana](https://github.com/planetabhi)    | [SargamIcons](https://sargamicons.com)         | [![CC BY 4.0][cc-by-image]][cc-by]          |
+| Trash icon               |          | [Mikhail Kolomietc](https://www.figma.com/@demiko) | [Figma](https://www.figma.com)                 | [![CC BY 4.0][cc-by-image]][cc-by]          |
 
 ## Tech Stack
 
@@ -125,7 +126,7 @@ Create the database and seed it with data
 
 **Testing:**
 
-![PHPUnit](https://img.shields.io/badge/PHPUnit-993399?logo=PHPUnit&logoColor=white)
+![Insomnia](https://img.shields.io/badge/Insomnia-5849BE?logo=Insomnia&logoColor=white)
 
 **Linting:**
 
