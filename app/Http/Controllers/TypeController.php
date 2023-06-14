@@ -142,7 +142,7 @@ class TypeController extends Controller
      */
     public function getAllTypes(): JsonResponse
     {
-        $types = Type::with("items")->get();
+        $types = Type::with("items", "crops")->get();
         // Check if types exist
         if (count($types) < 1) {
             return response()->json(
@@ -189,7 +189,7 @@ class TypeController extends Controller
      */
     public function getTypeById($id): JsonResponse
     {
-        $type = Type::with("items")->find($id);
+        $type = Type::with("items", "crops")->find($id);
         // Check if type exists
         if (!$type) {
             return response()->json(

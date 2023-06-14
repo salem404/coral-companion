@@ -19,5 +19,10 @@ class Type extends Model
         return $this->hasMany(Item::class);
     }
 
+    public function crops(): HasMany
+    {
+        return $this->hasMany(Crop::class);
+    }
+
     // TODO: Add relationship to every type model
 }

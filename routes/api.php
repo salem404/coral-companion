@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\CharacterController;
+use App\Http\Controllers\CropController;
 use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\FavListController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SeasonalCropController;
 use App\Http\Controllers\SeasonController;
 use App\Http\Controllers\SanctumController;
 use App\Http\Controllers\TaskController;
@@ -85,6 +87,17 @@ Route::controller(ItemController::class)->group(function () {
     Route::delete("/items/{id}", "deleteItem")->middleware("auth:sanctum");
     Route::post("/items", "createItem")->middleware("auth:sanctum");
     Route::put("/items/{id}", "updateItem")->middleware("auth:sanctum");
+});
+
+// Crops
+Route::controller(CropController::class)->group(function () {
+    Route::get("/crops", "getAllCrops");
+    Route::get("/crops/{id}", "getCropById");
+});
+
+// Seasonal Crops
+Route::controller(SeasonalCropController::class)->group(function () {
+    Route::get("/crops/season/{id}", "getAllSeasonalCrops");
 });
 
 // FavLists

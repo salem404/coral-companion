@@ -4,27 +4,31 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Season extends Model
+class Crop extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["name"];
+    protected $table = "crops";
+
+    protected $fillable = ["item_id", "type_id", "isGigantic"];
 
     protected $hidden = ["created_at", "updated_at"];
 
-    // Characters
-    public function characters(): HasMany
+    public function item(): BelongsTo
     {
-        return $this->hasMany(Character::class);
+        return $this->belongsTo(Item::class);
     }
 
-    // Crops
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(Type::class);
+    }
+
     public function seasonalCrops(): HasMany
     {
         return $this->hasMany(SeasonalCrop::class);
     }
-
-    // TODO: Add all different seasonal items type relationships
 }

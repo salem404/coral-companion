@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ItemSeeder::class);
         $this->call(TaskSeeder::class);
         $this->call(FavListSeeder::class);
+        $this->call(CropSeeder::class);
+        $this->call(SeasonalCropSeeder::class);
 
         // \App\Models\User::factory(10)->create();
     }

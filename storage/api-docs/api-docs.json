@@ -397,6 +397,97 @@
                 ]
             }
         },
+        "/crops": {
+            "get": {
+                "tags": [
+                    "Crops"
+                ],
+                "summary": "Get all crops",
+                "description": "Returns all crops from the database",
+                "operationId": "f3537d89063675440d3d159ca6ef306a",
+                "responses": {
+                    "200": {
+                        "description": "Success: Returns all crops",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Crop"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found: Crops don't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No crops found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/crops/{id}": {
+            "get": {
+                "tags": [
+                    "Crops"
+                ],
+                "summary": "Get crop by id",
+                "description": "Returns a crop from the database",
+                "operationId": "2e4e242e4fb6296d8618a5a5d6d78b29",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of crop to return",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success: Returns a crop",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Crop"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found: Crop doesn't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No crop found with given id"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/families": {
             "get": {
                 "tags": [
@@ -1013,7 +1104,7 @@
                         }
                     },
                     "404": {
-                        "description": "Favorite list not found",
+                        "description": "Not Found: Favorite list doesn't exist",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2157,6 +2248,59 @@
                 }
             }
         },
+        "/crops/season/{id}": {
+            "get": {
+                "tags": [
+                    "Crops"
+                ],
+                "summary": "Get all seasonal crops",
+                "description": "Returns all seasonal crops from the database",
+                "operationId": "eb2ec4f225ca7959a49e78a3bed5a63e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Season id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success: Returns all seasonal crops",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/SeasonalCrop"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found: Seasonal crops don't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No seasonal crops found for this season"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/tasks": {
             "get": {
                 "tags": [
@@ -3115,6 +3259,25 @@
                 },
                 "type": "object"
             },
+            "Crop": {
+                "required": [
+                    "id",
+                    "name"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 2
+                    },
+                    "type_id": {
+                        "$ref": "#/components/schemas/Type"
+                    },
+                    "isGigantic": {
+                        "type": "boolean"
+                    }
+                },
+                "type": "object"
+            },
             "Family": {
                 "required": [
                     "character_id",
@@ -3270,6 +3433,26 @@
                     "name": {
                         "type": "string",
                         "example": "Winter"
+                    }
+                },
+                "type": "object"
+            },
+            "SeasonalCrop": {
+                "required": [
+                    "id",
+                    "season_id",
+                    "crop_id"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "season_id": {
+                        "$ref": "#/components/schemas/Season"
+                    },
+                    "crop_id": {
+                        "$ref": "#/components/schemas/Crop"
                     }
                 },
                 "type": "object"
@@ -3812,6 +3995,10 @@
         {
             "name": "Characters",
             "description": "Endpoints for characters"
+        },
+        {
+            "name": "Crops",
+            "description": "Endpoints for crops"
         },
         {
             "name": "Families",
