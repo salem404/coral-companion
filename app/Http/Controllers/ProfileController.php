@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -113,6 +114,18 @@ class ProfileController extends Controller
             if ($validator->fails()) {
                 return response()->json($validator->errors(), 400);
             }
+
+            // Check if user exists
+            $user = User::find($request->user_id);
+            if (!$user) {
+                return response()->json(
+                    [
+                        "message" => "User with id $request->user_id doesn't exist",
+                    ],
+                    400
+                );
+            }
+
             // Create profile (admin)
             Profile::create([
                 "farmer_name" => $request->farmer_name,
@@ -313,7 +326,7 @@ class ProfileController extends Controller
         if (!$profile) {
             return response()->json(
                 [
-                    "message" => "Profile with id {id}not found",
+                    "message" => "Profile with id $id not found",
                 ],
                 404
             );

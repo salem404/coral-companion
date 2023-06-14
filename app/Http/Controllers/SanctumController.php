@@ -58,6 +58,8 @@ class SanctumController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
+
+        // Check if user already exists
         $userEmail = User::where("email", $request->email)->first();
         $userName = User::where("username", $request->username)->first();
         if ($userEmail || $userName) {

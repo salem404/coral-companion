@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -116,6 +117,28 @@ class ItemController extends Controller
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
+        }
+
+        // Check if item already exists
+        $item = Item::where("name", $request->name)->first();
+        if ($item) {
+            return response()->json(
+                [
+                    "message" => "Item already exists",
+                ],
+                400
+            );
+        }
+
+        // Check if type exists
+        $type = Type::find($request->type_id);
+        if (!$type) {
+            return response()->json(
+                [
+                    "message" => "Type with id $request->type_id does not exist",
+                ],
+                400
+            );
         }
 
         // Create item
@@ -315,6 +338,17 @@ class ItemController extends Controller
             );
         }
 
+        // Check if type exists
+        $type = Type::find($request->type_id);
+        if (!$type) {
+            return response()->json(
+                [
+                    "message" => "Type with id $request->type_id not found",
+                ],
+                400
+            );
+        }
+
         // Validate request
         $validator = Validator::make($request->all(), [
             "name" => "required|string",
@@ -323,6 +357,17 @@ class ItemController extends Controller
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
+        }
+
+        // Check if type exists
+        $type = Type::find($request->type_id);
+        if (!$type) {
+            return response()->json(
+                [
+                    "message" => "Type with id $request->type_id not found",
+                ],
+                400
+            );
         }
 
         // Update item

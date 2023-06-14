@@ -2,12 +2,9 @@
     <div class="people">
         <h2 class="people__header">People</h2>
         <ul class="people__list" v-for="person in people">
-            <li
-                class="people__list-item"
-                v-if="person.birthday.season == season"
-            >
+            <li class="people__list-item" v-if="person.season_id == season">
                 {{ person.name }}
-                {{ person.birthday.day }}
+                {{ person.day }}
             </li>
         </ul>
     </div>
@@ -36,7 +33,7 @@ export default {
     },
     methods: {
         async fetchPeople() {
-            const response = await fetch(`${API_URL}/people`, {
+            const response = await fetch(`${API_URL}/characters`, {
                 method: "GET",
                 headers: { Connection: "Keep-Alive" },
             });

@@ -100,6 +100,39 @@ class FamilyController extends Controller
             return response()->json($validator->errors(), 400);
         }
 
+        // Check if family already exists
+        $family = Family::where("character_id", "=", $request->character_id)
+            ->where("familiar_id", "=", $request->familiar_id)
+            ->first();
+        if ($family) {
+            return response()->json(
+                [
+                    "message" => "Family already exists",
+                ],
+                400
+            );
+        }
+
+        // Check if character and familiar exist
+        $character = Character::find($request->character_id);
+        if (!$character) {
+            return response()->json(
+                [
+                    "message" => "Character with id  $request->character_id not found",
+                ],
+                400
+            );
+        }
+        $familiar = Character::find($request->familiar_id);
+        if (!$familiar) {
+            return response()->json(
+                [
+                    "message" => "Familiar with id $request->familiar_id not found",
+                ],
+                400
+            );
+        }
+
         // Create family
         Family::create([
             "character_id" => $request["character_id"],
@@ -288,6 +321,26 @@ class FamilyController extends Controller
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
+        }
+
+        // Check if character and familiar exist
+        $character = Character::find($request->character_id);
+        if (!$character) {
+            return response()->json(
+                [
+                    "message" => "Character with id  $request->character_id not found",
+                ],
+                400
+            );
+        }
+        $familiar = Character::find($request->familiar_id);
+        if (!$familiar) {
+            return response()->json(
+                [
+                    "message" => "Familiar with id $request->familiar_id not found",
+                ],
+                400
+            );
         }
 
         // Update family

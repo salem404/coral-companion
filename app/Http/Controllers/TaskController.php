@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Character;
+use App\Models\Item;
 use App\Models\Profile;
 use App\Models\Task;
 use Illuminate\Http\JsonResponse;
@@ -109,50 +111,67 @@ class TaskController extends Controller
      */
     public function createTask(Request $request): JsonResponse
     {
-        // Check if the profile belongs to the user or is Admin
-        $admin = Auth::user();
-        if ($admin) {
-            // Validate request
-            $validator = Validator::make($request->all(), [
-                "profile_id" => "required|integer",
-                "description" => "required|string",
-                "isCompleted" => "required|integer",
-                "character_id" => "integer",
-                "item_id" => "integer",
-            ]);
-            if ($validator->fails()) {
-                return response()->json($validator->errors(), 400);
-            }
-
-            // Create task (admin)
-            Task::create([
-                "description" => $request->description,
-                "isCompleted" => $request->isCompleted,
-                "profile_id" => $request->profile_id,
-                "character_id" => $request->character_id,
-                "item_id" => $request->item_id,
-            ]);
-        } else {
-            // Validate request
-            $validator = Validator::make($request->all(), [
-                "description" => "required|string",
-                "isCompleted" => "required|integer max:1 min:0",
-                "character_id" => "integer",
-                "item_id" => "integer",
-            ]);
-            if ($validator->fails()) {
-                return response()->json($validator->errors(), 400);
-            }
-
-            // Create task
-            Task::create([
-                "description" => $request->description,
-                "isCompleted" => $request->isCompleted,
-                "profile_id" => Auth::user()->profile->id,
-                "character_id" => $request->character_id,
-                "item_id" => $request->item_id,
-            ]);
+        // Validate request
+        $validator = Validator::make($request->all(), [
+            "description" => "required|string",
+            "isCompleted" => "required|integer",
+            "profile_id" => "required|integer",
+            "character_id" => "integer",
+            "item_id" => "integer",
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
         }
+
+        // Check if  profile exists
+        $profile = Profile::find($request->profile_id);
+        if (!$profile) {
+            return response()->json(
+                ["message" => "Profile with id $request->profile_id not found"],
+                404
+            );
+        }
+        // Check if character exists
+        $character = Character::find($request->character_id);
+        if ($request->character_id) {
+            if (!$character) {
+                return response()->json(
+                    [
+                        "message" => "Character with id $request->character_id",
+                    ],
+                    400
+                );
+            }
+        }
+
+        // Check if item exists
+        $item = Item::find($request->item_id);
+        if ($request->item_id) {
+            if (!$item) {
+                return response()->json(
+                    ["message" => "Item with id $request->item_id"],
+                    400
+                );
+            }
+        }
+
+        // Check if the profile belongs to the user or is Admin
+        $admin = Auth::user()->isAdmin;
+        if (!$admin and $profile->user_id != Auth::id()) {
+            return response()->json(
+                ["message" => "You are not authorized to create a task"],
+                401
+            );
+        }
+
+        // Create task
+        Task::create([
+            "description" => $request->description,
+            "isCompleted" => $request->isCompleted,
+            "profile_id" => $request->profile_id,
+            "character_id" => $request->character_id,
+            "item_id" => $request->item_id,
+        ]);
 
         return response()->json(
             [
@@ -413,6 +432,39 @@ class TaskController extends Controller
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
+        }
+
+        // Check if profile exists
+        $profile = Profile::find($request->profile_id);
+        if (!$profile) {
+            return response()->json(
+                [
+                    "message" => "Profile with id $request->profile_id not found",
+                ],
+                400
+            );
+        }
+
+        // Check if character exists
+        $character = Character::find($request->character_id);
+        if (!$character) {
+            return response()->json(
+                [
+                    "message" => "Character with id $request->character_id not found",
+                ],
+                400
+            );
+        }
+
+        // Check if item exists
+        $item = Item::find($request->item_id);
+        if (!$item) {
+            return response()->json(
+                [
+                    "message" => "Item with id $request->item_id not found",
+                ],
+                400
+            );
         }
 
         // Update task

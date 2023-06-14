@@ -107,6 +107,42 @@ class FavListController extends Controller
             return response()->json($validator->errors(), 400);
         }
 
+        // Check if favlist already exists
+        $favlist = FavList::where([
+            ["character_id", "=", $request->character_id],
+            ["item_id", "=", $request->item_id],
+        ])->first();
+        if ($favlist) {
+            return response()->json(
+                [
+                    "message" => "This favorite list already exists",
+                ],
+                400
+            );
+        }
+
+        // Check if character exists
+        $character = Character::find($request->character_id);
+        if (!$character) {
+            return response()->json(
+                [
+                    "message" => "Character with id $request->character_id not found",
+                ],
+                400
+            );
+        }
+
+        // Check if item exists
+        $item = Item::find($request->item_id);
+        if (!$item) {
+            return response()->json(
+                [
+                    "message" => "Item with id $request->item_id not found",
+                ],
+                400
+            );
+        }
+
         // Create favlist
         $favlist = FavList::create([
             "character_id" => $request->character_id,
@@ -211,6 +247,8 @@ class FavListController extends Controller
         return response()->json($favlist);
     }
 
+    // TODO: Add getFavListByCharacterId and getFavListByItemId
+
     /**
      * Update a favorite list
      *
@@ -269,7 +307,7 @@ class FavListController extends Controller
      *     ),
      *     @OA\Response(
      *         response=404,
-     *         description="Favorite list not found",
+     *         description="Not Found: Favorite list doesn't exist",
      *         @OA\JsonContent(
      *             @OA\Property(property="message", type="string", example="Favorite list with id 2 not found")
      *         )
@@ -312,6 +350,28 @@ class FavListController extends Controller
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
+        }
+
+        // Check if character exists
+        $character = Character::find($request->character_id);
+        if (!$character) {
+            return response()->json(
+                [
+                    "message" => "Character with id $request->character_id not found",
+                ],
+                400
+            );
+        }
+
+        // Check if item exists
+        $item = Item::find($request->item_id);
+        if (!$item) {
+            return response()->json(
+                [
+                    "message" => "Item with id $request->item_id not found",
+                ],
+                400
+            );
         }
 
         // Update favlist

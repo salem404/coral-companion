@@ -134,6 +134,17 @@ class CharacterController extends Controller
             return response()->json($validator->errors(), 400);
         }
 
+        // Check if season exists
+        $season = Season::find($request->season_id);
+        if (!$season) {
+            return response()->json(
+                [
+                    "message" => "Season with id $request->season_id not found",
+                ],
+                400
+            );
+        }
+
         // Create character
         Character::create([
             "name" => $request->name,
@@ -183,7 +194,6 @@ class CharacterController extends Controller
     public function getAllCharacters(): JsonResponse
     {
         $characters = Character::with("season", "favorites", "family")->get();
-        // TODO: Add other relationships
 
         // Check if characters exist
         if (count($characters) < 1) {
@@ -231,12 +241,9 @@ class CharacterController extends Controller
      */
     public function getCharacterById($id): JsonResponse
     {
-        $character = Character::with(
-            "season",
-            "favorites",
-            "family",
-            "tasks"
-        )->find($id);
+        $character = Character::with("season", "favorites", "family")->find(
+            $id
+        );
 
         // Check if character exists
         if (!$character) {
@@ -355,6 +362,17 @@ class CharacterController extends Controller
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
+        }
+
+        // Check if season exists
+        $season = Season::find($request->season_id);
+        if (!$season) {
+            return response()->json(
+                [
+                    "message" => "Season with id $request->season_id not found",
+                ],
+                404
+            );
         }
 
         // Update character
