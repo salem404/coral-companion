@@ -2,3 +2,7 @@
 
 @import "./base/_normalize";
 @import "./base/variables";
+
+body {
+    background: linear-gradient(180deg, #0892b6 0%, #135c7d 50%, #034360 98.17%);
+}

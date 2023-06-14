@@ -10,41 +10,59 @@ export default {
 
 <template>
     <transition name="slide-left">
-        <main class="home">
+        <div class="home">
             <h1 class="home__heading">Coral Companion</h1>
             <Access />
-        </main>
+        </div>
     </transition>
 </template>
 
 <style lang="scss" scoped>
 .home {
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-image: url("@/assets/images/homeBackground.png");
+    height: 100vh;
+    width: 100vw;
     display: flex;
-    align-items: center;
-    justify-content: space-around;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: center;
+    gap: 69px;
+    background: {
+        image: url(/src/assets/img/lightBg.png);
+        position: center;
+        repeat: no-repeat;
+        size: cover;
+    }
+
     &__heading {
-        font-size: 6vw;
-        max-width: 40%;
-        margin: 0;
+        font-family: General Sans;
+        font-size: 128px;
+        font-weight: 400;
+        line-height: 173px;
+        letter-spacing: 0em;
+        text-align: left;
         color: var(--white);
+        width: 684px;
+        height: 332px;
     }
 }
-//Mobile
-@media only screen and (max-width: 768px) {
+@media (max-width: 1200px) {
     .home {
-        flex-direction: column;
-        background-image: none;
-        justify-content: center;
+        background: {
+            image: url(/src/assets/img/lightBgMb.png);
+            position: top;
+            size: cover;
+            repeat: no-repeat;
+        }
+    }
+
+    .home {
+        align-items: center;
         &__heading {
-            font-size: 10vw;
-            padding-bottom: 10vw;
-            max-width: 100%;
+            text-align: center;
+            font-size: 64px;
+            line-height: 86px;
+            height: 166px;
         }
     }
 }
