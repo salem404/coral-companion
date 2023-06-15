@@ -57,8 +57,8 @@ export default {
         &__heading {
             height: 166px;
             font-size: 64px;
-            line-height: 86px;
             text-align: center;
+            margin: 0;
         }
     }
 }

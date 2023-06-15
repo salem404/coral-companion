@@ -11,6 +11,7 @@ const API_URL = import.meta.env.PROD
     ? "https://proyectotema3api.onrender.com/api"
     : "http://localhost/api";
 
+// TODO: Change when deployed
 const routes = [
     {
         path: "/",
