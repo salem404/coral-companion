@@ -3,8 +3,13 @@
         <div class="access__option">Welcome</div>
         <div class="access__welcome">
             <div>
-                <p class="access__welcome-user">Username</p>
-                <router-link to="/profiles" class="access__welcome-btn">
+                <p class="access__welcome__user">Username</p>
+                <img
+                    class="access__welcome__photo"
+                    src="/src/assets/img/gnome1.png"
+                    alt="Profile picture"
+                />
+                <router-link to="/profiles" class="access__welcome__btn">
                     Let's go
                 </router-link>
             </div>
@@ -26,6 +31,10 @@
         <div v-else class="access__welcome">
             <div>
                 <p>Choose your access method</p>
+                <img
+                    src="/src/assets/img/logo-color.svg"
+                    alt="Coral Companion Logo"
+                />
             </div>
         </div>
     </div>
@@ -45,7 +54,7 @@ export default {
     },
     data() {
         return {
-            isLogged: false,
+            isLogged: true,
             selected: "",
         };
     },
@@ -53,57 +62,69 @@ export default {
 </script>
 <style lang="scss">
 .access {
-    max-width: 50%;
-    box-sizing: border-box;
-    background: rgba(217, 217, 217, 0.83);
-    border: 28px solid var(--dark-blue);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 40px;
+    justify-items: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-items: center;
+    box-sizing: border-box;
+    width: 40%;
+    background: rgba(217, 217, 217, 0.83);
+    border: 28px solid var(--sapphire);
+    border-radius: 40px;
     &__option {
         position: relative;
         top: -1em;
-        margin-left: 1em;
-        margin-right: 1em;
-        padding: 0.1em;
         box-sizing: border-box;
-        background: var(--blue);
-        border: 7px solid #135c7d;
+        margin-right: 1em;
+        margin-left: 1em;
+        padding: 0.1em;
+        background: var(--swimmer);
+        border: 7px solid var(--sapphire);
         border-radius: 14px;
         font-size: 4em;
+        font-family: Quicksand;
+        font-weight: 400;
+        line-height: 73px;
+        color: var(--black);
         text-align: center;
-        color: var(--white);
+        letter-spacing: 0em;
     }
     &__welcome {
-        position: relative;
-        top: -1em;
-        margin-block-start: 0;
-        margin-block-end: 0;
-        font-style: normal;
-        font-weight: 400;
-        color: var(--black);
+        &__photo {
+            background-color: var(--gainsboro);
+            // TODO: Change to profile color
+            border-radius: 100px;
+        }
         div {
             display: flex;
             flex-direction: column;
+            align-items: center;
+            padding-bottom: 100px;
+            gap: 10px;
+            p {
+                font-size: 36px;
+                font-family: Quicksand;
+                font-weight: 400;
+                line-height: 45px;
+                text-align: center;
+                letter-spacing: 0em;
+            }
+            img {
+                align-self: center;
+                margin-bottom: 5px;
+            }
         }
-        &-user {
+        &__user {
             font-size: 2vw;
             text-align: center;
-            padding: 2em;
         }
-        &-btn {
-            background: #0892b6;
-            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-            padding: 0.5em;
-            color: var(--white);
-            border-radius: 35px;
-            font-size: 3vw;
-            text-align: center;
+        &__btn {
+            padding: 10px;
             transition: 120ms;
             cursor: pointer;
+            color: var(--black);
+            text-decoration: none;
             &:hover {
                 box-shadow: 0px 6px 4px 0 rgba(0, 0, 0, 0.108);
                 transform: translateY(-2px);
@@ -112,16 +133,25 @@ export default {
                 box-shadow: 0px 0px 4px 0 rgba(0, 0, 0, 0.108);
                 transform: translateY(2px);
             }
+            font-family: Quicksand;
+            font-size: 48px;
+            font-weight: 600;
+            line-height: 60px;
+            letter-spacing: 0em;
+            text-align: center;
+            background: var(--green);
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 35px;
+            width: 262px;
+            height: 65px;
         }
     }
 }
 //Mobile
-@media only screen and (max-width: 768px) {
+@media (max-width: 1254px) {
     .access {
-        max-width: 90%;
-        &__option {
-            font-size: 8vw;
-        }
+        width: 100%;
+        padding-bottom: 78px;
     }
 }
 </style>

@@ -3,6 +3,52 @@
 @import "./base/_normalize";
 @import "./base/variables";
 
-body {
-    background: linear-gradient(180deg, #0892b6 0%, #135c7d 50%, #034360 98.17%);
+html {
+    background-color: var(--midnight);
+}
+
+.theme {
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 65px;
+    height: 65px;
+    background-image: url(../img/si_Sun.svg);
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.github {
+    display: block;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 65px;
+    height: 65px;
+    background: {
+        color: transparent;
+        image: url(../img/github-mark/github-mark-white.svg);
+        size: contain;
+    }
+    z-index: 100;
+}
+
+.logout {
+    display: block;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    width: 65px;
+    height: 65px;
+    background: {
+        color: transparent;
+        image: url(../img/si_Sign_out.svg);
+        size: contain;
+    }
+    border: 0;
+    cursor: pointer;
+    z-index: 100;
 }

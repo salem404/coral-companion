@@ -1,33 +1,57 @@
 <template>
     <form>
-        <div class="container">
-            <label for="username"><b>Username</b></label>
+        <div>
+            <label for="email">Email </label>
+            <input
+                type="email"
+                placeholder="Enter Email"
+                name="email"
+                required
+            />
+        </div>
+        <div>
+            <label for="username">Username </label>
             <input
                 type="text"
                 placeholder="Enter Username"
                 name="username"
                 required
             />
+        </div>
 
-            <label for="psw"><b>Password</b></label>
+        <div>
+            <label for="psw">Password</label>
             <input
                 type="password"
                 placeholder="Enter Password"
                 name="psw"
                 required
             />
-
-            <button type="submit">Register</button>
         </div>
+        <div>
+            <label for="psw2">Repeat Password</label>
+            <input
+                type="r-password"
+                placeholder="Repeat Password"
+                name="psw2"
+                required
+            />
+        </div>
+
+        <button type="submit">Submit</button>
     </form>
 </template>
 
 <style lang="scss" scoped>
 form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: -50px;
+    align-items: center;
     div {
         display: flex;
         flex-direction: column;
-        margin: 10px 5px;
 
         p {
             margin: 0px;
@@ -35,17 +59,34 @@ form {
     }
     label {
         color: var(--color);
+        font-family: Quicksand;
+        font-size: 36px;
+        font-weight: 400;
+        line-height: 45px;
+        letter-spacing: 0em;
+        text-align: left;
     }
     input,
     select {
         font-size: 1rem;
         padding: 5px;
+        font-family: Quicksand;
+        font-size: 30px;
+        font-weight: 400;
+        line-height: 38px;
+        letter-spacing: 0em;
+        text-align: left;
+        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+        border-radius: 100px;
+        border: none;
     }
     button {
-        background: #0892b6;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        border-radius: 35px;
+        margin: 10px;
+        border: none;
+        transition: 120ms;
         cursor: pointer;
+        color: var(--black);
+        text-decoration: none;
         &:hover {
             box-shadow: 0px 6px 4px 0 rgba(0, 0, 0, 0.108);
             transform: translateY(-2px);
@@ -54,6 +95,17 @@ form {
             box-shadow: 0px 0px 4px 0 rgba(0, 0, 0, 0.108);
             transform: translateY(2px);
         }
+        font-family: Quicksand;
+        font-size: 48px;
+        font-weight: 600;
+        line-height: 60px;
+        letter-spacing: 0em;
+        text-align: center;
+        background: var(--green);
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 35px;
+        width: 262px;
+        height: 65px;
     }
 }
 </style>
