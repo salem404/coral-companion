@@ -1,13 +1,19 @@
 import axios from "axios";
 
-export class Service {
+export class api {
     token = "";
     api;
 
-    // TODO: Change url when deployed
+    // Changes url depending on the environment
+    API_URL = import.meta.env.PROD
+        ? "https://proyectotema3api.onrender.com/api"
+        : "http://localhost/api";
+
+    // TODO: Change when deployed
+
     constructor() {
         this.api = axios.create({
-            baseURL: "http://localhost:8000/api",
+            baseURL: this.API_URL,
             headers: {
                 "Content-Type": "application/json",
                 Accept: "application/json",
@@ -34,17 +40,17 @@ export class Service {
     }
 
     // User
-    async login(mail, password) {
+    async login(email, password) {
         return this.api.post("/login", {
-            mail,
+            email,
             password,
         });
     }
 
-    async register(name, mail, password) {
+    async register(username, email, password) {
         return this.api.post("/register", {
-            name,
-            mail,
+            username,
+            email,
             password,
         });
     }
@@ -52,5 +58,31 @@ export class Service {
     async logOut() {
         this.setToken();
         return this.api.get("/logout");
+    }
+
+    // Characters
+    async getCharacters() {
+        this.setToken();
+        return this.api.get("/characters");
+    }
+
+    // Profile
+    async getProfile() {
+        this.setToken();
+        return this.api.get("/profile");
+    }
+
+    async updateProfile(farmer_name, farm_name, color) {
+        this.setToken();
+        return this.api.put("/profile", {
+            farmer_name,
+            farm_name,
+            color,
+        });
+    }
+
+    async deleteProfile() {
+        this.setToken();
+        return this.api.delete("/profile");
     }
 }

@@ -23,7 +23,7 @@
                     </label>
                 </div>
                 <div class="profiles__container__item">
-                    <router-link to="/settings">
+                    <router-link to="/profile-settings">
                         <input
                             type="radio"
                             id="new"
@@ -48,8 +48,11 @@
                 <router-link to="/dashboard" class="profiles__container__btn">
                     Play
                 </router-link>
-                <router-link to="/" class="profiles__container__btn">
-                    a
+                <router-link
+                    to="/profile-settings"
+                    class="profiles__container__btn"
+                >
+                    Settings
                 </router-link>
             </div>
         </div>
@@ -93,7 +96,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     background: {
         image: url(/src/assets/img/lightBg2.png);
@@ -119,6 +122,7 @@ export default {
         &__links {
             display: flex;
             flex-direction: row;
+            flex-wrap: wrap;
             justify-content: space-evenly;
         }
         &__btn {
@@ -206,13 +210,19 @@ export default {
 @media (max-width: 1254px) {
     .profiles {
         &__heading {
-            //styleName: Mobile/H1;
             font-family: General Sans;
             font-size: 64px;
             font-weight: 400;
             line-height: 86px;
             letter-spacing: 0em;
             text-align: center;
+        }
+        &__container {
+            margin: 0;
+            &__links {
+                align-items: center;
+                gap: 10px;
+            }
         }
     }
 }

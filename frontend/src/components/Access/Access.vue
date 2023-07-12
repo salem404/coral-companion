@@ -151,6 +151,10 @@ export default {
 @media (max-width: 1254px) {
     .access {
         width: 100%;
+        max-height: 70%;
+        &__welcome {
+            padding: 0;
+        }
     }
 }
 </style>
