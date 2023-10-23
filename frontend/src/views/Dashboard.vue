@@ -90,7 +90,6 @@ export default {
             border-radius: 40px;
             background: {
                 color: var(--green);
-                image: url("@/assets/images/icons8-calendar-64.png");
                 size: 2em;
                 position: 72px 10px;
                 repeat: no-repeat;
