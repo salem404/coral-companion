@@ -1,6 +1,6 @@
 <template>
     <router-link to="/">
-        <img src="@/assets/images/icons8-home-page-30.png" class="home" />
+        <img src="@/assets/img/icons8-home-page-30.png" class="home" />
     </router-link>
     <div class="dashboard">
         <div class="dashboard__info">
