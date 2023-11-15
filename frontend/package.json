@@ -10,16 +10,17 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "axios": "^1.4.0",
-        "vue": "^3.2.47",
-        "vue-router": "^4.0.13"
+        "axios": "^1.6.1",
+        "prettier": "^3.1.0",
+        "vue": "^3.3.8",
+        "vue-router": "^4.2.5"
     },
     "devDependencies": {
-        "@vitejs/plugin-vue": "^4.1.0",
-        "@vue/compiler-sfc": "^3.2.47",
-        "jsdoc": "^4.0.1",
+        "@vitejs/plugin-vue": "^4.4.1",
+        "@vue/compiler-sfc": "^3.3.8",
+        "jsdoc": "^4.0.2",
         "jsdoc-vuejs": "^4.0.0",
-        "sass": "^1.58.1",
-        "vite": "^4.3.2"
+        "sass": "^1.69.5",
+        "vite": "^4.5.0"
     }
 }

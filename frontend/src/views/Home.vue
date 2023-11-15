@@ -3,19 +3,8 @@
         <div id="wave1"></div>
         <div id="wave2"></div>
         <h1 class="home__heading">Coral Companion</h1>
-        <Access />
     </div>
 </template>
-
-<script>
-import Access from "@/components/Access/Access.vue";
-
-export default {
-    components: {
-        Access,
-    },
-};
-</script>
 
 <style lang="scss" scoped>
 @-webkit-keyframes MoveUpDown {

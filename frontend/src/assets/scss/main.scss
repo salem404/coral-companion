@@ -1,61 +1,23 @@
 // Import all scss files here
 
-@import "./base/_normalize";
-@import "./base/variables";
+@import "utilities/variables";
+@import "utilities/functions";
+@import "utilities/mixins";
+@import "utilities/theming";
 
-body {
-    margin: 0;
-    padding: 0;
-    background: #0892b6;
-    font-family: "Poppins", sans-serif;
-    height: 100vh;
-    width: 100vw;
-    min-height: 100vh;
-    min-width: 100vw;
-}
+@import "vendor/normalize";
 
-.theme {
-    display: block;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 65px;
-    height: 65px;
-    background-image: url(../img/si_Sun.svg);
-    background-color: transparent;
-    border: 0;
-    cursor: pointer;
-    z-index: 100;
-}
+@import "base/typography";
 
-.github {
-    display: block;
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    width: 65px;
-    height: 65px;
-    background: {
-        color: transparent;
-        image: url(../img/github-mark/github-mark-white.svg);
-        size: contain;
-    }
-    z-index: 100;
-}
+@import "layout/header";
+@import "layout/footer";
+@import "layout/container";
+@import "layout/form";
+@import "layout/waves";
 
-.logout {
-    display: block;
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    width: 65px;
-    height: 65px;
-    background: {
-        color: transparent;
-        image: url(../img/si_Sign_out.svg);
-        size: contain;
-    }
-    border: 0;
-    cursor: pointer;
-    z-index: 100;
-}
+@import "components/button";
+@import "components/dropdown";
+@import "components/fieldset";
+@import "components/input";
+@import "components/task";
+
