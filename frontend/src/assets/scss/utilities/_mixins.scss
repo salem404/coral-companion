@@ -1,0 +1,31 @@
+/// Makes an element visible to screen readers only.
+/// @link https://github.com/h5bp/html5-boilerplate/blob/master/dist/css/main.css
+/// @link http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+@mixin screen-reader {
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    white-space: nowrap;
+}
+
+/// Makes an element visible to screen readers only when it's focused or active.
+/// @link https://github.com/h5bp/html5-boilerplate/blob/master/dist/css/main.css
+/// @link https://www.drupal.org/node/897638
+@mixin screen-reader-focusable {
+    @include screen-reader;
+    &:active,
+    &:focus {
+        position: static;
+        overflow: visible;
+        clip: auto;
+        width: auto;
+        height: auto;
+        margin: 0;
+        white-space: normal;
+    }
+}

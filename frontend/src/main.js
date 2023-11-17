@@ -1,19 +1,20 @@
 import { createApp } from "vue";
 import { createWebHistory, createRouter } from "vue-router";
 import App from "@/App.vue";
-import Home from "@/views/Home.vue";
 
 // Changes url depending on the environment
-const API_URL = import.meta.env.PROD
-    ? "https://proyectotema3api.onrender.com/api"
-    : "http://localhost/api";
+const API_URL = "http://localhost/api";
 
-// TODO: Change when deployed
 const routes = [
     {
         path: "/",
         name: "home",
-        component: Home,
+        component: () => import("@/views/Home.vue"),
+    },
+    {
+        path: "/dashboard",
+        name: "dashboard",
+        component: () => import("@/views/Dashboard.vue"),
     },
 ];
 

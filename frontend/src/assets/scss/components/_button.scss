@@ -1,0 +1,23 @@
+[data-theme="dark"] .btn-UItheme {
+    background-image: url(@/assets/img/moon.svg);
+}
+
+.btn {
+    // TODO: colores
+    cursor: pointer;
+    &-UItheme {
+        @extend .btn;
+        background-image: url(@/assets/img/si_Sun.svg);
+        width: 67px;
+        height: 67px;
+    }
+    &-UIswap {
+        @extend .btn;
+        width: 67px;
+        height: 67px;
+        background-image: url("@/assets/img/si_Swap_horiz.svg");
+        @include mq($from: desktop) {
+            visibility: hidden;
+        }
+    }
+}

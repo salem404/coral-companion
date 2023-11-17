@@ -4,12 +4,7 @@ export class api {
     token = "";
     api;
 
-    // Changes url depending on the environment
-    API_URL = import.meta.env.PROD
-        ? "https://proyectotema3api.onrender.com/api"
-        : "http://localhost/api";
-
-    // TODO: Change when deployed
+    API_URL = "http://localhost/api";
 
     constructor() {
         this.api = axios.create({
