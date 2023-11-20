@@ -1,10 +1,15 @@
 <template>
     <footer>
-        <a href="https://github.com/salem404/coral-companion">
-            <img src="@/assets/img/GitHubIcon.svg" alt="Github" />
+        <a
+            href="https://github.com/salem404/coral-companion"
+            alt="GitHub Repository"
+        >
+            <picture className="btn-UIgithub">
+                <!--TODO: Add png image fallback-->
+                <img src="@/assets/img/GitHubIcon.svg" alt="Github" />
+            </picture>
         </a>
-        <!-- TODO: Link to log Out -->
-        <img src="@/assets/img/si_Sign_out.svg" alt="Log Out" />
+        <button className="btn-UIlogOut"></button>
     </footer>
 </template>
 <script>

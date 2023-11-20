@@ -29,3 +29,18 @@
         white-space: normal;
     }
 }
+
+@mixin size($width, $height: $width) {
+    width: $width;
+    height: $height;
+}
+
+@mixin colorize-gainsboro {
+    filter: brightness(0) saturate(100%) invert(98%) sepia(0%) saturate(48%)
+        hue-rotate(206deg) brightness(105%) contrast(70%);
+}
+
+@mixin colorize-negro {
+    filter: brightness(0) saturate(100%) invert(5%) sepia(9%) saturate(4334%)
+        hue-rotate(338deg) brightness(98%) contrast(107%);
+}

@@ -1,23 +1,39 @@
-[data-theme="dark"] .btn-UItheme {
-    background-image: url(@/assets/img/moon.svg);
-}
-
 .btn {
-    // TODO: colores
     cursor: pointer;
-    &-UItheme {
-        @extend .btn;
-        background-image: url(@/assets/img/si_Sun.svg);
-        width: 67px;
-        height: 67px;
-    }
-    &-UIswap {
-        @extend .btn;
-        width: 67px;
-        height: 67px;
-        background-image: url("@/assets/img/si_Swap_horiz.svg");
-        @include mq($from: desktop) {
-            visibility: hidden;
+    &-UI {
+        &theme {
+            @extend .btn;
+            @include size(67px);
+            background-image: url(@/assets/img/si_Sun.svg);
+            [data-theme="dark"] & {
+                background-image: url(@/assets/img/moon.svg);
+                @include colorize-gainsboro;
+            }
+        }
+        &swap {
+            @extend .btn;
+            @include size(67px);
+            background-image: url("@/assets/img/si_Swap_horiz.svg");
+            @include mq($from: desktop) {
+                visibility: hidden;
+            }
+            [data-theme="dark"] & {
+                @include colorize-gainsboro;
+            }
+        }
+        &github {
+            @include size(48px);
+            [data-theme="dark"] & {
+                @include colorize-gainsboro;
+            }
+        }
+        &logOut {
+            @extend .btn;
+            @include size(48px);
+            background-image: url("@/assets/img/si_Sign_out.svg");
+            [data-theme="dark"] & {
+                @include colorize-gainsboro;
+            }
         }
     }
 }

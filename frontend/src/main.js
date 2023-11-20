@@ -7,7 +7,7 @@ const API_URL = "http://localhost/api";
 
 const routes = [
     {
-        path: "/",
+        path: "",
         name: "home",
         component: () => import("@/views/Home.vue"),
     },

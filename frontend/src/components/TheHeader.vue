@@ -1,8 +1,8 @@
 <template>
     <header>
         <DarkModeToggle />
-        <!-- TODO: Link to profile page -->
-        <button type="button" className="btn-UIswap"></button>
+        <!-- TODO: Link to profile page ONLY if logged -->
+        <router-link to="/profile" className="btn-UIswap"> </router-link>
     </header>
 </template>
 <script>

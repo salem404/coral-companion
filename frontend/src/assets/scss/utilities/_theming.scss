@@ -1,27 +1,17 @@
 :root {
-    --black: #110300;
-    --gainsboro: #d9d9d9;
-    --swimmer: #0892b6;
-    --sapphire: #135c7d;
-    --green: #94b755;
-    --camel: #b7977a;
-    --feverish: #d96575;
-    --lilac: #978cb6;
-    --midnight: #232037;
-    --olive: #4c6340;
-    --chocolate: #61473a;
-    --yellow: #e0dc71;
-
+    --icon: $color-negro;
     --font-color: #000;
     --link-color: #1c75b9;
     --link-white-color: #fff;
     --bg-color: rgb(243, 243, 243);
 }
 [data-theme="dark"] {
+    --icon: $color-gainsboro;
     --font-color: #bdbab8;
     --link-color: #0a86da;
     --link-white-color: #bdbab8;
     --bg-color: #333;
+    --fondo-capa-1: $color-negro;
 }
 
 /*
@@ -48,24 +38,5 @@ $themes: (
             $negro-gainsboro; $text-secondary: $color-gainsboro; $text-warning: $color-rosa;
     )
 );
-$themes: (
-    Light: (
-         $dark-morado: $color-dark-transparency; $dark-zafiro-dark-morado: $color-zafiro-oscuro;
-            $gainsboro-morado: $color-gainsboro; $light-dark-transparency: $color-light-transparency;
-            $light-morado-oscuro: $color-light-transparency; $lima-amarillo: $color-lima; $lima-violeta: $color-lima;
-            $marrones: $color-camel; $negro-gainsboro: $color-negro; $rojo-rosa: $color-rojo; $rosa-amarillo:
-            $color-rosa; $turquesa-dark-morado: $color-turquesa; $turquesa-negro: $color-turquesa; $turquesa-violeta:
-            $color-turquesa; $verdes: $color-lima; $zafiro-amarillo: $color-zafiro; $zafiro-morado: $color-zafiro;
-            $zafiro-violeta: $color-zafiro;
-    ),
-    Dark: (
-        $dark-morado: $color-morado; $dark-zafiro-dark-morado: $color-morado-oscuro; $gainsboro-morado:
-            $color-morado; $light-dark-transparency: $color-dark-transparency; $light-morado-oscuro:
-            $color-morado-oscuro; $lima-amarillo: $color-amarillo; $lima-violeta: $color-violeta; $marrones:
-            $color-marron; $negro-gainsboro: $color-gainsboro; $rojo-rosa: $color-rosa; $rosa-amarillo: $color-amarillo;
-            $turquesa-dark-morado: $color-morado-oscuro; $turquesa-negro: $color-negro; $turquesa-violeta:
-            $color-violeta; $verdes: $color-bosque; $zafiro-amarillo: $color-amarillo; $zafiro-morado: $color-morado;
-            $zafiro-violeta: $color-violeta;
-    )
-);
+
 */
