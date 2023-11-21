@@ -1,39 +1,58 @@
 .btn {
     cursor: pointer;
+    display: flex;
+    min-width: 150px;
+    padding: 7px 36px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 40px;
+    background: var(--button-fondo);
+    box-shadow: $sombra;
+
+    color: var(--button-text, #110300);
+    font-family: Quicksand;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+
+    @include mq($from: desktop) {
+        font-size: 2.19rem;
+        min-width: 300px;
+        padding: 12px 63px;
+    }
+    &-danger {
+        background: var(--button-fondo-danger);
+    }
     &-UI {
+        cursor: pointer;
         &theme {
-            @extend .btn;
+            @extend .btn-UI;
             @include size(67px);
             background-image: url(@/assets/img/si_Sun.svg);
             [data-theme="dark"] & {
                 background-image: url(@/assets/img/moon.svg);
-                @include colorize-gainsboro;
             }
         }
         &swap {
-            @extend .btn;
+            @extend .btn-UI;
             @include size(67px);
             background-image: url("@/assets/img/si_Swap_horiz.svg");
             @include mq($from: desktop) {
                 visibility: hidden;
             }
-            [data-theme="dark"] & {
-                @include colorize-gainsboro;
-            }
         }
         &github {
+            @extend .btn-UI;
             @include size(48px);
-            [data-theme="dark"] & {
-                @include colorize-gainsboro;
-            }
         }
         &logOut {
-            @extend .btn;
+            @extend .btn-UI;
             @include size(48px);
             background-image: url("@/assets/img/si_Sign_out.svg");
-            [data-theme="dark"] & {
-                @include colorize-gainsboro;
-            }
+        }
+        [data-theme="dark"] & {
+            @include colorize-gainsboro;
         }
     }
 }

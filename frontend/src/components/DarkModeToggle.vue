@@ -5,6 +5,9 @@
 </template>
 
 <script>
+/**
+ * @vue-method {Function} changeTheme - Cambia el tema de la página
+ */
 export default {
     name: "DarkModeToggle",
     methods: {

@@ -1,42 +1,30 @@
 :root {
-    --icon: $color-negro;
-    --font-color: #000;
-    --link-color: #1c75b9;
-    --link-white-color: #fff;
-    --bg-color: rgb(243, 243, 243);
+    --bg-color: #{$color-turquesa};
+    --text-primary: #{$color-negro};
+    --text-secondary: #{$color-gainsboro};
+
+    --modal-borde: #{$color-zafiro};
+    --modal-fondo: #{$color-light-transparency};
+
+    --button-fondo: #{$color-lima};
+    --button-text: #{$color-negro};
+    --button-borde: #{$color-zafiro};
+    --button-error: #{$color-rojo};
+    --button-fondo-danger: #{color-rosa};
+    --button-fondo-icono: --button-fondo;
+    --button-fondo-icono-danger: --button-fondo-danger;
 }
 [data-theme="dark"] {
-    --icon: $color-gainsboro;
-    --font-color: #bdbab8;
-    --link-color: #0a86da;
-    --link-white-color: #bdbab8;
-    --bg-color: #333;
-    --fondo-capa-1: $color-negro;
+    --bg-color: #{$color-negro};
+    --text-primary: #{$color-gainsboro};
+
+    --modal-borde: #{$color-morado};
+    --modal-fondo: #{$color-morado-oscuro};
+
+    --button-fondo: #{$color-violeta};
+    --button-borde: #{$color-morado};
+    --button-error: #{$color-rosa};
+    --button-fondo-danger: #{color-amarillo};
+    --button-fondo-icono: --button-fondo;
+    --button-fondo-icono-danger: --button-fondo-danger;
 }
-
-/*
-$themes: (
-    Default: (
-        $icons: $text-primary; $borde-borde: $zafiro-morado; $borde-input: $zafiro-amarillo; $button-borde:
-            $zafiro-morado; $button-error: $rojo-rosa; $button-fondo: $lima-violeta; $button-fondo-danger:
-            $rosa-amarillo; $button-fondo-icono: $button-fondo; $button-fondo-icono-danger: $button-fondo-danger;
-            $button-text: $color-negro; $cartel-cuerdas: hsl(19 31% 20%) ; $cartel-fondo: $color-marron; $cartel-text:
-            $text-secondary; $cartel-gnome-borde: $zafiro-morado; $cartel-gnome-btn-cartel: $zafiro-morado;
-            $cartel-gnome-fondo: $turquesa-negro; $cartel-gnome-fondo-cartel: $lima-violeta; $cartel-gnome-fondo-nuevo:
-            $marrones; $fondo-arena: $marrones; $fondo-capa1: $turquesa-negro; $fondo-capa2: $zafiro-morado;
-            $fondo-capa3: $dark-zafiro-dark-morado; $fondo-hojas: $verdes; $fondo-settings: $light-morado-oscuro;
-            $fondo-transparente: $light-dark-transparency; $input-borde: $zafiro-amarillo; $input-disabled:
-            $dark-morado; $input-fondo: $gainsboro-morado; $input-fondo-disabled: $light-dark-transparency;
-            $input-helper: $button-error; $input-icon: $zafiro-amarillo; $pop-up-borde: $borde-borde; $pop-up-fondo:
-            $light-morado-oscuro; $profile-default: $light-morado-oscuro; $profile-new: $marrones; $profile-selected:
-            $gainsboro-morado; $resources-category-dropdown: $lima-violeta; $resources-category-text: $button-text;
-            $resources-details: $zafiro-morado; $resources-icon: $resources-details; $resources-item:
-            $turquesa-dark-morado; $resources-item-border: $resources-details; $resources-item-text: $text-primary;
-            $session-borde: $zafiro-morado; $session-fondo: $turquesa-violeta; $session-text: $button-text; $task-border:
-            $zafiro-violeta; $task-btn: $button-fondo-icono; $task-header: $light-dark-transparency; $text-label:
-            $text-primary; $text-link: $text-primary; $text-placeholder: $zafiro-violeta; $text-primary:
-            $negro-gainsboro; $text-secondary: $color-gainsboro; $text-warning: $color-rosa;
-    )
-);
-
-*/

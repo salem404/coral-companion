@@ -1,26 +1,106 @@
-/* Text-size styles */
+.title {
+    font-family: General Sans;
+    font-style: normal;
+    line-height: normal;
+    &1 {
+        @extend .title;
+        font-size: 2.88rem;
+        font-weight: 600;
 
-$pc-title1: 5.06rem;
-$pc-title2: 4.5rem;
-$pc-title3: 4rem;
-$pc-h1: 3.56rem;
-$pc-h2: 3.12rem;
-$pc-h3: 2.81rem;
-$pc-h4: 2.5rem;
-$pc-p: 1.75rem;
-$pc-p--link: 1.75rem;
-$pc-label: 2.19rem;
-$pc-button: 2.19rem;
-$pc-minitext: 1.25rem;
-$mb-title1: 2.88rem;
-$mb-title2: 2.56rem;
-$mb-title3: 2.25rem;
-$mb-h1: 2rem;
-$mb-h2: 1.81rem;
-$mb-h3: 1.62rem;
-$mb-h4: 1.44rem;
-$mb-p: 1rem;
-$mb-p--link: 1rem;
-$mb-label: 1.25rem;
-$mb-button: 1.25rem;
-$mb-minitext: 1rem;
+        @include mq($from: desktop) {
+            font-size: 5.06rem;
+        }
+    }
+    &2 {
+        @extend .title;
+        font-size: 2.56rem;
+        font-weight: 500;
+
+        @include mq($from: desktop) {
+            font-size: 4.5rem;
+        }
+    }
+    &3 {
+        @extend .title;
+        font-size: 2.25rem;
+        font-weight: 500;
+
+        @include mq($from: desktop) {
+            font-size: 3.94rem;
+        }
+    }
+}
+h {
+    font-family: General Sans;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    &1 {
+        @extend h;
+        font-size: 2rem;
+
+        @include mq($from: desktop) {
+            font-size: 3.5rem;
+        }
+    }
+    &2 {
+        @extend h;
+        font-size: 1.75rem;
+
+        @include mq($from: desktop) {
+            font-size: 3.06rem;
+        }
+    }
+    &3 {
+        @extend h;
+        font-size: 1.5rem;
+
+        @include mq($from: desktop) {
+            font-size: 2.63rem;
+        }
+    }
+    &4 {
+        @extend h;
+        font-size: 1.25rem;
+
+        @include mq($from: desktop) {
+            font-size: 2.19rem;
+        }
+    }
+}
+
+p {
+    font-family: Quicksand;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    font-size: 1rem;
+
+    @include mq($from: desktop) {
+        font-size: 1.75rem;
+    }
+}
+
+label {
+    font-family: Quicksand;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+    @include mq($from: desktop) {
+        font-size: 2.19rem;
+    }
+}
+
+.minitext {
+    font-family: Quicksand;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+    @include mq($from: desktop) {
+        font-size: 1.25rem;
+    }
+}

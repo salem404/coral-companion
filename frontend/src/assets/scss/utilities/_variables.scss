@@ -1,21 +1,11 @@
-body {
-    background: var(--bg-color);
-    color: var(--font-color);
-}
-
-#app {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    justify-content: space-between;
-}
+/* Colores */
 
 $color-amarillo: hsl(58 64% 66%);
 $color-bosque: hsl(99 21% 32%);
 $color-camel: hsl(29 30% 60%);
-$color-dark-transparency: hsl(11 100% 3% / 0.82);
+$color-dark-transparency: #110300d1;
 $color-gainsboro: hsl(0 0 85%);
-$color-light-transparency: hsl(0 0 85% / 0.82);
+$color-light-transparency: #d9d9d9d1;
 $color-lima: hsl(81 40% 53%);
 $color-marron: hsl(20 25% 30%);
 $color-morado: hsl(248 26% 17%);
@@ -28,29 +18,101 @@ $color-violeta: hsl(256 22% 63%);
 $color-zafiro: hsl(199 74% 28%);
 $color-zafiro-oscuro: hsl(199 67% 23%);
 
-/* Effect styles */
-$dark: 0px 4px 4px rgba(17, 3, 0, 0.65);
-$sombra: 0px 4px 4px rgba(17, 3, 0, 0.25);
+/* Efectos */
+$sombra: 0px 4px 4px $color-dark-transparency;
 
-/* 
-$themes: (
-    Mode 1:
-        (
-               $espaciado-desktop-80: 12px;
-                $espaciado-desktop-90: 19px; $espaciado-desktop-100: 28px; $espaciado-desktop-200: 42px;
-                $espaciado-desktop-300: 63px; $espaciado-desktop-400: 95px; $espaciado-desktop-500: 142px;
-                $espaciado-desktop-600: 213px; $espaciado-mobile-80: 7px; $espaciado-mobile-90: 11px;
-                $espaciado-mobile-100: 16px; $espaciado-mobile-200: 24px; $espaciado-mobile-300: 36px;
-                $espaciado-mobile-400: 54px; $espaciado-mobile-500: 81px; $espaciado-mobile-600: 122px; $radio-100: 5px;
-                $radio-200: 10px; $radio-300: 20px; $radio-400: 40px; $size-desktop-80: 22px; $size-desktop-90: 25px;
-                $size-desktop-100: 28px; $size-desktop-200: 32px; $size-desktop-300: 35px; $size-desktop-400: 40px;
-                $size-desktop-500: 45px; $size-desktop-600: 50px; $size-desktop-700: 57px; $size-desktop-800: 64px;
-                $size-desktop-900: 72px; $size-desktop-1000: 81px; $size-mobile-80: 13px; $size-mobile-90: 14px;
-                $size-mobile-100: 16px; $size-mobile-200: 18px; $size-mobile-300: 20px; $size-mobile-400: 23px;
-                $size-mobile-500: 26px; $size-mobile-600: 29px; $size-mobile-700: 32px; $size-mobile-800: 36px;
-                $size-mobile-900: 41px; $size-mobile-1000: 46px;
-        )
-);
+$espaciado-desktop-80: 12px;
+$espaciado-desktop-90: 19px;
+$espaciado-desktop-100: 28px;
+$espaciado-desktop-200: 42px;
+$espaciado-desktop-300: 63px;
+$espaciado-desktop-400: 95px;
+$espaciado-desktop-500: 142px;
+$espaciado-desktop-600: 213px;
+$espaciado-mobile-80: 7px;
+$espaciado-mobile-90: 11px;
+$espaciado-mobile-100: 16px;
+$espaciado-mobile-200: 24px;
+$espaciado-mobile-300: 36px;
+$espaciado-mobile-400: 54px;
+$espaciado-mobile-500: 81px;
+$espaciado-mobile-600: 122px;
+$radio-100: 5px;
+$radio-200: 10px;
+$radio-300: 20px;
+$radio-400: 40px;
+$size-desktop-80: 22px;
+$size-desktop-90: 25px;
+$size-desktop-100: 28px;
+$size-desktop-200: 32px;
+$size-desktop-300: 35px;
+$size-desktop-400: 40px;
+$size-desktop-500: 45px;
+$size-desktop-600: 50px;
+$size-desktop-700: 57px;
+$size-desktop-800: 64px;
+$size-desktop-900: 72px;
+$size-desktop-1000: 81px;
+$size-mobile-80: 13px;
+$size-mobile-90: 14px;
+$size-mobile-100: 16px;
+$size-mobile-200: 18px;
+$size-mobile-300: 20px;
+$size-mobile-400: 23px;
+$size-mobile-500: 26px;
+$size-mobile-600: 29px;
+$size-mobile-700: 32px;
+$size-mobile-800: 36px;
+$size-mobile-900: 41px;
+$size-mobile-1000: 46px;
+
+/*
+$borde-borde: $zafiro-morado;
+$borde-input: $zafiro-amarillo;
+
+$cartel-cuerdas: hsl(19 31% 20%);
+$cartel-fondo: $color-marron;
+$cartel-text: $text-secondary;
+$cartel-gnome-borde: $zafiro-morado;
+$cartel-gnome-btn-cartel: $zafiro-morado;
+$cartel-gnome-fondo: $turquesa-negro;
+$cartel-gnome-fondo-cartel: $lima-violeta;
+$cartel-gnome-fondo-nuevo: $marrones;
+$fondo-arena: $marrones;
+$fondo-capa1: $turquesa-negro;
+$fondo-capa2: $zafiro-morado;
+$fondo-capa3: $dark-zafiro-dark-morado;
+$fondo-hojas: $verdes;
+$fondo-settings: $light-morado-oscuro;
+$fondo-transparente: $light-dark-transparency;
+$input-borde: $zafiro-amarillo;
+$input-disabled: $dark-morado;
+$input-fondo: $gainsboro-morado;
+$input-fondo-disabled: $light-dark-transparency;
+$input-helper: $button-error;
+$input-icon: $zafiro-amarillo;
+$modal-borde: $borde-borde;
+$modal-fondo: $light-morado-oscuro;
+$profile-default: $light-morado-oscuro;
+$profile-new: $marrones;
+$profile-selected: $gainsboro-morado;
+$resources-category-dropdown: $lima-violeta;
+$resources-category-text: $button-text;
+$resources-details: $zafiro-morado;
+$resources-icon: $resources-details;
+$resources-item: $turquesa-dark-morado;
+$resources-item-border: $resources-details;
+$resources-item-text: $text-primary;
+$session-borde: $zafiro-morado;
+$session-fondo: $turquesa-violeta;
+$session-text: $button-text;
+$task-border: $zafiro-violeta;
+$task-btn: $button-fondo-icono;
+$task-header: $light-dark-transparency;
+
+Effect styles 
+$dark: 0px 4px 4px rgba(17, 3, 0, 0.65);
+
 
 $themes: (
     Desktop: (

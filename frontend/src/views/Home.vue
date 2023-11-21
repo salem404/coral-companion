@@ -1,6 +1,6 @@
 <template>
     <main>
-        <h1>Coral Companion</h1>
+        <h1 class="title1">Coral Companion</h1>
     </main>
 </template>
 <script>
@@ -20,5 +20,8 @@ main {
     flex-wrap: wrap;
     height: 100%;
     width: 100%;
+}
+h1 {
+    color: var(--text-secondary);
 }
 </style>
