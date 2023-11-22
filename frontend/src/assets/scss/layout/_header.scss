@@ -7,9 +7,7 @@ header {
     justify-content: space-between;
     align-items: flex-start;
     flex-shrink: 0;
-    button {
-        span {
-            @include screen-reader-focusable;
-        }
+    span {
+        @include screen-reader-focusable;
     }
 }

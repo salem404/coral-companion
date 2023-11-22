@@ -10,9 +10,17 @@
     --button-text: #{$color-negro};
     --button-borde: #{$color-zafiro};
     --button-error: #{$color-rojo};
-    --button-fondo-danger: #{color-rosa};
+    --button-fondo-danger: #{$color-rosa};
     --button-fondo-icono: --button-fondo;
     --button-fondo-icono-danger: --button-fondo-danger;
+
+    --fondo-arena: #{$color-camel};
+    --fondo-capa1: #{$color-turquesa};
+    --fondo-capa2: #{$color-zafiro};
+    --fondo-capa3: #{$color-zafiro-oscuro};
+    --fondo-hojas: #{$color-lima};
+    --fondo-settings: #{$color-light-transparency};
+    --fondo-transparente: #{$color-light-transparency};
 }
 [data-theme="dark"] {
     --bg-color: #{$color-negro};
@@ -24,7 +32,13 @@
     --button-fondo: #{$color-violeta};
     --button-borde: #{$color-morado};
     --button-error: #{$color-rosa};
-    --button-fondo-danger: #{color-amarillo};
-    --button-fondo-icono: --button-fondo;
-    --button-fondo-icono-danger: --button-fondo-danger;
+    --button-fondo-danger: #{$color-amarillo};
+
+    --fondo-arena: #{$color-marron};
+    --fondo-capa1: #{$color-negro};
+    --fondo-capa2: #{$color-morado};
+    --fondo-capa3: #{$color-morado-oscuro};
+    --fondo-hojas: #{$color-bosque};
+    --fondo-settings: #{$color-morado-oscuro};
+    --fondo-transparente: $light-dark-transparency;
 }

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export class api {
+export default class apiService {
     token = "";
     api;
 

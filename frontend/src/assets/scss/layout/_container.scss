@@ -1,0 +1,21 @@
+.home {
+    display: flex;
+    padding: 0rem 6.1875rem 0rem 6.25rem;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    row-gap: 6.25rem;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    h1 {
+        color: var(--text-secondary);
+        width: 28.8125rem;
+        flex-shrink: 0;
+    }
+    @include mq($from: desktop) {
+        row-gap: 6.25rem;
+        flex-shrink: 0;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+}

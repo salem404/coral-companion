@@ -35,6 +35,16 @@ dialog {
                 padding: 0px 42px;
                 gap: 28px;
             }
+            .btns-container {
+                display: flex;
+                justify-content: center;
+                align-items: flex-end;
+                align-self: stretch;
+                gap: 0.4375rem;
+                @include mq($from: tablet) {
+                    gap: 2.625rem;
+                }
+            }
         }
     }
 }

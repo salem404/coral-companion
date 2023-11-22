@@ -6,14 +6,28 @@
 <script>
 import TheHeader from "@/components/TheHeader.vue";
 import TheFooter from "@/components/TheFooter.vue";
+import apiService from "@/services/api";
 
 export default {
     name: "App",
     components: { TheHeader, TheFooter },
+    data() {
+        return {
+            apiService: new apiService(),
+            isLogged: false,
+        };
+    },
+    methods: {
+
+        // TODO: Add a method to check if the user is logged in
+        changeLoggedState() {
+            this.isLogged = !this.isLogged;
+        },
+    },
     mounted() {
-        const hasDarkPreference = window.matchMedia(
-            "(prefers-color-scheme: dark)",
-        ).matches;
+
+        // THEME
+        const hasDarkPreference = window.matchMedia("(prefers-color-scheme: dark)").matches;
         const THEME = localStorage.getItem("theme");
         if (THEME == null) {
             if (hasDarkPreference) {
@@ -26,11 +40,6 @@ export default {
         } else {
             document.documentElement.setAttribute("data-theme", "light");
         }
-    },
-    data() {
-        return {
-            user: "admin",
-        };
     },
 };
 </script>
