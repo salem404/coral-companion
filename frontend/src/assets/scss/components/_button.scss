@@ -1,25 +1,24 @@
 .btn {
-    cursor: pointer;
     display: flex;
-    width: auto;
-    padding: 0.4375rem 1.8rem;
     justify-content: center;
     align-items: center;
-    border-radius: 40px;
-    background: var(--button-fondo);
-    box-shadow: $sombra;
-
-    color: var(--button-text, #110300);
-    font-family: Quicksand;
+    width: auto;
+    padding: 0.4375rem 1.8rem;
     font-size: 1.25rem;
+    font-family: Quicksand;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+    color: var(--button-text, #110300);
+    background: var(--button-fondo);
+    border-radius: 40px;
+    box-shadow: $sombra;
+    cursor: pointer;
 
     @include mq($from: desktop) {
-        font-size: 2.19rem;
         width: auto;
         padding: 12px 63px;
+        font-size: 2.19rem;
     }
     &-danger {
         @extend .btn;

@@ -70,11 +70,11 @@ h {
 }
 
 p {
+    font-size: 1rem;
     font-family: Quicksand;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    font-size: 1rem;
 
     @include mq($from: desktop) {
         font-size: 1.75rem;
@@ -82,8 +82,8 @@ p {
 }
 
 label {
-    font-family: Quicksand;
     font-size: 1.25rem;
+    font-family: Quicksand;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -94,8 +94,8 @@ label {
 }
 
 .minitext {
-    font-family: Quicksand;
     font-size: 1rem;
+    font-family: Quicksand;
     font-style: normal;
     font-weight: 400;
     line-height: normal;

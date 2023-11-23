@@ -12,16 +12,39 @@
     </svg>
     <main class="home">
         <h1 class="title1">Coral Companion</h1>
-        <FormLogin />
+        <section class="session">
+            <h2 class="session__title">
+                {{ title }}
+            </h2>
+            <div v-if="title == 'Welcome'">
+                Farmer name
+                // TODO: Add image and farmer name
+                <button class="btn" type="submit">Submit</button>
+            </div>
+            <FormLogin v-else-if="title == 'Login'" />
+            <FormRegister v-else-if="title == 'Register'" />
+        </section>
     </main>
 </template>
 <script>
 import FormLogin from "@/components/FormLogin.vue";
+import FormRegister from "@/components/FormRegister.vue";
 
 export default {
     name: "Home",
     components: {
         FormLogin,
+        FormRegister
+    },
+    data() {
+        return {
+            title: "Login",
+        };
+    },
+    methods: {
+        changeTitle($newTitle) {
+            this.title = $newTitle;
+        },
     },
 };
 </script>

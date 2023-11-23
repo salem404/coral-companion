@@ -1,0 +1,103 @@
+.session {
+    width: 38.125rem;
+    &__form {
+        display: inline-flex;
+        flex-shrink: 0;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        margin-top: -4rem;
+        @include mq($from: desktop) {
+            gap: 1.75rem;
+        }
+
+        fieldset {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 0.4375rem;
+            @include mq($from: desktop) {
+                gap: 0.75rem;
+            }
+
+            label {
+                align-self: stretch;
+                padding: 0rem 1.75rem;
+                font-size: 1.25rem;
+                font-family: Quicksand;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                color: var(--text-primary);
+                @include mq($from: desktop) {
+                    font-size: 2.1875rem;
+                    padding: 0rem 1rem;
+                }
+            }
+        }
+    }
+    &__input {
+        @extend p;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 18.75rem;
+        padding: 0.6875rem 1.5rem;
+        color: var(--text-primary);
+        background: var(--input-fondo);
+        border-radius: 2.5rem;
+        box-shadow: 0px 4px 4px 0px rgba(17, 3, 0, 0.25);
+
+        @include mq($from: tablet) {
+            width: 25rem;
+            padding: 0.75rem 1.75rem;
+        }
+
+        svg {
+            width: 1.25rem;
+            height: 1.25rem;
+            @include mq($from: tablet) {
+                width: 1.75rem;
+                height: 1.75rem;
+            }
+
+            @include mq($from: desktop) {
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+        }
+
+        &::placeholder,
+        input::placeholder {
+            color: var(--text-placeholder);
+        }
+        button {
+            display: flex;
+            color: var(--input-icon);
+        }
+    }
+
+    &__bottom {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 1.18rem 0 2.18rem 0;
+        gap: var(--padding-80, 0.75rem);
+        margin: -30px;
+    }
+}
+
+.error {
+    @extend .minitext;
+    color: var(--button-error, #830000);
+    text-align: center;
+}
+
+.link {
+    @extend p;
+    text-decoration-line: underline;
+    color: var(--text-primary, #110300);
+    text-align: center;
+}

@@ -2,17 +2,21 @@
     --bg-color: #{$color-turquesa};
     --text-primary: #{$color-negro};
     --text-secondary: #{$color-gainsboro};
+    --text-placeholder: #{$color-zafiro};
 
-    --modal-borde: #{$color-zafiro};
+    --borde-borde: #{$color-zafiro};
+    --borde-input: #{$color-zafiro};
+
+    --modal-borde: var(--borde-borde);
     --modal-fondo: #{$color-light-transparency};
 
     --button-fondo: #{$color-lima};
     --button-text: #{$color-negro};
-    --button-borde: #{$color-zafiro};
+    --button-borde: var(--borde-borde);
     --button-error: #{$color-rojo};
     --button-fondo-danger: #{$color-rosa};
-    --button-fondo-icono: --button-fondo;
-    --button-fondo-icono-danger: --button-fondo-danger;
+    --button-fondo-icono: var(--button-fondo);
+    --button-fondo-icono-danger: var(--button-fondo-danger);
 
     --fondo-arena: #{$color-camel};
     --fondo-capa1: #{$color-turquesa};
@@ -21,16 +25,29 @@
     --fondo-hojas: #{$color-lima};
     --fondo-settings: #{$color-light-transparency};
     --fondo-transparente: #{$color-light-transparency};
+
+    --session-borde: #{$color-zafiro};
+    --session-fondo: #{$color-turquesa};
+    --session-text: var(--button-text);
+
+    --input-borde: #{$color-zafiro};
+    --input-disabled: #{$color-dark-transparency};
+    --input-fondo: #{$color-gainsboro};
+    --input-fondo-disabled: var(--fondo-transparente);
+    --input-helper: var(--button-error);
+    --input-icon: #{$color-zafiro};
 }
 [data-theme="dark"] {
     --bg-color: #{$color-negro};
     --text-primary: #{$color-gainsboro};
+    --text-placeholder: #{$color-violeta};
 
-    --modal-borde: #{$color-morado};
+    --borde-borde: #{$color-morado};
+    --borde-input: #{$color-amarillo};
+
     --modal-fondo: #{$color-morado-oscuro};
 
     --button-fondo: #{$color-violeta};
-    --button-borde: #{$color-morado};
     --button-error: #{$color-rosa};
     --button-fondo-danger: #{$color-amarillo};
 
@@ -40,5 +57,13 @@
     --fondo-capa3: #{$color-morado-oscuro};
     --fondo-hojas: #{$color-bosque};
     --fondo-settings: #{$color-morado-oscuro};
-    --fondo-transparente: $light-dark-transparency;
+    --fondo-transparente: #{$color-dark-transparency};
+
+    --session-borde: #{$color-morado};
+    --session-fondo: #{$color-violeta};
+
+    --input-borde: #{$color-amarillo};
+    --input-disabled: #{$color-morado};
+    --input-fondo: #{$color-morado};
+    --input-icon: #{$color-amarillo};
 }

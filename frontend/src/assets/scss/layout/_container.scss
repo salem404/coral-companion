@@ -1,21 +1,79 @@
 .home {
+    gap: 6.25rem;
     display: flex;
-    padding: 0rem 6.1875rem 0rem 6.25rem;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    row-gap: 6.25rem;
     flex-shrink: 0;
     flex-wrap: wrap;
-    h1 {
-        color: var(--text-secondary);
-        width: 28.8125rem;
-        flex-shrink: 0;
-    }
-    @include mq($from: desktop) {
+    justify-content: center;
+    gap: 3rem;
+    align-content: center;
+    align-items: center;
+    padding: 0rem 6.1875rem 0rem 6.25rem;
+
+    @include mq($from: tablet) {
         row-gap: 6.25rem;
         flex-shrink: 0;
-        flex-wrap: wrap;
         justify-content: space-around;
+        text-align: left;
+    }
+    h1 {
+        flex-shrink: 0;
+        width: 28.8125rem;
+        padding: 0 4rem;
+        color: var(--text-secondary);
+        text-align: center;
+        @include mq($from: tablet) {
+            padding: 0;
+        }
+        @include mq($from: desktop) {
+            text-align: left;
+        }
+    }
+    .session {
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 2.5rem 1.8rem 2.5rem 1.8rem;
+        background: var(--fondo-transparente);
+        border: 28px solid var(--borde-borde);
+        border-radius: 2.5rem;
+        box-shadow: 0px 4px 4px 0px rgba(17, 3, 0, 0.65);
+        @include mq($from: tablet) {
+            padding: 1rem 5.18rem;
+        }
+
+        .session__title {
+            position: relative;
+            top: -3.5em;
+            display: flex;
+            flex-shrink: 0;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            width: 13.16156rem;
+            height: 4.79825rem;
+            padding: 0.6875rem;
+            color: var(--session-text);
+            background: var(--session-fondo);
+            border: 8px solid var(--session-borde);
+            border-radius: 0.625rem;
+
+            @include mq($from: tablet) {
+                top: -3em;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 20rem;
+                height: 6.205rem;
+                padding: 1.1875rem;
+            }
+
+            @include mq($from: desktop) {
+                top: -6rem;
+                width: 25rem;
+                height: 7.205rem;
+            }
+        }
     }
 }

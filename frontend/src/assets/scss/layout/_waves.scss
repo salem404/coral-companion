@@ -1,13 +1,13 @@
 body {
-    background: var(--bg-color);
     color: var(--text-primary);
+    background: var(--bg-color);
 }
 
 #app {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
     justify-content: space-between;
+    min-height: 100vh;
 }
 
 @keyframes MoveUpDown {
@@ -25,23 +25,23 @@ body {
 }
 
 .wave {
-    position: fixed;
     z-index: -1;
-    width: 1500px;
+    position: fixed;
     left: 0;
+    width: 1500px;
 
     &-1 {
-        bottom: 0;
         @extend .wave;
+        bottom: 0;
         color: var(--fondo-capa2);
         @include mq($from: tablet) {
-            height: 100vh;
+            top: -10%;
             width: 100vw;
             width: 100%;
-            top: -10%;
+            height: 100vh;
         }
-        -webkit-animation: MoveUpDown 5s linear infinite;
         animation: MoveUpDown 5s linear infinite;
+        -webkit-animation: MoveUpDown 5s linear infinite;
     }
 
     &-2 {
@@ -49,16 +49,15 @@ body {
         color: var(--fondo-capa3);
         bottom: -20%;
         @include mq($from: tablet) {
-            height: 100vh;
+            bottom: -20%;
             width: 100vw;
             width: 100%;
-            bottom: -20%;
+            height: 100vh;
         }
 
-        -webkit-animation: MoveUpDown 4s infinite linear;
         animation: MoveUpDown 4s infinite linear;
-
-        -webkit-animation-delay: 0.4s;
         animation-delay: 0.4s;
+        -webkit-animation: MoveUpDown 4s infinite linear;
+        -webkit-animation-delay: 0.4s;
     }
 }
