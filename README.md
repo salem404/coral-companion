@@ -37,7 +37,7 @@
 
 ## Documentation
 
-[API-Documentation](https://salem404.github.io/coral-companion/api/documentation)
+[API-Documentation](https://salem404.github.io/coral-companion)
 
 ## Run Locally
 
