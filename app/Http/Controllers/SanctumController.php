@@ -16,6 +16,7 @@ class SanctumController extends Controller
      * @OA\Post(
      *     tags={"Users"},
      *     path="/register",
+     *     description="Register a new user with a unique email given in the request body",
      *     summary="Register a new user",
      *     @OA\RequestBody(ref="#/components/requestBodies/UserRegister"),
      *     @OA\Parameter(
@@ -51,7 +52,6 @@ class SanctumController extends Controller
     {
         // Validate request
         $validator = Validator::make($request->all(), [
-            "username" => "required",
             "email" => "required|email",
             "password" => "required|min:6",
         ]);
@@ -61,8 +61,7 @@ class SanctumController extends Controller
 
         // Check if user already exists
         $userEmail = User::where("email", $request->email)->first();
-        $userName = User::where("username", $request->username)->first();
-        if ($userEmail || $userName) {
+        if ($userEmail) {
             return response()->json(
                 [
                     "message" => "User already exists",
@@ -72,7 +71,6 @@ class SanctumController extends Controller
         }
 
         User::create([
-            "username" => $request->username,
             "email" => $request->email,
             "password" => bcrypt($request->password),
         ]);
@@ -91,6 +89,7 @@ class SanctumController extends Controller
      * @OA\Post(
      *     tags={"Users"},
      *     path="/login",
+     *     description="Login a user with an email and password given in the request body",
      *     summary="Login a user",
      *     @OA\RequestBody(ref="#/components/requestBodies/UserLogin"),
      *     @OA\Parameter(
@@ -175,7 +174,7 @@ class SanctumController extends Controller
      * @OA\Post(
      *     tags={"Users"},
      *     path="/logout",
-     *     summary="Logout a user",
+     *     summary="Logout an user",
      *     security={{"sanctum":{}}},
      *     @OA\Parameter(
      *         name="Accept",

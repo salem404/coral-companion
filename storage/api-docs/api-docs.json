@@ -19,11 +19,7 @@
     "servers": [
         {
             "url": "http://localhost/api",
-            "description": "Localhost"
-        },
-        {
-            "url": "https://coral-companion.railway.com/api",
-            "description": "Railway"
+            "description": "Local"
         }
     ],
     "paths": {
@@ -1675,7 +1671,7 @@
                                     "properties": {
                                         "message": {
                                             "type": "string",
-                                            "example": "farmer_name, farm_name and color are required"
+                                            "example": "farmer_name and farm_name are required"
                                         }
                                     },
                                     "type": "object"
@@ -1956,7 +1952,7 @@
                     "Users"
                 ],
                 "summary": "Register a new user",
-                "description": "Register a new user.",
+                "description": "Register a new user with a unique email given in the request body",
                 "operationId": "cffdb69e5b176093c7abd7ad6a9ab6e5",
                 "parameters": [
                     {
@@ -2017,7 +2013,7 @@
                     "Users"
                 ],
                 "summary": "Login a user",
-                "description": "Login a user.",
+                "description": "Login a user with an email and password given in the request body",
                 "operationId": "999b75abea65a7e2cab3f78195ab68cf",
                 "parameters": [
                     {
@@ -2102,7 +2098,7 @@
                 "tags": [
                     "Users"
                 ],
-                "summary": "Logout a user",
+                "summary": "Logout an user",
                 "description": "Logout a user.",
                 "operationId": "df53fbe1b232f646afb1bc32ecba141f",
                 "parameters": [
@@ -3115,11 +3111,11 @@
                     "Users"
                 ],
                 "summary": "Get all users",
-                "description": "Returns all users from the database",
+                "description": "Returns all users from the database or a message if no users found",
                 "operationId": "78451c34a9c0e7701cd034b2ff700027",
                 "responses": {
                     "200": {
-                        "description": "Success: Returns all users",
+                        "description": "Success: Returns an array of all users",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -3132,7 +3128,7 @@
                         }
                     },
                     "404": {
-                        "description": "No users found",
+                        "description": "Not found: No users found",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -3156,7 +3152,7 @@
                     "Users"
                 ],
                 "summary": "Get user",
-                "description": "Get an user by ID sent in the URL from the database",
+                "description": "Get an user by ID sent in the URL from the database or a message the user is not found",
                 "operationId": "4b3b292dd9efff069b7e7b5575f80560",
                 "parameters": [
                     {
@@ -3183,7 +3179,7 @@
                         }
                     },
                     "404": {
-                        "description": "Not found: User doesn't exist",
+                        "description": "Not found: User with given id doesn't exist",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -3382,7 +3378,6 @@
                     "id",
                     "farmer_name",
                     "farm_name",
-                    "color",
                     "user_id"
                 ],
                 "properties": {
@@ -3398,22 +3393,8 @@
                         "type": "string",
                         "example": "John's Farm"
                     },
-                    "color": {
-                        "type": "string",
-                        "example": "#000000"
-                    },
                     "user_id": {
                         "$ref": "#/components/schemas/User"
-                    },
-                    "created_at": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2021-03-25T20:29:48.000000Z"
-                    },
-                    "updated_at": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2021-03-25T20:29:48.000000Z"
                     }
                 },
                 "type": "object"
@@ -3510,7 +3491,6 @@
             "User": {
                 "required": [
                     "id",
-                    "username",
                     "email",
                     "password"
                 ],
@@ -3519,10 +3499,6 @@
                         "type": "integer",
                         "minimum": 1,
                         "example": 1
-                    },
-                    "username": {
-                        "type": "string",
-                        "example": "john_doe"
                     },
                     "email": {
                         "type": "string",
@@ -3796,8 +3772,7 @@
                         "schema": {
                             "required": [
                                 "farmer_name",
-                                "farm_name",
-                                "color"
+                                "farm_name"
                             ],
                             "properties": {
                                 "farmer_name": {
@@ -3807,10 +3782,6 @@
                                 "farm_name": {
                                     "type": "string",
                                     "example": "John's Farm"
-                                },
-                                "color": {
-                                    "type": "string",
-                                    "example": "#000000"
                                 },
                                 "user_id": {
                                     "type": "integer",
@@ -3835,10 +3806,6 @@
                                 "farm_name": {
                                     "type": "string",
                                     "example": "John's Farm"
-                                },
-                                "color": {
-                                    "type": "string",
-                                    "example": "#000000"
                                 }
                             },
                             "type": "object"
@@ -3963,10 +3930,6 @@
                     "application/json": {
                         "schema": {
                             "properties": {
-                                "username": {
-                                    "type": "string",
-                                    "example": "john_doe"
-                                },
                                 "email": {
                                     "type": "string",
                                     "format": "email",

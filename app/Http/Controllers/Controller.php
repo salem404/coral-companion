@@ -23,9 +23,7 @@ use Illuminate\Routing\Controller as BaseController;
  *         url="https://creativecommons.org/licenses/by-sa/4.0/"
  *     )
  * )
- * @OA\Server(url="http://localhost/api", description="Localhost")
- * @OA\Server(url="https://coral-companion.railway.com/api", description="Railway")
- * TODO: Change Railway server when deployed
+ * @OA\Server(url="http://localhost/api", description="Local")
  * @OA\Component(
  *     @OA\SecurityScheme(securityScheme="sanctum", type="http", scheme="bearer")
  * )

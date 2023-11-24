@@ -4,15 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 /**
  * @OA\Tag(name="Users",description="Endpoints for users")
  * @OA\Schema(
  *     schema="User",
- *     required={"id","username", "email", "password"},
+ *     required={"id","email", "password"},
  *     @OA\Property(property="id", type="integer", example=1, minimum=1),
- *     @OA\Property(property="username", type="string", example="john_doe"),
  *     @OA\Property(property="email", type="string", format="email", example="example@email.es"),
  *     @OA\Property(property="password", type="string", format="password", example="password123")
  * )
@@ -27,7 +25,6 @@ use Illuminate\Http\Request;
  *     request="UserRegister",
  *     required=true,
  *     @OA\JsonContent(
- *     @OA\Property(property="username", type="string", example="john_doe"),
  *     @OA\Property(property="email", type="string", format="email", example="example@email.es"),
  *     @OA\Property(property="password", type="string", format="password", example="password123")
  * ))
@@ -41,10 +38,10 @@ class UsersController extends Controller
      *     tags={"Users"},
      *     path="/users",
      *     summary="Get all users",
-     *     description="Returns all users from the database",
+     *     description="Returns all users from the database or a message if no users found",
      *     @OA\Response(
      *         response=200,
-     *         description="Success: Returns all users",
+     *         description="Success: Returns an array of all users",
      *         @OA\JsonContent(
      *             type="array",
      *             @OA\Items(ref="#/components/schemas/User")
@@ -52,7 +49,7 @@ class UsersController extends Controller
      *     ),
      *     @OA\Response(
      *         response=404,
-     *         description="No users found",
+     *         description="Not found: No users found",
      *         @OA\JsonContent(
      *             @OA\Property(property="message", type="string", example="No users found")
      *         )
@@ -83,7 +80,7 @@ class UsersController extends Controller
      *     tags={"Users"},
      *     path="/users/{id}",
      *     summary="Get user",
-     *     description="Get an user by ID sent in the URL from the database",
+     *     description="Get an user by ID sent in the URL from the database or a message the user is not found",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -98,7 +95,7 @@ class UsersController extends Controller
      *     ),
      *     @OA\Response(
      *         response=404,
-     *         description="Not found: User doesn't exist",
+     *         description="Not found: User with given id doesn't exist",
      *         @OA\JsonContent(
      *              @OA\Property(property="message", type="string", example="User with id 1 not found")
      *        )

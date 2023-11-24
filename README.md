@@ -37,7 +37,7 @@
 
 ## Documentation
 
-[API-Documentation](https://salem404.github.io/coral-companion/)
+[API-Documentation](https://salem404.github.io/coral-companion/api/documentation)
 
 ## Run Locally
 
@@ -103,7 +103,6 @@ Create the database and seed it with data
 
 ![Docker](https://img.shields.io/badge/Docker-2496ED?logo=Docker&logoColor=white)
 ![Netlify](https://img.shields.io/badge/Netlify-00C7B7?logo=Netlify&logoColor=white)
-![Railway](https://img.shields.io/badge/Railway-FF0000?logo=Railway&logoColor=white)
 
 **Client:**
 

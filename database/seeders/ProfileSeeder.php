@@ -17,7 +17,6 @@ class ProfileSeeder extends Seeder
             "farmer_name" => "Test",
             "farm_name" => "Test Farm",
             "user_id" => 2,
-            "color" => "#88b5da",
         ]);
     }
 }

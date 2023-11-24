@@ -13,23 +13,19 @@ use Illuminate\Support\Facades\Auth;
  * @OA\Tag(name="Profiles", description="Endpoints for profiles")
  * @OA\Schema(
  *     schema="Profile",
- *     required={"id", "farmer_name", "farm_name", "color", "user_id"},
+ *     required={"id", "farmer_name", "farm_name", "user_id"},
  *     @OA\Property(property="id", type="integer", example=4),
  *     @OA\Property(property="farmer_name", type="string", example="John Doe"),
  *     @OA\Property(property="farm_name", type="string", example="John's Farm"),
- *     @OA\Property(property="color", type="string", example="#000000"),
  *     @OA\Property(property="user_id", type="object", ref="#/components/schemas/User"),
- *     @OA\Property(property="created_at", type="string", format="date-time", example="2021-03-25T20:29:48.000000Z"),
- *     @OA\Property(property="updated_at", type="string", format="date-time", example="2021-03-25T20:29:48.000000Z"),
  * ),
  *
  * @OA\RequestBody(
  *     request="ProfileCreate",
  *     required=true,
- *     @OA\JsonContent(required={"farmer_name", "farm_name", "color"},
+ *     @OA\JsonContent(required={"farmer_name", "farm_name"},
  *         @OA\Property(property="farmer_name", type="string", example="John Doe"),
  *         @OA\Property(property="farm_name", type="string", example="John's Farm"),
- *         @OA\Property(property="color", type="string", example="#000000"),
  *         @OA\Property(property="user_id", type="integer", example=1)
  *     )
  * ),
@@ -39,7 +35,6 @@ use Illuminate\Support\Facades\Auth;
  *     @OA\JsonContent(
  *         @OA\Property(property="farmer_name", type="string", example="John Doe"),
  *         @OA\Property(property="farm_name", type="string", example="John's Farm"),
- *         @OA\Property(property="color", type="string", example="#000000"),
  *     )
  * )
  */
@@ -84,7 +79,7 @@ class ProfileController extends Controller
      *         response=400,
      *         description="Bad request: The request you sent was invalid",
      *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="farmer_name, farm_name and color are required"),
+     *             @OA\Property(property="message", type="string", example="farmer_name and farm_name are required"),
      *         )
      *     ),
      *     @OA\Response(
@@ -108,7 +103,6 @@ class ProfileController extends Controller
             $validator = Validator::make($request->all(), [
                 "farmer_name" => "required|string",
                 "farm_name" => "required|string",
-                "color" => "required|string",
                 "user_id" => "required|integer",
             ]);
             if ($validator->fails()) {
@@ -130,7 +124,6 @@ class ProfileController extends Controller
             Profile::create([
                 "farmer_name" => $request->farmer_name,
                 "farm_name" => $request->farm_name,
-                "color" => $request->color,
                 "user_id" => $request->user_id,
             ]);
         } else {
@@ -138,7 +131,6 @@ class ProfileController extends Controller
             $validator = Validator::make($request->all(), [
                 "farmer_name" => "required|string",
                 "farm_name" => "required|string",
-                "color" => "required|string",
             ]);
             if ($validator->fails()) {
                 return response()->json($validator->errors(), 400);
@@ -148,7 +140,6 @@ class ProfileController extends Controller
             Profile::create([
                 "farmer_name" => $request->farmer_name,
                 "farm_name" => $request->farm_name,
-                "color" => $request->color,
                 "user_id" => Auth::user()->id,
             ]);
         }
@@ -348,7 +339,6 @@ class ProfileController extends Controller
         $validator = Validator::make($request->all(), [
             "farmer_name" => "required|string|max:255",
             "farm_name" => "required|string|max:255",
-            "color" => "required|string|max:255",
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
@@ -358,7 +348,6 @@ class ProfileController extends Controller
         $profile->update($request->all(), [
             "farmer_name" => $request->farmer_name,
             "farm_name" => $request->farm_name,
-            "color" => $request->color,
         ]);
         return response()->json([
             "message" => "Profile updated successfully",
