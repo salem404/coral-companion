@@ -4,7 +4,7 @@
         "dev": "vite",
         "build": "vite build",
         "seed": "vendor/bin/sail artisan migrate:refresh --seed",
-        "document": "vendor/bin/sail artisan l5-swagger:generate"
+        "document": "vendor/bin/sail artisan l5-swagger:generate && openapi-to-md storage/api-docs/api-docs.json docs/README.md "
     },
     "devDependencies": {
         "laravel-vite-plugin": "^0.7.2",
@@ -12,6 +12,7 @@
     },
     "dependencies": {
         "@prettier/plugin-php": "^0.19.4",
+        "openapi-to-md": "^1.0.24",
         "prettier": "^2.8.8"
     }
 }
