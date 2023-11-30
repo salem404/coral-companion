@@ -243,6 +243,62 @@ class ProfileController extends Controller
     }
 
     /**
+     * @OA\Get(
+     *     path="/user/{id}/profiles",
+     *     summary="Get profiles by user ID",
+     *     description="Retrieves profiles associated with a specific user ID.",
+     *     operationId="getProfilesByUserId",
+     *     tags={"Profiles"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="The user ID",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/Profile")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Profiles not found"
+     *     )
+     * )
+     *
+     * Get profiles by user ID.
+     *
+     * Retrieves profiles associated with a specific user ID.
+     *
+     * @param int $id The user ID.
+     * @return \Illuminate\Http\JsonResponse The JSON response containing the profiles.
+     */
+    public function getProfilesByUserId($id): JsonResponse
+    {
+        $profiles = Profile::with("user")
+            ->where("user_id", $id)
+            ->get();
+
+        // Check if profiles exist
+        if (count($profiles) === 0) {
+            return response()->json(
+                [
+                    "message" => "No profiles found",
+                ],
+                404
+            );
+        }
+
+        return response()->json($profiles);
+    }
+
+    /**
      * Update a profile
      * @OA\Put(
      *     tags={"Profiles"},

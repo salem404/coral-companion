@@ -35,6 +35,7 @@ Documentation for the API used in the Coral Companion app
 | GET | [/profiles/{id}](#getprofilesid) | Get a profile |
 | PUT | [/profiles/{id}](#putprofilesid) | Update a profile |
 | DELETE | [/profiles/{id}](#deleteprofilesid) | Delete a profile |
+| GET | [/user/{id}/profiles](#getuseridprofiles) | Get profiles by user ID |
 | POST | [/register](#postregister) | Register a new user |
 | POST | [/login](#postlogin) | Login a user |
 | POST | [/logout](#postlogout) | Logout an user |
@@ -1598,6 +1599,37 @@ Accept: string //default: application/json
 
 ***
 
+### [GET]/user/{id}/profiles
+
+- Summary  
+Get profiles by user ID
+
+- Description  
+Retrieves profiles associated with a specific user ID.
+
+#### Responses
+
+- 200 Successful operation
+
+`application/json`
+
+```ts
+{
+  id: integer
+  farmer_name: string
+  farm_name: string
+  user_id: {
+    id: integer
+    email: string
+    password: string
+  }
+}[]
+```
+
+- 404 Profiles not found
+
+***
+
 ### [POST]/register
 
 - Summary  
@@ -1781,6 +1813,11 @@ Accept: string //default: application/json
 ```ts
 {
   message?: string
+  user: {
+    id: integer
+    email: string
+    password: string
+  }
 }
 ```
 

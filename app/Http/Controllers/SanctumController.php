@@ -243,7 +243,8 @@ class SanctumController extends Controller
      *         response=200,
      *         description="Success: Token is valid",
      *         @OA\JsonContent(
-     *             @OA\Property(property="message",type="string",example="Token is valid")
+     *             @OA\Property(property="message",type="string",example="Token is valid"),
+     *             @OA\Property( property="user", ref="#/components/schemas/User")
      *         )
      *     ),
      *     @OA\Response(
@@ -263,6 +264,7 @@ class SanctumController extends Controller
             return response()->json(
                 [
                     "message" => "Token is valid",
+                    "user" => $user,
                 ],
                 200
             );

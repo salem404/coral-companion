@@ -1946,6 +1946,45 @@
                 ]
             }
         },
+        "/user/{id}/profiles": {
+            "get": {
+                "tags": [
+                    "Profiles"
+                ],
+                "summary": "Get profiles by user ID",
+                "description": "Retrieves profiles associated with a specific user ID.",
+                "operationId": "getProfilesByUserId",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The user ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Profile"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Profiles not found"
+                    }
+                }
+            }
+        },
         "/register": {
             "post": {
                 "tags": [
@@ -2182,6 +2221,9 @@
                                         "message": {
                                             "type": "string",
                                             "example": "Token is valid"
+                                        },
+                                        "user": {
+                                            "$ref": "#/components/schemas/User"
                                         }
                                     },
                                     "type": "object"

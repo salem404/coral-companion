@@ -42,6 +42,3068 @@
 
 
 
+    <section>
+        <article><h1>Coral Companion API Documentation</h1>
+<blockquote>
+<p>Version 1.0.0</p>
+</blockquote>
+<p>Documentation for the API used in the Coral Companion app</p>
+<h2>Path Table</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td><a href="#getcharacters">/characters</a></td>
+<td>Get all characters</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><a href="#postcharacters">/characters</a></td>
+<td>Create a new character</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><a href="#getcharactersid">/characters/{id}</a></td>
+<td>Get a character</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td><a href="#putcharactersid">/characters/{id}</a></td>
+<td>Update a character</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td><a href="#deletecharactersid">/characters/{id}</a></td>
+<td>Delete a character</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><a href="#getcrops">/crops</a></td>
+<td>Get all crops</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><a href="#getcropsid">/crops/{id}</a></td>
+<td>Get crop by id</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><a href="#getfamilies">/families</a></td>
+<td>Get all families</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><a href="#postfamilies">/families</a></td>
+<td>Create a new family</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><a href="#getfamiliesid">/families/{id}</a></td>
+<td>Get a family</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td><a href="#putfamiliesid">/families/{id}</a></td>
+<td>Update a family</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td><a href="#deletefamiliesid">/families/{id}</a></td>
+<td>Delete a family</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><a href="#getfavlists">/favlists</a></td>
+<td>Get all favorite lists</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><a href="#postfavlists">/favlists</a></td>
+<td>Create a new favorite list</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><a href="#getfavlistsid">/favlists/{id}</a></td>
+<td>Get a favorite list</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td><a href="#putfavlistsid">/favlists/{id}</a></td>
+<td>Update a favorite list</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td><a href="#deletefavlistsid">/favlists/{id}</a></td>
+<td>Delete a favorite list</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><a href="#getitems">/items</a></td>
+<td>Get all items</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><a href="#postitems">/items</a></td>
+<td>Create a new item</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><a href="#getitemsid">/items/{id}</a></td>
+<td>Get an item</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td><a href="#putitemsid">/items/{id}</a></td>
+<td>Update an item</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td><a href="#deleteitemsid">/items/{id}</a></td>
+<td>Delete an item</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><a href="#getprofiles">/profiles</a></td>
+<td>Get all profiles</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><a href="#postprofiles">/profiles</a></td>
+<td>Create a profile</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><a href="#getprofilesid">/profiles/{id}</a></td>
+<td>Get a profile</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td><a href="#putprofilesid">/profiles/{id}</a></td>
+<td>Update a profile</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td><a href="#deleteprofilesid">/profiles/{id}</a></td>
+<td>Delete a profile</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><a href="#getuseridprofiles">/user/{id}/profiles</a></td>
+<td>Get profiles by user ID</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><a href="#postregister">/register</a></td>
+<td>Register a new user</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><a href="#postlogin">/login</a></td>
+<td>Login a user</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><a href="#postlogout">/logout</a></td>
+<td>Logout an user</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><a href="#getcheck-token">/check-token</a></td>
+<td>Check if the token is valid</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><a href="#getseasons">/seasons</a></td>
+<td>Get all seasons</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><a href="#getseasonsid">/seasons/{id}</a></td>
+<td>Get season</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><a href="#getcropsseasonid">/crops/season/{id}</a></td>
+<td>Get all seasonal crops</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><a href="#gettasks">/tasks</a></td>
+<td>Get all tasks</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><a href="#posttasks">/tasks</a></td>
+<td>Create a new task</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><a href="#gettasksid">/tasks/{id}</a></td>
+<td>Get a task</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td><a href="#puttasksid">/tasks/{id}</a></td>
+<td>Update a task</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td><a href="#deletetasksid">/tasks/{id}</a></td>
+<td>Delete a task</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><a href="#gettasksprofileid">/tasks/profile/{id}</a></td>
+<td>Get tasks by profile ID</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><a href="#gettypes">/types</a></td>
+<td>Get all types</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><a href="#posttypes">/types</a></td>
+<td>Create a new type</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><a href="#gettypesid">/types/{id}</a></td>
+<td>Get a type by id</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td><a href="#puttypesid">/types/{id}</a></td>
+<td>Update a type</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td><a href="#deletetypesid">/types/{id}</a></td>
+<td>Delete a type</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><a href="#getusers">/users</a></td>
+<td>Get all users</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><a href="#getusersid">/users/{id}</a></td>
+<td>Get user</td>
+</tr>
+</tbody>
+</table>
+<h2>Reference Table</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Path</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Character</td>
+<td><a href="#componentsschemascharacter">#/components/schemas/Character</a></td>
+<td></td>
+</tr>
+<tr>
+<td>Crop</td>
+<td><a href="#componentsschemascrop">#/components/schemas/Crop</a></td>
+<td></td>
+</tr>
+<tr>
+<td>Family</td>
+<td><a href="#componentsschemasfamily">#/components/schemas/Family</a></td>
+<td></td>
+</tr>
+<tr>
+<td>FavList</td>
+<td><a href="#componentsschemasfavlist">#/components/schemas/FavList</a></td>
+<td></td>
+</tr>
+<tr>
+<td>Item</td>
+<td><a href="#componentsschemasitem">#/components/schemas/Item</a></td>
+<td></td>
+</tr>
+<tr>
+<td>Profile</td>
+<td><a href="#componentsschemasprofile">#/components/schemas/Profile</a></td>
+<td></td>
+</tr>
+<tr>
+<td>Season</td>
+<td><a href="#componentsschemasseason">#/components/schemas/Season</a></td>
+<td></td>
+</tr>
+<tr>
+<td>SeasonalCrop</td>
+<td><a href="#componentsschemasseasonalcrop">#/components/schemas/SeasonalCrop</a></td>
+<td></td>
+</tr>
+<tr>
+<td>Task</td>
+<td><a href="#componentsschemastask">#/components/schemas/Task</a></td>
+<td></td>
+</tr>
+<tr>
+<td>Type</td>
+<td><a href="#componentsschemastype">#/components/schemas/Type</a></td>
+<td></td>
+</tr>
+<tr>
+<td>User</td>
+<td><a href="#componentsschemasuser">#/components/schemas/User</a></td>
+<td></td>
+</tr>
+<tr>
+<td>CharacterCreate</td>
+<td><a href="#componentsrequestbodiescharactercreate">#/components/requestBodies/CharacterCreate</a></td>
+<td></td>
+</tr>
+<tr>
+<td>CharacterUpdate</td>
+<td><a href="#componentsrequestbodiescharacterupdate">#/components/requestBodies/CharacterUpdate</a></td>
+<td></td>
+</tr>
+<tr>
+<td>FamilyCreate</td>
+<td><a href="#componentsrequestbodiesfamilycreate">#/components/requestBodies/FamilyCreate</a></td>
+<td></td>
+</tr>
+<tr>
+<td>FamilyUpdate</td>
+<td><a href="#componentsrequestbodiesfamilyupdate">#/components/requestBodies/FamilyUpdate</a></td>
+<td></td>
+</tr>
+<tr>
+<td>FavListCreate</td>
+<td><a href="#componentsrequestbodiesfavlistcreate">#/components/requestBodies/FavListCreate</a></td>
+<td></td>
+</tr>
+<tr>
+<td>FavListUpdate</td>
+<td><a href="#componentsrequestbodiesfavlistupdate">#/components/requestBodies/FavListUpdate</a></td>
+<td></td>
+</tr>
+<tr>
+<td>ItemUpdate</td>
+<td><a href="#componentsrequestbodiesitemupdate">#/components/requestBodies/ItemUpdate</a></td>
+<td></td>
+</tr>
+<tr>
+<td>ItemCreate</td>
+<td><a href="#componentsrequestbodiesitemcreate">#/components/requestBodies/ItemCreate</a></td>
+<td></td>
+</tr>
+<tr>
+<td>ProfileCreate</td>
+<td><a href="#componentsrequestbodiesprofilecreate">#/components/requestBodies/ProfileCreate</a></td>
+<td></td>
+</tr>
+<tr>
+<td>ProfileUpdate</td>
+<td><a href="#componentsrequestbodiesprofileupdate">#/components/requestBodies/ProfileUpdate</a></td>
+<td></td>
+</tr>
+<tr>
+<td>TaskUpdate</td>
+<td><a href="#componentsrequestbodiestaskupdate">#/components/requestBodies/TaskUpdate</a></td>
+<td></td>
+</tr>
+<tr>
+<td>TaskCreate</td>
+<td><a href="#componentsrequestbodiestaskcreate">#/components/requestBodies/TaskCreate</a></td>
+<td></td>
+</tr>
+<tr>
+<td>Type</td>
+<td><a href="#componentsrequestbodiestype">#/components/requestBodies/Type</a></td>
+<td></td>
+</tr>
+<tr>
+<td>UserLogin</td>
+<td><a href="#componentsrequestbodiesuserlogin">#/components/requestBodies/UserLogin</a></td>
+<td></td>
+</tr>
+<tr>
+<td>UserRegister</td>
+<td><a href="#componentsrequestbodiesuserregister">#/components/requestBodies/UserRegister</a></td>
+<td></td>
+</tr>
+<tr>
+<td>sanctum</td>
+<td><a href="#componentssecurityschemessanctum">#/components/securitySchemes/sanctum</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>Path Details</h2>
+<hr>
+<h3>[GET]/characters</h3>
+<ul>
+<li>
+<p>Summary<br>
+Get all characters</p>
+</li>
+<li>
+<p>Description<br>
+Get all characters from the database</p>
+</li>
+</ul>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Returns all characters</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  id: integer
+  name: string
+  birthday?: integer
+  season_id: {
+    id: integer
+    name: string
+  }
+  gender?: string
+  occupation?: string
+  isRomanceable: integer
+  icon: string
+  created_at?: string
+  updated_at?: string
+}[]
+</code></pre>
+<ul>
+<li>404 Not found: Characters don't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[POST]/characters</h3>
+<ul>
+<li>
+<p>Summary<br>
+Create a new character</p>
+</li>
+<li>
+<p>Description<br>
+Create a new character using the data provided in the request body. (Admin only)</p>
+</li>
+<li>
+<p>Security<br>
+sanctum</p>
+</li>
+</ul>
+<h4>Headers</h4>
+<pre class="prettyprint source lang-ts"><code>Content-Type: string //default: application/json
+</code></pre>
+<pre class="prettyprint source lang-ts"><code>Accept: string //default: application/json
+</code></pre>
+<h4>RequestBody</h4>
+<ul>
+<li>application/json</li>
+</ul>
+<pre class="prettyprint source lang-ts"><code>{
+  name: string
+  birthday?: integer
+  season_id?: integer
+  gender?: string
+  occupation?: string
+  isRomanceable: integer
+  icon: string
+}
+</code></pre>
+<h4>Responses</h4>
+<ul>
+<li>201 Success: Character created</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>400 Bad request: Data validation error</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>401 Unauthorized. Only admins can create characters</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[GET]/characters/{id}</h3>
+<ul>
+<li>
+<p>Summary<br>
+Get a character</p>
+</li>
+<li>
+<p>Description<br>
+Get a character by ID sent in the URL from the database</p>
+</li>
+</ul>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Returns the character</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  id: integer
+  name: string
+  birthday?: integer
+  season_id: {
+    id: integer
+    name: string
+  }
+  gender?: string
+  occupation?: string
+  isRomanceable: integer
+  icon: string
+  created_at?: string
+  updated_at?: string
+}
+</code></pre>
+<ul>
+<li>404 Not found: Character doesn't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[PUT]/characters/{id}</h3>
+<ul>
+<li>
+<p>Summary<br>
+Update a character</p>
+</li>
+<li>
+<p>Description<br>
+Update a character by ID in the URL and data provided in the request body. (Admin only)</p>
+</li>
+<li>
+<p>Security<br>
+sanctum</p>
+</li>
+</ul>
+<h4>Headers</h4>
+<pre class="prettyprint source lang-ts"><code>Content-Type: string //default: application/json
+</code></pre>
+<pre class="prettyprint source lang-ts"><code>Accept: string //default: application/json
+</code></pre>
+<h4>RequestBody</h4>
+<ul>
+<li>application/json</li>
+</ul>
+<pre class="prettyprint source lang-ts"><code>{
+  name?: string
+  birthday?: integer
+  season_id?: integer
+  gender?: string
+  occupation?: string
+  isRomanceable?: integer
+  icon?: string
+}
+</code></pre>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Character updated</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>400 Bad Request: Data validation error</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>401 Unauthorized: Only admins can update characters</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>404 Not found: Character doesn't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[DELETE]/characters/{id}</h3>
+<ul>
+<li>
+<p>Summary<br>
+Delete a character</p>
+</li>
+<li>
+<p>Description<br>
+Delete a character by ID sent in the URL (Admin only)</p>
+</li>
+<li>
+<p>Security<br>
+sanctum</p>
+</li>
+</ul>
+<h4>Headers</h4>
+<pre class="prettyprint source lang-ts"><code>Accept: string //default: application/json
+</code></pre>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Character deleted successfully</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>401 Unauthorized: Only admins can delete characters</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>404 Not found: Character doesn't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[GET]/crops</h3>
+<ul>
+<li>
+<p>Summary<br>
+Get all crops</p>
+</li>
+<li>
+<p>Description<br>
+Returns all crops from the database</p>
+</li>
+</ul>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Returns all crops</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  id: integer
+  type_id: {
+    name: string
+  }
+  isGigantic?: boolean
+}[]
+</code></pre>
+<ul>
+<li>404 Not found: Crops don't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[GET]/crops/{id}</h3>
+<ul>
+<li>
+<p>Summary<br>
+Get crop by id</p>
+</li>
+<li>
+<p>Description<br>
+Returns a crop from the database</p>
+</li>
+</ul>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Returns a crop</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  id: integer
+  type_id: {
+    name: string
+  }
+  isGigantic?: boolean
+}
+</code></pre>
+<ul>
+<li>404 Not found: Crop doesn't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[GET]/families</h3>
+<ul>
+<li>
+<p>Summary<br>
+Get all families</p>
+</li>
+<li>
+<p>Description<br>
+Get all families from the database</p>
+</li>
+</ul>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Returns all families</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  id?: integer
+  character_id: {
+    id: integer
+    name: string
+    birthday?: integer
+    season_id: {
+      id: integer
+      name: string
+    }
+    gender?: string
+    occupation?: string
+    isRomanceable: integer
+    icon: string
+    created_at?: string
+    updated_at?: string
+  }
+  familiar_id:#/components/schemas/Character
+  relationship: string
+  created_at?: string
+  updated_at?: string
+}[]
+</code></pre>
+<ul>
+<li>404 Not found: Families don't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[POST]/families</h3>
+<ul>
+<li>
+<p>Summary<br>
+Create a new family</p>
+</li>
+<li>
+<p>Description<br>
+Create a new family using the data provided in the request body. (Admin only)</p>
+</li>
+<li>
+<p>Security<br>
+sanctum</p>
+</li>
+</ul>
+<h4>Headers</h4>
+<pre class="prettyprint source lang-ts"><code>Accept: string //default: application/json
+</code></pre>
+<h4>RequestBody</h4>
+<ul>
+<li>application/json</li>
+</ul>
+<pre class="prettyprint source lang-ts"><code>{
+  character_id: integer
+  familiar_id: integer
+  relationship: string
+}
+</code></pre>
+<h4>Responses</h4>
+<ul>
+<li>201 Success: Family created</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>400 Bad request: Data validation error</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>401 Unauthorized: Only admins can create a family</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[GET]/families/{id}</h3>
+<ul>
+<li>
+<p>Summary<br>
+Get a family</p>
+</li>
+<li>
+<p>Description<br>
+Get a family by ID in the URL</p>
+</li>
+</ul>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Returns the family</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  id?: integer
+  character_id: {
+    id: integer
+    name: string
+    birthday?: integer
+    season_id: {
+      id: integer
+      name: string
+    }
+    gender?: string
+    occupation?: string
+    isRomanceable: integer
+    icon: string
+    created_at?: string
+    updated_at?: string
+  }
+  familiar_id:#/components/schemas/Character
+  relationship: string
+  created_at?: string
+  updated_at?: string
+}
+</code></pre>
+<ul>
+<li>404 Not found: Family doesn't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[PUT]/families/{id}</h3>
+<ul>
+<li>
+<p>Summary<br>
+Update a family</p>
+</li>
+<li>
+<p>Description<br>
+Update a family by ID in the URL and data provided in the request body. (Admin only)</p>
+</li>
+<li>
+<p>Security<br>
+sanctum</p>
+</li>
+</ul>
+<h4>RequestBody</h4>
+<ul>
+<li>application/json</li>
+</ul>
+<pre class="prettyprint source lang-ts"><code>{
+  character_id?: integer
+  familiar_id?: integer
+  relationship?: string
+}
+</code></pre>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Family updated</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>400 Bad Request: Data validation error</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>401 Unauthorized: Only admins can update a family</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>404 Not found: Family doesn't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[DELETE]/families/{id}</h3>
+<ul>
+<li>
+<p>Summary<br>
+Delete a family</p>
+</li>
+<li>
+<p>Description<br>
+Delete a family by ID sent in the URL. (Admin only)</p>
+</li>
+<li>
+<p>Security<br>
+sanctum</p>
+</li>
+</ul>
+<h4>Headers</h4>
+<pre class="prettyprint source lang-ts"><code>Content-Type: string //default: application/json
+</code></pre>
+<pre class="prettyprint source lang-ts"><code>Accept: string //default: application/json
+</code></pre>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Family deleted successfully</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>401 Unauthorized: Only admins can delete a family</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>404 Not found: Family doesn't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[GET]/favlists</h3>
+<ul>
+<li>
+<p>Summary<br>
+Get all favorite lists</p>
+</li>
+<li>
+<p>Description<br>
+Get all favorite lists from the database</p>
+</li>
+</ul>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Returns all favorite lists</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  id: integer
+  character_id: {
+    id: integer
+    name: string
+    birthday?: integer
+    season_id: {
+      id: integer
+      name: string
+    }
+    gender?: string
+    occupation?: string
+    isRomanceable: integer
+    icon: string
+    created_at?: string
+    updated_at?: string
+  }
+  item_id: {
+    id: integer
+    name: string
+    type_id: {
+      name: string
+    }
+    icon: string
+    created_at?: string
+    updated_at?: string
+  }
+  created_at?: string
+  updated_at?: string
+}[]
+</code></pre>
+<ul>
+<li>404 No favorite lists found</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[POST]/favlists</h3>
+<ul>
+<li>
+<p>Summary<br>
+Create a new favorite list</p>
+</li>
+<li>
+<p>Description<br>
+Create a new favorite list using the data provided in the request body. (Admin only)</p>
+</li>
+<li>
+<p>Security<br>
+sanctum</p>
+</li>
+</ul>
+<h4>Headers</h4>
+<pre class="prettyprint source lang-ts"><code>Content-Type: string //default: application/json
+</code></pre>
+<pre class="prettyprint source lang-ts"><code>Accept: string //default: application/json
+</code></pre>
+<h4>RequestBody</h4>
+<ul>
+<li>application/json</li>
+</ul>
+<pre class="prettyprint source lang-ts"><code>{
+  character_id: integer
+  item_id: integer
+}
+</code></pre>
+<h4>Responses</h4>
+<ul>
+<li>201 Sucess: Favorite list created</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>400 Bad request: Data validation error</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>401 Unauthorized. Only admins can create new favorite lists</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[GET]/favlists/{id}</h3>
+<ul>
+<li>
+<p>Summary<br>
+Get a favorite list</p>
+</li>
+<li>
+<p>Description<br>
+Get a favorite lists by the ID in the URL</p>
+</li>
+</ul>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Returns the favorite list</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  id: integer
+  character_id: {
+    id: integer
+    name: string
+    birthday?: integer
+    season_id: {
+      id: integer
+      name: string
+    }
+    gender?: string
+    occupation?: string
+    isRomanceable: integer
+    icon: string
+    created_at?: string
+    updated_at?: string
+  }
+  item_id: {
+    id: integer
+    name: string
+    type_id: {
+      name: string
+    }
+    icon: string
+    created_at?: string
+    updated_at?: string
+  }
+  created_at?: string
+  updated_at?: string
+}
+</code></pre>
+<ul>
+<li>404 Not Found: Favorite list doesn't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[PUT]/favlists/{id}</h3>
+<ul>
+<li>
+<p>Summary<br>
+Update a favorite list</p>
+</li>
+<li>
+<p>Description<br>
+Update a favorite list by ID in the URL and data provided in the request body. (Admin only)</p>
+</li>
+<li>
+<p>Security<br>
+sanctum</p>
+</li>
+</ul>
+<h4>Headers</h4>
+<pre class="prettyprint source lang-ts"><code>Content-Type: string //default: application/json
+</code></pre>
+<pre class="prettyprint source lang-ts"><code>Accept: string //default: application/json
+</code></pre>
+<h4>RequestBody</h4>
+<ul>
+<li>application/json</li>
+</ul>
+<pre class="prettyprint source lang-ts"><code>{
+  character_id: integer
+  item_id: integer
+}
+</code></pre>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Favorite list updated</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>400 Bad Request: Data validation error</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>401 Unauthorized</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>404 Not Found: Favorite list doesn't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[DELETE]/favlists/{id}</h3>
+<ul>
+<li>
+<p>Summary<br>
+Delete a favorite list</p>
+</li>
+<li>
+<p>Description<br>
+Deletes a favorite list by ID in the URL. (Admin only)</p>
+</li>
+<li>
+<p>Security<br>
+sanctum</p>
+</li>
+</ul>
+<h4>Headers</h4>
+<pre class="prettyprint source lang-ts"><code>Accept: string //default: application/json
+</code></pre>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Favorite list deleted</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>401 Unauthorized: Only admins can delete favorite lists</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>404 Not found: Favorite list doesn't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[GET]/items</h3>
+<ul>
+<li>
+<p>Summary<br>
+Get all items</p>
+</li>
+<li>
+<p>Description<br>
+Get all items from the database</p>
+</li>
+</ul>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Return all items</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  id: integer
+  name: string
+  type_id: {
+    name: string
+  }
+  icon: string
+  created_at?: string
+  updated_at?: string
+}[]
+</code></pre>
+<ul>
+<li>404 Not found: Items don't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[POST]/items</h3>
+<ul>
+<li>
+<p>Summary<br>
+Create a new item</p>
+</li>
+<li>
+<p>Description<br>
+Create a new item using the data provided in the request body. (Admin only)</p>
+</li>
+<li>
+<p>Security<br>
+sanctum</p>
+</li>
+</ul>
+<h4>Headers</h4>
+<pre class="prettyprint source lang-ts"><code>Content-Type: string //default: application/json
+</code></pre>
+<pre class="prettyprint source lang-ts"><code>Accept: string //default: application/json
+</code></pre>
+<h4>RequestBody</h4>
+<ul>
+<li>application/json</li>
+</ul>
+<pre class="prettyprint source lang-ts"><code>{
+  name: string
+  type_id?: integer
+  icon: string
+}
+</code></pre>
+<h4>Responses</h4>
+<ul>
+<li>201 Success: Item created successfully</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>400 Bad Request: Data validation error</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>401 Unauthorized: Only admins can create items</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[GET]/items/{id}</h3>
+<ul>
+<li>
+<p>Summary<br>
+Get an item</p>
+</li>
+<li>
+<p>Description<br>
+Get an item using the id provided in the request URL</p>
+</li>
+</ul>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Return an item</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  id: integer
+  name: string
+  type_id: {
+    name: string
+  }
+  icon: string
+  created_at?: string
+  updated_at?: string
+}
+</code></pre>
+<ul>
+<li>404 Not found: Item doesn't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[PUT]/items/{id}</h3>
+<ul>
+<li>
+<p>Summary<br>
+Update an item</p>
+</li>
+<li>
+<p>Description<br>
+Update an item by ID in the URL and data provided in the request body. (Admin only)</p>
+</li>
+<li>
+<p>Security<br>
+sanctum</p>
+</li>
+</ul>
+<h4>Headers</h4>
+<pre class="prettyprint source lang-ts"><code>Content-Type: string //default: application/json
+</code></pre>
+<pre class="prettyprint source lang-ts"><code>Accept: string //default: application/json
+</code></pre>
+<h4>RequestBody</h4>
+<ul>
+<li>application/json</li>
+</ul>
+<pre class="prettyprint source lang-ts"><code>{
+  name?: string
+  type_id?: integer
+  icon?: string
+}
+</code></pre>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Item updated successfully</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>400 Bad Request: Data validation error</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>401 Unauthorized: Only admins can update items</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>404 Not found: Item doesn't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[DELETE]/items/{id}</h3>
+<ul>
+<li>
+<p>Summary<br>
+Delete an item</p>
+</li>
+<li>
+<p>Description<br>
+Delete an item by ID sent in the URL. (Admin only)</p>
+</li>
+<li>
+<p>Security<br>
+sanctum</p>
+</li>
+</ul>
+<h4>Headers</h4>
+<pre class="prettyprint source lang-ts"><code>Accept: string //default: application/json
+</code></pre>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Item deleted successfully</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>401 Unauthorized: Only admins can delete items</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>404 Not found: Item doesn't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[GET]/profiles</h3>
+<ul>
+<li>
+<p>Summary<br>
+Get all profiles</p>
+</li>
+<li>
+<p>Description<br>
+Get all profiles from the database</p>
+</li>
+</ul>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Return all profiles</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  id: integer
+  farmer_name: string
+  farm_name: string
+  user_id: {
+    id: integer
+    email: string
+    password: string
+  }
+}[]
+</code></pre>
+<ul>
+<li>404 No profiles found</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[POST]/profiles</h3>
+<ul>
+<li>
+<p>Summary<br>
+Create a profile</p>
+</li>
+<li>
+<p>Description<br>
+Create a new profile using the data provided in the request body. The user must be an admin to create a profile for other users. An user can create a profile for themselves (user_id not required).</p>
+</li>
+<li>
+<p>Security<br>
+sanctum</p>
+</li>
+</ul>
+<h4>Headers</h4>
+<pre class="prettyprint source lang-ts"><code>Content-Type: string //default: application/json
+</code></pre>
+<pre class="prettyprint source lang-ts"><code>Accept: string //default: application/json
+</code></pre>
+<h4>RequestBody</h4>
+<ul>
+<li>application/json</li>
+</ul>
+<pre class="prettyprint source lang-ts"><code>{
+  farmer_name: string
+  farm_name: string
+  user_id?: integer
+}
+</code></pre>
+<h4>Responses</h4>
+<ul>
+<li>201 Success: A profile created</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>400 Bad request: The request you sent was invalid</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>401 Unauthorized: Only admins or the user themselves can create a profile</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[GET]/profiles/{id}</h3>
+<ul>
+<li>
+<p>Summary<br>
+Get a profile</p>
+</li>
+<li>
+<p>Description<br>
+Get a profile by ID in the URL</p>
+</li>
+</ul>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Returns a profile</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  id: integer
+  farmer_name: string
+  farm_name: string
+  user_id: {
+    id: integer
+    email: string
+    password: string
+  }
+}
+</code></pre>
+<ul>
+<li>404 Not Found: Profile doesn't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[PUT]/profiles/{id}</h3>
+<ul>
+<li>
+<p>Summary<br>
+Update a profile</p>
+</li>
+<li>
+<p>Description<br>
+Update a profile by ID in the URL and data provided in the request body. Admins can update any profile, users can only update their own profiles</p>
+</li>
+<li>
+<p>Security<br>
+sanctum</p>
+</li>
+</ul>
+<h4>Headers</h4>
+<pre class="prettyprint source lang-ts"><code>Content-Type: string //default: application/json
+</code></pre>
+<pre class="prettyprint source lang-ts"><code>Accept: string //default: application/json
+</code></pre>
+<h4>RequestBody</h4>
+<ul>
+<li>application/json</li>
+</ul>
+<pre class="prettyprint source lang-ts"><code>{
+  farmer_name?: string
+  farm_name?: string
+}
+</code></pre>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Profile has been updated successfully</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>400 Bad Request: Data validation error</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>401 Unauthorized: Only admins or the user who created the profile can update it</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>404 Not Found: Profile doesn't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[DELETE]/profiles/{id}</h3>
+<ul>
+<li>
+<p>Summary<br>
+Delete a profile</p>
+</li>
+<li>
+<p>Description<br>
+Delete a profile by ID in the URL. Admins can delete any profile, users can only delete their own profiles</p>
+</li>
+<li>
+<p>Security<br>
+sanctum</p>
+</li>
+</ul>
+<h4>Headers</h4>
+<pre class="prettyprint source lang-ts"><code>Accept: string //default: application/json
+</code></pre>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Profile deleted successfully</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>401 Unauthorized: Only admins or the user who created the profile can delete it</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>404 Not Found: Profile doesn't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[GET]/user/{id}/profiles</h3>
+<ul>
+<li>
+<p>Summary<br>
+Get profiles by user ID</p>
+</li>
+<li>
+<p>Description<br>
+Retrieves profiles associated with a specific user ID.</p>
+</li>
+</ul>
+<h4>Responses</h4>
+<ul>
+<li>200 Successful operation</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  id: integer
+  farmer_name: string
+  farm_name: string
+  user_id: {
+    id: integer
+    email: string
+    password: string
+  }
+}[]
+</code></pre>
+<ul>
+<li>404 Profiles not found</li>
+</ul>
+<hr>
+<h3>[POST]/register</h3>
+<ul>
+<li>
+<p>Summary<br>
+Register a new user</p>
+</li>
+<li>
+<p>Description<br>
+Register a new user with a unique email given in the request body</p>
+</li>
+</ul>
+<h4>Headers</h4>
+<pre class="prettyprint source lang-ts"><code>Content-Type: string //default: application/json
+</code></pre>
+<h4>RequestBody</h4>
+<ul>
+<li>application/json</li>
+</ul>
+<pre class="prettyprint source lang-ts"><code>{
+  email?: string
+  password?: string
+}
+</code></pre>
+<h4>Responses</h4>
+<ul>
+<li>201 Success: User created</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+  token?: string
+}
+</code></pre>
+<ul>
+<li>400 Bad Request: Validation errors</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  errors: {
+  }
+}
+</code></pre>
+<hr>
+<h3>[POST]/login</h3>
+<ul>
+<li>
+<p>Summary<br>
+Login a user</p>
+</li>
+<li>
+<p>Description<br>
+Login a user with an email and password given in the request body</p>
+</li>
+</ul>
+<h4>Headers</h4>
+<pre class="prettyprint source lang-ts"><code>Content-Type: string //default: application/json
+</code></pre>
+<pre class="prettyprint source lang-ts"><code>Accept: string //default: application/json
+</code></pre>
+<h4>RequestBody</h4>
+<ul>
+<li>application/json</li>
+</ul>
+<pre class="prettyprint source lang-ts"><code>{
+  email?: string
+  password?: string
+}
+</code></pre>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: User logged in</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+  token?: string
+}
+</code></pre>
+<ul>
+<li>400 Bad Request: Validation errors</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  errors: {
+  }
+}
+</code></pre>
+<ul>
+<li>401 Invalid login details</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[POST]/logout</h3>
+<ul>
+<li>
+<p>Summary<br>
+Logout an user</p>
+</li>
+<li>
+<p>Description<br>
+Logout a user.</p>
+</li>
+<li>
+<p>Security<br>
+sanctum</p>
+</li>
+</ul>
+<h4>Headers</h4>
+<pre class="prettyprint source lang-ts"><code>Accept: string //default: application/json
+</code></pre>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: User logged out</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>401 Unauthenticated: The user must be logged in to log out</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[GET]/check-token</h3>
+<ul>
+<li>
+<p>Summary<br>
+Check if the token is valid</p>
+</li>
+<li>
+<p>Description<br>
+Check if the token is valid.</p>
+</li>
+<li>
+<p>Security<br>
+sanctum</p>
+</li>
+</ul>
+<h4>Headers</h4>
+<pre class="prettyprint source lang-ts"><code>Accept: string //default: application/json
+</code></pre>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Token is valid</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+  user: {
+    id: integer
+    email: string
+    password: string
+  }
+}
+</code></pre>
+<ul>
+<li>401 Unauthenticated: Invalid token</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[GET]/seasons</h3>
+<ul>
+<li>
+<p>Summary<br>
+Get all seasons</p>
+</li>
+<li>
+<p>Description<br>
+Returns all seasons from the database</p>
+</li>
+</ul>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Returns all seasons</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  id: integer
+  name: string
+}[]
+</code></pre>
+<ul>
+<li>404 Not found: Seasons don't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[GET]/seasons/{id}</h3>
+<ul>
+<li>
+<p>Summary<br>
+Get season</p>
+</li>
+<li>
+<p>Description<br>
+Get a season by ID in the URL</p>
+</li>
+</ul>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Returns season</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  id: integer
+  name: string
+}
+</code></pre>
+<ul>
+<li>404 Not found: Season doesn't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[GET]/crops/season/{id}</h3>
+<ul>
+<li>
+<p>Summary<br>
+Get all seasonal crops</p>
+</li>
+<li>
+<p>Description<br>
+Returns all seasonal crops from the database</p>
+</li>
+</ul>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Returns all seasonal crops</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  id: integer
+  season_id: {
+    id: integer
+    name: string
+  }
+  crop_id: {
+    id: integer
+    type_id: {
+      name: string
+    }
+    isGigantic?: boolean
+  }
+}[]
+</code></pre>
+<ul>
+<li>404 Not found: Seasonal crops don't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[GET]/tasks</h3>
+<ul>
+<li>
+<p>Summary<br>
+Get all tasks</p>
+</li>
+<li>
+<p>Description<br>
+Get all tasks from the database</p>
+</li>
+</ul>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Returns all tasks</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  profile_id: {
+    id: integer
+    farmer_name: string
+    farm_name: string
+    user_id: {
+      id: integer
+      email: string
+      password: string
+    }
+  }
+  // The description of the task
+  description: string
+  // The status of the task
+  isCompleted: integer
+  character_id: {
+    id: integer
+    name: string
+    birthday?: integer
+    season_id: {
+      id: integer
+      name: string
+    }
+    gender?: string
+    occupation?: string
+    isRomanceable: integer
+    icon: string
+    created_at?: string
+    updated_at?: string
+  }
+  item_id: {
+    id: integer
+    name: string
+    type_id: {
+      name: string
+    }
+    icon: string
+    created_at?: string
+    updated_at?: string
+  }
+  created_at?: string
+  updated_at?: string
+}[]
+</code></pre>
+<ul>
+<li>404 Not found: Tasks don't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[POST]/tasks</h3>
+<ul>
+<li>
+<p>Summary<br>
+Create a new task</p>
+</li>
+<li>
+<p>Description<br>
+Create a new task using the data provided in the request body. (Admins can create tasks for other users)</p>
+</li>
+<li>
+<p>Security<br>
+sanctum</p>
+</li>
+</ul>
+<h4>Headers</h4>
+<pre class="prettyprint source lang-ts"><code>Content-Type: string //default: application/json
+</code></pre>
+<pre class="prettyprint source lang-ts"><code>Accept: string //default: application/json
+</code></pre>
+<h4>RequestBody</h4>
+<ul>
+<li>application/json</li>
+</ul>
+<pre class="prettyprint source lang-ts"><code>{
+  // The id of the profile
+  profile_id: integer
+  // The description of the task
+  description: string
+  // The status of the task
+  isCompleted: integer
+  // The id of the character
+  character_id?: integer
+  // The id of the item
+  item_id?: integer
+}
+</code></pre>
+<h4>Responses</h4>
+<ul>
+<li>201 Success: Task created</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>400 Bad request: Data validation error</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>401 Unauthorized: Tasks can only be created by admins or the user themself</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[GET]/tasks/{id}</h3>
+<ul>
+<li>
+<p>Summary<br>
+Get a task</p>
+</li>
+<li>
+<p>Description<br>
+Get a task by ID sent in the URL from the database</p>
+</li>
+</ul>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Returns a task</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  profile_id: {
+    id: integer
+    farmer_name: string
+    farm_name: string
+    user_id: {
+      id: integer
+      email: string
+      password: string
+    }
+  }
+  // The description of the task
+  description: string
+  // The status of the task
+  isCompleted: integer
+  character_id: {
+    id: integer
+    name: string
+    birthday?: integer
+    season_id: {
+      id: integer
+      name: string
+    }
+    gender?: string
+    occupation?: string
+    isRomanceable: integer
+    icon: string
+    created_at?: string
+    updated_at?: string
+  }
+  item_id: {
+    id: integer
+    name: string
+    type_id: {
+      name: string
+    }
+    icon: string
+    created_at?: string
+    updated_at?: string
+  }
+  created_at?: string
+  updated_at?: string
+}
+</code></pre>
+<ul>
+<li>404 Not found: Task doesn't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[PUT]/tasks/{id}</h3>
+<ul>
+<li>
+<p>Summary<br>
+Update a task</p>
+</li>
+<li>
+<p>Description<br>
+Update a task by ID sent in the URL and data provided in the request body. Only the user who created the task and admins can update it.</p>
+</li>
+<li>
+<p>Security<br>
+sanctum</p>
+</li>
+</ul>
+<h4>Headers</h4>
+<pre class="prettyprint source lang-ts"><code>Content-Type: string //default: application/json
+</code></pre>
+<pre class="prettyprint source lang-ts"><code>Accept: string //default: application/json
+</code></pre>
+<h4>RequestBody</h4>
+<ul>
+<li>application/json</li>
+</ul>
+<pre class="prettyprint source lang-ts"><code>{
+  // The id of the profile
+  profile_id?: integer
+  // The description of the task
+  description?: string
+  // The status of the task
+  isCompleted?: integer
+  // The id of the character
+  character_id?: integer
+  // The id of the item
+  item_id?: integer
+}
+</code></pre>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Task updated</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>400 Bad request: Data validation error</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>401 Unauthorized: Only the user who created the task and admins can update it</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>404 Not found: Task doesn't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[DELETE]/tasks/{id}</h3>
+<ul>
+<li>
+<p>Summary<br>
+Delete a task</p>
+</li>
+<li>
+<p>Description<br>
+Delete a task by ID sent in the URL. Only the user who created the task and admins can delete it.</p>
+</li>
+<li>
+<p>Security<br>
+sanctum</p>
+</li>
+</ul>
+<h4>Headers</h4>
+<pre class="prettyprint source lang-ts"><code>Accept: string //default: application/json
+</code></pre>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Task deleted</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>401 You are not authorized to delete this task</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>404 Task not found</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[GET]/tasks/profile/{id}</h3>
+<ul>
+<li>
+<p>Summary<br>
+Get tasks by profile ID</p>
+</li>
+<li>
+<p>Description<br>
+Get a task by the profile ID sent in the URL from the database</p>
+</li>
+</ul>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Returns all tasks from a profile</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  profile_id: {
+    id: integer
+    farmer_name: string
+    farm_name: string
+    user_id: {
+      id: integer
+      email: string
+      password: string
+    }
+  }
+  // The description of the task
+  description: string
+  // The status of the task
+  isCompleted: integer
+  character_id: {
+    id: integer
+    name: string
+    birthday?: integer
+    season_id: {
+      id: integer
+      name: string
+    }
+    gender?: string
+    occupation?: string
+    isRomanceable: integer
+    icon: string
+    created_at?: string
+    updated_at?: string
+  }
+  item_id: {
+    id: integer
+    name: string
+    type_id: {
+      name: string
+    }
+    icon: string
+    created_at?: string
+    updated_at?: string
+  }
+  created_at?: string
+  updated_at?: string
+}[]
+</code></pre>
+<ul>
+<li>400 Bad Request: Profile doesn't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>404 Not found: Tasks don't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[GET]/types</h3>
+<ul>
+<li>
+<p>Summary<br>
+Get all types</p>
+</li>
+<li>
+<p>Description<br>
+Get all types from the database</p>
+</li>
+</ul>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Returns all types</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  name: string
+}[]
+</code></pre>
+<ul>
+<li>404 Not found: Characters don't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[POST]/types</h3>
+<ul>
+<li>
+<p>Summary<br>
+Create a new type</p>
+</li>
+<li>
+<p>Description<br>
+Create a new type using the data provided in the request body.</p>
+</li>
+<li>
+<p>Security<br>
+sanctum</p>
+</li>
+</ul>
+<h4>Headers</h4>
+<pre class="prettyprint source lang-ts"><code>Content-Type: string //default: application/json
+</code></pre>
+<pre class="prettyprint source lang-ts"><code>Accept: string //default: application/json
+</code></pre>
+<h4>RequestBody</h4>
+<ul>
+<li>application/json</li>
+</ul>
+<pre class="prettyprint source lang-ts"><code>{
+  name: string
+}
+</code></pre>
+<h4>Responses</h4>
+<ul>
+<li>201 Success: Type created</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>400 Bad request: Data validation error</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>401 Unauthorized. Only admins can create types</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[GET]/types/{id}</h3>
+<ul>
+<li>
+<p>Summary<br>
+Get a type by id</p>
+</li>
+<li>
+<p>Description<br>
+Get a type by ID sent in the URL from the database</p>
+</li>
+</ul>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Returns the type</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  name: string
+}
+</code></pre>
+<ul>
+<li>404 Not found: Type doesn't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[PUT]/types/{id}</h3>
+<ul>
+<li>
+<p>Summary<br>
+Update a type</p>
+</li>
+<li>
+<p>Description<br>
+Update a type by ID in the URL and data provided in the request body. (Admin only)</p>
+</li>
+<li>
+<p>Security<br>
+sanctum</p>
+</li>
+</ul>
+<h4>Headers</h4>
+<pre class="prettyprint source lang-ts"><code>Content-Type: string //default: application/json
+</code></pre>
+<pre class="prettyprint source lang-ts"><code>Accept: string //default: application/json
+</code></pre>
+<h4>RequestBody</h4>
+<ul>
+<li>application/json</li>
+</ul>
+<pre class="prettyprint source lang-ts"><code>{
+  name: string
+}
+</code></pre>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Type updated</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>400 Bad Request: Data validation error</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>401 Unauthorized: Only admins can update types</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>404 Not found: Type doesn't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[DELETE]/types/{id}</h3>
+<ul>
+<li>
+<p>Summary<br>
+Delete a type</p>
+</li>
+<li>
+<p>Description<br>
+Delete a type by ID sent in the URL (Admin only)</p>
+</li>
+<li>
+<p>Security<br>
+sanctum</p>
+</li>
+</ul>
+<h4>Headers</h4>
+<pre class="prettyprint source lang-ts"><code>Accept: string //default: application/json
+</code></pre>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: type deleted successfully</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>401 Unauthorized: Only admins can delete types</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>404 Not found: Type doesn't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[GET]/users</h3>
+<ul>
+<li>
+<p>Summary<br>
+Get all users</p>
+</li>
+<li>
+<p>Description<br>
+Returns all users from the database or a message if no users found</p>
+</li>
+</ul>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Returns an array of all users</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  id: integer
+  email: string
+  password: string
+}[]
+</code></pre>
+<ul>
+<li>404 Not found: No users found</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<hr>
+<h3>[GET]/users/{id}</h3>
+<ul>
+<li>
+<p>Summary<br>
+Get user</p>
+</li>
+<li>
+<p>Description<br>
+Get an user by ID sent in the URL from the database or a message the user is not found</p>
+</li>
+</ul>
+<h4>Responses</h4>
+<ul>
+<li>200 Success: Returns the user</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  id: integer
+  email: string
+  password: string
+}
+</code></pre>
+<ul>
+<li>404 Not found: User with given id doesn't exist</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<h2>References</h2>
+<h3>#/components/schemas/Character</h3>
+<pre class="prettyprint source lang-ts"><code>{
+  id: integer
+  name: string
+  birthday?: integer
+  season_id: {
+    id: integer
+    name: string
+  }
+  gender?: string
+  occupation?: string
+  isRomanceable: integer
+  icon: string
+  created_at?: string
+  updated_at?: string
+}
+</code></pre>
+<h3>#/components/schemas/Crop</h3>
+<pre class="prettyprint source lang-ts"><code>{
+  id: integer
+  type_id: {
+    name: string
+  }
+  isGigantic?: boolean
+}
+</code></pre>
+<h3>#/components/schemas/Family</h3>
+<pre class="prettyprint source lang-ts"><code>{
+  id?: integer
+  character_id: {
+    id: integer
+    name: string
+    birthday?: integer
+    season_id: {
+      id: integer
+      name: string
+    }
+    gender?: string
+    occupation?: string
+    isRomanceable: integer
+    icon: string
+    created_at?: string
+    updated_at?: string
+  }
+  familiar_id:#/components/schemas/Character
+  relationship: string
+  created_at?: string
+  updated_at?: string
+}
+</code></pre>
+<h3>#/components/schemas/FavList</h3>
+<pre class="prettyprint source lang-ts"><code>{
+  id: integer
+  character_id: {
+    id: integer
+    name: string
+    birthday?: integer
+    season_id: {
+      id: integer
+      name: string
+    }
+    gender?: string
+    occupation?: string
+    isRomanceable: integer
+    icon: string
+    created_at?: string
+    updated_at?: string
+  }
+  item_id: {
+    id: integer
+    name: string
+    type_id: {
+      name: string
+    }
+    icon: string
+    created_at?: string
+    updated_at?: string
+  }
+  created_at?: string
+  updated_at?: string
+}
+</code></pre>
+<h3>#/components/schemas/Item</h3>
+<pre class="prettyprint source lang-ts"><code>{
+  id: integer
+  name: string
+  type_id: {
+    name: string
+  }
+  icon: string
+  created_at?: string
+  updated_at?: string
+}
+</code></pre>
+<h3>#/components/schemas/Profile</h3>
+<pre class="prettyprint source lang-ts"><code>{
+  id: integer
+  farmer_name: string
+  farm_name: string
+  user_id: {
+    id: integer
+    email: string
+    password: string
+  }
+}
+</code></pre>
+<h3>#/components/schemas/Season</h3>
+<pre class="prettyprint source lang-ts"><code>{
+  id: integer
+  name: string
+}
+</code></pre>
+<h3>#/components/schemas/SeasonalCrop</h3>
+<pre class="prettyprint source lang-ts"><code>{
+  id: integer
+  season_id: {
+    id: integer
+    name: string
+  }
+  crop_id: {
+    id: integer
+    type_id: {
+      name: string
+    }
+    isGigantic?: boolean
+  }
+}
+</code></pre>
+<h3>#/components/schemas/Task</h3>
+<pre class="prettyprint source lang-ts"><code>{
+  profile_id: {
+    id: integer
+    farmer_name: string
+    farm_name: string
+    user_id: {
+      id: integer
+      email: string
+      password: string
+    }
+  }
+  // The description of the task
+  description: string
+  // The status of the task
+  isCompleted: integer
+  character_id: {
+    id: integer
+    name: string
+    birthday?: integer
+    season_id: {
+      id: integer
+      name: string
+    }
+    gender?: string
+    occupation?: string
+    isRomanceable: integer
+    icon: string
+    created_at?: string
+    updated_at?: string
+  }
+  item_id: {
+    id: integer
+    name: string
+    type_id: {
+      name: string
+    }
+    icon: string
+    created_at?: string
+    updated_at?: string
+  }
+  created_at?: string
+  updated_at?: string
+}
+</code></pre>
+<h3>#/components/schemas/Type</h3>
+<pre class="prettyprint source lang-ts"><code>{
+  name: string
+}
+</code></pre>
+<h3>#/components/schemas/User</h3>
+<pre class="prettyprint source lang-ts"><code>{
+  id: integer
+  email: string
+  password: string
+}
+</code></pre>
+<h3>#/components/requestBodies/CharacterCreate</h3>
+<ul>
+<li>application/json</li>
+</ul>
+<pre class="prettyprint source lang-ts"><code>{
+  name: string
+  birthday?: integer
+  season_id?: integer
+  gender?: string
+  occupation?: string
+  isRomanceable: integer
+  icon: string
+}
+</code></pre>
+<h3>#/components/requestBodies/CharacterUpdate</h3>
+<ul>
+<li>application/json</li>
+</ul>
+<pre class="prettyprint source lang-ts"><code>{
+  name?: string
+  birthday?: integer
+  season_id?: integer
+  gender?: string
+  occupation?: string
+  isRomanceable?: integer
+  icon?: string
+}
+</code></pre>
+<h3>#/components/requestBodies/FamilyCreate</h3>
+<ul>
+<li>application/json</li>
+</ul>
+<pre class="prettyprint source lang-ts"><code>{
+  character_id: integer
+  familiar_id: integer
+  relationship: string
+}
+</code></pre>
+<h3>#/components/requestBodies/FamilyUpdate</h3>
+<ul>
+<li>application/json</li>
+</ul>
+<pre class="prettyprint source lang-ts"><code>{
+  character_id?: integer
+  familiar_id?: integer
+  relationship?: string
+}
+</code></pre>
+<h3>#/components/requestBodies/FavListCreate</h3>
+<ul>
+<li>application/json</li>
+</ul>
+<pre class="prettyprint source lang-ts"><code>{
+  character_id: integer
+  item_id: integer
+}
+</code></pre>
+<h3>#/components/requestBodies/FavListUpdate</h3>
+<ul>
+<li>application/json</li>
+</ul>
+<pre class="prettyprint source lang-ts"><code>{
+  character_id: integer
+  item_id: integer
+}
+</code></pre>
+<h3>#/components/requestBodies/ItemUpdate</h3>
+<ul>
+<li>application/json</li>
+</ul>
+<pre class="prettyprint source lang-ts"><code>{
+  name?: string
+  type_id?: integer
+  icon?: string
+}
+</code></pre>
+<h3>#/components/requestBodies/ItemCreate</h3>
+<ul>
+<li>application/json</li>
+</ul>
+<pre class="prettyprint source lang-ts"><code>{
+  name: string
+  type_id?: integer
+  icon: string
+}
+</code></pre>
+<h3>#/components/requestBodies/ProfileCreate</h3>
+<ul>
+<li>application/json</li>
+</ul>
+<pre class="prettyprint source lang-ts"><code>{
+  farmer_name: string
+  farm_name: string
+  user_id?: integer
+}
+</code></pre>
+<h3>#/components/requestBodies/ProfileUpdate</h3>
+<ul>
+<li>application/json</li>
+</ul>
+<pre class="prettyprint source lang-ts"><code>{
+  farmer_name?: string
+  farm_name?: string
+}
+</code></pre>
+<h3>#/components/requestBodies/TaskUpdate</h3>
+<ul>
+<li>application/json</li>
+</ul>
+<pre class="prettyprint source lang-ts"><code>{
+  // The id of the profile
+  profile_id?: integer
+  // The description of the task
+  description?: string
+  // The status of the task
+  isCompleted?: integer
+  // The id of the character
+  character_id?: integer
+  // The id of the item
+  item_id?: integer
+}
+</code></pre>
+<h3>#/components/requestBodies/TaskCreate</h3>
+<ul>
+<li>application/json</li>
+</ul>
+<pre class="prettyprint source lang-ts"><code>{
+  // The id of the profile
+  profile_id: integer
+  // The description of the task
+  description: string
+  // The status of the task
+  isCompleted: integer
+  // The id of the character
+  character_id?: integer
+  // The id of the item
+  item_id?: integer
+}
+</code></pre>
+<h3>#/components/requestBodies/Type</h3>
+<ul>
+<li>application/json</li>
+</ul>
+<pre class="prettyprint source lang-ts"><code>{
+  name: string
+}
+</code></pre>
+<h3>#/components/requestBodies/UserLogin</h3>
+<ul>
+<li>application/json</li>
+</ul>
+<pre class="prettyprint source lang-ts"><code>{
+  email?: string
+  password?: string
+}
+</code></pre>
+<h3>#/components/requestBodies/UserRegister</h3>
+<ul>
+<li>application/json</li>
+</ul>
+<pre class="prettyprint source lang-ts"><code>{
+  email?: string
+  password?: string
+}
+</code></pre>
+<h3>#/components/securitySchemes/sanctum</h3>
+<pre class="prettyprint source lang-ts"><code>{
+  &quot;type&quot;: &quot;http&quot;,
+  &quot;scheme&quot;: &quot;bearer&quot;
+}
+</code></pre></article>
+    </section>
+
 
 
 
@@ -56,7 +3118,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Nov 30 2023 01:30:21 GMT+0100 (Central European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Nov 30 2023 17:38:46 GMT+0100 (Central European Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

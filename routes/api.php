@@ -65,6 +65,7 @@ Route::controller(CharacterController::class)->group(function () {
 Route::controller(ProfileController::class)->group(function () {
     Route::get("/profiles", "getAllProfiles");
     Route::get("/profiles/{id}", "getProfileById");
+    Route::get("/user/{id}/profiles", "getProfilesByUserId");
     Route::delete("/profiles/{id}", "deleteProfile")->middleware(
         "auth:sanctum"
     );
