@@ -34,6 +34,11 @@ export default class apiService {
         this.api.defaults.headers.common.Authorization = "";
     }
 
+    checkToken() {
+        this.setToken();
+        return this.api.get("/check-token");
+    }
+
     // User
     async login(email, password) {
         return this.api.post("/login", {
@@ -42,9 +47,8 @@ export default class apiService {
         });
     }
 
-    async register(username, email, password) {
+    async register(email, password) {
         return this.api.post("/register", {
-            username,
             email,
             password,
         });
@@ -64,7 +68,7 @@ export default class apiService {
     // Profile
     async getProfile() {
         this.setToken();
-        return this.api.get("/profile");
+        return this.api.get("/profiles");
     }
 
     async updateProfile(farmer_name, farm_name, color) {

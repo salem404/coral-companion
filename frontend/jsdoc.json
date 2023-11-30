@@ -1,0 +1,8 @@
+{
+    "plugins": ["node_modules/jsdoc-vuejs"],
+    "recurseDepth": 30,
+    "source": {
+        "include": ["."],
+        "includePattern": "\\.(vue|js)$"
+    }
+}

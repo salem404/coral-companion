@@ -6,28 +6,49 @@
 <script>
 import TheHeader from "@/components/TheHeader.vue";
 import TheFooter from "@/components/TheFooter.vue";
-import apiService from "@/services/api";
+import { mapState, mapMutations } from "vuex";
+import apiService from "@/services/api.js";
 
 export default {
     name: "App",
     components: { TheHeader, TheFooter },
-    data() {
-        return {
-            apiService: new apiService(),
-            isLogged: false,
-        };
+    computed: {
+        ...mapState(["isLogged"]),
     },
     methods: {
-
-        // TODO: Add a method to check if the user is logged in
-        changeLoggedState() {
-            this.isLogged = !this.isLogged;
+        ...mapMutations(["changeLoggedState"]),
+        async checkToken() {
+            try {
+                const response = await this.apiService.checkToken();
+                console.log(response);
+                this.changeLoggedState(true);
+            } catch (error) {
+                if (error.response.status === 401) {
+                    // In case the token is invalid
+                    localStorage.removeItem("token");
+                    this.changeLoggedState(false);
+                    console.log("Unauthorized");
+                }
+                console.log(error);
+            }
         },
     },
+    data() {
+        return {
+            apiService: null,
+        };
+    },
+    created() {
+        this.apiService = new apiService();
+    },
     mounted() {
-
+        if (localStorage.getItem("token")) {
+            this.checkToken();
+        }
         // THEME
-        const hasDarkPreference = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const hasDarkPreference = window.matchMedia(
+            "(prefers-color-scheme: dark)",
+        ).matches;
         const THEME = localStorage.getItem("theme");
         if (THEME == null) {
             if (hasDarkPreference) {

@@ -35,6 +35,7 @@ Route::controller(SanctumController::class)->group(function () {
     Route::post("/register", "register");
     Route::post("/login", "login");
     Route::get("/logout", "logout")->middleware("auth:sanctum");
+    Route::get("/check-token", "checkToken")->middleware("auth:sanctum");
 });
 Route::controller(UsersController::class)->group(function () {
     Route::get("/users", "getAllUsers");

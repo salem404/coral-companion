@@ -38,6 +38,7 @@ Documentation for the API used in the Coral Companion app
 | POST | [/register](#postregister) | Register a new user |
 | POST | [/login](#postlogin) | Login a user |
 | POST | [/logout](#postlogout) | Logout an user |
+| GET | [/check-token](#getcheck-token) | Check if the token is valid |
 | GET | [/seasons](#getseasons) | Get all seasons |
 | GET | [/seasons/{id}](#getseasonsid) | Get season |
 | GET | [/crops/season/{id}](#getcropsseasonid) | Get all seasonal crops |
@@ -1743,6 +1744,47 @@ Accept: string //default: application/json
 ```
 
 - 401 Unauthenticated: The user must be logged in to log out
+
+`application/json`
+
+```ts
+{
+  message?: string
+}
+```
+
+***
+
+### [GET]/check-token
+
+- Summary  
+Check if the token is valid
+
+- Description  
+Check if the token is valid.
+
+- Security  
+sanctum  
+
+#### Headers
+
+```ts
+Accept: string //default: application/json
+```
+
+#### Responses
+
+- 200 Success: Token is valid
+
+`application/json`
+
+```ts
+{
+  message?: string
+}
+```
+
+- 401 Unauthenticated: Invalid token
 
 `application/json`
 

@@ -7,13 +7,16 @@
     gap: 3rem;
     align-content: center;
     align-items: center;
-    padding: 0rem 6.1875rem 0rem 6.25rem;
+    padding: 0rem 0.1rem 0rem 0.1rem;
 
     @include mq($from: tablet) {
         row-gap: 6.25rem;
         flex-shrink: 0;
         justify-content: space-around;
         text-align: left;
+    }
+    @include mq($from: desktop) {
+        padding: 0rem 1.25rem 0rem 1.25rem;
     }
     h1 {
         flex-shrink: 0;
@@ -51,7 +54,6 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            width: 13.16156rem;
             height: 4.79825rem;
             padding: 0.6875rem;
             color: var(--session-text);
@@ -64,14 +66,12 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                width: 20rem;
                 height: 6.205rem;
                 padding: 1.1875rem;
             }
 
             @include mq($from: desktop) {
                 top: -6rem;
-                width: 25rem;
                 height: 7.205rem;
             }
         }

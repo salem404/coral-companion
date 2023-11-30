@@ -1,8 +1,6 @@
 {
     "private": true,
     "scripts": {
-        "dev": "vite",
-        "build": "vite build",
         "seed": "vendor/bin/sail artisan migrate:refresh --seed",
         "document": "vendor/bin/sail artisan l5-swagger:generate && openapi-to-md storage/api-docs/api-docs.json docs/README.md "
     },

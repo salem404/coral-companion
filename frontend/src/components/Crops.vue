@@ -2,8 +2,13 @@
     <div class="crops">
         <h2 class="crops__header">Crops</h2>
         <ul class="crops__list" v-for="crop in crops">
-            <li class="crops__list-item" v-if="crop.seasons.includes(season)">
-                {{ crop.name }}
+            <li class="crops__list-item" v-if="crop">
+                <img
+                    class="crops__list-item-img"
+                    :src="crop.crop.item.icon"
+                    alt="crop"
+                />
+                {{ crop.crop.item.name }}
             </li>
         </ul>
     </div>
@@ -25,6 +30,7 @@ export default {
     data() {
         return {
             crops: [],
+            API_URL: "http://localhost/api",
         };
     },
     async mounted() {
@@ -32,14 +38,12 @@ export default {
     },
     methods: {
         async fetchCrops() {
-            const response = await fetch(`${API_URL}/crops`, {
-                method: "GET",
-                headers: { Connection: "Keep-Alive" },
-            });
-            if (response.ok) {
-                const data = await response.json();
-                this.crops = data;
-            }
+            const response = await fetch(
+                `http://localhost/api/crops/season/${this.season}`,
+            );
+            const data = await response.json();
+            this.crops = data;
+            console.log(data);
         },
     },
 };

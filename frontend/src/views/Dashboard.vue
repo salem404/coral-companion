@@ -1,21 +1,16 @@
 <template>
-    <router-link to="/">
-        <img src="@/assets/img/icons8-home-page-30.png" class="home" />
-    </router-link>
     <div class="dashboard">
         <div class="dashboard__info">
             <select v-model="selectedSeason" class="dashboard__info-season">
-                <option value="Spring" selected>Spring</option>
-                <option value="Summer">Summer</option>
-                <option value="Fall">Fall</option>
-                <option value="Winter">Winter</option>
+                <option value="1" selected>Spring</option>
+                <option value="2">Summer</option>
+                <option value="3">Fall</option>
+                <option value="4">Winter</option>
             </select>
             <div class="dashboard__info-lists">
                 <Crops v-bind="componentProps" />
-                <People v-bind="componentProps" />
             </div>
         </div>
-        <ToDoList />
     </div>
 </template>
 <script>
@@ -35,20 +30,20 @@ export default {
     },
     data() {
         return {
-            selectedSeason: "Spring",
+            selectedSeason: "1",
         };
     },
     computed: {
         componentProps() {
             switch (this.selectedSeason) {
-                case "Spring":
-                    return { season: "Spring" };
-                case "Summer":
-                    return { season: "Summer" };
-                case "Fall":
-                    return { season: "Fall" };
-                case "Winter":
-                    return { season: "Winter" };
+                case "1":
+                    return { season: "1" };
+                case "2":
+                    return { season: "2" };
+                case "3":
+                    return { season: "3" };
+                case "4":
+                    return { season: "4" };
                 default:
                     return {};
             }

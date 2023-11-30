@@ -1,13 +1,11 @@
 import { createApp } from "vue";
 import { createWebHistory, createRouter } from "vue-router";
 import App from "@/App.vue";
-
-// Changes url depending on the environment
-const API_URL = "http://localhost/api";
+import store from "@/store";
 
 const routes = [
     {
-        path: "",
+        path: "/",
         name: "home",
         component: () => import("@/views/Home.vue"),
     },
@@ -25,4 +23,5 @@ const router = createRouter({
 
 const app = createApp(App);
 app.use(router);
+app.use(store);
 app.mount("#app");

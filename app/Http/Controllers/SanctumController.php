@@ -7,6 +7,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class SanctumController extends Controller
 {
@@ -219,5 +220,59 @@ class SanctumController extends Controller
         return response()->json([
             "message" => "User logged out successfully",
         ]);
+    }
+
+    /**
+     * Check if the token is valid.
+     *
+     * @OA\Get(
+     *     tags={"Users"},
+     *     path="/check-token",
+     *     summary="Check if the token is valid",
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(
+     *         name="Accept",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success: Token is valid",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message",type="string",example="Token is valid")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthenticated: Invalid token",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message",type="string",example="Invalid token")
+     *         )
+     *     )
+     * )
+     */
+    public function checkToken(Request $request): JsonResponse
+    {
+        $user = Auth::user();
+
+        if ($user) {
+            return response()->json(
+                [
+                    "message" => "Token is valid",
+                ],
+                200
+            );
+        } else {
+            return response()->json(
+                [
+                    "message" => "Invalid token",
+                ],
+                401
+            );
+        }
     }
 }
