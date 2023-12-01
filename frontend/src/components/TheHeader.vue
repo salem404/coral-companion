@@ -1,7 +1,7 @@
 <template>
     <header>
         <DarkModeToggle />
-        <router-link v-if="isLogged" to="/profile" class="btn-UIswap">
+        <router-link v-if="isLogged" to="/profiles" class="btn-UIswap">
             <span>Change Profiles</span>
         </router-link>
     </header>

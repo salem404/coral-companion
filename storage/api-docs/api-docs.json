@@ -2091,6 +2091,9 @@
                                         "token": {
                                             "type": "string",
                                             "example": "2|3f4e5d6c7b8a9z0x"
+                                        },
+                                        "user": {
+                                            "$ref": "#/components/schemas/User"
                                         }
                                     },
                                     "type": "object"

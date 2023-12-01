@@ -36,6 +36,22 @@
     --input-fondo-disabled: var(--fondo-transparente);
     --input-helper: var(--button-error);
     --input-icon: #{$color-zafiro};
+
+    --resources-category-dropdown: #{$color-lima};
+    --resources-category-text: var(--button-text);
+    --resources-details: #{$color-zafiro};
+    --resources-icon: var(--resources-details);
+    --resources-item: #{$color-turquesa};
+    --resources-item-border: var(--resources-details);
+    --resources-item-text: var(--text-primary);
+
+    --profile-default: #{$color-light-transparency};
+    --profile-new: #{$color-camel};
+    --profile-selected: #{$color-gainsboro};
+
+    --task-border: #{$color-zafiro};
+    --task-btn: var(--button-fondo-icono);
+    --task-header: #{$color-light-transparency};
 }
 [data-theme="dark"] {
     --bg-color: #{$color-negro};
@@ -66,4 +82,15 @@
     --input-disabled: #{$color-morado};
     --input-fondo: #{$color-morado};
     --input-icon: #{$color-amarillo};
+
+    --resources-category-dropdown: #{$color-violeta};
+    --resources-details: #{$color-morado};
+    --resources-item: #{$color-morado-oscuro};
+
+    --profile-default: #{$color-morado-oscuro};
+    --profile-new: #{$color-marron};
+    --profile-selected: #{$color-morado};
+
+    --task-border: #{$color-violeta};
+    --task-header: #{$color-dark-transparency};
 }

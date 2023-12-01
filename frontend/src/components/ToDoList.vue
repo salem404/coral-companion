@@ -1,15 +1,17 @@
 <template>
     <div class="todolist">
-        <h1 class="todolist__header">Things to do</h1>
-        <form class="todolist__new" @submit.prevent="addTarea">
-            <input
-                class="todolist__new-input"
-                v-model="newTarea"
-                placeholder="I need..."
-                required
-            />
-            <button class="todolist__new-btn">Add</button>
-        </form>
+        <header class="todolist__header">
+            <h2>Tasks</h2>
+            <form class="todolist__new" @submit.prevent="addTarea">
+                <input
+                    class="todolist__new-input"
+                    v-model="newTarea"
+                    placeholder="I need..."
+                    required
+                />
+                <button class="todolist__new-btn">Add</button>
+            </form>
+        </header>
         <div v-if="!isEmpty">
             <ul class="todolist__list">
                 <li
@@ -29,8 +31,9 @@
                         <span
                             :class="{ done: tarea.done }"
                             @click="updateInputValue"
-                            >{{ tarea.nombre }}</span
                         >
+                            {{ tarea.nombre }}
+                        </span>
                     </label>
 
                     <button
@@ -49,34 +52,68 @@
 </template>
 <style lang="scss">
 .todolist {
-    background: var(--white);
-    border: 8px solid var(--dark-blue);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 40px;
-    padding: 1em;
-    width: 50%;
-    max-height: 90%;
-    min-height: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--padding-80, 12px);
+    flex-shrink: 0;
+    border-radius: var(--radio-L, 40px);
+    border: 28px solid var(--borde-borde, #135c7d);
+    background: var(--fondo-transparente, rgba(217, 217, 217, 0.82));
+
+    /* Dark */
+    box-shadow: 0px 4px 4px 0px rgba(17, 3, 0, 0.65);
     overflow: scroll;
     &__header {
-        font-size: 2.5em;
-        color: var(--black);
-        margin-bottom: 10px;
+        display: flex;
+        flex-direction: row;
+        padding: 0px var(--espaciado-desktop-80, 12px);
+        align-items: center;
+        gap: var(--espaciado-desktop-100, 28px);
+        align-self: stretch;
+        border-radius: var(--radio-200, 10px);
+        border-right: 2px solid var(--borde-borde, #135c7d);
+        border-bottom: 2px solid var(--borde-borde, #135c7d);
+        border-left: 2px solid var(--borde-borde, #135c7d);
+        background: var(--task-header, rgba(217, 217, 217, 0.82));
     }
     &__new {
         display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+        padding: 12px 0px;
+        justify-content: flex-end;
         align-items: center;
+        gap: var(--espaciado-desktop-80, 12px);
+        flex: 1 0 0;
         &-input {
             all: unset;
-            border-bottom: 2px solid var(--dark-blue);
+            color: var(--text-placeholder, #135c7d);
+
+            /* PC/P */
+            font-family: Quicksand;
+            font-size: 28px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            border-bottom: 2px dashed var(--dark-blue);
             &::placeholder {
                 color: grey;
             }
         }
         &-btn {
-            background: var(--blue);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: auto;
+            padding: 0.4375rem 1.8rem;
+            font-size: 1.25rem;
+            font-family: Quicksand;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+            color: var(--button-text, #110300);
+            background: var(--button-fondo);
+            border-radius: 40px;
+            cursor: pointer;
             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
             padding: 0.5em 1.5em;
             color: var(--white);
@@ -156,6 +193,7 @@ export default {
             tareas: [],
             newTarea: "",
             isEmpty: true,
+            API_URL: "http://localhost/api",
         };
     },
     async mounted() {
@@ -163,7 +201,7 @@ export default {
     },
     methods: {
         async fetchTareas() {
-            const response = await fetch(`${API_URL}/tareas`, {
+            const response = await fetch(`${this.API_URL}/tareas`, {
                 method: "GET",
                 headers: { Connection: "Keep-Alive" },
             });

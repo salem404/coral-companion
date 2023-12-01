@@ -13,15 +13,16 @@ export default {
     name: "App",
     components: { TheHeader, TheFooter },
     computed: {
-        ...mapState(["isLogged"]),
+        ...mapState(["isLogged", "user"]),
     },
     methods: {
-        ...mapMutations(["changeLoggedState"]),
+        ...mapMutations(["changeLoggedState", "changeUser"]),
         async checkToken() {
             try {
                 const response = await this.apiService.checkToken();
                 console.log(response);
                 this.changeLoggedState(true);
+                this.changeUser(response.data.user);
             } catch (error) {
                 if (error.response.status === 401) {
                     // In case the token is invalid
@@ -42,9 +43,6 @@ export default {
         this.apiService = new apiService();
     },
     mounted() {
-        if (localStorage.getItem("token")) {
-            this.checkToken();
-        }
         // THEME
         const hasDarkPreference = window.matchMedia(
             "(prefers-color-scheme: dark)",

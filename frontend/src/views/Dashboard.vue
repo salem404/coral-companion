@@ -1,16 +1,21 @@
 <template>
     <div class="dashboard">
-        <div class="dashboard__info">
-            <select v-model="selectedSeason" class="dashboard__info-season">
+        <header class="dashboard__header">
+            <select v-model="selectedSeason">
                 <option value="1" selected>Spring</option>
                 <option value="2">Summer</option>
                 <option value="3">Fall</option>
                 <option value="4">Winter</option>
             </select>
+        </header>
+        <div class="dashboard__info">
             <div class="dashboard__info-lists">
+                <Crops v-bind="componentProps" />
+                <Crops v-bind="componentProps" />
                 <Crops v-bind="componentProps" />
             </div>
         </div>
+        <ToDoList />
     </div>
 </template>
 <script>
@@ -63,48 +68,61 @@ export default {
 };
 </script>
 <style lang="scss">
-.home {
-    position: absolute;
-}
 .dashboard {
-    height: 100%;
     display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 0px var(--espaciado-desktop-400, 95px);
+    flex-direction: row;
+    gap: 28px;
+    flex-shrink: 0;
     flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
+    align-items: stretch;
+    &__header {
+        position: absolute;
+        top: 0;
+        select {
+            display: flex;
+            width: 300px;
+            padding: var(--button-vertical-padding, 12px) 6px;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: var(--button-radio, 40px);
+            border: 6px solid var(--button-borde, #135c7d);
+            background: var(--button-fondo, #94b755);
+
+            /* sombra */
+            box-shadow: 0px 4px 4px 0px rgba(17, 3, 0, 0.25);
+            color: var(--button-text, #110300);
+            text-align: center;
+
+            /* PC/Button */
+            font-family: Quicksand;
+            font-size: 35px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+        }
+    }
     &__info {
         display: flex;
+        width: 20rem;
+        height: 38rem;
         flex-direction: column;
-        min-width: 25%;
-        padding: 1em;
-        gap: 1em;
-        &-season {
-            align-self: flex-start;
-            padding: 1em 2.5em 1em 1em;
-            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-            border-radius: 40px;
-            background: {
-                color: var(--green);
-                size: 2em;
-                position: 72px 10px;
-                repeat: no-repeat;
-            }
-            cursor: pointer;
-            &:hover {
-                box-shadow: 0px 6px 4px 0 rgba(0, 0, 0, 0.108);
-                transform: translateY(-2px);
-            }
-            &:active {
-                box-shadow: 0px 0px 4px 0 rgba(0, 0, 0, 0.108);
-                transform: translateY(2px);
-            }
-        }
+        align-items: center;
+        align-self: stretch;
+        overflow-y: scroll;
+        border-radius: var(--radio, 40px);
+        border: 28px solid var(--borde-borde, #135c7d);
+        background: var(--fondo-transparente, rgba(217, 217, 217, 0.82));
+        box-shadow: 0px 4px 4px 0px rgba(17, 3, 0, 0.65);
+
         &-lists {
             display: flex;
-            flex-wrap: wrap;
             flex-direction: column;
-            align-content: center;
-            gap: 1em;
+            align-items: center;
+            flex: 1 0 0;
         }
     }
 }

@@ -116,7 +116,8 @@ class SanctumController extends Controller
      *         description="Success: User logged in",
      *         @OA\JsonContent(
      *             @OA\Property(property="message",type="string",example="User logged in successfully"),
-     *             @OA\Property(property="token", type="string", example="2|3f4e5d6c7b8a9z0x")
+     *             @OA\Property(property="token", type="string", example="2|3f4e5d6c7b8a9z0x"),
+     *             @OA\Property( property="user", ref="#/components/schemas/User")
      *         )
      *     ),
      *     @OA\Response(
@@ -166,6 +167,7 @@ class SanctumController extends Controller
         return response()->json([
             "message" => "User logged in successfully",
             "token" => $token,
+            "user" => $user,
         ]);
     }
 

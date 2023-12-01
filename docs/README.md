@@ -1720,6 +1720,11 @@ Accept: string //default: application/json
 {
   message?: string
   token?: string
+  user: {
+    id: integer
+    email: string
+    password: string
+  }
 }
 ```
 

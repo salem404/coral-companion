@@ -116,10 +116,10 @@ export default {
         this.apiService = new apiService();
     },
     computed: {
-        ...mapState(["isLogged"]),
+        ...mapState(["isLogged", "user"]),
     },
     methods: {
-        ...mapMutations(["changeLoggedState"]),
+        ...mapMutations(["changeLoggedState", "changeUser"]),
         changeVisibility() {
             this.type = this.type === "password" ? "text" : "password";
         },
@@ -131,28 +131,28 @@ export default {
         },
         async login() {
             try {
-                console.log("Login");
                 const response = await this.apiService.login(
                     this.email,
                     this.password,
                 );
-                console.log(response);
                 if (response.data.token) {
+                    localStorage.setItem("token", response.data.token);
+                    this.changeUser(response.data.user);
                     this.changeLoggedState(true);
-                    this.$parent.changeTitle("Welcome");
                 }
-                localStorage.setItem("token", response.data.token);
             } catch (error) {
-                if (error.response.status === 401) {
+                if (error.response && error.response.status === 401) {
                     this.error = "Invalid credentials";
                     localStorage.removeItem("token");
                 }
-                this.error += error.response.data.email
-                    ? error.response.data.email
-                    : "";
-                this.error += error.response.data.password
-                    ? error.response.data.password
-                    : "";
+                if (error.response && error.response.data) {
+                    this.error += error.response.data.email
+                        ? error.response.data.email
+                        : "";
+                    this.error += error.response.data.password
+                        ? error.response.data.password
+                        : "";
+                }
                 console.log(error);
             }
         },

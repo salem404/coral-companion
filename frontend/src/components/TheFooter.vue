@@ -75,6 +75,7 @@ export default {
                 this.changeLoggedState(false);
                 console.log(response);
                 this.closeModal();
+                location.reload();
             } catch (error) {
                 if (error.response.status === 401) {
                     // In case the token is invalid
@@ -82,7 +83,7 @@ export default {
                     this.changeLoggedState(false);
                     console.log("Unauthorized");
                     this.closeModal();
-                    // TODO: Add a redirect to the login page
+                    location.reload();
                 }
                 console.log(error);
             }

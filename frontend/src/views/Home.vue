@@ -30,13 +30,7 @@
         <section class="session">
             <div v-if="isLogged">
                 <h2 class="session__title">Welcome</h2>
-                <router-link to="/dashboard" class="btn">
-                    Dashboard
-                </router-link>
-                <p>
-                    Not you?
-                    <span class="link" @click="logOut()">Logout</span>
-                </p>
+                <TheWelcome />
             </div>
             <div v-else>
                 <h2 class="session__title">
@@ -51,6 +45,7 @@
 <script>
 import FormLogin from "@/components/FormLogin.vue";
 import FormRegister from "@/components/FormRegister.vue";
+import TheWelcome from "@/components/TheWelcome.vue";
 import { mapState, mapMutations } from "vuex";
 import apiService from "@/services/api.js";
 
@@ -62,11 +57,11 @@ export default {
     components: {
         FormLogin,
         FormRegister,
+        TheWelcome,
     },
     data() {
         return {
-            title: this.isLogged ? "Welcome" : "Login",
-            profile: "Farmer",
+            title: "Login",
             apiService: null,
         };
     },

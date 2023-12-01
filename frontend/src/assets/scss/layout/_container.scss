@@ -46,7 +46,7 @@
             padding: 1rem 5.18rem;
         }
 
-        .session__title {
+        &__title {
             position: relative;
             top: -3.5em;
             display: flex;
@@ -73,6 +73,31 @@
             @include mq($from: desktop) {
                 top: -6rem;
                 height: 7.205rem;
+            }
+        }
+
+        &__subtitle {
+            color: var(--text-primary, #110300);
+            text-align: center;
+
+            /* PC/H3 */
+            font-family: General Sans;
+            font-size: 45px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+        &__welcome {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: -75px;
+            svg {
+                width: 156px;
+                height: 156px;
+                flex-shrink: 0;
             }
         }
     }
