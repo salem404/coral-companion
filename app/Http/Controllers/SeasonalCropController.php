@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Item;
 use App\Models\SeasonalCrop;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use OpenApi\Annotations as OA;
 
 /**
  * @OA\Schema(
@@ -55,7 +54,7 @@ class SeasonalCropController extends Controller
     public function getAllSeasonalCrops($id): JsonResponse
     {
         // Find all seasonal crops with the given season id
-        $seasonalCrops = SeasonalCrop::with("season", "crop", "crop.item")
+        $seasonalCrops = SeasonalCrop::with("season", "crop", "crop.resources")
             ->where("season_id", $id)
             ->get();
         // Check if seasonal crops exist

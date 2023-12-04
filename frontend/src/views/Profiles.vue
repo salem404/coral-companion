@@ -12,6 +12,7 @@
                         id="{{ profile.id }}"
                         name="profileSelection"
                         value="{{profile.id}}}"
+                        required
                     />
                     <label for="{{ profile.id }}">
                         <img
@@ -61,6 +62,7 @@
 <script>
 import { RouterLink } from "vue-router";
 import apiService from "@/services/api.js";
+import { mapMutations, mapState } from "vuex";
 
 /**
  * @vue-data {Array} [profiles = []] - Lista de personas
@@ -71,11 +73,18 @@ export default {
     components: {
         RouterLink,
     },
+    computed: {
+        ...mapState(["isLogged", "user", "profile"]),
+        id() {
+            return this.isLogged && this.$store.state.user
+                ? this.$store.state.user.id
+                : "0";
+        },
+    },
     data() {
         return {
             profiles: [],
             apiService: null,
-            id: 2,
         };
     },
     created() {
@@ -85,6 +94,7 @@ export default {
         await this.fetchProfiles();
     },
     methods: {
+        ...mapMutations(["changeProfile"]),
         async fetchProfiles() {
             // TODO: Fetch with authorization
             const response = await fetch(
@@ -97,6 +107,8 @@ export default {
             if (response.ok) {
                 const data = await response.json();
                 this.profiles = data;
+                console.log(data[0]);
+                this.changeProfile(data[0]);
             }
         },
     },

@@ -21,10 +21,8 @@ class Season extends Model
     }
 
     // Crops
-    public function seasonalCrops(): HasMany
+    public function crops(): HasMany
     {
         return $this->hasMany(SeasonalCrop::class);
     }
-
-    // TODO: Add all different seasonal items type relationships
 }

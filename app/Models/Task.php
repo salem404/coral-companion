@@ -15,7 +15,7 @@ class Task extends Model
         "description",
         "isCompleted",
         "character_id",
-        "item_id",
+        "resource_id",
     ];
 
     protected $hidden = ["created_at", "updated_at"];
@@ -30,8 +30,8 @@ class Task extends Model
         return $this->belongsTo(Character::class);
     }
 
-    public function item(): BelongsTo
+    public function resource(): BelongsTo
     {
-        return $this->belongsTo(Item::class);
+        return $this->belongsTo(Resource::class);
     }
 }

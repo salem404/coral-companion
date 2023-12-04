@@ -14,44 +14,32 @@ class CropSeeder extends Seeder
     {
         // Almond
         Crop::create([
-            "item_id" => 1,
-            "type_id" => 1,
-            "isGigantic" => 0,
+            "resource_id" => 1,
         ]);
 
         // Carrot
         Crop::create([
-            "item_id" => 2,
-            "type_id" => 1,
-            "isGigantic" => 0,
+            "resource_id" => 2,
         ]);
 
         // Cotton
         Crop::create([
-            "item_id" => 3,
-            "type_id" => 1,
-            "isGigantic" => 0,
+            "resource_id" => 3,
         ]);
 
         // Cauliflower
         Crop::create([
-            "item_id" => 4,
-            "type_id" => 1,
-            "isGigantic" => 1,
+            "resource_id" => 4,
         ]);
 
         // Corn
         Crop::create([
-            "item_id" => 5,
-            "type_id" => 1,
-            "isGigantic" => 0,
+            "resource_id" => 5,
         ]);
 
         // Melon
         Crop::create([
-            "item_id" => 6,
-            "type_id" => 1,
-            "isGigantic" => 0,
+            "resource_id" => 6,
         ]);
     }
 }

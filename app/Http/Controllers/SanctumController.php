@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
+use OpenApi\Annotations as OA;
 
 class SanctumController extends Controller
 {
@@ -21,7 +22,7 @@ class SanctumController extends Controller
      *     summary="Register a new user",
      *     @OA\RequestBody(ref="#/components/requestBodies/UserRegister"),
      *     @OA\Parameter(
-     *         name="Content-Type",
+     *         name="Content-Category",
      *         in="header",
      *         required=true,
      *         @OA\Schema(
@@ -94,7 +95,7 @@ class SanctumController extends Controller
      *     summary="Login a user",
      *     @OA\RequestBody(ref="#/components/requestBodies/UserLogin"),
      *     @OA\Parameter(
-     *         name="Content-Type",
+     *         name="Content-Category",
      *         in="header",
      *         required=true,
      *         @OA\Schema(
@@ -211,7 +212,7 @@ class SanctumController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function logout(Request $request)
+    public function logout(Request $request): JsonResponse
     {
         // Delete the token of the logged-in user with sanctum
         $request

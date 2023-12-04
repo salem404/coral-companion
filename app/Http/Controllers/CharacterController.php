@@ -64,7 +64,7 @@ class CharacterController extends Controller
      *     description="Create a new character using the data provided in the request body. (Admin only)",
      *     security={{"sanctum":{}}},
      *     @OA\RequestBody(ref="#/components/requestBodies/CharacterCreate"),@OA\Parameter(
-     *         name="Content-Type",
+     *         name="Content-Category",
      *         in="header",
      *         required=true,
      *         @OA\Schema(
@@ -274,7 +274,7 @@ class CharacterController extends Controller
      *         @OA\Schema(type="integer")
      *     ),
      *     @OA\Parameter(
-     *         name="Content-Type",
+     *         name="Content-Category",
      *         in="header",
      *         required=true,
      *         @OA\Schema(

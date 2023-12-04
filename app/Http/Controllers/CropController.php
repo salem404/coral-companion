@@ -3,18 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Crop;
-use App\Models\Item;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use OpenApi\Annotations as OA;
 
 /**
  * @OA\Tag(name="Crops",description="Endpoints for crops")
  * @OA\Schema(
  *     schema="Crop",
- *     required={"id", "name"},
+ *     required={"id", "resource_id", "category_id"},
  *     @OA\Property(property="id", type="integer", example=2,),
- *     @OA\Property(property="type_id", type="object", ref="#/components/schemas/Type"),
- *     @OA\Property(property="isGigantic", type="boolean"),
+ *     @OA\Property(property="category_id", type="object", ref="#/components/schemas/Category"),
+ *     @OA\Property(property="resource_id", type="object", ref="#/components/schemas/Resource"),
+ *     @OA\Property(property="type", type="string", example="Vegetable"),
+ *     @OA\Property(property="rank", type="string", example="D"),
+ *     @OA\Property(property="seed_price", type="integer", example=20),
  * )
  */
 class CropController extends Controller
@@ -47,7 +49,7 @@ class CropController extends Controller
      */
     public function getAllCrops(): JsonResponse
     {
-        $crops = Crop::with("type", "item")->get();
+        $crops = Crop::with("category", "resource", "seasons")->get();
         // Check if crops exist
         if (count($crops) < 1) {
             return response()->json(
@@ -96,7 +98,7 @@ class CropController extends Controller
      */
     public function getCropById(int $id): JsonResponse
     {
-        $crop = Crop::with("type", "item")->find($id);
+        $crop = Crop::with("category", "resource", "seasons")->find($id);
         // Check if crop exists
         if (!$crop) {
             return response()->json(

@@ -4,6 +4,7 @@ export default createStore({
     state: {
         isLogged: false,
         user: null,
+        profile: null,
     },
     mutations: {
         changeLoggedState(state) {
@@ -11,6 +12,9 @@ export default createStore({
         },
         changeUser(state, user) {
             state.user = user;
+        },
+        changeProfile(state, profile) {
+            state.profile = profile;
         },
     },
 });

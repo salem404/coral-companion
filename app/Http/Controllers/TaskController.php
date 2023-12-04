@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Character;
-use App\Models\Item;
 use App\Models\Profile;
+use App\Models\Resource;
 use App\Models\Task;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use OpenApi\Annotations as OA;
 
 /**
  * @OA\Tag(
@@ -23,7 +24,7 @@ use Illuminate\Support\Facades\Validator;
  *     @OA\Property(property="description", type="string", description="The description of the task", example="Kill the Night King"),
  *     @OA\Property(property="isCompleted", type="int", description="The status of the task", example=0),
  *     @OA\Property(property="character_id", type="object", ref="#/components/schemas/Character"),
- *     @OA\Property(property="item_id", type="object", ref="#/components/schemas/Item"),
+ *     @OA\Property(property="resource_id", type="object", ref="#/components/schemas/Resource"),
  *     @OA\Property(property="created_at", type="string", format="date-time", example="2021-03-25 12:00:00"),
  *     @OA\Property(property="updated_at", type="string", format="date-time", example="2021-03-25 12:00:00")
  * )
@@ -35,7 +36,7 @@ use Illuminate\Support\Facades\Validator;
  *     @OA\Property(property="description", type="string", description="The description of the task", example="Kill the Night King"),
  *     @OA\Property(property="isCompleted", type="int", description="The status of the task", example=0),
  *     @OA\Property(property="character_id", type="integer", description="The id of the character", example=1),
- *     @OA\Property(property="item_id", type="integer", description="The id of the item", example=1)
+ *     @OA\Property(property="resource_id", type="integer", description="The id of the resource", example=1)
  * ))
  *
  * @OA\RequestBody(
@@ -46,7 +47,7 @@ use Illuminate\Support\Facades\Validator;
  *             @OA\Property(property="description", type="string", description="The description of the task", example="Kill the Night King"),
  *             @OA\Property(property="isCompleted", type="int", description="The status of the task", example=0),
  *             @OA\Property(property="character_id", type="integer", description="The id of the character", example=1),
- *             @OA\Property(property="item_id", type="integer", description="The id of the item", example=1)
+ *             @OA\Property(property="resource_id", type="integer", description="The id of the resource", example=1)
  *     )
  * )
  *
@@ -66,7 +67,7 @@ class TaskController extends Controller
      *     security={{"sanctum":{}}},
      *     @OA\RequestBody(ref="#/components/requestBodies/TaskCreate"),
      *     @OA\Parameter(
-     *         name="Content-Type",
+     *         name="Content-Category",
      *         in="header",
      *         required=true,
      *         @OA\Schema(
@@ -117,7 +118,7 @@ class TaskController extends Controller
             "isCompleted" => "required|integer",
             "profile_id" => "required|integer",
             "character_id" => "integer",
-            "item_id" => "integer",
+            "resource_id" => "integer",
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
@@ -145,11 +146,11 @@ class TaskController extends Controller
         }
 
         // Check if item exists
-        $item = Item::find($request->item_id);
-        if ($request->item_id) {
+        $item = Resource::find($request->resource_id);
+        if ($request->resource_id) {
             if (!$item) {
                 return response()->json(
-                    ["message" => "Item with id $request->item_id"],
+                    ["message" => "Resource with id $request->resource_id"],
                     400
                 );
             }
@@ -170,7 +171,7 @@ class TaskController extends Controller
             "isCompleted" => $request->isCompleted,
             "profile_id" => $request->profile_id,
             "character_id" => $request->character_id,
-            "item_id" => $request->item_id,
+            "resource_id" => $request->resource_id,
         ]);
 
         return response()->json(
@@ -257,7 +258,7 @@ class TaskController extends Controller
      */
     public function getTaskById($id): JsonResponse
     {
-        $task = Task::with("profile", "character", "item")->find($id);
+        $task = Task::with("profile", "character", "resource")->find($id);
 
         // Check if task exists
         if (!$task) {
@@ -276,7 +277,7 @@ class TaskController extends Controller
      *
      * @OA\Get(
      *      tags={"Task"},
-     *      path="/tasks/profile/{id}",
+     *      path="/profile/{id}/tasks",
      *      summary="Get tasks by profile ID",
      *      description="Get a task by the profile ID sent in the URL from the database",
      *      @OA\Parameter(
@@ -324,7 +325,7 @@ class TaskController extends Controller
                 401
             );
         }
-        $task = Task::with("profile", "character", "item")
+        $task = Task::with("profile", "character", "resource")
             ->where("profile_id", $id)
             ->get();
 
@@ -357,7 +358,7 @@ class TaskController extends Controller
      *          @OA\Schema(type="integer")
      *      ),
      *     @OA\Parameter(
-     *         name="Content-Type",
+     *         name="Content-Category",
      *         in="header",
      *         required=true,
      *         @OA\Schema(
@@ -428,7 +429,7 @@ class TaskController extends Controller
             "description" => "required|string",
             "isCompleted" => "required|integer",
             "character_id" => "integer",
-            "item_id" => "integer",
+            "resource_id" => "integer",
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
@@ -457,11 +458,11 @@ class TaskController extends Controller
         }
 
         // Check if item exists
-        $item = Item::find($request->item_id);
+        $item = Resource::find($request->resource_id);
         if (!$item) {
             return response()->json(
                 [
-                    "message" => "Item with id $request->item_id not found",
+                    "message" => "Resource with id $request->item_id not found",
                 ],
                 400
             );
@@ -474,7 +475,7 @@ class TaskController extends Controller
             "description" => $request->description,
             "isCompleted" => $request->isCompleted,
             "character_id" => $request->character_id,
-            "item_id" => $request->item_id,
+            "resource_id" => $request->resource_id,
         ]);
 
         return response()->json([

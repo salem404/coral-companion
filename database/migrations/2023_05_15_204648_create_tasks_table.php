@@ -19,7 +19,11 @@ return new class extends Migration {
                 ->on("profiles")
                 ->onDelete("cascade");
             $table->string("description");
-            $table->tinyInteger("isCompleted")->default(0)->min(0)->max(1);
+            $table
+                ->tinyInteger("isCompleted")
+                ->default(0)
+                ->min(0)
+                ->max(1);
             $table
                 ->integer("character_id")
                 ->unsigned()
@@ -30,13 +34,13 @@ return new class extends Migration {
                 ->on("characters")
                 ->onDelete("cascade");
             $table
-                ->integer("item_id")
+                ->integer("resource_id")
                 ->unsigned()
                 ->nullable();
             $table
-                ->foreign("item_id")
+                ->foreign("resource_id")
                 ->references("id")
-                ->on("items")
+                ->on("resources")
                 ->onDelete("cascade");
             $table->timestamps();
         });

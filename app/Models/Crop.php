@@ -11,23 +11,22 @@ class Crop extends Model
 {
     use HasFactory;
 
-    protected $table = "crops";
-
-    protected $fillable = ["item_id", "type_id", "isGigantic"];
+    protected $fillable = [
+        "resource_id",
+        "category_id",
+        "type",
+        "rank",
+        "seed_price",
+    ];
 
     protected $hidden = ["created_at", "updated_at"];
 
-    public function item(): BelongsTo
+    public function resource(): BelongsTo
     {
-        return $this->belongsTo(Item::class);
+        return $this->belongsTo(Resource::class);
     }
 
-    public function type(): BelongsTo
-    {
-        return $this->belongsTo(Type::class);
-    }
-
-    public function seasonalCrops(): HasMany
+    public function seasons(): HasMany
     {
         return $this->hasMany(SeasonalCrop::class);
     }

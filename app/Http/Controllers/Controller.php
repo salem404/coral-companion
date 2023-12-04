@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use OpenApi\Annotations as OA;
 
 /**
  * @OA\Info(
@@ -27,6 +28,7 @@ use Illuminate\Routing\Controller as BaseController;
  * @OA\Component(
  *     @OA\SecurityScheme(securityScheme="sanctum", type="http", scheme="bearer")
  * )
+ * @OA\Tag(name="Admin", description="Admin operations")
  *
  */
 class Controller extends BaseController

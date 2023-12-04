@@ -11,23 +11,19 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create("crops", function (Blueprint $table) {
-            $table->id();
+            $table->increments("id");
             $table
-                ->integer("item_id")
+                ->integer("resource_id")
                 ->unsigned()
                 ->nullable();
             $table
-                ->foreign("item_id")
+                ->foreign("resource_id")
                 ->references("id")
-                ->on("items")
+                ->on("resources")
                 ->onDelete("cascade");
-            $table->integer("type_id")->unsigned();
-            $table
-                ->foreign("type_id")
-                ->references("id")
-                ->on("types")
-                ->onDelete("cascade");
-            $table->tinyInteger("isGigantic")->default(0);
+            $table->string("type")->nullable();
+            $table->string("rank")->nullable();
+            $table->integer("seed_price")->nullable();
             $table->timestamps();
         });
     }

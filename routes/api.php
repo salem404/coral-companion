@@ -2,15 +2,12 @@
 
 use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\CropController;
-use App\Http\Controllers\FamilyController;
-use App\Http\Controllers\FavListController;
-use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ResourceController;
+use App\Http\Controllers\SanctumController;
 use App\Http\Controllers\SeasonalCropController;
 use App\Http\Controllers\SeasonController;
-use App\Http\Controllers\SanctumController;
 use App\Http\Controllers\TaskController;
-use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -73,22 +70,15 @@ Route::controller(ProfileController::class)->group(function () {
     Route::put("/profiles/{id}", "updateProfile")->middleware("auth:sanctum");
 });
 
-// Types
-Route::controller(TypeController::class)->group(function () {
-    Route::get("/types", "getAllTypes");
-    Route::get("/types/{id}", "getTypeById");
-    Route::delete("/types/{id}", "deleteType")->middleware("auth:sanctum");
-    Route::post("/types", "createType")->middleware("auth:sanctum");
-    Route::put("/types/{id}", "updateType")->middleware("auth:sanctum");
-});
-
-// Items
-Route::controller(ItemController::class)->group(function () {
-    Route::get("/items", "getAllItems");
-    Route::get("/items/{id}", "getItemById");
-    Route::delete("/items/{id}", "deleteItem")->middleware("auth:sanctum");
-    Route::post("/items", "createItem")->middleware("auth:sanctum");
-    Route::put("/items/{id}", "updateItem")->middleware("auth:sanctum");
+// Resources
+Route::controller(ResourceController::class)->group(function () {
+    Route::get("/resources", "getAllResources");
+    Route::get("/resources/{id}", "getResourceById");
+    Route::delete("/resources/{id}", "deleteResource")->middleware(
+        "auth:sanctum"
+    );
+    Route::post("/resources", "createResource")->middleware("auth:sanctum");
+    Route::put("/resources/{id}", "updateResource")->middleware("auth:sanctum");
 });
 
 // Crops
@@ -102,17 +92,6 @@ Route::controller(SeasonalCropController::class)->group(function () {
     Route::get("/crops/season/{id}", "getAllSeasonalCrops");
 });
 
-// FavLists
-Route::controller(FavListController::class)->group(function () {
-    Route::get("/favlists", "getAllFavLists");
-    Route::get("/favlists/{id}", "getFavListById");
-    Route::delete("/favlists/{id}", "deleteFavList")->middleware(
-        "auth:sanctum"
-    );
-    Route::post("/favlists", "createFavList")->middleware("auth:sanctum");
-    Route::put("/favlists/{id}", "updateFavList")->middleware("auth:sanctum");
-});
-
 // Tasks
 Route::controller(TaskController::class)->group(function () {
     Route::get("/tasks", "getAllTasks");
@@ -121,13 +100,4 @@ Route::controller(TaskController::class)->group(function () {
     Route::delete("/tasks/{id}", "deleteTask")->middleware("auth:sanctum");
     Route::post("/tasks", "createTask")->middleware("auth:sanctum");
     Route::put("/tasks/{id}", "updateTask")->middleware("auth:sanctum");
-});
-
-// Family
-Route::controller(FamilyController::class)->group(function () {
-    Route::get("/families", "getAllFamilies");
-    Route::get("/families/{id}", "getFamilyById");
-    Route::delete("/families/{id}", "deleteFamily")->middleware("auth:sanctum");
-    Route::post("/families", "createFamily")->middleware("auth:sanctum");
-    Route::put("/families/{id}", "updateFamily")->middleware("auth:sanctum");
 });

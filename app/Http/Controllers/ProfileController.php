@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use OpenApi\Annotations as OA;
 
 /**
  * @OA\Tag(name="Profiles", description="Endpoints for profiles")
@@ -51,7 +52,7 @@ class ProfileController extends Controller
      *     security={{"sanctum":{}}},
      *     @OA\RequestBody(ref="#/components/requestBodies/ProfileCreate"),
      *     @OA\Parameter(
-     *         name="Content-Type",
+     *         name="Content-Category",
      *         in="header",
      *         required=true,
      *         @OA\Schema(
@@ -277,7 +278,7 @@ class ProfileController extends Controller
      * Retrieves profiles associated with a specific user ID.
      *
      * @param int $id The user ID.
-     * @return \Illuminate\Http\JsonResponse The JSON response containing the profiles.
+     * @return JsonResponse The JSON response containing the profiles.
      */
     public function getProfilesByUserId($id): JsonResponse
     {
@@ -314,7 +315,7 @@ class ProfileController extends Controller
      *         @OA\Schema(type="integer")
      *     ),
      *     @OA\Parameter(
-     *         name="Content-Type",
+     *         name="Content-Category",
      *         in="header",
      *         required=true,
      *         @OA\Schema(

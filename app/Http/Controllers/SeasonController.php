@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Season;
 use Illuminate\Http\JsonResponse;
+use OpenApi\Annotations as OA;
 
 /**
  * @OA\Tag(name="Seasons",description="Endpoints for seasons")
@@ -92,7 +93,7 @@ class SeasonController extends Controller
      */
     public function getSeasonById($id): JsonResponse
     {
-        $season = Season::with("characters")->find($id);
+        $season = Season::with("characters", "crops")->find($id);
         // Check if season exists
         if (!$season) {
             return response()->json(

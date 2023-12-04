@@ -11,9 +11,9 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create("seasonal_crops", function (Blueprint $table) {
-            $table->id();
+            $table->increments("id");
             $table
-                ->Integer("season_id")
+                ->integer("season_id")
                 ->unsigned()
                 ->nullable();
             $table
@@ -21,11 +21,15 @@ return new class extends Migration {
                 ->references("id")
                 ->on("seasons")
                 ->onDelete("cascade");
-            $table->Integer("crop_id")->unsigned();
+            $table
+                ->integer("crop_id")
+                ->unsigned()
+                ->nullable();
             $table
                 ->foreign("crop_id")
                 ->references("id")
-                ->on("items");
+                ->on("crops")
+                ->onDelete("cascade");
             $table->timestamps();
         });
     }
