@@ -20,13 +20,11 @@ use OpenApi\Annotations as OA;
  * @OA\Schema(
  *     schema="Task",
  *     required={"profile_id", "description", "isCompleted"},
- *     @OA\Property(property="profile_id", type="object", ref="#/components/schemas/Profile"),
+ *     @OA\Property(property="profile_id", type="integer", example=1),
  *     @OA\Property(property="description", type="string", description="The description of the task", example="Kill the Night King"),
- *     @OA\Property(property="isCompleted", type="int", description="The status of the task", example=0),
- *     @OA\Property(property="character_id", type="object", ref="#/components/schemas/Character"),
- *     @OA\Property(property="resource_id", type="object", ref="#/components/schemas/Resource"),
- *     @OA\Property(property="created_at", type="string", format="date-time", example="2021-03-25 12:00:00"),
- *     @OA\Property(property="updated_at", type="string", format="date-time", example="2021-03-25 12:00:00")
+ *     @OA\Property(property="isCompleted", type="integer", description="The status of the task", example=0),
+ *     @OA\Property(property="character_id", type="integer", example=1),
+ *     @OA\Property(property="resource_id", type="integer", example=1),
  * )
  * @OA\RequestBody (
  *     request="TaskUpdate",
@@ -34,77 +32,55 @@ use OpenApi\Annotations as OA;
  *     @OA\JsonContent(
  *     @OA\Property(property="profile_id", type="integer", description="The id of the profile", example=1),
  *     @OA\Property(property="description", type="string", description="The description of the task", example="Kill the Night King"),
- *     @OA\Property(property="isCompleted", type="int", description="The status of the task", example=0),
+ *     @OA\Property(property="isCompleted", type="integer", description="The status of the task", example=0),
  *     @OA\Property(property="character_id", type="integer", description="The id of the character", example=1),
  *     @OA\Property(property="resource_id", type="integer", description="The id of the resource", example=1)
  * ))
- *
  * @OA\RequestBody(
  *     request="TaskCreate",
  *     required=true,
  *     @OA\JsonContent(required={"profile_id", "description", "isCompleted"},
- *             @OA\Property(property="profile_id", type="integer", description="The id of the profile", example=1),
- *             @OA\Property(property="description", type="string", description="The description of the task", example="Kill the Night King"),
- *             @OA\Property(property="isCompleted", type="int", description="The status of the task", example=0),
- *             @OA\Property(property="character_id", type="integer", description="The id of the character", example=1),
- *             @OA\Property(property="resource_id", type="integer", description="The id of the resource", example=1)
+ *         @OA\Property(property="profile_id", type="integer", description="The id of the profile", example=1),
+ *         @OA\Property(property="description", type="string", description="The description of the task", example="Kill the Night King"),
+ *         @OA\Property(property="isCompleted", type="integer", description="The status of the task", example=0),
+ *         @OA\Property(property="character_id", type="integer", description="The id of the character", example=1),
+ *         @OA\Property(property="resource_id", type="integer", description="The id of the resource", example=1)
  *     )
  * )
- *
  */
 class TaskController extends Controller
 {
     /**
      * Create a new task
      *
-     * openapi php comment block
-     *
      * @OA\Post(
-     *      tags={"Task"},
-     *      path="/tasks",
-     *      summary="Create a new task",
-     *      description="Create a new task using the data provided in the request body. (Admins can create tasks for other users)",
+     *     tags={"Task"},
+     *     path="/tasks",
+     *     summary="Create a new task",
+     *     description="Create a new task using the data provided in the request body. (Admins can create tasks for other users)",
      *     security={{"sanctum":{}}},
      *     @OA\RequestBody(ref="#/components/requestBodies/TaskCreate"),
-     *     @OA\Parameter(
-     *         name="Content-Category",
-     *         in="header",
-     *         required=true,
-     *         @OA\Schema(
-     *             type="string",
-     *             default="application/json"
+     *     @OA\Response(
+     *         response=201,
+     *         description="Success: Task created",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Task created successfully")
      *         )
      *     ),
-     *     @OA\Parameter(
-     *         name="Accept",
-     *         in="header",
-     *         required=true,
-     *         @OA\Schema(
-     *             type="string",
-     *             default="application/json"
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad request: Data validation error",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="The description field is required")
      *         )
      *     ),
-     *      @OA\Response(
-     *          response=201,
-     *          description="Success: Task created",
-     *          @OA\JsonContent(
-     *              @OA\Property(property="message", type="string", example="Task created successfully")
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized: Tasks can only be created by admins or the user themself",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="You are not authorized to create a task")
      *         )
-     *      ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad request: Data validation error",
-     *          @OA\JsonContent(
-     *              @OA\Property(property="message", type="string", example="The description field is required")
-     *         )
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthorized: Tasks can only be created by admins or the user themself",
-     *          @OA\JsonContent(
-     *              @OA\Property(property="message", type="string", example="You are not authorized to create a task")
-     *         )
-     *      )
+     *     )
      * )
      *
      * @param Request $request
@@ -228,35 +204,35 @@ class TaskController extends Controller
      * Get a task
      *
      * @OA\Get(
-     *      tags={"Task"},
-     *      path="/tasks/{id}",
-     *      summary="Get a task",
-     *      description="Get a task by ID sent in the URL from the database",
-     *      @OA\Parameter(
-     *          name="id",
-     *          in="path",
-     *          description="ID of task to return",
-     *          required=true,
-     *          @OA\Schema(type="integer")
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Success: Returns a task",
-     *          @OA\JsonContent(ref="#/components/schemas/Task")
-     *       ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="Not found: Task doesn't exist",
-     *          @OA\JsonContent(
-     *              @OA\Property(property="message", type="string", example="Task not found")
+     *     tags={"Task"},
+     *     path="/tasks/{id}",
+     *     summary="Get a task",
+     *     description="Get a task by ID sent in the URL from the database",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID of task to return",
+     *         required=true,
+     *         @OA\Schema(type="integer", example=1)
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success: Returns a task",
+     *         @OA\JsonContent(ref="#/components/schemas/Task")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Not found: Task doesn't exist",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Task not found")
      *         )
-     *       ),
+     *     )
      * )
      *
      * @param int $id
      * @return JsonResponse
      */
-    public function getTaskById($id): JsonResponse
+    public function getTaskById(int $id): JsonResponse
     {
         $task = Task::with("profile", "character", "resource")->find($id);
 
@@ -276,45 +252,38 @@ class TaskController extends Controller
      * Get tasks by profile ID
      *
      * @OA\Get(
-     *      tags={"Task"},
-     *      path="/profile/{id}/tasks",
-     *      summary="Get tasks by profile ID",
-     *      description="Get a task by the profile ID sent in the URL from the database",
-     *      @OA\Parameter(
-     *          name="id",
-     *          in="path",
-     *          description="ID of profile of tasks to return",
-     *          required=true,
-     *          @OA\Schema(type="integer")
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Success: Returns all tasks from a profile",
-     *          @OA\JsonContent(
-     *              type="array",
-     *              @OA\Items(ref="#/components/schemas/Task")
-     *          )
-     *      ),
+     *     tags={"Task"},
+     *     path="/profile/{id}/tasks",
+     *     summary="Get tasks by profile ID",
+     *     description="Get a task by the profile ID sent in the URL from the database",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID of profile of tasks to return",
+     *         required=true,
+     *         @OA\Schema(type="integer", example=1)
+     *     ),
      *     @OA\Response(
-     *          response=400,
-     *          description="Bad Request: Profile doesn't exist",
-     *          @OA\JsonContent(
-     *              @OA\Property(property="message", type="string", example="Profile not found")
+     *         response=200,
+     *         description="Success: Returns all tasks from a profile",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/Task")
      *         )
-     *       ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="Not found: Tasks don't exist",
-     *          @OA\JsonContent(
-     *              @OA\Property(property="message", type="string", example="Task not found")
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad Request: Profile doesn't exist",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Profile not found")
      *         )
-     *       ),
+     *     )
      * )
      *
      * @param int $id
      * @return JsonResponse
      */
-    public function getTasksByProfileId($id): JsonResponse
+    public function getTasksByProfileId(int $id): JsonResponse
     {
         $profile = Profile::find($id);
         if (!$profile) {
@@ -322,88 +291,61 @@ class TaskController extends Controller
                 [
                     "message" => "Profile not found",
                 ],
-                401
+                400
             );
         }
-        $task = Task::with("profile", "character", "resource")
+        $tasks = Task::with("profile", "character", "resource")
             ->where("profile_id", $id)
             ->get();
 
-        // Check if tasks exists
-        if (!$task) {
-            return response()->json(
-                [
-                    "message" => "Tasks not found",
-                ],
-                404
-            );
-        }
-        return response()->json($task);
+        return response()->json($tasks);
     }
 
     /**
      * Update a task
      *
      * @OA\Put(
-     *      tags={"Task"},
-     *      path="/tasks/{id}",
-     *      summary="Update a task",
-     *      description="Update a task by ID sent in the URL and data provided in the request body. Only the user who created the task and admins can update it.",
-     *      security={{"sanctum":{}}},
-     *      @OA\Parameter(
-     *          name="id",
-     *          in="path",
-     *          description="ID of task to update",
-     *          required=true,
-     *          @OA\Schema(type="integer")
-     *      ),
+     *     tags={"Task"},
+     *     path="/tasks/{id}",
+     *     summary="Update a task",
+     *     description="Update a task by ID sent in the URL and data provided in the request body. Only the user who created the task and admins can update it.",
+     *     security={{"sanctum":{}}},
      *     @OA\Parameter(
-     *         name="Content-Category",
-     *         in="header",
+     *         name="id",
+     *         in="path",
+     *         description="ID of task to update",
      *         required=true,
-     *         @OA\Schema(
-     *             type="string",
-     *             default="application/json"
-     *         )
-     *     ),
-     *     @OA\Parameter(
-     *         name="Accept",
-     *         in="header",
-     *         required=true,
-     *         @OA\Schema(
-     *             type="string",
-     *             default="application/json"
-     *         )
+     *         @OA\Schema(type="integer", example=1)
      *     ),
      *     @OA\RequestBody(ref="#/components/requestBodies/TaskUpdate"),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Success: Task updated",
-     *          @OA\JsonContent(
-     *              @OA\Property(property="message", type="string", example="Task updated successfully")
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success: Task updated",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Task updated successfully")
      *         )
-     *      ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad request: Data validation error",
-     *          @OA\JsonContent(
-     *              @OA\Property(property="message", type="string", example="The isCompleted field must be 0 or 1")
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad request: Data validation error",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="The isCompleted field must be 0 or 1")
      *         )
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthorized: Only the user who created the task and admins can update it",
-     *          @OA\JsonContent(
-     *              @OA\Property(property="message", type="string", example="You are not authorized to update this task")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized: Only the user who created the task and admins can update it",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="You are not authorized to update this task")
      *         )
-     *      ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="Not found: Task doesn't exist",
-     *          @OA\JsonContent(
-     *              @OA\Property(property="message", type="string", example="Task not found")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Not found: Task doesn't exist",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Task not found")
      *         )
-     *      ),
+     *     ),
      * )
      *
      * @param Request $request
@@ -487,51 +429,41 @@ class TaskController extends Controller
      * Delete a task
      *
      * @OA\Delete(
-     *      tags={"Task"},
-     *      path="/tasks/{id}",
-     *      summary="Delete a task",
-     *      description="Delete a task by ID sent in the URL. Only the user who created the task and admins can delete it.",
-     *      security={{"sanctum":{}}},
-     *      @OA\Parameter(
-     *          name="id",
-     *          in="path",
-     *          description="ID of task to delete",
-     *          required=true,
-     *          @OA\Schema(type="integer")
-     *      ),
+     *     tags={"Task"},
+     *     path="/tasks/{id}",
+     *     summary="Delete a task",
+     *     description="Delete a task by ID sent in the URL. Only the user who created the task and admins can delete it.",
+     *     security={{"sanctum":{}}},
      *     @OA\Parameter(
-     *         name="Accept",
-     *         in="header",
+     *         name="id",
+     *         in="path",
+     *         description="ID of task to delete",
      *         required=true,
-     *         @OA\Schema(
-     *             type="string",
-     *             default="application/json"
-     *         )
+     *         @OA\Schema(type="integer", example=1)
      *     ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Success: Task deleted",
-     *          @OA\JsonContent(
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success: Task deleted",
+     *         @OA\JsonContent(
      *             @OA\Property(property="message", type="string", example="Task deleted successfully")
      *         )
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="You are not authorized to delete this task",
-     *          @OA\JsonContent(
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized: Only the user who created the task and admins can delete it",
+     *         @OA\JsonContent(
      *             @OA\Property(property="message", type="string", example="You are not authorized to delete this task")
      *         )
-     *      ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="Task not found",
-     *          @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="Task with id 1 not found")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Not found: Task doesn't exist",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Task not found")
      *         )
-     *      ),
+     *     ),
      * )
      *
-     * @param Request $request
      * @param int $id
      * @return JsonResponse
      */

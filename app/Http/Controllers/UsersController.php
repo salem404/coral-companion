@@ -8,27 +8,34 @@ use OpenApi\Annotations as OA;
 
 /**
  * @OA\Tag(name="Users",description="Endpoints for users")
+ *
  * @OA\Schema(
  *     schema="User",
  *     required={"id","email", "password"},
- *     @OA\Property(property="id", type="integer", example=1, minimum=1),
+ *     @OA\Property(property="id", type="integer", format="int64", example=1, minimum=1),
  *     @OA\Property(property="email", type="string", format="email", example="example@email.es"),
  *     @OA\Property(property="password", type="string", format="password", example="password123")
  * )
+ *
  * @OA\RequestBody (
  *     request="UserLogin",
  *     required=true,
  *     @OA\JsonContent(
- *     @OA\Property(property="email", type="string", format="email", example="example@email.es"),
- *     @OA\Property(property="password", type="string", format="password", example="password123")
- * ))
+ *         required={"email", "password"},
+ *         @OA\Property(property="email", type="string", format="email", example="example@email.es"),
+ *         @OA\Property(property="password", type="string", format="password", example="password123")
+ *     )
+ * )
+ *
  * @OA\RequestBody (
  *     request="UserRegister",
  *     required=true,
  *     @OA\JsonContent(
- *     @OA\Property(property="email", type="string", format="email", example="example@email.es"),
- *     @OA\Property(property="password", type="string", format="password", example="password123")
- * ))
+ *         required={"email", "password"},
+ *         @OA\Property(property="email", type="string", format="email", example="example@email.es"),
+ *         @OA\Property(property="password", type="string", format="password", example="password123")
+ *     )
+ * )
  */
 class UsersController extends Controller
 {
@@ -39,20 +46,13 @@ class UsersController extends Controller
      *     tags={"Users"},
      *     path="/users",
      *     summary="Get all users",
-     *     description="Returns all users from the database or a message if no users found",
+     *     description="Returns all users from the database",
      *     @OA\Response(
      *         response=200,
      *         description="Success: Returns an array of all users",
      *         @OA\JsonContent(
      *             type="array",
      *             @OA\Items(ref="#/components/schemas/User")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=404,
-     *         description="Not found: No users found",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="No users found")
      *         )
      *     )
      * )
@@ -62,15 +62,6 @@ class UsersController extends Controller
     public function getAllUsers(): JsonResponse
     {
         $users = User::all();
-        // Check if users exist
-        if (count($users) < 1) {
-            return response()->json(
-                [
-                    "message" => "No users found",
-                ],
-                404
-            );
-        }
         return response()->json($users);
     }
 
@@ -81,7 +72,7 @@ class UsersController extends Controller
      *     tags={"Users"},
      *     path="/users/{id}",
      *     summary="Get user",
-     *     description="Get an user by ID sent in the URL from the database or a message the user is not found",
+     *     description="Get a user by ID sent in the URL from the database or a message the user is not found",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -103,7 +94,7 @@ class UsersController extends Controller
      *     )
      * )
      *
-     * @param $id
+     * @param int $id
      * @return JsonResponse
      */
     public function getUserById($id): JsonResponse

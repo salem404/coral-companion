@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use OpenApi\Annotations as OA;
 
 /**
- * @OA\Tag(name="Resource", description="Endpoints for resources")
+ * @OA\Tag(name="Resources", description="Endpoints for resources")
  * @OA\Schema(
  *     schema="Resource",
  *     required={"name", "id", "icon"},
@@ -23,7 +23,6 @@ use OpenApi\Annotations as OA;
  *     required=true,
  *     @OA\JsonContent(
  *         @OA\Property(property="name", type="string", example="Sea Grapes"),
- *         @OA\Property(property="category_id", type="integer", example=1),
  *         @OA\Property(property="icon", type="string", example="sea-grapes.png")
  *     )
  * )
@@ -32,10 +31,12 @@ use OpenApi\Annotations as OA;
  *     required=true,
  *     @OA\JsonContent(required={"name", "icon"},
  *         @OA\Property(property="name", type="string", example="Sea Grapes"),
- *         @OA\Property(property="category_id", type="integer", example=1, required=false),
  *         @OA\Property(property="icon", type="string", example="sea-grapes.png")
  *     )
  * )
+ *
+ * @param Request $request The request object containing the data to create or update the resource
+ * @return JsonResponse The response containing a success message if the resource was created or updated successfully, or an error message otherwise
  */
 class ResourceController extends Controller
 {
@@ -50,7 +51,7 @@ class ResourceController extends Controller
      *     security={{"sanctum":{}}},
      *     @OA\RequestBody(ref="#/components/requestBodies/ResourceCreate"),
      *     @OA\Parameter(
-     *         name="Content-Category",
+     *         name="Content-Type",
      *         in="header",
      *         required=true,
      *         @OA\Schema(
@@ -146,11 +147,11 @@ class ResourceController extends Controller
      * @OA\Get(
      *     tags={"Resources"},
      *     path="/resources",
-     *     summary="Get all respurces",
+     *     summary="Get all resources",
      *     description="Get all resources from the database",
      *     @OA\Response(
      *         response=200,
-     *         description="Success: Return all resources
+     *         description="Success: Return all resources",
      *         @OA\JsonContent(
      *             type="array",
      *             @OA\Items(ref="#/components/schemas/Resource")
@@ -169,7 +170,7 @@ class ResourceController extends Controller
      */
     public function getAllResources(): JsonResponse
     {
-        $resources = Resource::with("category", "tasks")->get();
+        $resources = Resource::with("tasks")->get();
         // Check if resources exist
         if (count($resources) < 1) {
             return response()->json(
@@ -211,8 +212,8 @@ class ResourceController extends Controller
      *     )
      * )
      *
-     * @param int $id
-     * @return JsonResponse
+     * @param int $id The ID of the resource to retrieve
+     * @return JsonResponse The response containing the resource if found, or an error message otherwise
      */
     public function getResourceById($id): JsonResponse
     {
@@ -246,7 +247,7 @@ class ResourceController extends Controller
      *         @OA\Schema(type="integer")
      *     ),
      *     @OA\Parameter(
-     *         name="Content-Category",
+     *         name="Content-Type",
      *         in="header",
      *         required=true,
      *         @OA\Schema(
@@ -295,8 +296,8 @@ class ResourceController extends Controller
      * )
      *
      * @param Request $request
-     * @param $id
-     * @return JsonResponse
+     * @param int $id The ID of the resource to update
+     * @return JsonResponse The response containing a success message if the resource was updated successfully, or an error message otherwise
      */
     public function updateResource(Request $request, $id): JsonResponse
     {
@@ -346,7 +347,7 @@ class ResourceController extends Controller
     }
 
     /**
-     * Delete an item
+     * Delete a resource
      *
      * @OA\Delete(
      *     tags={"Resources", "Admin"},
@@ -379,7 +380,7 @@ class ResourceController extends Controller
      *     ),
      *     @OA\Response(
      *         response=401,
-     *         description="Unauthorized: Only admins can delete resources
+     *         description="Unauthorized: Only admins can delete resources",
      *         @OA\JsonContent(
      *             @OA\Property(property="message", type="string", example="You are not authorized to delete a resource")
      *         )
@@ -393,8 +394,8 @@ class ResourceController extends Controller
      *     )
      * )
      *
-     * @param int $id
-     * @return JsonResponse
+     * @param int $id The ID of the resource to delete
+     * @return JsonResponse The response containing a success message if the resource was deleted successfully, or an error message otherwise
      */
     public function deleteResource($id): JsonResponse
     {

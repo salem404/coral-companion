@@ -9,21 +9,22 @@ use OpenApi\Annotations as OA;
 /**
  * @OA\Schema(
  *     schema="SeasonalCrop",
- *     required={"id", "season_id", "crop_id"},
+ *     required={"id", "season", "crop"},
  *     @OA\Property(property="id", type="integer", example=1),
- *     @OA\Property(property="season_id", type="object", ref="#/components/schemas/Season"),
- *     @OA\Property(property="crop_id", type="integer", ref="#/components/schemas/Crop"),
- *)
+ *     @OA\Property(property="season", type="object", ref="#/components/schemas/Season"),
+ *     @OA\Property(property="crop", type="object", ref="#/components/schemas/Crop"),
+ * )
  */
 class SeasonalCropController extends Controller
 {
     /**
-     * Get all seasonal crops
+     * Get all crops for a specific season
+     *
      * @OA\Get(
      *     tags={"Crops"},
      *     path="/crops/season/{id}",
-     *     summary="Get all seasonal crops",
-     *     description="Returns all seasonal crops from the database",
+     *     summary="Get all crops for a specific season",
+     *     description="Returns all crops associated with a specific season from the database",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -33,7 +34,7 @@ class SeasonalCropController extends Controller
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="Success: Returns all seasonal crops",
+     *         description="Success: Returns all crops for the specified season",
      *         @OA\JsonContent(
      *             type="array",
      *             @OA\Items(ref="#/components/schemas/SeasonalCrop")
@@ -41,9 +42,9 @@ class SeasonalCropController extends Controller
      *     ),
      *     @OA\Response(
      *         response=404,
-     *         description="Not found: Seasonal crops don't exist",
+     *         description="Not found: No crops found for this season",
      *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="No seasonal crops found for this season")
+     *             @OA\Property(property="message", type="string", example="No crops found for this season")
      *         )
      *     )
      * )

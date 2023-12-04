@@ -7,12 +7,26 @@ use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
 
 /**
- * @OA\Tag(name="Seasons",description="Endpoints for seasons")
+ * @OA\Tag(
+ *     name="Seasons",
+ *     description="Endpoints for seasons"
+ * )
+ *
  * @OA\Schema(
  *     schema="Season",
  *     required={"id", "name"},
- *     @OA\Property(property="id", type="integer", example=4, minimum=1, maximum=4),
- *     @OA\Property(property="name", type="string", example="Winter")
+ *     @OA\Property(
+ *         property="id",
+ *         type="integer",
+ *         example=4,
+ *         minimum=1,
+ *         maximum=4
+ *     ),
+ *     @OA\Property(
+ *         property="name",
+ *         type="string",
+ *         example="Winter"
+ *     )
  * )
  */
 class SeasonController extends Controller
@@ -88,7 +102,7 @@ class SeasonController extends Controller
      *     )
      * )
      *
-     * @param $id
+     * @param int $id
      * @return JsonResponse
      */
     public function getSeasonById($id): JsonResponse

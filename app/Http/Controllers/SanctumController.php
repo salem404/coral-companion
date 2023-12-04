@@ -22,7 +22,7 @@ class SanctumController extends Controller
      *     summary="Register a new user",
      *     @OA\RequestBody(ref="#/components/requestBodies/UserRegister"),
      *     @OA\Parameter(
-     *         name="Content-Category",
+     *         name="Content-Type",
      *         in="header",
      *         required=true,
      *         @OA\Schema(
@@ -95,7 +95,7 @@ class SanctumController extends Controller
      *     summary="Login a user",
      *     @OA\RequestBody(ref="#/components/requestBodies/UserLogin"),
      *     @OA\Parameter(
-     *         name="Content-Category",
+     *         name="Content-Type",
      *         in="header",
      *         required=true,
      *         @OA\Schema(
@@ -125,7 +125,7 @@ class SanctumController extends Controller
      *         response=400,
      *         description="Bad Request: Validation errors",
      *         @OA\JsonContent(
-     *             @OA\Property(property="errors",type="object",)
+     *             @OA\Property(property="errors",type="object")
      *         )
      *     ),
      *     @OA\Response(
@@ -175,10 +175,11 @@ class SanctumController extends Controller
     /**
      * Logout a user.
      *
-     * @OA\Post(
+     * @OA\Delete(
      *     tags={"Users"},
      *     path="/logout",
-     *     summary="Logout an user",
+     *     summary="Logout a user",
+     *     description="Logout a user by invalidating their token. (Requires authentication)",
      *     security={{"sanctum":{}}},
      *     @OA\Parameter(
      *         name="Accept",
@@ -232,7 +233,17 @@ class SanctumController extends Controller
      *     tags={"Users"},
      *     path="/check-token",
      *     summary="Check if the token is valid",
+     *     description="Check if the token provided in the request is valid. (Requires authentication)",
      *     security={{"sanctum":{}}},
+     *     @OA\Parameter(
+     *         name="Content-Type",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="application/json"
+     *         )
+     *     ),
      *     @OA\Parameter(
      *         name="Accept",
      *         in="header",

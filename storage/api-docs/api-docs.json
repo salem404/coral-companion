@@ -65,7 +65,8 @@
             },
             "post": {
                 "tags": [
-                    "Characters"
+                    "Characters",
+                    "Admin"
                 ],
                 "summary": "Create a new character",
                 "description": "Create a new character using the data provided in the request body. (Admin only)",
@@ -200,7 +201,8 @@
             },
             "put": {
                 "tags": [
-                    "Characters"
+                    "Characters",
+                    "Admin"
                 ],
                 "summary": "Update a character",
                 "description": "Update a character by ID in the URL and data provided in the request body. (Admin only)",
@@ -311,7 +313,8 @@
             },
             "delete": {
                 "tags": [
-                    "Characters"
+                    "Characters",
+                    "Admin"
                 ],
                 "summary": "Delete a character",
                 "description": "Delete a character by ID sent in the URL (Admin only)",
@@ -446,7 +449,7 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "id of crop to return",
+                        "description": "ID of crop to return",
                         "required": true,
                         "schema": {
                             "type": "integer",
@@ -482,1098 +485,6 @@
                         }
                     }
                 }
-            }
-        },
-        "/families": {
-            "get": {
-                "tags": [
-                    "Families"
-                ],
-                "summary": "Get all families",
-                "description": "Get all families from the database",
-                "operationId": "e1f361ab32ef6173d6e698dfba7972b5",
-                "responses": {
-                    "200": {
-                        "description": "Success: Returns all families",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Family"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not found: Families don't exist",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "No families found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "Families"
-                ],
-                "summary": "Create a new family",
-                "description": "Create a new family using the data provided in the request body. (Admin only)",
-                "operationId": "d54bac5b85ad80fc410c562776a7d90b",
-                "parameters": [
-                    {
-                        "name": "Accept",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "application/json"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "$ref": "#/components/requestBodies/FamilyCreate"
-                },
-                "responses": {
-                    "201": {
-                        "description": "Success: Family created",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Family created successfully"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request: Data validation error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "The character_id field is required"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized: Only admins can create a family",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "You are not authorized to create a family"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
-            }
-        },
-        "/families/{id}": {
-            "get": {
-                "tags": [
-                    "Families"
-                ],
-                "summary": "Get a family",
-                "description": "Get a family by ID in the URL",
-                "operationId": "a80062fd4c781deda21728cea1e09835",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of the family to return",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success: Returns the family",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Family"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not found: Family doesn't exist",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Family with id 1 not found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "Families"
-                ],
-                "summary": "Update a family",
-                "description": "Update a family by ID in the URL and data provided in the request body. (Admin only)",
-                "operationId": "7889218d452c1ae1d0fd363208d71857",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of the family to update",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "$ref": "#/components/requestBodies/FamilyUpdate"
-                },
-                "responses": {
-                    "200": {
-                        "description": "Success: Family updated",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Family updated successfully"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request: Data validation error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "The relationship field is required"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized: Only admins can update a family",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "You are not authorized to update a family"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not found: Family doesn't exist",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Family with id 1 not found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
-            },
-            "delete": {
-                "tags": [
-                    "Families"
-                ],
-                "summary": "Delete a family",
-                "description": "Delete a family by ID sent in the URL. (Admin only)",
-                "operationId": "7e1ed5caa6e25fa4e8cfe5e1bf020bd0",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of the family to delete",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "Content-Type",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "application/json"
-                        }
-                    },
-                    {
-                        "name": "Accept",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "application/json"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success: Family deleted successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Family with id 1 deleted successfully"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized: Only admins can delete a family",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "You are not authorized to delete a family"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not found: Family doesn't exist",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Family with id 1 not found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
-            }
-        },
-        "/favlists": {
-            "get": {
-                "tags": [
-                    "Favorite Lists"
-                ],
-                "summary": "Get all favorite lists",
-                "description": "Get all favorite lists from the database",
-                "operationId": "f4f6cefcf140c9f957dcb0fcb92d2f56",
-                "responses": {
-                    "200": {
-                        "description": "Success: Returns all favorite lists",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/FavList"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "No favorite lists found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "No favorite lists found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "Favorite Lists"
-                ],
-                "summary": "Create a new favorite list",
-                "description": "Create a new favorite list using the data provided in the request body. (Admin only)",
-                "operationId": "222781dac05a4b259ffb0b9dfbe96d7e",
-                "parameters": [
-                    {
-                        "name": "Content-Type",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "application/json"
-                        }
-                    },
-                    {
-                        "name": "Accept",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "application/json"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "$ref": "#/components/requestBodies/FavListCreate"
-                },
-                "responses": {
-                    "201": {
-                        "description": "Sucess: Favorite list created",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Favorite list created successfully"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request: Data validation error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "The character_id field is required"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized. Only admins can create new favorite lists",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "You are not authorized to create a favorite list"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
-            }
-        },
-        "/favlists/{id}": {
-            "get": {
-                "tags": [
-                    "Favorite Lists"
-                ],
-                "summary": "Get a favorite list",
-                "description": "Get a favorite lists by the ID in the URL",
-                "operationId": "05c452e213c352c8ee485c32f89ee26d",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of the favorite list",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success: Returns the favorite list",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/FavList"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found: Favorite list doesn't exist",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Favorite list with id 1 not found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "Favorite Lists"
-                ],
-                "summary": "Update a favorite list",
-                "description": "Update a favorite list by ID in the URL and data provided in the request body. (Admin only)",
-                "operationId": "d373b8372aa5a27ae7fbdab031f22238",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of the favorite list",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "Content-Type",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "application/json"
-                        }
-                    },
-                    {
-                        "name": "Accept",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "application/json"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "$ref": "#/components/requestBodies/FavListUpdate"
-                },
-                "responses": {
-                    "200": {
-                        "description": "Success: Favorite list updated",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Favorite list updated successfully"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request: Data validation error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "The name field is required"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "You are not authorized to update a favorite list"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found: Favorite list doesn't exist",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Favorite list with id 2 not found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
-            },
-            "delete": {
-                "tags": [
-                    "Favorite Lists"
-                ],
-                "summary": "Delete a favorite list",
-                "description": "Deletes a favorite list by ID in the URL. (Admin only)",
-                "operationId": "f1ad3e7795357423e2fb70705b4ef030",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of the favorite list to be deleted",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "Accept",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "application/json"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success: Favorite list deleted",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Favorite list deleted successfully"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized: Only admins can delete favorite lists",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "You are not authorized to delete a favorite list"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not found: Favorite list doesn't exist",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Favorite list with id 2 not found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
-            }
-        },
-        "/items": {
-            "get": {
-                "tags": [
-                    "Items"
-                ],
-                "summary": "Get all items",
-                "description": "Get all items from the database",
-                "operationId": "f3c786df279db88370a791ca6978bd29",
-                "responses": {
-                    "200": {
-                        "description": "Success: Return all items",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Item"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not found: Items don't exist",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "No items found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "Items"
-                ],
-                "summary": "Create a new item",
-                "description": "Create a new item using the data provided in the request body. (Admin only)",
-                "operationId": "38910978a79a2a2fe1af9fb02e683d81",
-                "parameters": [
-                    {
-                        "name": "Content-Type",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "application/json"
-                        }
-                    },
-                    {
-                        "name": "Accept",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "application/json"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "$ref": "#/components/requestBodies/ItemCreate"
-                },
-                "responses": {
-                    "201": {
-                        "description": "Success: Item created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Item created"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request: Data validation error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "The name field is required"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized: Only admins can create items",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "You are not authorized to create an item"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
-            }
-        },
-        "/items/{id}": {
-            "get": {
-                "tags": [
-                    "Items"
-                ],
-                "summary": "Get an item",
-                "description": "Get an item using the id provided in the request URL",
-                "operationId": "fc4b4ba3d04f59c12ba55019510f3be2",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of item to return",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success: Return an item",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Item"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not found: Item doesn't exist",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Item with id 1 not found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "Items"
-                ],
-                "summary": "Update an item",
-                "description": "Update an item by ID in the URL and data provided in the request body. (Admin only)",
-                "operationId": "5bee0c1299b966d54c3d44e6fc41b7df",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of item to update",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "Content-Type",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "application/json"
-                        }
-                    },
-                    {
-                        "name": "Accept",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "application/json"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "$ref": "#/components/requestBodies/ItemUpdate"
-                },
-                "responses": {
-                    "200": {
-                        "description": "Success: Item updated successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Item updated"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request: Data validation error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "The name field is required"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized: Only admins can update items",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "You are not authorized to update an item"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not found: Item doesn't exist",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Item with id 1 not found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
-            },
-            "delete": {
-                "tags": [
-                    "Items"
-                ],
-                "summary": "Delete an item",
-                "description": "Delete an item by ID sent in the URL. (Admin only)",
-                "operationId": "b2f163bf1735121598620e780afbe870",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of item to delete",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "Accept",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "application/json"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success: Item deleted successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Item deleted"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized: Only admins can delete items",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "You are not authorized to delete an item"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not found: Item doesn't exist",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Item with id 1 not found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
             }
         },
         "/profiles": {
@@ -1718,7 +629,8 @@
                         "description": "ID of profile",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "integer",
+                            "minimum": 1
                         }
                     }
                 ],
@@ -1765,25 +677,8 @@
                         "description": "ID of profile",
                         "required": true,
                         "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "Content-Type",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "application/json"
-                        }
-                    },
-                    {
-                        "name": "Accept",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "application/json"
+                            "type": "integer",
+                            "example": 1
                         }
                     }
                 ],
@@ -1952,7 +847,7 @@
                     "Profiles"
                 ],
                 "summary": "Get profiles by user ID",
-                "description": "Retrieves profiles associated with a specific user ID.",
+                "description": "Retrieves profiles associated with a specific user ID",
                 "operationId": "getProfilesByUserId",
                 "parameters": [
                     {
@@ -1961,13 +856,14 @@
                         "description": "The user ID",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "integer",
+                            "minimum": 1
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation",
+                        "description": "Success: Returns profiles associated with the user ID",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1980,9 +876,395 @@
                         }
                     },
                     "404": {
-                        "description": "Profiles not found"
+                        "description": "Not Found: No profiles found for the user ID",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No profiles found for the user ID"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
+            }
+        },
+        "/resources": {
+            "get": {
+                "tags": [
+                    "Resources"
+                ],
+                "summary": "Get all resources",
+                "description": "Get all resources from the database",
+                "operationId": "4f1a45d27e855f7ddb8c9f7f6606586d",
+                "responses": {
+                    "200": {
+                        "description": "Success: Return all resources",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Resource"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found: Resources don't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No resources found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Resources",
+                    "Admin"
+                ],
+                "summary": "Create a new resource",
+                "description": "Create a new resource using the data provided in the request body. (Admin only)",
+                "operationId": "a97f9c777b36071b4b4a2f09ab9867b5",
+                "parameters": [
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
+                    },
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/ResourceCreate"
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success: Resource created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Resource created"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request: Data validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The name field is required"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized: Only admins can create items",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to create a resource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/resources/{id}": {
+            "get": {
+                "tags": [
+                    "Resources"
+                ],
+                "summary": "Get a resource",
+                "description": "Get a resource using the id provided in the request URL",
+                "operationId": "799a4cb5f7a45bf09f50b8573dc8254d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of resource to return",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success: Return a resource",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Resource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found: Resource doesn't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Resource with id 1 not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Resources",
+                    "Admin"
+                ],
+                "summary": "Update a resource",
+                "description": "Update a resource by ID in the URL and data provided in the request body. (Admin only)",
+                "operationId": "e15c12b146e0c14abd681ee6fe020bf1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of resource to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
+                    },
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/ResourceUpdate"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success: Resource updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Resource updated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request: Data validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The name field is required"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized: Only admins can update resources",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to update a resource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found: Resource doesn't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Resource with id 1 not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Resources",
+                    "Admin"
+                ],
+                "summary": "Delete a resource",
+                "description": "Delete a resource by ID sent in the URL. (Admin only)",
+                "operationId": "bf287d530513dbdb6fd5e0fef61994dc",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of resource to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success: Resource deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Resource deleted"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized: Only admins can delete resources",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to delete a resource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found: Resource doesn't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Resource with id 1 not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             }
         },
         "/register": {
@@ -2136,13 +1418,13 @@
             }
         },
         "/logout": {
-            "post": {
+            "delete": {
                 "tags": [
                     "Users"
                 ],
-                "summary": "Logout an user",
-                "description": "Logout a user.",
-                "operationId": "df53fbe1b232f646afb1bc32ecba141f",
+                "summary": "Logout a user",
+                "description": "Logout a user by invalidating their token. (Requires authentication)",
+                "operationId": "bccf178e4cadf942f22f66bb32a4b3f0",
                 "parameters": [
                     {
                         "name": "Accept",
@@ -2201,9 +1483,18 @@
                     "Users"
                 ],
                 "summary": "Check if the token is valid",
-                "description": "Check if the token is valid.",
+                "description": "Check if the token provided in the request is valid. (Requires authentication)",
                 "operationId": "5051db1680fee39684d1c6bc8c59ce68",
                 "parameters": [
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/json"
+                        }
+                    },
                     {
                         "name": "Accept",
                         "in": "header",
@@ -2354,8 +1645,8 @@
                 "tags": [
                     "Crops"
                 ],
-                "summary": "Get all seasonal crops",
-                "description": "Returns all seasonal crops from the database",
+                "summary": "Get all crops for a specific season",
+                "description": "Returns all crops associated with a specific season from the database",
                 "operationId": "eb2ec4f225ca7959a49e78a3bed5a63e",
                 "parameters": [
                     {
@@ -2371,7 +1662,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success: Returns all seasonal crops",
+                        "description": "Success: Returns all crops for the specified season",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2384,14 +1675,14 @@
                         }
                     },
                     "404": {
-                        "description": "Not found: Seasonal crops don't exist",
+                        "description": "Not found: No crops found for this season",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "message": {
                                             "type": "string",
-                                            "example": "No seasonal crops found for this season"
+                                            "example": "No crops found for this season"
                                         }
                                     },
                                     "type": "object"
@@ -2449,26 +1740,6 @@
                 "summary": "Create a new task",
                 "description": "Create a new task using the data provided in the request body. (Admins can create tasks for other users)",
                 "operationId": "4dbf3e760f46296529098c64a16b6549",
-                "parameters": [
-                    {
-                        "name": "Content-Type",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "application/json"
-                        }
-                    },
-                    {
-                        "name": "Accept",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "application/json"
-                        }
-                    }
-                ],
                 "requestBody": {
                     "$ref": "#/components/requestBodies/TaskCreate"
                 },
@@ -2544,7 +1815,8 @@
                         "description": "ID of task to return",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "integer",
+                            "example": 1
                         }
                     }
                 ],
@@ -2591,25 +1863,8 @@
                         "description": "ID of task to update",
                         "required": true,
                         "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "Content-Type",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "application/json"
-                        }
-                    },
-                    {
-                        "name": "Accept",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "application/json"
+                            "type": "integer",
+                            "example": 1
                         }
                     }
                 ],
@@ -2702,16 +1957,8 @@
                         "description": "ID of task to delete",
                         "required": true,
                         "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "Accept",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "application/json"
+                            "type": "integer",
+                            "example": 1
                         }
                     }
                 ],
@@ -2733,7 +1980,7 @@
                         }
                     },
                     "401": {
-                        "description": "You are not authorized to delete this task",
+                        "description": "Unauthorized: Only the user who created the task and admins can delete it",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2749,14 +1996,14 @@
                         }
                     },
                     "404": {
-                        "description": "Task not found",
+                        "description": "Not found: Task doesn't exist",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "message": {
                                             "type": "string",
-                                            "example": "Task with id 1 not found"
+                                            "example": "Task not found"
                                         }
                                     },
                                     "type": "object"
@@ -2772,14 +2019,14 @@
                 ]
             }
         },
-        "/tasks/profile/{id}": {
+        "/profile/{id}/tasks": {
             "get": {
                 "tags": [
                     "Task"
                 ],
                 "summary": "Get tasks by profile ID",
                 "description": "Get a task by the profile ID sent in the URL from the database",
-                "operationId": "8c952a657f87b9e4e1c5ecb4085e3111",
+                "operationId": "2898108d023afd979ad0147ea27c6f9d",
                 "parameters": [
                     {
                         "name": "id",
@@ -2787,7 +2034,8 @@
                         "description": "ID of profile of tasks to return",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "integer",
+                            "example": 1
                         }
                     }
                 ],
@@ -2820,394 +2068,8 @@
                                 }
                             }
                         }
-                    },
-                    "404": {
-                        "description": "Not found: Tasks don't exist",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Task not found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
                     }
                 }
-            }
-        },
-        "/types": {
-            "get": {
-                "tags": [
-                    "Types"
-                ],
-                "summary": "Get all types",
-                "description": "Get all types from the database",
-                "operationId": "4644f0d196eea1f70f5a4d6f84d905d2",
-                "responses": {
-                    "200": {
-                        "description": "Success: Returns all types",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Type"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not found: Characters don't exist",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "No characters found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "Types"
-                ],
-                "summary": "Create a new type",
-                "description": "Create a new type using the data provided in the request body.",
-                "operationId": "e80661fcbc076451294c631d1c39e693",
-                "parameters": [
-                    {
-                        "name": "Content-Type",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "application/json"
-                        }
-                    },
-                    {
-                        "name": "Accept",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "application/json"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "$ref": "#/components/requestBodies/Type"
-                },
-                "responses": {
-                    "201": {
-                        "description": "Success: Type created",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Type created successfully"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request: Data validation error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "The name field is required"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized. Only admins can create types",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "You are not authorized to create a type"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
-            }
-        },
-        "/types/{id}": {
-            "get": {
-                "tags": [
-                    "Types"
-                ],
-                "summary": "Get a type by id",
-                "description": "Get a type by ID sent in the URL from the database",
-                "operationId": "83d01d2bbc8314c51263b6d3f336456f",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Type id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success: Returns the type",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Type"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not found: Type doesn't exist",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Type with id 1 not found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "Types"
-                ],
-                "summary": "Update a type",
-                "description": "Update a type by ID in the URL and data provided in the request body. (Admin only)",
-                "operationId": "e7e536492cc11bf2f8ad953b01101c28",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of type to update",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "Content-Type",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "application/json"
-                        }
-                    },
-                    {
-                        "name": "Accept",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "application/json"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "$ref": "#/components/requestBodies/Type"
-                },
-                "responses": {
-                    "200": {
-                        "description": "Success: Type updated",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Type updated successfully"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request: Data validation error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "The name field is required"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized: Only admins can update types",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "You are not authorized to update a type"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not found: Type doesn't exist",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Type with id 1 not found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
-            },
-            "delete": {
-                "tags": [
-                    "Types"
-                ],
-                "summary": "Delete a type",
-                "description": "Delete a type by ID sent in the URL (Admin only)",
-                "operationId": "ea424d1117d38228c4d01f64402459b4",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of the type to delete",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "Accept",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "application/json"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success: type deleted successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Type deleted successfully"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized: Only admins can delete types",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "You are not authorized to delete a type"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not found: Type doesn't exist",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Type with id 1 not found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
             }
         },
         "/users": {
@@ -3216,7 +2078,7 @@
                     "Users"
                 ],
                 "summary": "Get all users",
-                "description": "Returns all users from the database or a message if no users found",
+                "description": "Returns all users from the database",
                 "operationId": "78451c34a9c0e7701cd034b2ff700027",
                 "responses": {
                     "200": {
@@ -3231,22 +2093,6 @@
                                 }
                             }
                         }
-                    },
-                    "404": {
-                        "description": "Not found: No users found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "No users found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
                     }
                 }
             }
@@ -3257,7 +2103,7 @@
                     "Users"
                 ],
                 "summary": "Get user",
-                "description": "Get an user by ID sent in the URL from the database or a message the user is not found",
+                "description": "Get a user by ID sent in the URL from the database or a message the user is not found",
                 "operationId": "4b3b292dd9efff069b7e7b5575f80560",
                 "parameters": [
                     {
@@ -3363,87 +2209,65 @@
             "Crop": {
                 "required": [
                     "id",
-                    "name"
+                    "resource_id"
                 ],
                 "properties": {
                     "id": {
+                        "description": "The unique identifier of the crop",
                         "type": "integer",
                         "example": 2
                     },
-                    "type_id": {
-                        "$ref": "#/components/schemas/Type"
+                    "resource_id": {
+                        "$ref": "#/components/schemas/Resource"
                     },
-                    "isGigantic": {
-                        "type": "boolean"
-                    }
-                },
-                "type": "object"
-            },
-            "Family": {
-                "required": [
-                    "character_id",
-                    "familiar_id",
-                    "relationship"
-                ],
-                "properties": {
-                    "id": {
+                    "type": {
+                        "description": "The type of the crop",
+                        "type": "string",
+                        "example": "Vegetable"
+                    },
+                    "rank": {
+                        "description": "The rank of the crop",
+                        "type": "string",
+                        "example": "D"
+                    },
+                    "seed_price": {
+                        "description": "The price of the seed for the crop",
                         "type": "integer",
-                        "example": 1
-                    },
-                    "character_id": {
-                        "$ref": "#/components/schemas/Character"
-                    },
-                    "familiar_id": {
-                        "$ref": "#/components/schemas/Character"
-                    },
-                    "relationship": {
-                        "type": "string",
-                        "example": "Mother"
-                    },
-                    "created_at": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2021-03-24 14:48:00"
-                    },
-                    "updated_at": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2021-03-24 14:48:00"
+                        "example": 20
                     }
                 },
                 "type": "object"
             },
-            "FavList": {
+            "Profile": {
                 "required": [
                     "id",
-                    "character_id",
-                    "item_id"
+                    "farmer_name",
+                    "farm_name",
+                    "user_id"
                 ],
                 "properties": {
                     "id": {
+                        "description": "The unique identifier of the profile",
                         "type": "integer",
-                        "example": 1
+                        "example": 4
                     },
-                    "character_id": {
-                        "$ref": "#/components/schemas/Character"
-                    },
-                    "item_id": {
-                        "$ref": "#/components/schemas/Item"
-                    },
-                    "created_at": {
+                    "farmer_name": {
+                        "description": "The name of the farmer",
                         "type": "string",
-                        "format": "date-time",
-                        "example": "2021-03-26T13:26:14.000000Z"
+                        "example": "John Doe"
                     },
-                    "updated_at": {
+                    "farm_name": {
+                        "description": "The name of the farm",
                         "type": "string",
-                        "format": "date-time",
-                        "example": "2021-03-26T13:26:14.000000Z"
+                        "example": "John's Farm"
+                    },
+                    "user_id": {
+                        "$ref": "#/components/schemas/User"
                     }
                 },
                 "type": "object"
             },
-            "Item": {
+            "Resource": {
                 "required": [
                     "name",
                     "id",
@@ -3458,48 +2282,9 @@
                         "type": "string",
                         "example": "Sea Grapes"
                     },
-                    "type_id": {
-                        "$ref": "#/components/schemas/Type"
-                    },
                     "icon": {
                         "type": "string",
                         "example": "sea-grapes.png"
-                    },
-                    "created_at": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2021-03-10T17:26:00.000000Z"
-                    },
-                    "updated_at": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2021-03-10T17:26:00.000000Z"
-                    }
-                },
-                "type": "object"
-            },
-            "Profile": {
-                "required": [
-                    "id",
-                    "farmer_name",
-                    "farm_name",
-                    "user_id"
-                ],
-                "properties": {
-                    "id": {
-                        "type": "integer",
-                        "example": 4
-                    },
-                    "farmer_name": {
-                        "type": "string",
-                        "example": "John Doe"
-                    },
-                    "farm_name": {
-                        "type": "string",
-                        "example": "John's Farm"
-                    },
-                    "user_id": {
-                        "$ref": "#/components/schemas/User"
                     }
                 },
                 "type": "object"
@@ -3526,18 +2311,18 @@
             "SeasonalCrop": {
                 "required": [
                     "id",
-                    "season_id",
-                    "crop_id"
+                    "season",
+                    "crop"
                 ],
                 "properties": {
                     "id": {
                         "type": "integer",
                         "example": 1
                     },
-                    "season_id": {
+                    "season": {
                         "$ref": "#/components/schemas/Season"
                     },
-                    "crop_id": {
+                    "crop": {
                         "$ref": "#/components/schemas/Crop"
                     }
                 },
@@ -3551,7 +2336,8 @@
                 ],
                 "properties": {
                     "profile_id": {
-                        "$ref": "#/components/schemas/Profile"
+                        "type": "integer",
+                        "example": 1
                     },
                     "description": {
                         "description": "The description of the task",
@@ -3564,31 +2350,12 @@
                         "example": 0
                     },
                     "character_id": {
-                        "$ref": "#/components/schemas/Character"
+                        "type": "integer",
+                        "example": 1
                     },
-                    "item_id": {
-                        "$ref": "#/components/schemas/Item"
-                    },
-                    "created_at": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2021-03-25 12:00:00"
-                    },
-                    "updated_at": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2021-03-25 12:00:00"
-                    }
-                },
-                "type": "object"
-            },
-            "Type": {
-                "required": [
-                    "name"
-                ],
-                "properties": {
-                    "name": {
-                        "type": "string"
+                    "resource_id": {
+                        "type": "integer",
+                        "example": 1
                     }
                 },
                 "type": "object"
@@ -3602,6 +2369,7 @@
                 "properties": {
                     "id": {
                         "type": "integer",
+                        "format": "int64",
                         "minimum": 1,
                         "example": 1
                     },
@@ -3717,159 +2485,6 @@
                     }
                 }
             },
-            "FamilyCreate": {
-                "required": true,
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "required": [
-                                "character_id",
-                                "familiar_id",
-                                "relationship"
-                            ],
-                            "properties": {
-                                "character_id": {
-                                    "type": "integer",
-                                    "example": 1
-                                },
-                                "familiar_id": {
-                                    "type": "integer",
-                                    "example": 2
-                                },
-                                "relationship": {
-                                    "type": "string",
-                                    "example": "Mother"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
-            "FamilyUpdate": {
-                "required": true,
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "properties": {
-                                "character_id": {
-                                    "type": "integer",
-                                    "example": 1
-                                },
-                                "familiar_id": {
-                                    "type": "integer",
-                                    "example": 2
-                                },
-                                "relationship": {
-                                    "type": "string",
-                                    "example": "Mother"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
-            "FavListCreate": {
-                "required": true,
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "required": [
-                                "character_id",
-                                "item_id"
-                            ],
-                            "properties": {
-                                "character_id": {
-                                    "type": "integer",
-                                    "example": 1
-                                },
-                                "item_id": {
-                                    "type": "integer",
-                                    "example": 1
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
-            "FavListUpdate": {
-                "required": true,
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "required": [
-                                "character_id",
-                                "item_id"
-                            ],
-                            "properties": {
-                                "character_id": {
-                                    "type": "integer",
-                                    "example": 1
-                                },
-                                "item_id": {
-                                    "type": "integer",
-                                    "example": 1
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
-            "ItemUpdate": {
-                "required": true,
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "example": "Sea Grapes"
-                                },
-                                "type_id": {
-                                    "type": "integer",
-                                    "example": 1
-                                },
-                                "icon": {
-                                    "type": "string",
-                                    "example": "sea-grapes.png"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
-            "ItemCreate": {
-                "required": true,
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "required": [
-                                "name",
-                                "icon"
-                            ],
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "example": "Sea Grapes"
-                                },
-                                "type_id": {
-                                    "type": "integer",
-                                    "example": 1
-                                },
-                                "icon": {
-                                    "type": "string",
-                                    "example": "sea-grapes.png"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
             "ProfileCreate": {
                 "required": true,
                 "content": {
@@ -3881,14 +2496,17 @@
                             ],
                             "properties": {
                                 "farmer_name": {
+                                    "description": "The name of the farmer",
                                     "type": "string",
                                     "example": "John Doe"
                                 },
                                 "farm_name": {
+                                    "description": "The name of the farm",
                                     "type": "string",
                                     "example": "John's Farm"
                                 },
                                 "user_id": {
+                                    "description": "The user ID associated with the profile",
                                     "type": "integer",
                                     "example": 1
                                 }
@@ -3905,12 +2523,58 @@
                         "schema": {
                             "properties": {
                                 "farmer_name": {
+                                    "description": "The updated name of the farmer",
                                     "type": "string",
                                     "example": "John Doe"
                                 },
                                 "farm_name": {
+                                    "description": "The updated name of the farm",
                                     "type": "string",
                                     "example": "John's Farm"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "ResourceUpdate": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "name": {
+                                    "type": "string",
+                                    "example": "Sea Grapes"
+                                },
+                                "icon": {
+                                    "type": "string",
+                                    "example": "sea-grapes.png"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "ResourceCreate": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "required": [
+                                "name",
+                                "icon"
+                            ],
+                            "properties": {
+                                "name": {
+                                    "type": "string",
+                                    "example": "Sea Grapes"
+                                },
+                                "icon": {
+                                    "type": "string",
+                                    "example": "sea-grapes.png"
                                 }
                             },
                             "type": "object"
@@ -3944,8 +2608,8 @@
                                     "type": "integer",
                                     "example": 1
                                 },
-                                "item_id": {
-                                    "description": "The id of the item",
+                                "resource_id": {
+                                    "description": "The id of the resource",
                                     "type": "integer",
                                     "example": 1
                                 }
@@ -3986,8 +2650,8 @@
                                     "type": "integer",
                                     "example": 1
                                 },
-                                "item_id": {
-                                    "description": "The id of the item",
+                                "resource_id": {
+                                    "description": "The id of the resource",
                                     "type": "integer",
                                     "example": 1
                                 }
@@ -3997,21 +2661,15 @@
                     }
                 }
             },
-            "Type": {
-                "required": true,
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "$ref": "#/components/schemas/Type"
-                        }
-                    }
-                }
-            },
             "UserLogin": {
                 "required": true,
                 "content": {
                     "application/json": {
                         "schema": {
+                            "required": [
+                                "email",
+                                "password"
+                            ],
                             "properties": {
                                 "email": {
                                     "type": "string",
@@ -4034,6 +2692,10 @@
                 "content": {
                     "application/json": {
                         "schema": {
+                            "required": [
+                                "email",
+                                "password"
+                            ],
                             "properties": {
                                 "email": {
                                     "type": "string",
@@ -4065,24 +2727,20 @@
             "description": "Endpoints for characters"
         },
         {
+            "name": "Admin",
+            "description": "Admin operations"
+        },
+        {
             "name": "Crops",
             "description": "Endpoints for crops"
         },
         {
-            "name": "Families",
-            "description": "Endpoints for families"
-        },
-        {
-            "name": "Favorite Lists",
-            "description": "Endpoints for favorite lists"
-        },
-        {
-            "name": "Items",
-            "description": "Endpoints for items"
-        },
-        {
             "name": "Profiles",
             "description": "Endpoints for profiles"
+        },
+        {
+            "name": "Resources",
+            "description": "Endpoints for resources"
         },
         {
             "name": "Seasons",
@@ -4091,10 +2749,6 @@
         {
             "name": "Task",
             "description": "Endpoints of tasks"
-        },
-        {
-            "name": "Types",
-            "description": "Endpoints of types"
         },
         {
             "name": "Users",

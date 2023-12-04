@@ -11,31 +11,37 @@ use Illuminate\Support\Facades\Validator;
 use OpenApi\Annotations as OA;
 
 /**
- * @OA\Tag(name="Profiles", description="Endpoints for profiles")
+ * @OA\Tag(
+ *     name="Profiles",
+ *     description="Endpoints for profiles"
+ * )
+ *
  * @OA\Schema(
  *     schema="Profile",
  *     required={"id", "farmer_name", "farm_name", "user_id"},
- *     @OA\Property(property="id", type="integer", example=4),
- *     @OA\Property(property="farmer_name", type="string", example="John Doe"),
- *     @OA\Property(property="farm_name", type="string", example="John's Farm"),
- *     @OA\Property(property="user_id", type="object", ref="#/components/schemas/User"),
- * ),
+ *     @OA\Property(property="id", type="integer", example=4, description="The unique identifier of the profile"),
+ *     @OA\Property(property="farmer_name", type="string", example="John Doe", description="The name of the farmer"),
+ *     @OA\Property(property="farm_name", type="string", example="John's Farm", description="The name of the farm"),
+ *     @OA\Property(property="user_id", type="object", ref="#/components/schemas/User", description="The user associated with the profile"),
+ * )
  *
  * @OA\RequestBody(
  *     request="ProfileCreate",
  *     required=true,
- *     @OA\JsonContent(required={"farmer_name", "farm_name"},
- *         @OA\Property(property="farmer_name", type="string", example="John Doe"),
- *         @OA\Property(property="farm_name", type="string", example="John's Farm"),
- *         @OA\Property(property="user_id", type="integer", example=1)
+ *     @OA\JsonContent(
+ *         required={"farmer_name", "farm_name"},
+ *         @OA\Property(property="farmer_name", type="string", example="John Doe", description="The name of the farmer"),
+ *         @OA\Property(property="farm_name", type="string", example="John's Farm", description="The name of the farm"),
+ *         @OA\Property(property="user_id", type="integer", example=1, description="The user ID associated with the profile")
  *     )
- * ),
+ * )
+ *
  * @OA\RequestBody(
  *     request="ProfileUpdate",
  *     required=true,
  *     @OA\JsonContent(
- *         @OA\Property(property="farmer_name", type="string", example="John Doe"),
- *         @OA\Property(property="farm_name", type="string", example="John's Farm"),
+ *         @OA\Property(property="farmer_name", type="string", example="John Doe", description="The updated name of the farmer"),
+ *         @OA\Property(property="farm_name", type="string", example="John's Farm", description="The updated name of the farm"),
  *     )
  * )
  */
@@ -52,7 +58,7 @@ class ProfileController extends Controller
      *     security={{"sanctum":{}}},
      *     @OA\RequestBody(ref="#/components/requestBodies/ProfileCreate"),
      *     @OA\Parameter(
-     *         name="Content-Category",
+     *         name="Content-Type",
      *         in="header",
      *         required=true,
      *         @OA\Schema(
@@ -92,8 +98,8 @@ class ProfileController extends Controller
      *     )
      * )
      *
-     * @param Request $request
-     * @return JsonResponse
+     * @param Request $request The request object containing the data to create a new profile
+     * @return JsonResponse The response containing a success message if the profile was created successfully, or an error message otherwise
      */
     public function createProfile(Request $request): JsonResponse
     {
@@ -178,7 +184,7 @@ class ProfileController extends Controller
      *     )
      * )
      *
-     * @return JsonResponse
+     * @return JsonResponse The response containing all the profiles data if found, or an error message otherwise
      */
     public function getAllProfiles(): JsonResponse
     {
@@ -208,7 +214,10 @@ class ProfileController extends Controller
      *         in="path",
      *         required=true,
      *         description="ID of profile",
-     *         @OA\Schema(type="integer")
+     *         @OA\Schema(
+     *             type="integer",
+     *             minimum=1
+     *         )
      *     ),
      *     @OA\Response(
      *         response=200,
@@ -224,10 +233,9 @@ class ProfileController extends Controller
      *     )
      * )
      *
-     * @param $id
-     * @return JsonResponse
+     * @param int $id The ID of the profile to retrieve
+     * @return JsonResponse The response containing the profile data if found, or an error message otherwise
      */
-
     public function getProfileById($id): JsonResponse
     {
         $profile = Profile::with("user", "tasks")->find($id);
@@ -244,12 +252,14 @@ class ProfileController extends Controller
     }
 
     /**
+     * Get profiles by user ID
+     *
      * @OA\Get(
+     *     tags={"Profiles"},
      *     path="/user/{id}/profiles",
      *     summary="Get profiles by user ID",
-     *     description="Retrieves profiles associated with a specific user ID.",
+     *     description="Retrieves profiles associated with a specific user ID",
      *     operationId="getProfilesByUserId",
-     *     tags={"Profiles"},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -257,11 +267,12 @@ class ProfileController extends Controller
      *         required=true,
      *         @OA\Schema(
      *             type="integer",
+     *             minimum=1
      *         )
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="Successful operation",
+     *         description="Success: Returns profiles associated with the user ID",
      *         @OA\JsonContent(
      *             type="array",
      *             @OA\Items(ref="#/components/schemas/Profile")
@@ -269,16 +280,15 @@ class ProfileController extends Controller
      *     ),
      *     @OA\Response(
      *         response=404,
-     *         description="Profiles not found"
+     *         description="Not Found: No profiles found for the user ID",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="No profiles found for the user ID")
+     *         )
      *     )
      * )
      *
-     * Get profiles by user ID.
-     *
-     * Retrieves profiles associated with a specific user ID.
-     *
-     * @param int $id The user ID.
-     * @return JsonResponse The JSON response containing the profiles.
+     * @param int $id The user ID to retrieve profiles for
+     * @return JsonResponse The response containing the profiles data if found, or an error message otherwise
      */
     public function getProfilesByUserId($id): JsonResponse
     {
@@ -301,6 +311,7 @@ class ProfileController extends Controller
 
     /**
      * Update a profile
+     *
      * @OA\Put(
      *     tags={"Profiles"},
      *     path="/profiles/{id}",
@@ -312,25 +323,7 @@ class ProfileController extends Controller
      *         in="path",
      *         required=true,
      *         description="ID of profile",
-     *         @OA\Schema(type="integer")
-     *     ),
-     *     @OA\Parameter(
-     *         name="Content-Category",
-     *         in="header",
-     *         required=true,
-     *         @OA\Schema(
-     *             type="string",
-     *             default="application/json"
-     *         )
-     *     ),
-     *     @OA\Parameter(
-     *         name="Accept",
-     *         in="header",
-     *         required=true,
-     *         @OA\Schema(
-     *             type="string",
-     *             default="application/json"
-     *         )
+     *         @OA\Schema(type="integer", example=1)
      *     ),
      *     @OA\RequestBody(ref="#/components/requestBodies/ProfileUpdate"),
      *     @OA\Response(
@@ -363,9 +356,9 @@ class ProfileController extends Controller
      *     )
      * )
      *
-     * @param Request $request
-     * @param $id
-     * @return JsonResponse
+     * @param Request $request The request object containing the data to update the profile
+     * @param int $id The ID of the profile to update
+     * @return JsonResponse The response containing a success message if the profile was updated successfully, or an error message otherwise
      */
     public function updateProfile(Request $request, $id): JsonResponse
     {
@@ -459,8 +452,8 @@ class ProfileController extends Controller
      *     )
      * )
      *
-     * @param $id
-     * @return JsonResponse
+     * @param int $id The ID of the profile to delete
+     * @return JsonResponse The response containing a success message if the profile was deleted successfully, or an error message otherwise
      */
     public function deleteProfile($id): JsonResponse
     {

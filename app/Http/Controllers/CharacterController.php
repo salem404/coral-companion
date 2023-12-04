@@ -7,9 +7,14 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Season;
 
 /**
- * @OA\Tag(name="Characters", description="Endpoints for characters")
+ * @OA\Tag(
+ *     name="Characters",
+ *     description="Endpoints for characters"
+ * )
+ *
  * @OA\Schema(
  *     schema="Character",
  *     required={"id","name","isRomanceable","icon"},
@@ -28,7 +33,8 @@ use Illuminate\Support\Facades\Validator;
  * @OA\RequestBody(
  *     request="CharacterCreate",
  *     required=true,
- *     @OA\JsonContent(required={"name","isRomanceable","icon"},
+ *     @OA\JsonContent(
+ *         required={"name","isRomanceable","icon"},
  *         @OA\Property(property="name", type="string", example="John Doe"),
  *         @OA\Property(property="birthday", type="integer", example=1, minimum=1, maximum=28),
  *         @OA\Property(property="season_id", type="integer", example=1, minimum=1, maximum=4),
@@ -37,7 +43,8 @@ use Illuminate\Support\Facades\Validator;
  *         @OA\Property(property="isRomanceable", type="integer", example=1, minimum=0, maximum=1),
  *         @OA\Property(property="icon", type="string", example="image.jpg")
  *     )
- * ),
+ * )
+ *
  * @OA\RequestBody(
  *     request="CharacterUpdate",
  *     required=true,
@@ -58,13 +65,14 @@ class CharacterController extends Controller
      * Create a new character
      *
      * @OA\Post(
-     *     tags={"Characters"},
+     *     tags={"Characters", "Admin"},
      *     path="/characters",
      *     summary="Create a new character",
      *     description="Create a new character using the data provided in the request body. (Admin only)",
      *     security={{"sanctum":{}}},
-     *     @OA\RequestBody(ref="#/components/requestBodies/CharacterCreate"),@OA\Parameter(
-     *         name="Content-Category",
+     *     @OA\RequestBody(ref="#/components/requestBodies/CharacterCreate"),
+     *     @OA\Parameter(
+     *         name="Content-Type",
      *         in="header",
      *         required=true,
      *         @OA\Schema(
@@ -104,8 +112,8 @@ class CharacterController extends Controller
      *     )
      * )
      *
-     * @param Request $request
-     * @return JsonResponse
+     * @param Request $request The request object containing the data to create a new character
+     * @return JsonResponse The response containing a success message if the character was created successfully, or an error message otherwise
      */
     public function createCharacter(Request $request): JsonResponse
     {
@@ -189,7 +197,7 @@ class CharacterController extends Controller
      *     )
      * )
      *
-     * @return JsonResponse
+     * @return JsonResponse The response containing all the characters data if found, or an error message otherwise
      */
     public function getAllCharacters(): JsonResponse
     {
@@ -236,8 +244,8 @@ class CharacterController extends Controller
      *     )
      * )
      *
-     * @param int $id
-     * @return JsonResponse
+     * @param int $id The ID of the character to retrieve
+     * @return JsonResponse The response containing the character data if found, or an error message otherwise
      */
     public function getCharacterById($id): JsonResponse
     {
@@ -261,7 +269,7 @@ class CharacterController extends Controller
      * Update a character
      *
      * @OA\Put(
-     *     tags={"Characters"},
+     *     tags={"Characters", "Admin"},
      *     path="/characters/{id}",
      *     summary="Update a character",
      *     description="Update a character by ID in the URL and data provided in the request body. (Admin only)",
@@ -274,7 +282,7 @@ class CharacterController extends Controller
      *         @OA\Schema(type="integer")
      *     ),
      *     @OA\Parameter(
-     *         name="Content-Category",
+     *         name="Content-Type",
      *         in="header",
      *         required=true,
      *         @OA\Schema(
@@ -322,9 +330,9 @@ class CharacterController extends Controller
      *     )
      * )
      *
-     * @param Request $request
-     * @param int $id
-     * @return JsonResponse
+     * @param Request $request The request object containing the data to update the character
+     * @param int $id The ID of the character to update
+     * @return JsonResponse The response containing a success message if the character was updated successfully, or an error message otherwise
      */
     public function updateCharacter(Request $request, $id): JsonResponse
     {
@@ -395,7 +403,7 @@ class CharacterController extends Controller
      * Delete a character
      *
      * @OA\Delete(
-     *     tags={"Characters"},
+     *     tags={"Characters", "Admin"},
      *     path="/characters/{id}",
      *     summary="Delete a character",
      *     description="Delete a character by ID sent in the URL (Admin only)",
@@ -439,8 +447,8 @@ class CharacterController extends Controller
      *     )
      * )
      *
-     * @param int $id
-     * @return JsonResponse
+     * @param int $id The ID of the character to delete
+     * @return JsonResponse The response containing a success message if the character was deleted successfully, or an error message otherwise
      */
     public function deleteCharacter($id): JsonResponse
     {
