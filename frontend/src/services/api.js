@@ -78,7 +78,7 @@ export default class apiService {
 
     async getProfilesByUserId(id) {
         this.setToken();
-        return this.api.get("/user/${id}/profiles");
+        return this.api.get(`/user/${id}/profiles`);
     }
 
     async updateProfile(farmer_name, farm_name, color) {

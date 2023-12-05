@@ -1,0 +1,8 @@
+.gnome {
+    @include size(7.3125rem);
+    background-color: var(--fondo-capa2);
+    border-radius: 50%;
+    @include mq($from: tablet) {
+        @include size(9.75rem);
+    }
+}

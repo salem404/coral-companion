@@ -1,25 +1,12 @@
 <template>
-    <div class="profiles">
-        <h1 class="profiles__heading">Profile select</h1>
+    <div class="profile">
+        <h1 class="profile__heading">Profile select</h1>
         <div class="profiles__container">
             <form>
-                <div
-                    class="profiles__container__item"
-                    v-for="profile in profiles"
-                >
-                    <input
-                        type="radio"
-                        id="{{ profile.id }}"
-                        name="profileSelection"
-                        value="{{profile.id}}}"
-                        required
-                    />
+                <div class="profiles__container__item" v-for="profile in profiles">
+                    <input type="radio" id="{{ profile.id }}" name="profileSelection" value="{{profile.id}}}" required />
                     <label for="{{ profile.id }}">
-                        <img
-                            src="../assets/img/gnome2.png"
-                            alt=""
-                            style="background-color: ${{ profile.color }}; border-radius: 50%;"
-                        />
+                        <img src="../assets/img/gnome2.png" alt="" />
                         {{ profile.farmer_name }}
                         <p>
                             {{ profile.farm_name }}
@@ -28,21 +15,9 @@
                 </div>
                 <div class="profiles__container__item">
                     <router-link to="/settings">
-                        <input
-                            type="radio"
-                            id="new"
-                            name="profileSelection"
-                            value="new"
-                        />
+                        <input type="radio" id="new" name="profileSelection" value="new" />
                         <label for="new">
-                            <img
-                                src="../assets/img/gnome0.png"
-                                alt="New"
-                                style="
-                                    background-color: var(--camel);
-                                    border-radius: 50%;
-                                "
-                            />
+                            <img src="../assets/img/gnome0.png" alt="New" />
                             New
                         </label>
                     </router-link>
@@ -83,7 +58,19 @@ export default {
     },
     data() {
         return {
-            profiles: [],
+            profiles: [
+                {
+                    "id": 1,
+                    "user_id": 2,
+                    "farmer_name": "Test",
+                    "farm_name": "Test Farm",
+                    "user": {
+                        "id": 2,
+                        "email": "test@test.es",
+                        "isAdmin": 0
+                    }
+                }
+            ],
             apiService: null,
         };
     },
@@ -114,8 +101,8 @@ export default {
     },
 };
 </script>
-<style lang="scss" scoped>
-.profiles {
+<style lang="scss" >
+.profiles0 {
     display: flex;
     width: 100%;
     height: 100%;
@@ -125,6 +112,7 @@ export default {
     align-items: center;
     gap: var(--espaciado-desktop-100, 28px);
     flex-shrink: 0;
+
     &__heading {
         color: var(--text-primary, #110300);
 
@@ -135,6 +123,7 @@ export default {
         font-weight: 500;
         line-height: normal;
     }
+
     &__container {
         background: rgba(217, 217, 217, 0.83);
         border: 14px solid #135c7d;
@@ -144,34 +133,36 @@ export default {
         width: 100%;
         border-radius: var(--radio, 40px);
         border-top: 28px solid var(--borde-borde, #135c7d);
-        border-right: var(--fieldset-label-hpadding, 28px) solid
-            var(--borde-borde, #135c7d);
-        border-bottom: var(--fieldset-label-hpadding, 28px) solid
-            var(--borde-borde, #135c7d);
-        border-left: var(--fieldset-label-hpadding, 28px) solid
-            var(--borde-borde, #135c7d);
+        border-right: var(--fieldset-label-hpadding, 28px) solid var(--borde-borde, #135c7d);
+        border-bottom: var(--fieldset-label-hpadding, 28px) solid var(--borde-borde, #135c7d);
+        border-left: var(--fieldset-label-hpadding, 28px) solid var(--borde-borde, #135c7d);
         background: var(--fondo-transparente, rgba(217, 217, 217, 0.82));
 
         /* Dark */
         box-shadow: 0px 4px 4px 0px rgba(17, 3, 0, 0.65);
+
         &__links {
             display: flex;
             flex-direction: row;
             justify-content: space-evenly;
         }
+
         &__btn {
             padding: 10px;
             transition: 120ms;
             cursor: pointer;
             text-decoration: none;
+
             &:hover {
                 box-shadow: 0px 6px 4px 0 rgba(0, 0, 0, 0.108);
                 transform: translateY(-2px);
             }
+
             &:active {
                 box-shadow: 0px 0px 4px 0 rgba(0, 0, 0, 0.108);
                 transform: translateY(2px);
             }
+
             font-family: Quicksand;
             font-size: 48px;
             font-weight: 600;
@@ -185,8 +176,7 @@ export default {
             height: 65px;
             display: flex;
             width: 300px;
-            padding: var(--button-vertical-padding, 12px)
-                var(--button-horizontal-padding, 63px);
+            padding: var(--button-vertical-padding, 12px) var(--button-horizontal-padding, 63px);
             justify-content: center;
             align-items: center;
             border-radius: var(--button-radio, 40px);
@@ -195,13 +185,16 @@ export default {
             /* sombra */
             box-shadow: 0px 4px 4px 0px rgba(17, 3, 0, 0.25);
         }
+
         &__item {
             height: 330px;
         }
+
         a {
             text-decoration: none;
             color: unset;
         }
+
         form {
             display: flex;
             overflow-x: scroll;
@@ -210,6 +203,7 @@ export default {
             flex-wrap: nowrap;
             flex-direction: row;
             gap: 20px;
+
             input[type="radio"] {
                 /* Add if not using autoprefixer */
                 -webkit-appearance: none;
@@ -227,6 +221,7 @@ export default {
                 border-radius: 40px;
                 background: var(--profile-default, rgba(217, 217, 217, 0.82));
                 box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+
                 &:checked {
                     border-radius: 40px;
                     border: 4px solid var(--session-fondo, #0892b6);
@@ -234,6 +229,7 @@ export default {
                     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
                 }
             }
+
             label {
                 text-decoration: none;
                 display: flex;
@@ -255,10 +251,12 @@ export default {
                 font-style: normal;
                 font-weight: 400;
                 line-height: normal;
+
                 img {
                     width: 100px;
                     height: 100px;
                 }
+
                 p {
                     color: var(--text-primary, #110300);
                     text-align: center;
@@ -274,6 +272,7 @@ export default {
         }
     }
 }
+
 @media (max-width: 1254px) {
     .profiles {
         &__heading {
