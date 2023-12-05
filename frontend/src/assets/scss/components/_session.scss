@@ -4,63 +4,69 @@
     justify-content: flex-end;
     align-items: center;
     gap: 0.5rem;
-    padding: 2.5rem 1.8rem;
+    padding: 2.5rem 0.8rem;
     background: var(--fondo-transparente);
     border: 14px solid var(--borde-borde);
     border-radius: 2.5rem;
     box-shadow: 0px 4px 4px 0px rgba(17, 3, 0, 0.65);
+    min-width: 22.5rem;
     @include mq($from: tablet) {
         padding: 1rem 5.18rem;
-        background: var(--fondo-transparente);
         border: 28px solid var(--borde-borde);
-        border-radius: 2.5rem;
+    }
+
+    div {
+        display: flex;
+        flex-direction: column;
     }
 
     &__title {
         position: relative;
-        top: -3.5em;
+        top: -6rem;
+        margin-left: 1rem;
+        margin-right: 1rem;
+        margin-bottom: -4rem;
         display: flex;
         flex-shrink: 0;
         flex-direction: column;
-        justify-content: space-between;
         align-items: center;
-        padding: 0.6875rem;
         color: var(--session-text);
         background: var(--session-fondo);
         border: 8px solid var(--session-borde);
         border-radius: 0.625rem;
+        min-width: 13.16156rem;
+        min-height: 4.79825rem;
+        padding: 0.6875rem;
+        justify-content: center;
 
         @include mq($from: tablet) {
-            top: -3em;
-            display: flex;
+            top: -5rem;
             justify-content: center;
             align-items: center;
             padding: 1.1875rem;
+            min-width: 25rem;
         }
 
         @include mq($from: desktop) {
-            top: -6rem;
+            top: -4rem;
+            margin-bottom: -1.5rem;
             height: 7.205rem;
+            width: 25rem;
         }
     }
 
     &__subtitle {
-        color: var(--text-primary, #110300);
+        @extend h3;
+        color: var(--text-primary);
         text-align: center;
-
-        /* PC/H3 */
-        font-family: General Sans;
-        font-size: 45px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
     }
     &__welcome {
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
         gap: 15px;
-        margin-top: -75px;
+        @include mq($from: desktop) {
+            margin-top: -2rem;
+        }
     }
 }

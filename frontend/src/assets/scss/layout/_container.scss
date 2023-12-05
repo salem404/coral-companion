@@ -1,5 +1,4 @@
 .home {
-    gap: 6.25rem;
     display: flex;
     flex-shrink: 0;
     flex-wrap: wrap;
@@ -16,7 +15,6 @@
         text-align: left;
     }
     @include mq($from: desktop) {
-        padding: 0rem 1.25rem 0rem 1.25rem;
     }
     h1 {
         flex-shrink: 0;
@@ -28,7 +26,7 @@
             padding: 0;
         }
         @include mq($from: desktop) {
-            width: 28.8125rem;
+            width: 28rem;
             text-align: left;
         }
     }
@@ -36,10 +34,6 @@
 
 .profile {
     display: flex;
-    width: 22.5rem;
-    height: 45.875rem;
-    min-width: 22.5rem;
-    max-width: 33.125rem;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -56,6 +50,4 @@
         gap: var(--espaciado-desktop-100, 1.75rem);
         flex-shrink: 0;
     }
-    // apply border every subcomponent
-    border: 4px solid var(--border-color);
 }

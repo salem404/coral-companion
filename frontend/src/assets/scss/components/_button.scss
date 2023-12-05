@@ -13,13 +13,26 @@
     background: var(--button-fondo);
     border-radius: 40px;
     box-shadow: $sombra;
+    transition: 120ms;
     cursor: pointer;
+    text-decoration: none;
 
     @include mq($from: desktop) {
         width: auto;
         padding: 12px 63px;
         font-size: 2.19rem;
     }
+
+    &:hover {
+        box-shadow: 0px 6px 4px 0 rgba(0, 0, 0, 0.108);
+        transform: translateY(-2px);
+    }
+
+    &:active {
+        box-shadow: 0px 0px 4px 0 rgba(0, 0, 0, 0.108);
+        transform: translateY(2px);
+    }
+
     &-danger {
         @extend .btn;
         background: var(--button-fondo-danger);

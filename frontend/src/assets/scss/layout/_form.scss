@@ -1,5 +1,4 @@
 .session {
-    width: 38.125rem;
     &__form {
         display: inline-flex;
         flex-shrink: 0;
@@ -7,7 +6,6 @@
         justify-content: center;
         align-items: center;
         gap: 1rem;
-        margin-top: -4rem;
         @include mq($from: desktop) {
             gap: 1.75rem;
         }
@@ -25,14 +23,8 @@
             label {
                 align-self: stretch;
                 padding: 0rem 1.75rem;
-                font-size: 1.25rem;
-                font-family: Quicksand;
-                font-style: normal;
-                font-weight: 400;
-                line-height: normal;
                 color: var(--text-primary);
                 @include mq($from: desktop) {
-                    font-size: 2.1875rem;
                     padding: 0rem 1rem;
                 }
             }
@@ -68,29 +60,35 @@
         }
     }
     .password {
-        height: 4rem;
-        display: flex;
-        align-items: center;
+        height: 3rem;
+
         svg {
-            width: 1.25rem;
-            height: 1.25rem;
+            @include size(1.25rem);
+
             @include mq($from: tablet) {
-                width: 1.75rem;
-                height: 1.75rem;
+                @include size(1.75rem);
             }
 
             @include mq($from: desktop) {
-                width: 2.5rem;
-                height: 2.5rem;
+                @include size(2.5rem);
             }
         }
         button {
             cursor: pointer;
-            display: flex;
             color: var(--input-icon);
             position: relative;
-            margin-left: -4rem;
             padding: 1rem;
+            top: -3rem;
+            left: 15rem;
+
+            @include mq($from: tablet) {
+                top: -3.3rem;
+                left: 21rem;
+            }
+            @include mq($from: desktop) {
+                top: -4rem;
+                left: 20rem;
+            }
         }
     }
 
@@ -98,9 +96,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 1.18rem 0 2.18rem 0;
+        margin: 1rem 0 0 0;
         gap: var(--padding-80, 0.75rem);
-        margin: -30px;
     }
 }
 
@@ -115,4 +112,5 @@
     text-decoration-line: underline;
     color: var(--text-primary, #110300);
     text-align: center;
+    cursor: pointer;
 }
