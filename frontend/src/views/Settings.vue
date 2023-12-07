@@ -3,50 +3,30 @@
         <header class="settings__header">
             <h1 class="settings__title">Settings</h1>
         </header>
-        <form>
-            <div class="profiles__container">
-                <form>
-                    <div
-                        class="profiles__container__item"
-                        v-for="profile in profiles"
-                    >
-                        <input
-                            type="radio"
-                            id="{{ profile.id }}"
-                            name="profileSelection"
-                            value="{{profile.id}}}"
-                        />
-                        <label for="{{ profile.id }}">
-                            {{ profile.farmer_name }}
-                            <img
-                                src="../assets/img/gnome2.png"
-                                alt=""
-                                style="background-color: ${{ profile.color }}; border-radius: 50%;"
-                            />
-                        </label>
-                    </div>
-                    <div class="profiles__container__item">
-                        <span>
-                            <input
-                                type="radio"
-                                id="new"
-                                name="profileSelection"
-                                value="new"
-                            />
-                            <label for="new">
-                                <img
-                                    src="../assets/img/gnome0.png"
-                                    alt="New"
-                                    style="
-                                        background-color: var(--camel);
-                                        border-radius: 50%;
-                                    "
-                                />
-                                New
-                            </label>
-                        </span>
-                    </div>
-                </form>
+        <form @submit.prevent="handleEdit">
+            <div class="carrousel">
+                <fieldset
+                    class="carrousel__item"
+                    v-for="profile in profiles"
+                    :key="profile.id"
+                >
+                    <input
+                        type="radio"
+                        :id="profile.id"
+                        name="profileSelection"
+                        :value="profile.id"
+                        required
+                    />
+                    <label :for="profile.id">
+                        <picture class="gnome-carrousel">
+                            <img src="@/assets/img/gnome2.svg" alt="" />
+                        </picture>
+                        {{ profile.farmer_name }}
+                        <p>
+                            {{ profile.farm_name }}
+                        </p>
+                    </label>
+                </fieldset>
             </div>
             <section class="settings__container">
                 <section class="settings__profiles">
@@ -60,6 +40,7 @@
                             <input
                                 type="text"
                                 name="farmerName"
+                                :value="profile.farmer_name"
                                 id="farmerName"
                                 placeholder="Farmer name"
                             />
@@ -69,6 +50,7 @@
                             <input
                                 type="text"
                                 name="farmName"
+                                :value="profile.farm_name"
                                 id="farmName"
                                 placeholder="Farm Name"
                             />
@@ -86,6 +68,7 @@
                             <input
                                 type="email"
                                 name="email"
+                                :value="user.email"
                                 id="email"
                                 placeholder="Email"
                             />
@@ -95,6 +78,7 @@
                             <input
                                 type="password"
                                 name="password"
+                                :value="user.password"
                                 id="password"
                                 placeholder="Password"
                             />
@@ -102,15 +86,12 @@
                     </div>
                 </section>
                 <section class="btns">
-                    <button
-                        type="button"
-                        @click="
-                            hasHistory() ? $router.go(-1) : $router.push('/')
-                        "
+                    <RouterLink
                         class="settings__btn"
+                        :to="{ name: 'profiles' }"
                     >
                         Back
-                    </button>
+                    </RouterLink>
                     <button type="submit" class="settings__btn">Save</button>
                 </section>
             </section>
@@ -120,15 +101,18 @@
 <script>
 import { RouterLink } from "vue-router";
 import apiService from "@/services/api.js";
+import { mapMutations, mapState } from "vuex";
 
 export default {
     name: "Settings",
     components: { RouterLink },
+    computed: {
+        ...mapState(["user", "profile"]),
+    },
     data() {
         return {
             profiles: [],
             apiService: null,
-            id: 2,
         };
     },
     created() {
@@ -138,19 +122,26 @@ export default {
         await this.fetchProfiles();
     },
     methods: {
+        ...mapMutations(["changeProfile"]),
+        handleEdit() {
+            // Update the profile and user
+        },
         async fetchProfiles() {
-            // TODO: Fetch with authorization
-            const response = await fetch(
-                `http://localhost/api/user/${this.id}/profiles`,
-                {
-                    method: "GET",
-                    headers: { Connection: "Keep-Alive" },
-                },
-            );
-            if (response.ok) {
-                const data = await response.json();
-                this.profiles = data;
+            try {
+                if (!this.user) {
+                    console.error("User is not defined");
+                    return;
+                }
+                const response = await this.apiService.getProfilesByUserId(
+                    this.user.id,
+                );
+                this.profiles = response.data;
+            } catch (error) {
+                console.log(error);
             }
+        },
+        async updateProfile() {
+            // TODO: Use apiService to update the profile
         },
     },
 };
@@ -231,7 +222,7 @@ export default {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: flex-start;
+            align-items: flex-start; // Center pal carrusel
             gap: 0.4375rem;
 
             label {

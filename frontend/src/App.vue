@@ -20,7 +20,6 @@ export default {
         async checkToken() {
             try {
                 const response = await this.apiService.checkToken();
-                console.log(response);
                 this.changeLoggedState(true);
                 this.changeUser(response.data.user);
             } catch (error) {
@@ -43,6 +42,11 @@ export default {
         this.apiService = new apiService();
     },
     mounted() {
+        // TOKEN
+        const TOKEN = localStorage.getItem("token");
+        if (TOKEN != null) {
+            this.checkToken();
+        }
         // THEME
         const hasDarkPreference = window.matchMedia(
             "(prefers-color-scheme: dark)",

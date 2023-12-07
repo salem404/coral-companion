@@ -59,39 +59,8 @@ export default class apiService {
         return this.api.get("/logout");
     }
 
-    // Characters
-    async getCharacters() {
-        this.setToken();
-        return this.api.get("/characters");
-    }
-
-    // Profile
-    async getProfiles() {
-        this.setToken();
-        return this.api.get("/profiles");
-    }
-
-    async getProfile(id) {
-        this.setToken();
-        return this.api.get(`/profile/${id}`);
-    }
-
     async getProfilesByUserId(id) {
         this.setToken();
         return this.api.get(`/user/${id}/profiles`);
-    }
-
-    async updateProfile(farmer_name, farm_name, color) {
-        this.setToken();
-        return this.api.put("/profile", {
-            farmer_name,
-            farm_name,
-            color,
-        });
-    }
-
-    async deleteProfile() {
-        this.setToken();
-        return this.api.delete("/profile");
     }
 }

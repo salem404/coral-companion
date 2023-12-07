@@ -1,8 +1,128 @@
 .gnome {
-    @include size(7.3125rem);
-    background-color: var(--fondo-capa2);
     border-radius: 50%;
+    background-color: var(--fondo-capa2);
+    width: 7.3125rem;
+    height: 7.3125rem;
+    flex-shrink: 0;
     @include mq($from: tablet) {
-        @include size(9.75rem);
+        width: 9.75rem;
+        height: 9.75rem;
+    }
+    &-carrousel {
+        width: 6.14069rem;
+        height: 5.99544rem;
+        padding: 0.65625rem 0.58575rem 0.66088rem 0.58613rem;
+        display: flex;
+        background-color: var(--fondo-capa1);
+        border-radius: 50%;
+        @include mq($from: desktop) {
+            width: 8.1875rem;
+            height: 7.99388rem;
+            padding: 0.875rem 0.78125rem 0.88113rem 0.78125rem;
+        }
+    }
+}
+
+.carrousel {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0.625rem;
+    flex-shrink: 0;
+    align-self: stretch;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    height: 16.75rem;
+    margin: 0 -1rem;
+    padding-left: 18px;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    @include mq($from: tablet) {
+        margin: 0 -1.875rem;
+        height: 16.75rem;
+    }
+
+    &__item {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+        min-width: 12.5rem;
+        min-height: 13.125rem;
+        @include mq($from: desktop) {
+            padding: 0;
+        }
+        input {
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: var(--padding-80, 0.4375rem);
+            flex-shrink: 0;
+            width: 12.5rem;
+            min-width: 12.5rem;
+            min-height: 13.125rem;
+            padding: var(--padding-80, 0.4375rem) var(--padding-200, 1.5rem);
+            background: var(--profile-default, rgba(217, 217, 217, 0.82));
+            border-radius: 2.5rem;
+            cursor: pointer;
+            margin-top: 4px;
+            &:checked {
+                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+                background: var(--profile-selected, #d9d9d9);
+                border: 4px solid var(--session-fondo, #0892b6);
+                border-radius: 2.5rem;
+            }
+            &:hover {
+                border-radius: 2.5rem;
+                border: 4px solid var(--session-borde, #135c7d);
+                background: var(--profile-default, rgba(217, 217, 217, 0.82));
+                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+            }
+
+            @include mq($from: desktop) {
+                display: flex;
+                width: 16rem;
+                height: 16.4375rem;
+                min-width: 16rem;
+                min-height: 16.4375rem;
+                padding: var(--padding-80, 0.75rem) var(--padding-200, 2.625rem);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: var(--padding-80, 0.75rem);
+                flex-shrink: 0;
+            }
+        }
+
+        label {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: var(--padding-80, 0.4375rem);
+            height: 13.125rem;
+            margin-top: -13.125rem;
+            color: var(--text-primary, #110300);
+            text-align: center;
+            cursor: pointer;
+            @include mq($from: desktop) {
+                height: 16.4375rem;
+                margin-top: -16.4375rem;
+                padding: var(--padding-80, 0.75rem) var(--padding-200, 2.625rem);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: var(--padding-80, 0.75rem);
+                flex-shrink: 0;
+            }
+            p {
+                @extend .minitext;
+            }
+        }
     }
 }
