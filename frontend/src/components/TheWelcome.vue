@@ -41,9 +41,7 @@ export default {
          * @returns {String} The email of the logged in user or "Farmer?".
          */
         email() {
-            return this.isLogged && this.$store.state.user
-                ? this.$store.state.user.email
-                : "Farmer?";
+            return this.isLogged && this.user ? this.user.email : "Farmer?";
         },
     },
     methods: {

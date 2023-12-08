@@ -28,13 +28,80 @@
     </svg>
     <div class="dashboard">
         <header class="dashboard__header">
-            <select v-model="selectedSeason">
-                <option value="1" selected>Spring</option>
-                <option value="2">Summer</option>
-                <option value="3">Fall</option>
-                <option value="4">Winter</option>
+            <select class="dropdown" v-model="selectedSeason">
+                <option
+                    v-for="season in seasons"
+                    :value="season.value"
+                    :key="season.value"
+                >
+                    {{ season.name }}
+                </option>
             </select>
-            <router-link to="/profiles"> Editate </router-link>
+            <router-link class="cartel" to="/profiles">
+                <svg
+                    class="cartel__cuerda"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="64"
+                    viewBox="0 0 20 64"
+                    fill="none"
+                >
+                    <path
+                        d="M8.40869 64C12.827 64 16.4087 60.4183 16.4087 56C16.4087 51.5817 12.827 48 8.40869 48C3.99041 48 0.408691 51.5817 0.408691 56C0.408691 60.4183 3.99041 64 8.40869 64ZM9.90869 56L9.90869 0H6.90869L6.90869 56H9.90869Z"
+                        fill="#422D23"
+                    />
+                </svg>
+                <picture class="cartel__gnome">
+                    <img src="@/assets/img/gnome2.svg" alt="" />
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="22"
+                        height="22"
+                        viewBox="0 0 22 22"
+                        fill="none"
+                    >
+                        <rect
+                            x="0.5"
+                            y="0.5"
+                            width="21"
+                            height="21"
+                            rx="10.5"
+                            fill="currentColor"
+                        />
+                        <rect
+                            x="0.5"
+                            y="0.5"
+                            width="21"
+                            height="21"
+                            rx="10.5"
+                            stroke="currentColor"
+                        />
+                        <path
+                            d="M6.00033 11.8337L2.66699 8.50033M2.66699 8.50033L6.00033 5.16699M2.66699 8.50033H12.667M16.0003 16.8337L19.3337 13.5003M19.3337 13.5003L16.0003 10.167M19.3337 13.5003H9.33366"
+                            stroke="#D9D9D9"
+                            stroke-opacity="0.82"
+                            stroke-width="1.49254"
+                            stroke-miterlimit="10"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                    </svg>
+                </picture>
+                {{ this.profile.farmer_name }}
+                <svg
+                    class="cartel__cuerda"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="64"
+                    viewBox="0 0 20 64"
+                    fill="none"
+                >
+                    <path
+                        d="M8.40869 64C12.827 64 16.4087 60.4183 16.4087 56C16.4087 51.5817 12.827 48 8.40869 48C3.99041 48 0.408691 51.5817 0.408691 56C0.408691 60.4183 3.99041 64 8.40869 64ZM9.90869 56L9.90869 0H6.90869L6.90869 56H9.90869Z"
+                        fill="#422D23"
+                    />
+                </svg>
+            </router-link>
         </header>
         <div class="dashboard__info">
             <div class="dashboard__info-lists">
@@ -48,6 +115,8 @@
 import ToDoList from "@/components/ToDoList.vue";
 import Crops from "@/components/Crops.vue";
 import People from "@/components/People.vue";
+import { mapState } from "vuex";
+
 /**
  * @vue-data {String} selectedSeasons - Estación seleccionada
  * @vue-computed {Prop} componentProps - Devuelve el prop de la estación seleccionada
@@ -61,29 +130,27 @@ export default {
     },
     data() {
         return {
-            selectedSeason: "1",
+            selectedSeason: "",
+            seasons: [
+                { value: "1", name: "Spring" },
+                { value: "2", name: "Summer" },
+                { value: "3", name: "Fall" },
+                { value: "4", name: "Winter" },
+            ],
         };
     },
     computed: {
+        ...mapState(["profile"]),
         componentProps() {
-            switch (this.selectedSeason) {
-                case "1":
-                    return { season: "1" };
-                case "2":
-                    return { season: "2" };
-                case "3":
-                    return { season: "3" };
-                case "4":
-                    return { season: "4" };
-                default:
-                    return {};
-            }
+            return { season: this.selectedSeason };
         },
     },
     mounted() {
         const selectedSeason = localStorage.getItem("selectedSeason");
         if (selectedSeason) {
             this.selectedSeason = selectedSeason;
+        } else {
+            this.selectedSeason = "1";
         }
     },
     watch: {
@@ -93,63 +160,3 @@ export default {
     },
 };
 </script>
-<style lang="scss">
-.dashboard {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    padding: 0px var(--espaciado-desktop-400, 95px);
-    flex-direction: row;
-    gap: 28px;
-    flex-shrink: 0;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: stretch;
-    &__header {
-        position: absolute;
-        top: 0;
-        select {
-            display: flex;
-            width: 300px;
-            padding: var(--button-vertical-padding, 12px) 6px;
-            justify-content: space-between;
-            align-items: center;
-            border-radius: var(--button-radio, 40px);
-            border: 6px solid var(--button-borde, #135c7d);
-            background: var(--button-fondo, #94b755);
-
-            /* sombra */
-            box-shadow: 0px 4px 4px 0px rgba(17, 3, 0, 0.25);
-            color: var(--button-text, #110300);
-            text-align: center;
-
-            /* PC/Button */
-            font-family: Quicksand;
-            font-size: 35px;
-            font-style: normal;
-            font-weight: 600;
-            line-height: normal;
-        }
-    }
-    &__info {
-        display: flex;
-        width: 20rem;
-        height: 38rem;
-        flex-direction: column;
-        align-items: center;
-        align-self: stretch;
-        overflow-y: scroll;
-        border-radius: var(--radio, 40px);
-        border: 28px solid var(--borde-borde, #135c7d);
-        background: var(--fondo-transparente, rgba(217, 217, 217, 0.82));
-        box-shadow: 0px 4px 4px 0px rgba(17, 3, 0, 0.65);
-
-        &-lists {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            flex: 1 0 0;
-        }
-    }
-}
-</style>

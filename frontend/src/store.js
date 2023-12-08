@@ -4,6 +4,7 @@
  */
 
 import { createStore } from "vuex";
+import createPersistedState from "vuex-persistedstate";
 
 /**
  * Vuex store.
@@ -19,6 +20,7 @@ import { createStore } from "vuex";
  * @property {function} mutations.changeProfile - Change the profile
  */
 export default createStore({
+    plugins: [createPersistedState()],
     state: {
         isLogged: false,
         user: null,
@@ -26,7 +28,7 @@ export default createStore({
     },
     mutations: {
         changeLoggedState(state) {
-            state.isLogged = !state.isLogged;
+            state.isLogged = isLogged;
         },
         changeUser(state, user) {
             state.user = user;

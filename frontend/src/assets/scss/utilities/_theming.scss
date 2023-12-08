@@ -52,6 +52,8 @@
     --task-border: #{$color-zafiro};
     --task-btn: var(--button-fondo-icono);
     --task-header: #{$color-light-transparency};
+
+    --cartel-gnome: #{$color-lima};
 }
 [data-theme="dark"] {
     --bg-color: #{$color-negro};
@@ -93,4 +95,6 @@
 
     --task-border: #{$color-violeta};
     --task-header: #{$color-dark-transparency};
+
+    --cartel-gnome: #{$color-violeta};
 }

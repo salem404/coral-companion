@@ -181,8 +181,8 @@ export default {
          * @description Vue.js lifecycle hook that is called after the instance has been mounted. Fetches the profiles and sets the selected profile
          */
         await this.fetchProfiles();
-        if (this.profile) {
-            this.selectedProfile = this.profile.id;
+        if (this.$store.state.profile) {
+            this.selectedProfile = this.$store.state.profile.id;
         }
     },
     watch: {
@@ -205,11 +205,17 @@ export default {
          * @vue-method handleProfileSelection
          * @description Handles the selection of a profile. Fetches the profile and redirects to the dashboard
          */
-        handleProfileSelection() {
-            // Update the profile in the store
-            this.fetchProfile();
-            // Redirect to the dashboard
-            this.$router.push({ name: "dashboard" });
+        async handleProfileSelection() {
+            try {
+                // Fetch the profile
+                const profile = await this.fetchProfile();
+                // Update the profile in the store
+                this.changeProfile(profile);
+                // Redirect to the dashboard
+                this.$router.push({ name: "dashboard" });
+            } catch (error) {
+                console.log(error);
+            }
         },
         /**
          * @vue-method handleProfileCreation
@@ -268,7 +274,7 @@ export default {
                 const response = await this.apiService.getProfileById(
                     this.selectedProfile,
                 );
-                this.changeProfile(response.data);
+                return response.data;
             } catch (error) {
                 console.log(error);
             }

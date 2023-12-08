@@ -113,11 +113,13 @@ export default {
     components: { RouterLink },
     computed: {
         ...mapState(["user", "profile"]),
+        selectedProfile() {
+            return this.profile ? this.profile.id : null;
+        },
     },
     data() {
         return {
             profiles: [],
-            selectedProfile: null,
             isLoading: false,
             showModal: false,
             newFarmerName: "",

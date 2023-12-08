@@ -1,7 +1,7 @@
 <template>
     <header>
         <DarkModeToggle />
-        <router-link v-if="isLogged" to="/profiles" class="btn-UIswap">
+        <router-link v-if="profile" to="/profiles" class="btn-UIswap">
             <span>Change Profiles</span>
         </router-link>
     </header>
@@ -27,11 +27,11 @@ export default {
     },
     computed: {
         /**
-         * @vue-computed isLogged
-         * @description Indicates whether the user is logged in
-         * @returns {Boolean} The Vuex state.
+         * @vue-computed profile
+         * @description Retrieves the profile state from Vuex store
+         * @returns {Object} The profile state from Vuex store. This object contains the user's profile information if the user is logged in.
          */
-        ...mapState(["isLogged"]),
+        ...mapState(["profile"]),
     },
 };
 </script>
