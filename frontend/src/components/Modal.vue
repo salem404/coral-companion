@@ -1,4 +1,3 @@
-<!-- Modal.vue -->
 <template>
     <dialog>
         <div class="modal" focused>
@@ -6,20 +5,30 @@
                 <slot></slot>
             </div>
         </div>
-        <button class="x" @click="closeModal" aria-label="Close Modal">X</button>
+        <button class="x" @click="closeModal" aria-label="Close Modal">
+            X
+        </button>
     </dialog>
 </template>
-
 <script>
+/**
+ * @module Modal
+ * @vue-component
+ * @description {@link module:Modal|Modal} component that represents a modal window.
+ */
 export default {
     methods: {
+        /**
+         * @vue-method closeModal
+         * @description Emits a 'closeModal' event to the parent component.
+         */
         closeModal() {
             this.$emit("closeModal");
         },
     },
 };
 </script>
-<style scoped>
+<style>
 .x {
     font-family: General Sans;
     position: absolute;

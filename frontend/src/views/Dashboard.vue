@@ -1,4 +1,31 @@
 <template>
+    <svg
+        class="arena"
+        xmlns="http://www.w3.org/2000/svg"
+        width="1909"
+        height="1121"
+        viewBox="0 0 1909 1121"
+        fill="none"
+    >
+        <path
+            d="M830.717 71.1321C700.71 71.1321 77.829 296.079 -0.000244141 352V1121H1909V0C1893.72 3.55052 960.725 71.1321 830.717 71.1321Z"
+            fill="currentColor"
+        />
+    </svg>
+    <svg
+        class="wave-arena"
+        xmlns="http://www.w3.org/2000/svg"
+        width="884"
+        height="306"
+        viewBox="0 0 884 306"
+        fill="none"
+    >
+        <path
+            d="M884 5.79724C828.635 -10.2175 336.59 12.594 0 7.3528V305.872C88.8836 308.055 314.978 282.052 322.182 253.662C331.187 218.175 416.736 205.072 496.781 191.969C576.826 178.866 553.313 140.103 600.84 117.719C648.367 95.3344 724.91 120.994 763.432 88.7829C794.249 63.0137 813.46 75.6799 845.478 58.2092L857.485 32.0034L884 5.79724Z"
+            fill="currentColor"
+        />
+        <image href="@/assets/img/foam2.svg" height="100%" width="100%" />
+    </svg>
     <div class="dashboard">
         <header class="dashboard__header">
             <select v-model="selectedSeason">
@@ -7,11 +34,10 @@
                 <option value="3">Fall</option>
                 <option value="4">Winter</option>
             </select>
+            <router-link to="/profiles"> Editate </router-link>
         </header>
         <div class="dashboard__info">
             <div class="dashboard__info-lists">
-                <Crops v-bind="componentProps" />
-                <Crops v-bind="componentProps" />
                 <Crops v-bind="componentProps" />
             </div>
         </div>

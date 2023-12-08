@@ -6,11 +6,16 @@
 
 <script>
 /**
- * @vue-method {Function} changeTheme - Cambia el tema de la página
+ * @module DarkModeToggle
+ * @description A Vue component that provides a button to toggle between light and dark themes.
  */
 export default {
     name: "DarkModeToggle",
     methods: {
+        /**
+         * @vue-method changeTheme
+         * @description Changes the theme of the page between light and dark modes.
+         */
         changeTheme() {
             const THEME = document.documentElement.getAttribute("data-theme");
             if (THEME == "dark") {

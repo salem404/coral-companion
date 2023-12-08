@@ -43,41 +43,71 @@
     </main>
 </template>
 <script>
+/**
+ * @module Home
+ * @description Vue component that represents the home page of the application.
+ */
 import FormLogin from "@/components/FormLogin.vue";
 import FormRegister from "@/components/FormRegister.vue";
 import TheWelcome from "@/components/TheWelcome.vue";
 import { mapState, mapMutations } from "vuex";
-import apiService from "@/services/api.js";
+import apiServiceMixin from "@/services/apiServiceMixin.js";
 
 export default {
     name: "Home",
-    computed: {
-        ...mapState(["isLogged"]),
-    },
+    mixins: [apiServiceMixin],
     components: {
         FormLogin,
         FormRegister,
         TheWelcome,
     },
+    computed: {
+        /**
+         * @vue-computed isLogged
+         * @description Indicates whether the user is logged in
+         * @returns {Boolean} The Vuex state.
+         */
+        ...mapState(["isLogged"]),
+    },
     data() {
+        /**
+         * @vue-data title
+         * @description The title of the page
+         * @returns {String} The title of the page
+         */
         return {
             title: "Login",
-            apiService: null,
         };
     },
-    created() {
-        this.apiService = new apiService();
-    },
     mounted() {
+        /**
+         * @vue-lifecycle mounted
+         * @description Checks if the user is logged in and changes the title to "Welcome" if true
+         */
         if (this.isLogged) {
             this.changeTitle("Welcome");
         }
     },
     methods: {
+        /**
+         * @vue-method changeLoggedState
+         * @description Change the logged state
+         */
         ...mapMutations(["changeLoggedState"]),
-        changeTitle($newTitle) {
-            this.title = $newTitle;
+        /**
+         * @vue-method changeTitle
+         * @description Change the title of the page
+         * @param {String} newTitle - The new title
+         */
+        changeTitle(newTitle) {
+            this.title = newTitle;
         },
+        /**
+         * @vue-method logOut
+         * @description Log out the user
+         * @async
+         * @returns {Promise<void>} A promise that resolves when the user has been logged out
+         */
         async logOut() {
             try {
                 const response = await this.apiService.logOut();
@@ -86,7 +116,7 @@ export default {
                 this.changeTitle("Login");
                 console.log(response);
             } catch (error) {
-                if (error.response.status === 401) {
+                if (error.response && error.response.status === 401) {
                     // In case the token is invalid
                     localStorage.removeItem("token");
                     this.changeLoggedState(false);

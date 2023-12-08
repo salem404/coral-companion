@@ -294,7 +294,7 @@ class TaskController extends Controller
                 400
             );
         }
-        $tasks = Task::with("profile", "character", "resource")
+        $tasks = Task::with("profile")
             ->where("profile_id", $id)
             ->get();
 

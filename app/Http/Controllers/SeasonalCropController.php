@@ -55,7 +55,7 @@ class SeasonalCropController extends Controller
     public function getAllSeasonalCrops($id): JsonResponse
     {
         // Find all seasonal crops with the given season id
-        $seasonalCrops = SeasonalCrop::with("season", "crop", "crop.resources")
+        $seasonalCrops = SeasonalCrop::with("season", "crop", "crop.resource")
             ->where("season_id", $id)
             ->get();
         // Check if seasonal crops exist

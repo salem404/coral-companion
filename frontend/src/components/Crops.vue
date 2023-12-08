@@ -5,10 +5,10 @@
             <li class="crops__list-item" v-if="crop">
                 <img
                     class="crops__list-item-img"
-                    :src="crop.crop.item.icon"
+                    :src="crop.crop.resource.icon"
                     alt="crop"
                 />
-                {{ crop.crop.item.name }}
+                {{ crop.crop.resource.name }}
             </li>
         </ul>
     </details>

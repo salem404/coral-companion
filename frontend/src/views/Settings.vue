@@ -4,28 +4,32 @@
             <h1 class="settings__title">Settings</h1>
         </header>
         <form @submit.prevent="handleEdit">
-            <div class="carrousel">
-                <fieldset
-                    class="carrousel__item"
-                    v-for="profile in profiles"
-                    :key="profile.id"
-                >
-                    <input
-                        type="radio"
-                        :id="profile.id"
-                        name="profileSelection"
-                        :value="profile.id"
-                        required
-                    />
-                    <label :for="profile.id">
-                        <picture class="gnome-carrousel">
-                            <img src="@/assets/img/gnome2.svg" alt="" />
-                        </picture>
-                        {{ profile.farmer_name }}
-                        <p>
-                            {{ profile.farm_name }}
-                        </p>
-                    </label>
+            <div v-if="isLoading">Loading...</div>
+            <div v-else class="carrousel">
+                <fieldset>
+                    <div
+                        class="carrousel__item"
+                        v-for="profile in profiles"
+                        :key="profile.id"
+                    >
+                        <input
+                            type="radio"
+                            :id="profile.id"
+                            name="profileSelection"
+                            :value="profile.id"
+                            v-model="selectedProfile"
+                            required
+                        />
+                        <label :for="profile.id">
+                            <picture class="gnome-carrousel">
+                                <img src="@/assets/img/gnome2.svg" alt="" />
+                            </picture>
+                            {{ profile.farmer_name }}
+                            <p>
+                                {{ profile.farm_name }}
+                            </p>
+                        </label>
+                    </div>
                 </fieldset>
             </div>
             <section class="settings__container">
@@ -100,11 +104,12 @@
 </template>
 <script>
 import { RouterLink } from "vue-router";
-import apiService from "@/services/api.js";
 import { mapMutations, mapState } from "vuex";
+import apiServiceMixin from "@/services/apiServiceMixin.js";
 
 export default {
     name: "Settings",
+    mixins: [apiServiceMixin],
     components: { RouterLink },
     computed: {
         ...mapState(["user", "profile"]),
@@ -112,11 +117,12 @@ export default {
     data() {
         return {
             profiles: [],
-            apiService: null,
+            selectedProfile: null,
+            isLoading: false,
+            showModal: false,
+            newFarmerName: "",
+            newFarmName: "",
         };
-    },
-    created() {
-        this.apiService = new apiService();
     },
     async mounted() {
         await this.fetchProfiles();

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/TheWelcome.vue</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/TheWelcome.vue</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>&lt;template>
+    &lt;div class="session__welcome">
+        &lt;h3 class="session__subtitle">{{ email }}&lt;/h3>
+        &lt;picture class="gnome">
+            &lt;img src="@/assets/img/gnome1.svg" alt="" />
+        &lt;/picture>
+        &lt;router-link to="/profiles" class="btn"> Start &lt;/router-link>
+        &lt;p>
+            Not you?
+            &lt;span class="link" @click="logOut()">Logout&lt;/span>
+        &lt;/p>
+    &lt;/div>
+&lt;/template>
+&lt;script>
+/**
+ * @module TheWelcome
+ * @vue-component
+ * @description {@link module:TheWelcome|TheWelcome} component that represents the welcome screen.
+ */
+import { mapState, mapMutations } from "vuex";
+import apiServiceMixin from "@/services/apiServiceMixin.js";
+
+export default {
+    name: "TheWelcome",
+    mixins: [apiServiceMixin],
+    computed: {
+        /**
+         * @vue-computed isLogged
+         * @description Indicates whether the user is logged in
+         * @returns {Boolean} The Vuex state.
+         */
+        /**
+         * @vue-computed user
+         * @description The logged in user
+         * @returns {Object} The Vuex state.
+         */
+        ...mapState(["isLogged", "user"]),
+        /**
+         * @vue-computed email
+         * @description Returns the email of the logged in user, or "Farmer?" if no user is logged in
+         * @returns {String} The email of the logged in user or "Farmer?".
+         */
+        email() {
+            return this.isLogged &amp;&amp; this.$store.state.user
+                ? this.$store.state.user.email
+                : "Farmer?";
+        },
+    },
+    methods: {
+        /**
+         * @vue-method changeLoggedState
+         * @description Change the logged state
+         */
+        /**
+         * @vue-method changeUser
+         * @description Change the user
+         */
+        ...mapMutations(["changeLoggedState", "changeUser"]),
+        /**
+         * @vue-method logOut
+         * @description Log out the user
+         * @async
+         * @returns {Promise&lt;void>} A promise that resolves when the user has been logged out
+         */
+        async logOut() {
+            try {
+                const response = await this.apiService.logOut();
+                localStorage.removeItem("token");
+                this.changeLoggedState(false);
+                console.log(response);
+                location.reload(); // Refresh the page
+            } catch (error) {
+                if (error.response &amp;&amp; error.response.status === 401) {
+                    // In case the token is invalid
+                    localStorage.removeItem("token");
+                    this.changeLoggedState(false);
+                    console.log("Unauthorized");
+                    location.reload(); // Refresh the page
+                }
+                console.log(error);
+            }
+        },
+    },
+};
+&lt;/script>
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li><li><a href="module-Crops.html">Crops</a></li><li><a href="module-DarkModeToggle.html">DarkModeToggle</a></li><li><a href="module-Dashboard.html">Dashboard</a></li><li><a href="module-FormLogin.html">FormLogin</a></li><li><a href="module-FormRegister.html">FormRegister</a></li><li><a href="module-Home.html">Home</a></li><li><a href="module-Modal.html">Modal</a></li><li><a href="module-People.html">People</a></li><li><a href="module-Profiles.html">Profiles</a></li><li><a href="module-TheFooter.html">TheFooter</a></li><li><a href="module-TheHeader.html">TheHeader</a></li><li><a href="module-TheWelcome.html">TheWelcome</a></li><li><a href="module-ToDoList.html">ToDoList</a></li><li><a href="module-store.html">store</a></li><li><a href="module-validation.html">validation</a></li></ul><h3>Classes</h3><ul><li><a href="module.exports.html">exports</a></li></ul><h3>Mixins</h3><ul><li><a href="apiServiceMixin.html">apiServiceMixin</a></li></ul><h3>Global</h3><ul><li><a href="global.html#app">app</a></li><li><a href="global.html#checkToken">checkToken</a></li><li><a href="global.html#createProfile">createProfile</a></li><li><a href="global.html#getProfileById">getProfileById</a></li><li><a href="global.html#getProfilesByUserId">getProfilesByUserId</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#removeToken">removeToken</a></li><li><a href="global.html#router">router</a></li><li><a href="global.html#routes">routes</a></li><li><a href="global.html#setToken">setToken</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Dec 08 2023 04:13:45 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: services/api.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: services/api.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import axios from "axios";
+
+/**
+ * Class representing the API service.
+ */
+export default class apiService {
+    /**
+     * @property {string} token - The token for the API service.
+     */
+    token = "";
+
+    /**
+     * @property {Object} api - The axios instance for the API service.
+     */
+    api;
+
+    /**
+     * @property {string} API_URL - The base URL for the API service.
+     */
+    API_URL = "http://localhost/api";
+
+    /**
+     * Create a new API service.
+     */
+    constructor() {
+        this.api = axios.create({
+            baseURL: this.API_URL,
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+        });
+        this.setToken();
+    }
+
+    /**
+     * Get the token from local storage.
+     * @returns {string} The token.
+     */
+    getToken() {
+        this.token = localStorage.getItem("token") || "";
+        return this.token;
+    }
+
+    /**
+     * Set the token for the API service.
+     */
+    setToken() {
+        this.getToken();
+        this.api.defaults.headers.common.Authorization = `Bearer ${this.token}`;
+    }
+
+    /**
+     * Remove the token from the API service and local storage.
+     */
+    removeToken() {
+        this.token = "";
+        localStorage.removeItem("token");
+        this.api.defaults.headers.common.Authorization = "";
+    }
+
+    /**
+     * Check the token for the API service.
+     * @returns {Promise} The response from the API.
+     */
+    async checkToken() {
+        this.setToken();
+        return this.api.get("/check-token");
+    }
+
+    /**
+     * Login to the API service.
+     * @param {string} email - The email of the user.
+     * @param {string} password - The password of the user.
+     * @returns {Promise} The response from the API.
+     */
+    async login(email, password) {
+        return this.api.post("/login", {
+            email,
+            password,
+        });
+    }
+
+    /**
+     * Register a new user to the API service.
+     * @param {string} email - The email of the user.
+     * @param {string} password - The password of the user.
+     * @returns {Promise} The response from the API.
+     */
+    async register(email, password) {
+        return this.api.post("/register", {
+            email,
+            password,
+        });
+    }
+
+    /**
+     * Logout from the API service.
+     * @returns {Promise} The response from the API.
+     */
+    async logOut() {
+        this.setToken();
+        return this.api.get("/logout");
+    }
+
+    /**
+     * Get profiles by user ID from the API service.
+     * @param {string} id - The ID of the user.
+     * @returns {Promise} The response from the API.
+     */
+    async getProfilesByUserId(id) {
+        this.setToken();
+        return this.api.get(`/user/${id}/profiles`);
+    }
+
+    /**
+     * Get a profile by ID from the API service.
+     * @param {string} id - The ID of the profile.
+     * @returns {Promise} The response from the API.
+     */
+    async getProfileById(id) {
+        this.setToken();
+        return this.api.get(`/profiles/${id}`);
+    }
+
+    /**
+     * Create a profile from the API service.
+     * @param {string} farmer_name - The farmer name.
+     * @param {string} farm_name - The farm name.
+     * @param {string} user_id - The user ID.
+     * @returns {Promise} The response from the API.
+     */
+    async createProfile(farmer_name, farm_name, user_id) {
+        this.setToken();
+        return this.api.post(`/profiles`, {
+            farmer_name,
+            farm_name,
+            user_id,
+        });
+    }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li><li><a href="module-Crops.html">Crops</a></li><li><a href="module-DarkModeToggle.html">DarkModeToggle</a></li><li><a href="module-Dashboard.html">Dashboard</a></li><li><a href="module-FormLogin.html">FormLogin</a></li><li><a href="module-FormRegister.html">FormRegister</a></li><li><a href="module-Home.html">Home</a></li><li><a href="module-Modal.html">Modal</a></li><li><a href="module-People.html">People</a></li><li><a href="module-Profiles.html">Profiles</a></li><li><a href="module-TheFooter.html">TheFooter</a></li><li><a href="module-TheHeader.html">TheHeader</a></li><li><a href="module-TheWelcome.html">TheWelcome</a></li><li><a href="module-ToDoList.html">ToDoList</a></li><li><a href="module-store.html">store</a></li><li><a href="module-validation.html">validation</a></li></ul><h3>Classes</h3><ul><li><a href="module.exports.html">exports</a></li></ul><h3>Mixins</h3><ul><li><a href="apiServiceMixin.html">apiServiceMixin</a></li></ul><h3>Global</h3><ul><li><a href="global.html#app">app</a></li><li><a href="global.html#checkToken">checkToken</a></li><li><a href="global.html#createProfile">createProfile</a></li><li><a href="global.html#getProfileById">getProfileById</a></li><li><a href="global.html#getProfilesByUserId">getProfilesByUserId</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#removeToken">removeToken</a></li><li><a href="global.html#router">router</a></li><li><a href="global.html#routes">routes</a></li><li><a href="global.html#setToken">setToken</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Dec 08 2023 04:13:45 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -41,33 +41,68 @@
 </template>
 
 <script>
+/**
+ * @module TheFooter
+ * @vue-component
+ * @description {@link module:TheFooter|TheFooter} component that represents the footer of the page.
+ */
 import Modal from "@/components/Modal.vue";
 import { mapState, mapMutations } from "vuex";
-import apiService from "@/services/api.js";
+import apiServiceMixin from "@/services/apiServiceMixin.js";
 
 export default {
     name: "TheFooter",
+    mixins: [apiServiceMixin],
     computed: {
+        /**
+         * @vue-computed isLogged
+         * @description Indicates whether the user is logged in
+         */
         ...mapState(["isLogged"]),
     },
-    components: { Modal },
+    components: {
+        /**
+         * @vue-component Modal
+         * @description {@link module:Modal|Modal} component used in this component
+         */
+        Modal,
+    },
     data() {
+        /**
+         * @vue-data showModal
+         * @description Indicates whether the modal should be shown
+         * @returns {Boolean} The showModal state
+         */
         return {
             showModal: false,
-            apiService: null,
         };
     },
-    created() {
-        this.apiService = new apiService();
-    },
     methods: {
+        /**
+         * @vue-method changeLoggedState
+         * @description Change the logged state
+         */
         ...mapMutations(["changeLoggedState"]),
+        /**
+         * @vue-method openModal
+         * @description Opens the modal
+         */
         openModal() {
             this.showModal = true;
         },
+        /**
+         * @vue-method closeModal
+         * @description Closes the modal
+         */
         closeModal() {
             this.showModal = false;
         },
+        /**
+         * @vue-method logOut
+         * @description Log out the user
+         * @async
+         * @returns {Promise<void>} A promise that resolves when the user has been logged out
+         */
         async logOut() {
             try {
                 const response = await this.apiService.logOut();

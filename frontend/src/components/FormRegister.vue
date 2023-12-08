@@ -168,9 +168,49 @@
 import apiService from "@/services/api.js";
 import { mapState, mapMutations } from "vuex";
 
+/**
+ * @module FormRegister
+ * @vue-component
+ * @description {@link module:FormRegister|FormRegister} component that represents the registration form.
+ */
 export default {
     name: "FormRegister",
     data() {
+        /**
+         * @vue-data email
+         * @description User's email
+         * @returns {String} The user's email
+         */
+        /**
+         * @vue-data password
+         * @description User's password
+         * @returns {String} The user's password
+         */
+        /**
+         * @vue-data repeatPassword
+         * @description User's repeated password
+         * @returns {String} The user's repeated password
+         */
+        /**
+         * @vue-data error
+         * @description Error message to be displayed on the form
+         * @returns {String} The error message
+         */
+        /**
+         * @vue-data type1
+         * @description Type of the first password input field
+         * @returns {String} The type of the first password input field
+         */
+        /**
+         * @vue-data type2
+         * @description Type of the second password input field
+         * @returns {String} The type of the second password input field
+         */
+        /**
+         * @vue-data apiService
+         * @description Instance of the apiService
+         * @returns {apiService} The apiService instance
+         */
         return {
             email: "",
             password: "",
@@ -182,19 +222,46 @@ export default {
         };
     },
     created() {
+        /**
+         * @vue-lifecycle created
+         * @description Creates a new instance of the apiService when the component is created
+         */
         this.apiService = new apiService();
     },
     computed: {
+        /**
+         * Vuex state mappings.
+         * @vue-computed isLogged
+         * @description Indicates whether the user is logged in
+         * @returns {Boolean} The Vuex state.
+         */
         ...mapState(["isLogged"]),
     },
     methods: {
+        /**
+         * Vuex mutation mappings.
+         * @vue-method changeLoggedState
+         * @description Change the logged state
+         */
         ...mapMutations(["changeLoggedState"]),
+        /**
+         * @vue-method changeVisibility1
+         * @description Toggles the visibility of the first password input field.
+         */
         changeVisibility1() {
             this.type1 = this.type1 === "password" ? "text" : "password";
         },
+        /**
+         * @vue-method changeVisibility2
+         * @description Toggles the visibility of the second password input field.
+         */
         changeVisibility2() {
             this.type2 = this.type2 === "password" ? "text" : "password";
         },
+        /**
+         * @vue-method handleRegister
+         * @description Handles the registration form submission. If there are no errors, it calls the register method.
+         */
         handleRegister() {
             this.error = "";
 
@@ -215,6 +282,11 @@ export default {
 
             this.register();
         },
+        /**
+         * @vue-method register
+         * @description Registers the user by calling the apiService's register method. If the server returns a token, it stores the token in local storage, changes the user and the logged state in the Vuex store. If the server returns a 401 status, it means the credentials are invalid, so it removes the token from local storage and sets the error message. If the server returns other errors, it appends them to the error message.
+         * @async
+         */
         async register() {
             try {
                 const response = await this.apiService.register(

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: views/Home.vue</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: views/Home.vue</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>&lt;template>
+    &lt;svg
+        class="wave-1"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 1500 500"
+        width="100%"
+        height="100%"
+    >
+        &lt;path
+            d="M163 0.933325C55.3245 6.85562 0 30.6025 0 30.6025V1223.5H1512V30.6025C1406.9 74.3364 1167.26 168 1049.5 192.782C931.734 217.565 815.365 182.456 771.901 161.804C771.901 161.804 578.909 88.0116 483.5 52.9334C388.091 17.8551 270.675 -4.98897 163 0.933325Z"
+            fill="currentColor"
+        />
+    &lt;/svg>
+    &lt;svg
+        class="wave-2"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 1500 500"
+        width="100%"
+        height="100%"
+    >
+        &lt;path
+            d="M1349 0.933325C1456.68 6.85562 1512 30.6025 1512 30.6025V1125.5H0L0 30.6025C105.101 74.3364 344.743 168 462.505 192.782C580.266 217.565 696.635 182.456 740.099 161.804C740.099 161.804 933.091 88.0116 1028.5 52.9334C1123.91 17.8551 1241.32 -4.98897 1349 0.933325Z"
+            fill="currentColor"
+        />
+    &lt;/svg>
+    &lt;main class="home">
+        &lt;h1 class="title1">Coral Companion&lt;/h1>
+        &lt;section class="session">
+            &lt;div v-if="isLogged">
+                &lt;h2 class="session__title">Welcome&lt;/h2>
+                &lt;TheWelcome />
+            &lt;/div>
+            &lt;div v-else>
+                &lt;h2 class="session__title">
+                    {{ title }}
+                &lt;/h2>
+                &lt;FormLogin v-if="title == 'Login'" />
+                &lt;FormRegister v-else-if="title == 'Register'" />
+            &lt;/div>
+        &lt;/section>
+    &lt;/main>
+&lt;/template>
+&lt;script>
+/**
+ * @module Home
+ * @description Vue component that represents the home page of the application.
+ */
+import FormLogin from "@/components/FormLogin.vue";
+import FormRegister from "@/components/FormRegister.vue";
+import TheWelcome from "@/components/TheWelcome.vue";
+import { mapState, mapMutations } from "vuex";
+import apiServiceMixin from "@/services/apiServiceMixin.js";
+
+export default {
+    name: "Home",
+    mixins: [apiServiceMixin],
+    components: {
+        FormLogin,
+        FormRegister,
+        TheWelcome,
+    },
+    computed: {
+        /**
+         * @vue-computed isLogged
+         * @description Indicates whether the user is logged in
+         * @returns {Boolean} The Vuex state.
+         */
+        ...mapState(["isLogged"]),
+    },
+    data() {
+        /**
+         * @vue-data title
+         * @description The title of the page
+         * @returns {String} The title of the page
+         */
+        return {
+            title: "Login",
+        };
+    },
+    mounted() {
+        /**
+         * @vue-lifecycle mounted
+         * @description Checks if the user is logged in and changes the title to "Welcome" if true
+         */
+        if (this.isLogged) {
+            this.changeTitle("Welcome");
+        }
+    },
+    methods: {
+        /**
+         * @vue-method changeLoggedState
+         * @description Change the logged state
+         */
+        ...mapMutations(["changeLoggedState"]),
+        /**
+         * @vue-method changeTitle
+         * @description Change the title of the page
+         * @param {String} newTitle - The new title
+         */
+        changeTitle(newTitle) {
+            this.title = newTitle;
+        },
+        /**
+         * @vue-method logOut
+         * @description Log out the user
+         * @async
+         * @returns {Promise&lt;void>} A promise that resolves when the user has been logged out
+         */
+        async logOut() {
+            try {
+                const response = await this.apiService.logOut();
+                localStorage.removeItem("token");
+                this.changeLoggedState(false);
+                this.changeTitle("Login");
+                console.log(response);
+            } catch (error) {
+                if (error.response &amp;&amp; error.response.status === 401) {
+                    // In case the token is invalid
+                    localStorage.removeItem("token");
+                    this.changeLoggedState(false);
+                    console.log("Unauthorized");
+                }
+                console.log(error);
+            }
+        },
+    },
+};
+&lt;/script>
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li><li><a href="module-Crops.html">Crops</a></li><li><a href="module-DarkModeToggle.html">DarkModeToggle</a></li><li><a href="module-Dashboard.html">Dashboard</a></li><li><a href="module-FormLogin.html">FormLogin</a></li><li><a href="module-FormRegister.html">FormRegister</a></li><li><a href="module-Home.html">Home</a></li><li><a href="module-Modal.html">Modal</a></li><li><a href="module-People.html">People</a></li><li><a href="module-Profiles.html">Profiles</a></li><li><a href="module-TheFooter.html">TheFooter</a></li><li><a href="module-TheHeader.html">TheHeader</a></li><li><a href="module-TheWelcome.html">TheWelcome</a></li><li><a href="module-ToDoList.html">ToDoList</a></li><li><a href="module-store.html">store</a></li><li><a href="module-validation.html">validation</a></li></ul><h3>Classes</h3><ul><li><a href="module.exports.html">exports</a></li></ul><h3>Mixins</h3><ul><li><a href="apiServiceMixin.html">apiServiceMixin</a></li></ul><h3>Global</h3><ul><li><a href="global.html#app">app</a></li><li><a href="global.html#checkToken">checkToken</a></li><li><a href="global.html#createProfile">createProfile</a></li><li><a href="global.html#getProfileById">getProfileById</a></li><li><a href="global.html#getProfilesByUserId">getProfilesByUserId</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#removeToken">removeToken</a></li><li><a href="global.html#router">router</a></li><li><a href="global.html#routes">routes</a></li><li><a href="global.html#setToken">setToken</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Dec 08 2023 04:13:45 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

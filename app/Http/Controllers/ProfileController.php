@@ -188,7 +188,7 @@ class ProfileController extends Controller
      */
     public function getAllProfiles(): JsonResponse
     {
-        $profiles = Profile::with("user", "tasks")->get();
+        $profiles = Profile::with("tasks")->get();
         // Check if profiles exist
         if (count($profiles) === 0) {
             return response()->json(
@@ -238,7 +238,7 @@ class ProfileController extends Controller
      */
     public function getProfileById($id): JsonResponse
     {
-        $profile = Profile::with("user", "tasks")->find($id);
+        $profile = Profile::with("tasks")->find($id);
         // Check if profile exists
         if (!$profile) {
             return response()->json(
@@ -292,7 +292,7 @@ class ProfileController extends Controller
      */
     public function getProfilesByUserId($id): JsonResponse
     {
-        $profiles = Profile::with("user")
+        $profiles = Profile::with("tasks")
             ->where("user_id", $id)
             ->get();
 

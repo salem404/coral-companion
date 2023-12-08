@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: views/Profiles.vue</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: views/Profiles.vue</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>&lt;template>
+    &lt;svg
+        class="wave-1"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1500 500"
+        width="100%"
+        height="100%"
+        fill="none"
+    >
+        &lt;path
+            d="M235.5 3.24234C128.899 -13.0476 -0.000488281 37.3423 -0.000488281 37.3423L-8.18458e-07 1228.5H1512L1512 442.352C1455.5 442.352 1137 360.242 1011.5 360.242C886 360.242 756.598 272.048 729.5 258.852C702.401 245.656 632.5 196.352 529.5 136.852C441.478 86.0048 357 21.809 235.5 3.24234Z"
+            fill="currentColor"
+        />
+        &lt;image
+            href="@/assets/img/foam.svg"
+            x="-6.56rem"
+            y="3.271rem"
+            width="107rem"
+            height="44rem"
+        />
+    &lt;/svg>
+    &lt;svg
+        class="wave-2"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1500 500"
+        width="100%"
+        height="100%"
+        fill="none"
+    >
+        &lt;path
+            d="M1336 313.9C1454.5 320.463 1512 331.4 1512 331.4V1094.5H0V0C105.101 43.7339 251.291 125.778 419.5 169.4C555.5 204.669 749.5 232.4 749.5 232.4C749.5 232.4 932.521 260.217 1050.5 271.9C1160.16 282.759 1217.5 307.337 1336 313.9Z"
+            fill="currentColor"
+        />
+    &lt;/svg>
+    &lt;div class="profile">
+        &lt;h1 class="profile__title">Profile select&lt;/h1>
+        &lt;form
+            class="profile__container"
+            @submit.prevent="handleProfileSelection"
+        >
+            &lt;div v-if="isLoading">Loading...&lt;/div>
+            &lt;div v-else class="carrousel">
+                &lt;fieldset>
+                    &lt;div
+                        class="carrousel__item"
+                        v-for="profile in profiles"
+                        :key="profile.id"
+                    >
+                        &lt;input
+                            type="radio"
+                            :id="profile.id"
+                            name="profileSelection"
+                            :value="profile.id"
+                            v-model="selectedProfile"
+                            required
+                        />
+                        &lt;label :for="profile.id">
+                            &lt;picture class="gnome-carrousel">
+                                &lt;img src="@/assets/img/gnome2.svg" alt="" />
+                            &lt;/picture>
+                            {{ profile.farmer_name }}
+                            &lt;p>
+                                {{ profile.farm_name }}
+                            &lt;/p>
+                        &lt;/label>
+                    &lt;/div>
+                &lt;/fieldset>
+                &lt;button
+                    type="button"
+                    class="carrousel__item-new"
+                    @click="openModal"
+                >
+                    &lt;picture class="gnome-carrousel-new">
+                        &lt;img src="@/assets/img/gnome0.svg" alt="" />
+                    &lt;/picture>
+                    New
+                &lt;/button>
+            &lt;/div>
+            &lt;div class="profile__buttons">
+                &lt;button class="btn" type="submit">Select&lt;/button>
+                &lt;RouterLink class="btn" :to="{ name: 'settings' }">
+                    Settings
+                &lt;/RouterLink>
+            &lt;/div>
+        &lt;/form>
+    &lt;/div>
+    &lt;Modal v-if="showModal" @closeModal="closeModal">
+        &lt;h2 class="title2">Create profile&lt;/h2>
+        &lt;form @submit.prevent="handleProfileCreation">
+            &lt;div class="modal-content__form">
+                &lt;fieldset>
+                    &lt;label for="newFarmerName">Farmer name&lt;/label>
+                    &lt;input
+                        type="text"
+                        name="newFarmerName"
+                        id="newFarmerName"
+                        placeholder="Farmer name"
+                        v-model="newFarmerName"
+                    />
+                &lt;/fieldset>
+                &lt;fieldset>
+                    &lt;label for="farmName">Farm Name&lt;/label>
+                    &lt;input
+                        type="text"
+                        name="newFarmName"
+                        id="newFarmName"
+                        placeholder="Farm Name"
+                        v-model="newFarmName"
+                    />
+                &lt;/fieldset>
+            &lt;/div>
+            &lt;div class="btns-container">
+                &lt;button class="btn-danger" type="submit">Create&lt;/button>
+                &lt;button type="button" class="btn" @click="closeModal">
+                    Go Back
+                &lt;/button>
+            &lt;/div>
+        &lt;/form>
+    &lt;/Modal>
+&lt;/template>
+&lt;script>
+/**
+ * @module Profiles
+ * @description Vue component for managing user profiles
+ * @mixes apiServiceMixin
+ */
+import Modal from "@/components/Modal.vue";
+import { RouterLink } from "vue-router";
+import { mapMutations, mapState } from "vuex";
+import apiServiceMixin from "@/services/apiServiceMixin.js";
+
+export default {
+    name: "Profiles",
+    mixins: [apiServiceMixin],
+    components: {
+        /**
+         * @vue-prop RouterLink
+         * @description Vue Router Link component
+         */
+        RouterLink,
+        /**
+         * @vue-prop Modal
+         * @description Modal component
+         */
+        Modal,
+    },
+    computed: {
+        /**
+         * @vue-computed user
+         * @description The current user
+         * @returns {Object} The Vuex state.
+         */
+        /**
+         * @vue-computed profile
+         * @description The current profile
+         * @returns {Object} The Vuex state.
+         */
+        ...mapState(["user", "profile"]),
+    },
+    data() {
+        /**
+         * @vue-data {Array} profiles - List of profiles
+         * @vue-data {Object} selectedProfile - The selected profile
+         * @vue-data {boolean} isLoading - Loading state
+         * @vue-data {boolean} showModal - Modal visibility state
+         * @vue-data {string} newFarmerName - Name of the new farmer
+         * @vue-data {string} newFarmName - Name of the new farm
+         */
+        return {
+            profiles: [],
+            selectedProfile: null,
+            isLoading: false,
+            showModal: false,
+            newFarmerName: "",
+            newFarmName: "",
+        };
+    },
+    async mounted() {
+        /**
+         * @vue-lifecycle mounted
+         * @description Vue.js lifecycle hook that is called after the instance has been mounted. Fetches the profiles and sets the selected profile
+         */
+        await this.fetchProfiles();
+        if (this.profile) {
+            this.selectedProfile = this.profile.id;
+        }
+    },
+    watch: {
+        user: {
+            immediate: true,
+            handler(newValue, oldValue) {
+                /**
+                 * @vue-watch user
+                 * @description Watcher for the user data property. Fetches the profiles when the user changes
+                 */
+                if (newValue !== oldValue) {
+                    this.fetchProfiles();
+                }
+            },
+        },
+    },
+    methods: {
+        ...mapMutations(["changeProfile"]),
+        /**
+         * @vue-method handleProfileSelection
+         * @description Handles the selection of a profile. Fetches the profile and redirects to the dashboard
+         */
+        handleProfileSelection() {
+            // Update the profile in the store
+            this.fetchProfile();
+            // Redirect to the dashboard
+            this.$router.push({ name: "dashboard" });
+        },
+        /**
+         * @vue-method handleProfileCreation
+         * @description Handles the creation of a profile. Creates a new profile and updates the selected profile
+         */
+        async handleProfileCreation() {
+            try {
+                const response = await this.apiService.createProfile(
+                    this.newFarmerName,
+                    this.newFarmName,
+                    this.user.id,
+                );
+                this.fetchProfiles();
+                this.selectedProfile = response.data.id;
+                this.closeModal();
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        /**
+         * @vue-method openModal
+         * @description Opens the modal
+         */
+        openModal() {
+            this.showModal = true;
+        },
+        /**
+         * @vue-method closeModal
+         * @description Closes the modal
+         */
+        closeModal() {
+            this.showModal = false;
+        },
+        /**
+         * @vue-method fetchProfiles
+         * @description Fetches the profiles for the current user
+         */
+        async fetchProfiles() {
+            this.isLoading = true;
+            try {
+                const response = await this.apiService.getProfilesByUserId(
+                    this.user.id,
+                );
+                this.profiles = response.data;
+            } catch (error) {
+            } finally {
+                this.isLoading = false;
+            }
+        },
+        /**
+         * @vue-method fetchProfile
+         * @description Fetches the selected profile
+         */
+        async fetchProfile() {
+            try {
+                const response = await this.apiService.getProfileById(
+                    this.selectedProfile,
+                );
+                this.changeProfile(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        },
+    },
+};
+&lt;/script>
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li><li><a href="module-Crops.html">Crops</a></li><li><a href="module-DarkModeToggle.html">DarkModeToggle</a></li><li><a href="module-Dashboard.html">Dashboard</a></li><li><a href="module-FormLogin.html">FormLogin</a></li><li><a href="module-FormRegister.html">FormRegister</a></li><li><a href="module-Home.html">Home</a></li><li><a href="module-Modal.html">Modal</a></li><li><a href="module-People.html">People</a></li><li><a href="module-Profiles.html">Profiles</a></li><li><a href="module-TheFooter.html">TheFooter</a></li><li><a href="module-TheHeader.html">TheHeader</a></li><li><a href="module-TheWelcome.html">TheWelcome</a></li><li><a href="module-ToDoList.html">ToDoList</a></li><li><a href="module-store.html">store</a></li><li><a href="module-validation.html">validation</a></li></ul><h3>Classes</h3><ul><li><a href="module.exports.html">exports</a></li></ul><h3>Mixins</h3><ul><li><a href="apiServiceMixin.html">apiServiceMixin</a></li></ul><h3>Global</h3><ul><li><a href="global.html#app">app</a></li><li><a href="global.html#checkToken">checkToken</a></li><li><a href="global.html#createProfile">createProfile</a></li><li><a href="global.html#getProfileById">getProfileById</a></li><li><a href="global.html#getProfilesByUserId">getProfilesByUserId</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#removeToken">removeToken</a></li><li><a href="global.html#router">router</a></li><li><a href="global.html#routes">routes</a></li><li><a href="global.html#setToken">setToken</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Dec 08 2023 04:13:45 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

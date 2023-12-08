@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/TheFooter.vue</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/TheFooter.vue</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>&lt;template>
+    &lt;footer>
+        &lt;a
+            href="https://github.com/salem404/coral-companion"
+            alt="GitHub Repository"
+        >
+            &lt;picture class="btn-UIgithub">
+                &lt;!-- TODO: Add png image fallback -->
+                &lt;img src="@/assets/img/GitHubIcon.svg" alt="Github" />
+            &lt;/picture>
+        &lt;/a>
+        &lt;button
+            v-if="isLogged"
+            class="btn-UIlogOut"
+            @click="openModal"
+        >&lt;/button>
+        &lt;Modal v-if="showModal" @closeModal="closeModal">
+            &lt;svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="80"
+                height="80"
+                viewBox="0 0 80 80"
+                fill="none"
+            >
+                &lt;path
+                    d="M60.0008 50.0007L70.0008 40.0007M70.0008 40.0007L60.0008 30.0007M70.0008 40.0007H23.3341M46.6675 53.3341V62.0007C46.6675 66.419 43.0857 70.0007 38.6675 70.0007H18.0008C13.5825 70.0007 10.0008 66.419 10.0008 62.0007V18.0007C10.0008 13.5825 13.5825 10.0007 18.0008 10.0007H38.6675C43.0857 10.0007 46.6675 13.5825 46.6675 18.0007L46.6675 26.6674"
+                    stroke="var(--text-primary)"
+                    stroke-width="5.97015"
+                    stroke-miterlimit="10"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
+            &lt;/svg>
+            &lt;h2 class="title2">See you soon!&lt;/h2>
+            &lt;div class="btns-container">
+                &lt;button class="btn-danger" @click="logOut()">Log Out&lt;/button>
+                &lt;button class="btn" @click="closeModal">Go Back&lt;/button>
+            &lt;/div>
+        &lt;/Modal>
+    &lt;/footer>
+&lt;/template>
+
+&lt;script>
+/**
+ * @module TheFooter
+ * @vue-component
+ * @description {@link module:TheFooter|TheFooter} component that represents the footer of the page.
+ */
+import Modal from "@/components/Modal.vue";
+import { mapState, mapMutations } from "vuex";
+import apiServiceMixin from "@/services/apiServiceMixin.js";
+
+export default {
+    name: "TheFooter",
+    mixins: [apiServiceMixin],
+    computed: {
+        /**
+         * @vue-computed isLogged
+         * @description Indicates whether the user is logged in
+         */
+        ...mapState(["isLogged"]),
+    },
+    components: {
+        /**
+         * @vue-component Modal
+         * @description {@link module:Modal|Modal} component used in this component
+         */
+        Modal,
+    },
+    data() {
+        /**
+         * @vue-data showModal
+         * @description Indicates whether the modal should be shown
+         * @returns {Boolean} The showModal state
+         */
+        return {
+            showModal: false,
+        };
+    },
+    methods: {
+        /**
+         * @vue-method changeLoggedState
+         * @description Change the logged state
+         */
+        ...mapMutations(["changeLoggedState"]),
+        /**
+         * @vue-method openModal
+         * @description Opens the modal
+         */
+        openModal() {
+            this.showModal = true;
+        },
+        /**
+         * @vue-method closeModal
+         * @description Closes the modal
+         */
+        closeModal() {
+            this.showModal = false;
+        },
+        /**
+         * @vue-method logOut
+         * @description Log out the user
+         * @async
+         * @returns {Promise&lt;void>} A promise that resolves when the user has been logged out
+         */
+        async logOut() {
+            try {
+                const response = await this.apiService.logOut();
+                localStorage.removeItem("token");
+                this.changeLoggedState(false);
+                console.log(response);
+                this.closeModal();
+                location.reload();
+            } catch (error) {
+                if (error.response.status === 401) {
+                    // In case the token is invalid
+                    localStorage.removeItem("token");
+                    this.changeLoggedState(false);
+                    console.log("Unauthorized");
+                    this.closeModal();
+                    location.reload();
+                }
+                console.log(error);
+            }
+        },
+    },
+};
+&lt;/script>
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li><li><a href="module-Crops.html">Crops</a></li><li><a href="module-DarkModeToggle.html">DarkModeToggle</a></li><li><a href="module-Dashboard.html">Dashboard</a></li><li><a href="module-FormLogin.html">FormLogin</a></li><li><a href="module-FormRegister.html">FormRegister</a></li><li><a href="module-Home.html">Home</a></li><li><a href="module-Modal.html">Modal</a></li><li><a href="module-People.html">People</a></li><li><a href="module-Profiles.html">Profiles</a></li><li><a href="module-TheFooter.html">TheFooter</a></li><li><a href="module-TheHeader.html">TheHeader</a></li><li><a href="module-TheWelcome.html">TheWelcome</a></li><li><a href="module-ToDoList.html">ToDoList</a></li><li><a href="module-store.html">store</a></li><li><a href="module-validation.html">validation</a></li></ul><h3>Classes</h3><ul><li><a href="module.exports.html">exports</a></li></ul><h3>Mixins</h3><ul><li><a href="apiServiceMixin.html">apiServiceMixin</a></li></ul><h3>Global</h3><ul><li><a href="global.html#app">app</a></li><li><a href="global.html#checkToken">checkToken</a></li><li><a href="global.html#createProfile">createProfile</a></li><li><a href="global.html#getProfileById">getProfileById</a></li><li><a href="global.html#getProfilesByUserId">getProfilesByUserId</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#removeToken">removeToken</a></li><li><a href="global.html#router">router</a></li><li><a href="global.html#routes">routes</a></li><li><a href="global.html#setToken">setToken</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Dec 08 2023 04:13:45 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

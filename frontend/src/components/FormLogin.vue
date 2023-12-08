@@ -98,37 +98,88 @@
     </form>
 </template>
 <script>
-import apiService from "@/services/api.js";
 import { mapState, mapMutations } from "vuex";
+import apiServiceMixin from "@/services/apiServiceMixin.js";
 
+/**
+ * @module FormLogin
+ * @vue-component
+ * @description {@link module:FormLogin|FormLogin} component that represents the login form.
+ * @mixes apiServiceMixin
+ */
 export default {
     name: "FormLogin",
+    mixins: [apiServiceMixin],
     data() {
+        /**
+         * @vue-data error
+         * @description Error message to be displayed on the form
+         * @returns {String} The error message
+         */
+        /**
+         * @vue-data email
+         * @description User's email
+         * @returns {String} The user's email
+         */
+        /**
+         * @vue-data password
+         * @description User's password
+         * @returns {String} The user's password
+         */
+        /**
+         * @vue-data type
+         * @description Type of the password input field
+         * @returns {String} The type of the password input field
+         */
         return {
             error: "",
             email: "",
             password: "",
             type: "password",
-            apiService: null,
         };
     },
-    created() {
-        this.apiService = new apiService();
-    },
     computed: {
+        /**
+         * Vuex state mappings.
+         * @vue-computed isLogged
+         * @description Indicates whether the user is logged in
+         * @vue-computed user
+         * @description The current user
+         * @returns {Object} The Vuex state.
+         */
         ...mapState(["isLogged", "user"]),
     },
     methods: {
+        /**
+         * Vuex mutation mappings.
+         * @vue-method changeLoggedState
+         * @description Change the logged state
+         * @vue-method changeUser
+         * @description Change the current user
+         */
         ...mapMutations(["changeLoggedState", "changeUser"]),
+        /**
+         * @vue-method changeVisibility
+         * @description Toggles the visibility of the password input field.
+         */
         changeVisibility() {
             this.type = this.type === "password" ? "text" : "password";
         },
+        /**
+         * @vue-method handleLogin
+         * @description Handles the login form submission. If there are no errors, it calls the login method.
+         */
         handleLogin() {
             this.error = "";
             // TODO: Show front errors
             // If there are no errors, submit the form
             this.login();
         },
+        /**
+         * @vue-method login
+         * @description Logs in the user by calling the apiService's login method. If the server returns a token, it stores the token in local storage, changes the user and the logged state in the Vuex store. If the server returns a 401 status, it means the credentials are invalid, so it removes the token from local storage and sets the error message. If the server returns other errors, it appends them to the error message.
+         * @async
+         */
         async login() {
             try {
                 const response = await this.apiService.login(

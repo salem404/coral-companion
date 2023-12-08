@@ -8,6 +8,7 @@ body {
     flex-direction: column;
     justify-content: space-between;
     min-height: 100vh;
+    overflow-x: hidden;
 }
 
 @keyframes MoveUpDown {
@@ -24,19 +25,49 @@ body {
     }
 }
 
+@keyframes MoveSideWays {
+    100% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(10px);
+    }
+
+    0% {
+        transform: translateX(0);
+    }
+}
+
+.arena {
+    color: var(--fondo-arena, #b7977a);
+    width: 1500px;
+    z-index: -1;
+    position: fixed;
+    bottom: -41rem;
+}
+
 .wave {
     z-index: -1;
     position: fixed;
     left: 0;
     width: 1500px;
 
+    &-arena {
+        z-index: -1;
+        bottom: 0;
+        left: -10px;
+        position: fixed;
+        animation: MoveSideWays 5s linear infinite;
+        -webkit-animation: MoveSideWays 5s linear infinite;
+        color: var(--fondo-capa2, #135c7d);
+    }
     &-1 {
         @extend .wave;
         bottom: 100px;
         color: var(--fondo-capa2);
         @include mq($from: tablet) {
             top: -10%;
-            width: 100vw;
             width: 100%;
             height: 100vh;
         }
