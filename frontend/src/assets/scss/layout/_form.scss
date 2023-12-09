@@ -114,3 +114,121 @@
     text-align: center;
     cursor: pointer;
 }
+
+:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.settings {
+    &__section {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        align-self: stretch;
+        gap: 10px;
+
+        .section__header {
+            display: flex;
+            flex-direction: row;
+            padding: 0rem var(--espaciado-mobile-100, 1rem);
+            justify-content: space-between;
+            align-items: center;
+            align-self: stretch;
+            button {
+                @extend p;
+                cursor: pointer;
+                text-decoration-line: underline;
+            }
+        }
+
+        div {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            align-self: stretch;
+            @include mq($from: desktop) {
+                flex-direction: row;
+                gap: 5.25rem;
+            }
+            fieldset {
+                display: flex;
+                flex-direction: column;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+                gap: 0.4375rem;
+                @include mq($from: desktop) {
+                    gap: 0.75rem;
+                }
+
+                label {
+                    align-self: stretch;
+                    padding: 0rem 1.75rem;
+                    color: var(--text-primary);
+                    @include mq($from: desktop) {
+                        padding: 0rem 1rem;
+                    }
+                }
+                input {
+                    @extend p;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 18.75rem;
+                    padding: 0.6875rem 1.5rem;
+                    color: var(--text-primary);
+                    background: var(--input-fondo);
+                    border-radius: 2.5rem;
+                    box-shadow: 0px 4px 4px 0px rgba(17, 3, 0, 0.25);
+
+                    @include mq($from: tablet) {
+                        width: 25rem;
+                        padding: 0.75rem 1.75rem;
+                    }
+
+                    &::placeholder {
+                        color: var(--text-placeholder);
+                    }
+
+                    &:focus {
+                        outline: 4px solid var(--input-icon);
+                    }
+
+                    &:invalid {
+                        outline: 4px solid var(--button-error);
+                    }
+                }
+            }
+        }
+    }
+
+    &__bottom {
+        display: flex;
+        padding: var(--espaciado-mobile-80, 0.4375rem) 0.25rem;
+        width: 100%;
+        justify-content: space-evenly;
+        @include mq($from: desktop) {
+            display: flex;
+            height: 7.8125rem;
+            justify-content: space-between;
+            align-items: flex-end;
+            align-self: stretch;
+        }
+    }
+    &__btn {
+        @extend .btn;
+        min-width: 9.375rem;
+        display: flex;
+        padding: var(--button-vertical-padding, 0.4375rem) var(--button-horizontal-padding, 2.25rem);
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+        @include mq($from: desktop) {
+            min-width: 18.75rem;
+            padding: var(--button-vertical-padding, 0.75rem) var(--button-horizontal-padding, 3.9375rem);
+        }
+    }
+}

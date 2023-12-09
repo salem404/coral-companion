@@ -48,6 +48,8 @@
     --profile-default: #{$color-light-transparency};
     --profile-new: #{$color-camel};
     --profile-selected: #{$color-gainsboro};
+    --profile-border-selected: #{$color-zafiro};
+    --profile-border-hover: #{$color-zafiro-oscuro};
 
     --task-border: #{$color-zafiro};
     --task-btn: var(--button-fondo-icono);
@@ -92,6 +94,8 @@
     --profile-default: #{$color-morado-oscuro};
     --profile-new: #{$color-marron};
     --profile-selected: #{$color-morado};
+    --profile-border-selected: #{$color-violeta};
+    --profile-border-hover: #{$color-morado};
 
     --task-border: #{$color-violeta};
     --task-header: #{$color-dark-transparency};

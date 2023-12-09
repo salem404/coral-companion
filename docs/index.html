@@ -228,6 +228,11 @@
 <td><a href="#getusersid">/users/{id}</a></td>
 <td>Get user</td>
 </tr>
+<tr>
+<td>DELETE</td>
+<td><a href="#deleteusersid">/users/{id}</a></td>
+<td>Delete a user by ID</td>
+</tr>
 </tbody>
 </table>
 <h2>Reference Table</h2>
@@ -988,7 +993,7 @@ Retrieves profiles associated with a specific user ID</p>
 }[]
 </code></pre>
 <ul>
-<li>404 Not Found: No profiles found for the user ID</li>
+<li>204 No profiles found for the user ID</li>
 </ul>
 <p><code>application/json</code></p>
 <pre class="prettyprint source lang-ts"><code>{
@@ -1831,6 +1836,29 @@ Get a user by ID sent in the URL from the database or a message the user is not 
   message?: string
 }
 </code></pre>
+<hr>
+<h3>[DELETE]/users/{id}</h3>
+<ul>
+<li>Summary<br>
+Delete a user by ID</li>
+</ul>
+<h4>Responses</h4>
+<ul>
+<li>200 User deleted successfully</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
+<ul>
+<li>404 User not found</li>
+</ul>
+<p><code>application/json</code></p>
+<pre class="prettyprint source lang-ts"><code>{
+  message?: string
+}
+</code></pre>
 <h2>References</h2>
 <h3>#/components/schemas/Character</h3>
 <pre class="prettyprint source lang-ts"><code>{
@@ -2074,13 +2102,13 @@ Get a user by ID sent in the URL from the database or a message the user is not 
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li><li><a href="module-Crops.html">Crops</a></li><li><a href="module-DarkModeToggle.html">DarkModeToggle</a></li><li><a href="module-Dashboard.html">Dashboard</a></li><li><a href="module-FormLogin.html">FormLogin</a></li><li><a href="module-FormRegister.html">FormRegister</a></li><li><a href="module-Home.html">Home</a></li><li><a href="module-Modal.html">Modal</a></li><li><a href="module-People.html">People</a></li><li><a href="module-Profiles.html">Profiles</a></li><li><a href="module-TheFooter.html">TheFooter</a></li><li><a href="module-TheHeader.html">TheHeader</a></li><li><a href="module-TheWelcome.html">TheWelcome</a></li><li><a href="module-ToDoList.html">ToDoList</a></li><li><a href="module-store.html">store</a></li><li><a href="module-validation.html">validation</a></li></ul><h3>Classes</h3><ul><li><a href="module.exports.html">exports</a></li></ul><h3>Mixins</h3><ul><li><a href="apiServiceMixin.html">apiServiceMixin</a></li></ul><h3>Global</h3><ul><li><a href="global.html#app">app</a></li><li><a href="global.html#checkToken">checkToken</a></li><li><a href="global.html#createProfile">createProfile</a></li><li><a href="global.html#getProfileById">getProfileById</a></li><li><a href="global.html#getProfilesByUserId">getProfilesByUserId</a></li><li><a href="global.html#getSeasonalCrops">getSeasonalCrops</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#removeToken">removeToken</a></li><li><a href="global.html#router">router</a></li><li><a href="global.html#routes">routes</a></li><li><a href="global.html#setToken">setToken</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li><li><a href="module-Crops.html">Crops</a></li><li><a href="module-DarkModeToggle.html">DarkModeToggle</a></li><li><a href="module-Dashboard.html">Dashboard</a></li><li><a href="module-FormLogin.html">FormLogin</a></li><li><a href="module-FormRegister.html">FormRegister</a></li><li><a href="module-Home.html">Home</a></li><li><a href="module-Modal.html">Modal</a></li><li><a href="module-People.html">People</a></li><li><a href="module-Profiles.html">Profiles</a></li><li><a href="module-Settings.html">Settings</a></li><li><a href="module-TheFooter.html">TheFooter</a></li><li><a href="module-TheHeader.html">TheHeader</a></li><li><a href="module-TheWelcome.html">TheWelcome</a></li><li><a href="module-ToDoList.html">ToDoList</a></li><li><a href="module-store.html">store</a></li><li><a href="module-validation.html">validation</a></li></ul><h3>Classes</h3><ul><li><a href="module.exports.html">exports</a></li></ul><h3>Mixins</h3><ul><li><a href="apiServiceMixin.html">apiServiceMixin</a></li></ul><h3>Global</h3><ul><li><a href="global.html#app">app</a></li><li><a href="global.html#checkToken">checkToken</a></li><li><a href="global.html#createProfile">createProfile</a></li><li><a href="global.html#deleteAccount">deleteAccount</a></li><li><a href="global.html#deleteProfile">deleteProfile</a></li><li><a href="global.html#getProfileById">getProfileById</a></li><li><a href="global.html#getProfilesByUserId">getProfilesByUserId</a></li><li><a href="global.html#getSeasonalCharacters">getSeasonalCharacters</a></li><li><a href="global.html#getSeasonalCrops">getSeasonalCrops</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#removeToken">removeToken</a></li><li><a href="global.html#router">router</a></li><li><a href="global.html#routes">routes</a></li><li><a href="global.html#setToken">setToken</a></li><li><a href="global.html#updateProfile">updateProfile</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Dec 09 2023 02:08:09 GMT+0100 (Central European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Dec 09 2023 21:53:38 GMT+0100 (Central European Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

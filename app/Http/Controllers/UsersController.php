@@ -111,4 +111,65 @@ class UsersController extends Controller
         }
         return response()->json($user);
     }
+
+    /**
+     * @OA\Delete(
+     *     path="/users/{id}",
+     *     summary="Delete a user by ID",
+     *     tags={"Users"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID of the user to delete",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="User deleted successfully",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="message",
+     *                 type="string",
+     *                 example="User with id 2 deleted"
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="User not found",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="message",
+     *                 type="string",
+     *                 example="User with id 5 not found"
+     *             )
+     *         )
+     *     )
+     * )
+     */
+    public function deleteUserById($id): JsonResponse
+    {
+        $user = User::find($id);
+        // Check if user exists
+        if (!$user) {
+            return response()->json(
+                [
+                    "message" => "User with id $id not found",
+                ],
+                404
+            );
+        }
+        $user->delete();
+        return response()->json(
+            [
+                "message" => "User with id $id deleted",
+            ],
+            200
+        );
+    }
 }

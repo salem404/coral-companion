@@ -49,13 +49,19 @@ const router = createRouter({
  * It checks if the user is authenticated and if the profile is present in the Vuex state.
  * If the user is not authenticated, it redirects them to the home page.
  */
+// SAme as before but checks if the profile is present in the Vuex state.
 router.beforeEach((to, from, next) => {
     const publicPages = ["/"];
     const authRequired = !publicPages.includes(to.path);
     const loggedIn = localStorage.getItem("token");
+    const profile = store.state.profile;
 
     if (authRequired && !loggedIn) {
         return next("/");
+    }
+
+    if (authRequired && !profile && to.path == "/dashboard") {
+        return next("/profiles");
     }
 
     next();

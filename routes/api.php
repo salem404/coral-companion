@@ -37,6 +37,7 @@ Route::controller(SanctumController::class)->group(function () {
 Route::controller(UsersController::class)->group(function () {
     Route::get("/users", "getAllUsers");
     Route::get("/users/{id}", "getUserById");
+    Route::delete("/users/{id}", "deleteUserById")->middleware("auth:sanctum");
 });
 
 // Seasons

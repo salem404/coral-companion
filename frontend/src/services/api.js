@@ -95,7 +95,17 @@ export default class apiService {
     }
 
     /**
-     * Logout from the API service.
+     * Deletes a user account with the given ID.
+     * @param {string} id - The ID of the user.
+     * @returns {Promise} The response from the API.
+     */
+    async deleteAccount(id) {
+        this.setToken();
+        return this.api.delete(`/users/${id}`);
+    }
+
+    /**
+     * Logs out from the API service.
      * @returns {Promise} The response from the API.
      */
     async logOut() {
@@ -104,9 +114,9 @@ export default class apiService {
     }
 
     /**
-     * Get profiles by user ID from the API service.
+     * Fetches profiles associated with a user ID.
      * @param {string} id - The ID of the user.
-     * @returns {Promise} The response from the API.
+     * @returns {Promise} The response from the API. This will be the list of profiles for the specified user if the request is successful.
      */
     async getProfilesByUserId(id) {
         this.setToken();
@@ -114,9 +124,9 @@ export default class apiService {
     }
 
     /**
-     * Get a profile by ID from the API service.
+     * Fetches a profile with the given ID.
      * @param {string} id - The ID of the profile.
-     * @returns {Promise} The response from the API.
+     * @returns {Promise} The response from the API. This will be the profile data if the request is successful.
      */
     async getProfileById(id) {
         this.setToken();
@@ -124,11 +134,11 @@ export default class apiService {
     }
 
     /**
-     * Create a profile from the API service.
+     * Creates a new profile with the given details.
      * @param {string} farmer_name - The farmer name.
      * @param {string} farm_name - The farm name.
      * @param {string} user_id - The user ID.
-     * @returns {Promise} The response from the API.
+     * @returns {Promise} The response from the API. This will be the data of the created profile if the request is successful.
      */
     async createProfile(farmer_name, farm_name, user_id) {
         this.setToken();
@@ -140,7 +150,32 @@ export default class apiService {
     }
 
     /**
-     * Fetch the crops for a specific season from the API service.
+     * Updates a profile with the given ID and details.
+     * @param {string} id - The ID of the profile.
+     * @param {string} farmer_name - The farmer name.
+     * @param {string} farm_name - The farm name.
+     * @returns {Promise} The response from the API. This will be the data of the updated profile if the request is successful.
+     */
+    async updateProfile(id, farmer_name, farm_name) {
+        this.setToken();
+        return this.api.put(`/profiles/${id}`, {
+            farmer_name,
+            farm_name,
+        });
+    }
+
+    /**
+     * Deletes a profile with the given ID.
+     * @param {string} id - The ID of the profile.
+     * @returns {Promise} The response from the API.
+     */
+    async deleteProfile(id) {
+        this.setToken();
+        return this.api.delete(`/profiles/${id}`);
+    }
+
+    /**
+     * Fetches the crops for a specific season.
      * @param {string} season_id - The ID of the season.
      * @returns {Promise} The response from the API. This will be the list of crops for the specified season if the request is successful.
      */
@@ -149,6 +184,11 @@ export default class apiService {
         return this.api.get(`/crops/season/${season_id}`);
     }
 
+    /**
+     * Fetches the characters for a specific season.
+     * @param {string} season_id - The ID of the season.
+     * @returns {Promise} The response from the API. This will be the list of characters for the specified season if the request is successful.
+     */
     async getSeasonalCharacters(season_id) {
         this.setToken();
         return this.api.get(`/characters/season/${season_id}`);

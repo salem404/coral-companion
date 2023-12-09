@@ -279,8 +279,8 @@ class ProfileController extends Controller
      *         )
      *     ),
      *     @OA\Response(
-     *         response=404,
-     *         description="Not Found: No profiles found for the user ID",
+     *         response=204,
+     *         description="No profiles found for the user ID",
      *         @OA\JsonContent(
      *             @OA\Property(property="message", type="string", example="No profiles found for the user ID")
      *         )
@@ -300,9 +300,9 @@ class ProfileController extends Controller
         if (count($profiles) === 0) {
             return response()->json(
                 [
-                    "message" => "No profiles found",
+                    "message" => "No profiles found for the user ID",
                 ],
-                404
+                204
             );
         }
 

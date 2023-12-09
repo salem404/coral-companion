@@ -1,51 +1,79 @@
-<template>
-    <div class="settings">
-        <header class="settings__header">
-            <h1 class="settings__title">Settings</h1>
-        </header>
-        <form @submit.prevent="handleEdit">
-            <section class="settings__container">
-                <section v-if="withProfile" class="settings__section">
-                    <header class="section__header">
-                        <h2>Profile</h2>
-                        <button type="button" @click="openProfileModal">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: views/Settings.vue</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: views/Settings.vue</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>&lt;template>
+    &lt;div class="settings">
+        &lt;header class="settings__header">
+            &lt;h1 class="settings__title">Settings&lt;/h1>
+        &lt;/header>
+        &lt;form @submit.prevent="handleEdit">
+            &lt;section class="settings__container">
+                &lt;section v-if="withProfile" class="settings__section">
+                    &lt;header class="section__header">
+                        &lt;h2>Profile&lt;/h2>
+                        &lt;button type="button" @click="openProfileModal">
                             Delete profile
-                        </button>
-                    </header>
-                    <div>
-                        <fieldset>
-                            <label for="farmerName">Farmer Name</label>
-                            <input
+                        &lt;/button>
+                    &lt;/header>
+                    &lt;div>
+                        &lt;fieldset>
+                            &lt;label for="farmerName">Farmer Name&lt;/label>
+                            &lt;input
                                 type="text"
                                 name="farmerName"
                                 v-model="farmerName"
                                 id="farmerName"
                                 placeholder="Farmer Name"
                             />
-                        </fieldset>
-                        <fieldset>
-                            <label for="farmName">Farm Name</label>
-                            <input
+                        &lt;/fieldset>
+                        &lt;fieldset>
+                            &lt;label for="farmName">Farm Name&lt;/label>
+                            &lt;input
                                 type="text"
                                 name="farmName"
                                 v-model="farmName"
                                 id="farmName"
                                 placeholder="Farm Name"
                             />
-                        </fieldset>
-                    </div>
-                </section>
-                <section class="settings__section">
-                    <header class="section__header">
-                        <h2>Account</h2>
-                        <button type="button" @click="openAccountModal">
+                        &lt;/fieldset>
+                    &lt;/div>
+                &lt;/section>
+                &lt;section class="settings__section">
+                    &lt;header class="section__header">
+                        &lt;h2>Account&lt;/h2>
+                        &lt;button type="button" @click="openAccountModal">
                             Delete account
-                        </button>
-                    </header>
-                    <div>
-                        <fieldset>
-                            <label for="email">Email</label>
-                            <input
+                        &lt;/button>
+                    &lt;/header>
+                    &lt;div>
+                        &lt;fieldset>
+                            &lt;label for="email">Email&lt;/label>
+                            &lt;input
                                 type="email"
                                 name="email"
                                 v-model="email"
@@ -53,111 +81,111 @@
                                 placeholder="Email"
                                 disabled
                             />
-                        </fieldset>
-                    </div>
-                </section>
-                <section class="settings__bottom">
-                    <button type="submit" class="settings__btn">Save</button>
-                    <RouterLink
+                        &lt;/fieldset>
+                    &lt;/div>
+                &lt;/section>
+                &lt;section class="settings__bottom">
+                    &lt;button type="submit" class="settings__btn">Save&lt;/button>
+                    &lt;RouterLink
                         class="settings__btn"
                         :to="{ name: 'profiles' }"
                     >
                         Back
-                    </RouterLink>
-                </section>
-            </section>
-        </form>
-    </div>
-    <Modal v-if="showProfileModal" @closeModal="closeProfileModal">
-        <svg
+                    &lt;/RouterLink>
+                &lt;/section>
+            &lt;/section>
+        &lt;/form>
+    &lt;/div>
+    &lt;Modal v-if="showProfileModal" @closeModal="closeProfileModal">
+        &lt;svg
             xmlns="http://www.w3.org/2000/svg"
             width="68"
             height="68"
             viewBox="0 0 68 68"
             fill="none"
         >
-            <path
+            &lt;path
                 d="M9.01288 13.3749L12.9446 46.974C13.9288 55.3852 14.421 59.5909 17.2635 62.1202C20.1061 64.6495 24.3404 64.6495 32.809 64.6495H35.3843C43.9374 64.6495 48.2139 64.6495 51.0657 62.0846C53.9174 59.5197 54.3691 55.2671 55.2724 46.7618L58.8184 13.3749"
                 stroke="var(--text-primary)"
                 stroke-width="5.97015"
             />
-            <path
+            &lt;path
                 d="M3.13397 14.3206H64.8574"
                 stroke="var(--text-primary)"
                 stroke-width="5.97015"
                 stroke-linecap="round"
             />
-            <path
+            &lt;path
                 d="M28.2219 28.1503V49.876"
                 stroke="var(--text-primary)"
                 stroke-width="5.97015"
                 stroke-linecap="round"
             />
-            <path
+            &lt;path
                 d="M39.7697 28.1503V49.876"
                 stroke="var(--text-primary)"
                 stroke-width="5.97015"
                 stroke-linecap="round"
             />
-            <path
+            &lt;path
                 d="M48.1667 14.3206V13.8885C48.1667 10.0289 48.1667 8.09916 47.3918 6.63564C46.7664 5.45458 45.8006 4.48873 44.6195 3.8634C43.156 3.0885 41.2262 3.0885 37.3666 3.0885H30.3093C26.4498 3.0885 24.52 3.0885 23.0565 3.8634C21.8754 4.48873 20.9096 5.45458 20.2842 6.63564C19.5093 8.09916 19.5093 10.0289 19.5093 13.8885V14.3206"
                 stroke="var(--text-primary)"
                 stroke-width="5.97015"
             />
-        </svg>
-        <h2 class="title2">Are you sure?</h2>
-        <p class="error">This action can't be undone</p>
-        <div class="btns-container">
-            <button class="btn-danger" @click="deleteProfile()">Delete</button>
-            <button class="btn" @click="closeProfileModal">Go Back</button>
-        </div>
-    </Modal>
-    <Modal v-if="showAccountModal" @closeModal="closeAccountModal">
-        <svg
+        &lt;/svg>
+        &lt;h2 class="title2">Are you sure?&lt;/h2>
+        &lt;p class="error">This action can't be undone&lt;/p>
+        &lt;div class="btns-container">
+            &lt;button class="btn-danger" @click="deleteProfile()">Delete&lt;/button>
+            &lt;button class="btn" @click="closeProfileModal">Go Back&lt;/button>
+        &lt;/div>
+    &lt;/Modal>
+    &lt;Modal v-if="showAccountModal" @closeModal="closeAccountModal">
+        &lt;svg
             xmlns="http://www.w3.org/2000/svg"
             width="68"
             height="68"
             viewBox="0 0 68 68"
             fill="none"
         >
-            <path
+            &lt;path
                 d="M9.01288 13.3749L12.9446 46.974C13.9288 55.3852 14.421 59.5909 17.2635 62.1202C20.1061 64.6495 24.3404 64.6495 32.809 64.6495H35.3843C43.9374 64.6495 48.2139 64.6495 51.0657 62.0846C53.9174 59.5197 54.3691 55.2671 55.2724 46.7618L58.8184 13.3749"
                 stroke="var(--text-primary)"
                 stroke-width="5.97015"
             />
-            <path
+            &lt;path
                 d="M3.13397 14.3206H64.8574"
                 stroke="var(--text-primary)"
                 stroke-width="5.97015"
                 stroke-linecap="round"
             />
-            <path
+            &lt;path
                 d="M28.2219 28.1503V49.876"
                 stroke="var(--text-primary)"
                 stroke-width="5.97015"
                 stroke-linecap="round"
             />
-            <path
+            &lt;path
                 d="M39.7697 28.1503V49.876"
                 stroke="var(--text-primary)"
                 stroke-width="5.97015"
                 stroke-linecap="round"
             />
-            <path
+            &lt;path
                 d="M48.1667 14.3206V13.8885C48.1667 10.0289 48.1667 8.09916 47.3918 6.63564C46.7664 5.45458 45.8006 4.48873 44.6195 3.8634C43.156 3.0885 41.2262 3.0885 37.3666 3.0885H30.3093C26.4498 3.0885 24.52 3.0885 23.0565 3.8634C21.8754 4.48873 20.9096 5.45458 20.2842 6.63564C19.5093 8.09916 19.5093 10.0289 19.5093 13.8885V14.3206"
                 stroke="var(--text-primary)"
                 stroke-width="5.97015"
             />
-        </svg>
-        <h2 class="title2">Are you sure?</h2>
-        <p class="error">This action can't be undone</p>
-        <div class="btns-container">
-            <button class="btn-danger" @click="deleteAccount()">Delete</button>
-            <button class="btn" @click="closeAccountModal">Go Back</button>
-        </div>
-    </Modal>
-</template>
-<script>
+        &lt;/svg>
+        &lt;h2 class="title2">Are you sure?&lt;/h2>
+        &lt;p class="error">This action can't be undone&lt;/p>
+        &lt;div class="btns-container">
+            &lt;button class="btn-danger" @click="deleteAccount()">Delete&lt;/button>
+            &lt;button class="btn" @click="closeAccountModal">Go Back&lt;/button>
+        &lt;/div>
+    &lt;/Modal>
+&lt;/template>
+&lt;script>
 import { RouterLink } from "vue-router";
 import { mapMutations, mapState } from "vuex";
 import apiServiceMixin from "@/services/apiServiceMixin.js";
@@ -301,4 +329,27 @@ export default {
         },
     },
 };
-</script>
+&lt;/script>
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li><li><a href="module-Crops.html">Crops</a></li><li><a href="module-DarkModeToggle.html">DarkModeToggle</a></li><li><a href="module-Dashboard.html">Dashboard</a></li><li><a href="module-FormLogin.html">FormLogin</a></li><li><a href="module-FormRegister.html">FormRegister</a></li><li><a href="module-Home.html">Home</a></li><li><a href="module-Modal.html">Modal</a></li><li><a href="module-People.html">People</a></li><li><a href="module-Profiles.html">Profiles</a></li><li><a href="module-Settings.html">Settings</a></li><li><a href="module-TheFooter.html">TheFooter</a></li><li><a href="module-TheHeader.html">TheHeader</a></li><li><a href="module-TheWelcome.html">TheWelcome</a></li><li><a href="module-ToDoList.html">ToDoList</a></li><li><a href="module-store.html">store</a></li><li><a href="module-validation.html">validation</a></li></ul><h3>Classes</h3><ul><li><a href="module.exports.html">exports</a></li></ul><h3>Mixins</h3><ul><li><a href="apiServiceMixin.html">apiServiceMixin</a></li></ul><h3>Global</h3><ul><li><a href="global.html#app">app</a></li><li><a href="global.html#checkToken">checkToken</a></li><li><a href="global.html#createProfile">createProfile</a></li><li><a href="global.html#deleteAccount">deleteAccount</a></li><li><a href="global.html#deleteProfile">deleteProfile</a></li><li><a href="global.html#getProfileById">getProfileById</a></li><li><a href="global.html#getProfilesByUserId">getProfilesByUserId</a></li><li><a href="global.html#getSeasonalCharacters">getSeasonalCharacters</a></li><li><a href="global.html#getSeasonalCrops">getSeasonalCrops</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#removeToken">removeToken</a></li><li><a href="global.html#router">router</a></li><li><a href="global.html#routes">routes</a></li><li><a href="global.html#setToken">setToken</a></li><li><a href="global.html#updateProfile">updateProfile</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Dec 09 2023 21:53:38 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -123,7 +123,17 @@ export default class apiService {
     }
 
     /**
-     * Logout from the API service.
+     * Deletes a user account with the given ID.
+     * @param {string} id - The ID of the user.
+     * @returns {Promise} The response from the API.
+     */
+    async deleteAccount(id) {
+        this.setToken();
+        return this.api.delete(`/users/${id}`);
+    }
+
+    /**
+     * Logs out from the API service.
      * @returns {Promise} The response from the API.
      */
     async logOut() {
@@ -132,9 +142,9 @@ export default class apiService {
     }
 
     /**
-     * Get profiles by user ID from the API service.
+     * Fetches profiles associated with a user ID.
      * @param {string} id - The ID of the user.
-     * @returns {Promise} The response from the API.
+     * @returns {Promise} The response from the API. This will be the list of profiles for the specified user if the request is successful.
      */
     async getProfilesByUserId(id) {
         this.setToken();
@@ -142,9 +152,9 @@ export default class apiService {
     }
 
     /**
-     * Get a profile by ID from the API service.
+     * Fetches a profile with the given ID.
      * @param {string} id - The ID of the profile.
-     * @returns {Promise} The response from the API.
+     * @returns {Promise} The response from the API. This will be the profile data if the request is successful.
      */
     async getProfileById(id) {
         this.setToken();
@@ -152,11 +162,11 @@ export default class apiService {
     }
 
     /**
-     * Create a profile from the API service.
+     * Creates a new profile with the given details.
      * @param {string} farmer_name - The farmer name.
      * @param {string} farm_name - The farm name.
      * @param {string} user_id - The user ID.
-     * @returns {Promise} The response from the API.
+     * @returns {Promise} The response from the API. This will be the data of the created profile if the request is successful.
      */
     async createProfile(farmer_name, farm_name, user_id) {
         this.setToken();
@@ -168,7 +178,32 @@ export default class apiService {
     }
 
     /**
-     * Fetch the crops for a specific season from the API service.
+     * Updates a profile with the given ID and details.
+     * @param {string} id - The ID of the profile.
+     * @param {string} farmer_name - The farmer name.
+     * @param {string} farm_name - The farm name.
+     * @returns {Promise} The response from the API. This will be the data of the updated profile if the request is successful.
+     */
+    async updateProfile(id, farmer_name, farm_name) {
+        this.setToken();
+        return this.api.put(`/profiles/${id}`, {
+            farmer_name,
+            farm_name,
+        });
+    }
+
+    /**
+     * Deletes a profile with the given ID.
+     * @param {string} id - The ID of the profile.
+     * @returns {Promise} The response from the API.
+     */
+    async deleteProfile(id) {
+        this.setToken();
+        return this.api.delete(`/profiles/${id}`);
+    }
+
+    /**
+     * Fetches the crops for a specific season.
      * @param {string} season_id - The ID of the season.
      * @returns {Promise} The response from the API. This will be the list of crops for the specified season if the request is successful.
      */
@@ -177,6 +212,11 @@ export default class apiService {
         return this.api.get(`/crops/season/${season_id}`);
     }
 
+    /**
+     * Fetches the characters for a specific season.
+     * @param {string} season_id - The ID of the season.
+     * @returns {Promise} The response from the API. This will be the list of characters for the specified season if the request is successful.
+     */
     async getSeasonalCharacters(season_id) {
         this.setToken();
         return this.api.get(`/characters/season/${season_id}`);
@@ -192,13 +232,13 @@ export default class apiService {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li><li><a href="module-Crops.html">Crops</a></li><li><a href="module-DarkModeToggle.html">DarkModeToggle</a></li><li><a href="module-Dashboard.html">Dashboard</a></li><li><a href="module-FormLogin.html">FormLogin</a></li><li><a href="module-FormRegister.html">FormRegister</a></li><li><a href="module-Home.html">Home</a></li><li><a href="module-Modal.html">Modal</a></li><li><a href="module-People.html">People</a></li><li><a href="module-Profiles.html">Profiles</a></li><li><a href="module-TheFooter.html">TheFooter</a></li><li><a href="module-TheHeader.html">TheHeader</a></li><li><a href="module-TheWelcome.html">TheWelcome</a></li><li><a href="module-ToDoList.html">ToDoList</a></li><li><a href="module-store.html">store</a></li><li><a href="module-validation.html">validation</a></li></ul><h3>Classes</h3><ul><li><a href="module.exports.html">exports</a></li></ul><h3>Mixins</h3><ul><li><a href="apiServiceMixin.html">apiServiceMixin</a></li></ul><h3>Global</h3><ul><li><a href="global.html#app">app</a></li><li><a href="global.html#checkToken">checkToken</a></li><li><a href="global.html#createProfile">createProfile</a></li><li><a href="global.html#getProfileById">getProfileById</a></li><li><a href="global.html#getProfilesByUserId">getProfilesByUserId</a></li><li><a href="global.html#getSeasonalCrops">getSeasonalCrops</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#removeToken">removeToken</a></li><li><a href="global.html#router">router</a></li><li><a href="global.html#routes">routes</a></li><li><a href="global.html#setToken">setToken</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li><li><a href="module-Crops.html">Crops</a></li><li><a href="module-DarkModeToggle.html">DarkModeToggle</a></li><li><a href="module-Dashboard.html">Dashboard</a></li><li><a href="module-FormLogin.html">FormLogin</a></li><li><a href="module-FormRegister.html">FormRegister</a></li><li><a href="module-Home.html">Home</a></li><li><a href="module-Modal.html">Modal</a></li><li><a href="module-People.html">People</a></li><li><a href="module-Profiles.html">Profiles</a></li><li><a href="module-Settings.html">Settings</a></li><li><a href="module-TheFooter.html">TheFooter</a></li><li><a href="module-TheHeader.html">TheHeader</a></li><li><a href="module-TheWelcome.html">TheWelcome</a></li><li><a href="module-ToDoList.html">ToDoList</a></li><li><a href="module-store.html">store</a></li><li><a href="module-validation.html">validation</a></li></ul><h3>Classes</h3><ul><li><a href="module.exports.html">exports</a></li></ul><h3>Mixins</h3><ul><li><a href="apiServiceMixin.html">apiServiceMixin</a></li></ul><h3>Global</h3><ul><li><a href="global.html#app">app</a></li><li><a href="global.html#checkToken">checkToken</a></li><li><a href="global.html#createProfile">createProfile</a></li><li><a href="global.html#deleteAccount">deleteAccount</a></li><li><a href="global.html#deleteProfile">deleteProfile</a></li><li><a href="global.html#getProfileById">getProfileById</a></li><li><a href="global.html#getProfilesByUserId">getProfilesByUserId</a></li><li><a href="global.html#getSeasonalCharacters">getSeasonalCharacters</a></li><li><a href="global.html#getSeasonalCrops">getSeasonalCrops</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#removeToken">removeToken</a></li><li><a href="global.html#router">router</a></li><li><a href="global.html#routes">routes</a></li><li><a href="global.html#setToken">setToken</a></li><li><a href="global.html#updateProfile">updateProfile</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Dec 09 2023 02:08:09 GMT+0100 (Central European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Dec 09 2023 21:53:38 GMT+0100 (Central European Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

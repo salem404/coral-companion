@@ -7,9 +7,32 @@
         <router-link to="/profiles" class="btn"> Start </router-link>
         <p>
             Not you?
-            <span class="link" @click="logOut()">Logout</span>
+            <span class="link" @click="openModal">Logout</span>
         </p>
     </div>
+    <Modal v-if="showModal" @closeModal="closeModal">
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="80"
+            height="80"
+            viewBox="0 0 80 80"
+            fill="none"
+        >
+            <path
+                d="M60.0008 50.0007L70.0008 40.0007M70.0008 40.0007L60.0008 30.0007M70.0008 40.0007H23.3341M46.6675 53.3341V62.0007C46.6675 66.419 43.0857 70.0007 38.6675 70.0007H18.0008C13.5825 70.0007 10.0008 66.419 10.0008 62.0007V18.0007C10.0008 13.5825 13.5825 10.0007 18.0008 10.0007H38.6675C43.0857 10.0007 46.6675 13.5825 46.6675 18.0007L46.6675 26.6674"
+                stroke="var(--text-primary)"
+                stroke-width="5.97015"
+                stroke-miterlimit="10"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+        </svg>
+        <h2 class="title2">See you soon!</h2>
+        <div class="btns-container">
+            <button class="btn-danger" @click="logOut()">Log Out</button>
+            <button class="btn" @click="closeModal">Go Back</button>
+        </div>
+    </Modal>
 </template>
 <script>
 /**
@@ -19,6 +42,7 @@
  */
 import { mapState, mapMutations } from "vuex";
 import apiServiceMixin from "@/services/apiServiceMixin.js";
+import Modal from "@/components/Modal.vue";
 
 export default {
     name: "TheWelcome",
@@ -44,6 +68,23 @@ export default {
             return this.isLogged && this.user ? this.user.email : "Farmer?";
         },
     },
+    components: {
+        /**
+         * @vue-component Modal
+         * @description {@link module:Modal|Modal} component used in this component
+         */
+        Modal,
+    },
+    data() {
+        /**
+         * @vue-data showModal
+         * @description Indicates whether the modal should be shown
+         * @returns {Boolean} The showModal state
+         */
+        return {
+            showModal: false,
+        };
+    },
     methods: {
         /**
          * @vue-method changeLoggedState
@@ -54,6 +95,20 @@ export default {
          * @description Change the user
          */
         ...mapMutations(["changeLoggedState", "changeUser"]),
+        /**
+         * @vue-method openModal
+         * @description Opens the modal
+         */
+        openModal() {
+            this.showModal = true;
+        },
+        /**
+         * @vue-method closeModal
+         * @description Closes the modal
+         */
+        closeModal() {
+            this.showModal = false;
+        },
         /**
          * @vue-method logOut
          * @description Log out the user

@@ -52,7 +52,6 @@
                             name="profileSelection"
                             :value="profile.id"
                             v-model="selectedProfile"
-                            required
                         />
                         <label :for="profile.id">
                             <picture class="gnome-carrousel">
@@ -76,11 +75,12 @@
                     New
                 </button>
             </div>
+            <p v-if="error" class="error">{{ error }}</p>
             <div class="profile__buttons">
-                <button class="btn" type="submit">Select</button>
-                <RouterLink class="btn" :to="{ name: 'settings' }">
+                <button class="btn" type="submit">Dashboard</button>
+                <button class="btn" type="button" @click="settingsButton">
                     Settings
-                </RouterLink>
+                </button>
             </div>
         </form>
     </div>
@@ -173,6 +173,7 @@ export default {
             showModal: false,
             newFarmerName: "",
             newFarmName: "",
+            error: "",
         };
     },
     async mounted() {
@@ -202,10 +203,33 @@ export default {
     methods: {
         ...mapMutations(["changeProfile"]),
         /**
+         * @vue-method settingsButton
+         * @description Redirects to the settings page
+         */
+        async settingsButton() {
+            if (!this.selectedProfile) {
+                this.$router.push({ name: "settings" });
+            }
+            try {
+                // Fetch the profile
+                const profile = await this.fetchProfile();
+                // Update the profile in the store
+                this.changeProfile(profile);
+                // Redirect to the settings page
+                this.$router.push({ name: "settings" });
+            } catch (error) {
+                this.selectedProfile = null;
+            }
+        },
+        /**
          * @vue-method handleProfileSelection
          * @description Handles the selection of a profile. Fetches the profile and redirects to the dashboard
          */
         async handleProfileSelection() {
+            if (!this.selectedProfile) {
+                this.error = "Please select a profile";
+                return;
+            }
             try {
                 // Fetch the profile
                 const profile = await this.fetchProfile();
@@ -214,7 +238,7 @@ export default {
                 // Redirect to the dashboard
                 this.$router.push({ name: "dashboard" });
             } catch (error) {
-                console.log(error);
+                this.selectedProfile = null;
             }
         },
         /**
@@ -230,6 +254,8 @@ export default {
                 );
                 this.fetchProfiles();
                 this.selectedProfile = response.data.id;
+                this.newFarmerName = "";
+                this.newFarmName = "";
                 this.closeModal();
             } catch (error) {
                 console.log(error);
@@ -261,6 +287,7 @@ export default {
                 );
                 this.profiles = response.data;
             } catch (error) {
+                this.profiles = [];
             } finally {
                 this.isLoading = false;
             }
@@ -276,7 +303,7 @@ export default {
                 );
                 return response.data;
             } catch (error) {
-                console.log(error);
+                this.$store.state.profile.id = null;
             }
         },
     },

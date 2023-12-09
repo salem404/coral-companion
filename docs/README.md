@@ -42,6 +42,7 @@ Documentation for the API used in the Coral Companion app
 | GET | [/profile/{id}/tasks](#getprofileidtasks) | Get tasks by profile ID |
 | GET | [/users](#getusers) | Get all users |
 | GET | [/users/{id}](#getusersid) | Get user |
+| DELETE | [/users/{id}](#deleteusersid) | Delete a user by ID |
 
 ## Reference Table
 
@@ -797,7 +798,7 @@ Retrieves profiles associated with a specific user ID
 }[]
 ```
 
-- 404 Not Found: No profiles found for the user ID
+- 204 No profiles found for the user ID
 
 `application/json`
 
@@ -1743,6 +1744,35 @@ Get a user by ID sent in the URL from the database or a message the user is not 
 ```
 
 - 404 Not found: User with given id doesn't exist
+
+`application/json`
+
+```ts
+{
+  message?: string
+}
+```
+
+***
+
+### [DELETE]/users/{id}
+
+- Summary  
+Delete a user by ID
+
+#### Responses
+
+- 200 User deleted successfully
+
+`application/json`
+
+```ts
+{
+  message?: string
+}
+```
+
+- 404 User not found
 
 `application/json`
 
