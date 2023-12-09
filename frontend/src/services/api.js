@@ -138,4 +138,19 @@ export default class apiService {
             user_id,
         });
     }
+
+    /**
+     * Fetch the crops for a specific season from the API service.
+     * @param {string} season_id - The ID of the season.
+     * @returns {Promise} The response from the API. This will be the list of crops for the specified season if the request is successful.
+     */
+    async getSeasonalCrops(season_id) {
+        this.setToken();
+        return this.api.get(`/crops/season/${season_id}`);
+    }
+
+    async getSeasonalCharacters(season_id) {
+        this.setToken();
+        return this.api.get(`/characters/season/${season_id}`);
+    }
 }

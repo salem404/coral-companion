@@ -10,6 +10,7 @@ Documentation for the API used in the Coral Companion app
 | --- | --- | --- |
 | GET | [/characters](#getcharacters) | Get all characters |
 | POST | [/characters](#postcharacters) | Create a new character |
+| GET | [/characters/season/{season_id}](#getcharactersseasonseason_id) | Get all characters by season |
 | GET | [/characters/{id}](#getcharactersid) | Get a character |
 | PUT | [/characters/{id}](#putcharactersid) | Update a character |
 | DELETE | [/characters/{id}](#deletecharactersid) | Delete a character |
@@ -174,6 +175,50 @@ Accept: string //default: application/json
 ```
 
 - 401 Unauthorized. Only admins can create characters
+
+`application/json`
+
+```ts
+{
+  message?: string
+}
+```
+
+***
+
+### [GET]/characters/season/{season_id}
+
+- Summary  
+Get all characters by season
+
+- Description  
+Get all characters by season ID sent in the URL from the database
+
+#### Responses
+
+- 200 Success: Returns all characters from the season
+
+`application/json`
+
+```ts
+{
+  id: integer
+  name: string
+  birthday?: integer
+  season_id: {
+    id: integer
+    name: string
+  }
+  gender?: string
+  occupation?: string
+  isRomanceable: integer
+  icon: string
+  created_at?: string
+  updated_at?: string
+}[]
+```
+
+- 404 Not found: Characters don't exist
 
 `application/json`
 

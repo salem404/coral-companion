@@ -151,6 +151,58 @@
                 ]
             }
         },
+        "/characters/season/{season_id}": {
+            "get": {
+                "tags": [
+                    "Characters"
+                ],
+                "summary": "Get all characters by season",
+                "description": "Get all characters by season ID sent in the URL from the database",
+                "operationId": "449213ae0d8f007b89c627df2d683080",
+                "parameters": [
+                    {
+                        "name": "season_id",
+                        "in": "path",
+                        "description": "ID of season to return characters from",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success: Returns all characters from the season",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Character"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found: Characters don't exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No characters found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/characters/{id}": {
             "get": {
                 "tags": [

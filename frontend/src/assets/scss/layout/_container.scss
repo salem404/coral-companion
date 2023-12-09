@@ -86,10 +86,36 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 0.4375rem;
-    @include mq($from: tablet) {
+    gap: 2rem;
+    @include mq($from: desktop) {
         padding: 0rem 5.9375rem;
-        gap: 1.75rem;
+        gap: 3.75rem;
+        justify-content: flex-start;
+        height: 30rem;
+    }
+    &__info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+        border-radius: var(--radio, 2.5rem);
+        outline: 14px solid var(--borde-borde, #135c7d);
+        background: var(--fondo-transparente, rgba(217, 217, 217, 0.82));
+        box-shadow: 0px 14px 14px 0px rgba(17, 3, 0, 0.65);
+        width: 95%;
+        &-lists {
+            width: 100%;
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+        @include mq($from: desktop) {
+            width: 18.75rem;
+            height: 100%;
+            border-radius: var(--radio, 2.5rem);
+            box-shadow: 0px 20px 34px 0px rgba(17, 3, 0, 0.65);
+            outline: 28px solid var(--borde-borde, #135c7d);
+            background: var(--fondo-transparente, rgba(217, 217, 217, 0.82));
+        }
     }
     &__header {
         position: relative;
@@ -98,7 +124,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        @include mq($from: tablet) {
+        @include mq($from: desktop) {
             gap: 2rem;
             width: 85%;
             justify-content: space-around;

@@ -45,6 +45,9 @@ body {
     z-index: -1;
     position: fixed;
     bottom: -41rem;
+    @include mq($from: desktop) {
+        right: 0;
+    }
 }
 
 .wave {

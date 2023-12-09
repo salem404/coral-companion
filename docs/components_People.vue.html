@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: store.js</title>
+    <title>JSDoc: Source: components/People.vue</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: store.js</h1>
+    <h1 class="page-title">Source: components/People.vue</h1>
 
     
 
@@ -26,46 +26,91 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Vuex store module.
- * @module store
+            <pre class="prettyprint source linenums"><code>&lt;template>
+    &lt;details class="category" open>
+        &lt;summary class="category__header">Characters&lt;/summary>
+        &lt;ul class="category__list" v-for="person in people">
+            &lt;li class="category__list-item" v-if="person">
+                &lt;img
+                    class="category__list-item-img"
+                    :src="person.icon"
+                    alt="crop"
+                />
+                {{ person.name }}
+            &lt;/li>
+        &lt;/ul>
+    &lt;/details>
+&lt;/template>
+&lt;script>
+/**
+ * @module People
+ * @description This module represents the People component.
  */
 
-import { createStore } from "vuex";
-import createPersistedState from "vuex-persistedstate";
+import apiServiceMixin from "@/services/apiServiceMixin.js";
 
 /**
- * Vuex store.
- * @name store
- * @type {Object}
- * @property {Object} state - The state of the store
- * @property {boolean} state.isLogged - Indicates whether the user is logged in
- * @property {Object} state.user - The user object
- * @property {Object} state.profile - The profile object
- * @property {Object} mutations - The mutations of the store
- * @property {function} mutations.changeLoggedState - Change the logged state
- * @property {function} mutations.changeUser - Change the user
- * @property {function} mutations.changeProfile - Change the profile
+ * @vue-component
+ * @name People
+ * @description This component displays a list of people.
+ * @vue-prop {String} season - The selected season.
+ * @mixes apiServiceMixin
  */
-export default createStore({
-    plugins: [createPersistedState()],
-    state: {
-        isLogged: false,
-        user: null,
-        profile: null,
-    },
-    mutations: {
-        changeLoggedState(state, value) {
-            state.isLogged = value;
-        },
-        changeUser(state, user) {
-            state.user = user;
-        },
-        changeProfile(state, profile) {
-            state.profile = profile;
+export default {
+    name: "People",
+    mixins: [apiServiceMixin],
+    props: {
+        /**
+         * @vue-prop {String} season - The selected season.
+         */
+        season: {
+            type: String,
+            required: true,
         },
     },
-});
+    data() {
+        /**
+         * @vue-data {Array} people - List of people.
+         */
+        return {
+            people: [],
+        };
+    },
+    async mounted() {
+        await this.fetchPeople();
+    },
+    methods: {
+        /**
+         * @vue-method fetchPeople
+         * @description Fetches the people for the selected season.
+         * @returns {void}
+         */
+        async fetchPeople() {
+            while (!this.apiService) {
+                await new Promise((resolve) => setTimeout(resolve, 100));
+            }
+            try {
+                const response = await this.apiService.getSeasonalCharacters(
+                    this.season,
+                );
+                this.people = response.data;
+            } catch (error) {
+                console.error(error);
+            }
+        },
+    },
+    watch: {
+        /**
+         * @vue-watch season
+         * @description Watches for changes in the season prop and fetches new people.
+         */
+        season: {
+            handler: "fetchPeople",
+            immediate: true,
+        },
+    },
+};
+&lt;/script>
 </code></pre>
         </article>
     </section>

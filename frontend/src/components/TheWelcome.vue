@@ -65,15 +65,12 @@ export default {
                 const response = await this.apiService.logOut();
                 localStorage.removeItem("token");
                 this.changeLoggedState(false);
-                console.log(response);
-                location.reload(); // Refresh the page
             } catch (error) {
                 if (error.response && error.response.status === 401) {
                     // In case the token is invalid
                     localStorage.removeItem("token");
                     this.changeLoggedState(false);
                     console.log("Unauthorized");
-                    location.reload(); // Refresh the page
                 }
                 console.log(error);
             }

@@ -106,6 +106,7 @@
         <div class="dashboard__info">
             <div class="dashboard__info-lists">
                 <Crops v-bind="componentProps" />
+                <People v-bind="componentProps" />
             </div>
         </div>
         <ToDoList />
@@ -130,7 +131,7 @@ export default {
     },
     data() {
         return {
-            selectedSeason: "",
+            selectedSeason: "1",
             seasons: [
                 { value: "1", name: "Spring" },
                 { value: "2", name: "Summer" },
@@ -149,8 +150,6 @@ export default {
         const selectedSeason = localStorage.getItem("selectedSeason");
         if (selectedSeason) {
             this.selectedSeason = selectedSeason;
-        } else {
-            this.selectedSeason = "1";
         }
     },
     watch: {

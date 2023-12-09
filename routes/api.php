@@ -49,6 +49,7 @@ Route::controller(SeasonController::class)->group(function () {
 Route::controller(CharacterController::class)->group(function () {
     Route::get("/characters", "getAllCharacters");
     Route::get("/characters/{id}", "getCharacterById");
+    Route::get("/characters/season/{season_id}", "getCharactersBySeasonId");
     Route::delete("/characters/{id}", "deleteCharacter")->middleware(
         "auth:sanctum"
     );

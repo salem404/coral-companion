@@ -216,6 +216,59 @@ class CharacterController extends Controller
     }
 
     /**
+     * Get all characters by season
+     *
+     * @OA\Get(
+     *     tags={"Characters"},
+     *     path="/characters/season/{season_id}",
+     *     summary="Get all characters by season",
+     *     description="Get all characters by season ID sent in the URL from the database",
+     *     @OA\Parameter(
+     *         name="season_id",
+     *         in="path",
+     *         description="ID of season to return characters from",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success: Returns all characters from the season",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/Character")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Not found: Characters don't exist",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="No characters found")
+     *         )
+     *     )
+     * )
+     *
+     * @param int $season_id The ID of the season to retrieve characters from
+     * @return JsonResponse The response containing all the characters data if found, or an error message otherwise
+     */
+    public function getCharactersBySeasonId($season_id): JsonResponse
+    {
+        $characters = Character::with("season")
+            ->where("season_id", $season_id)
+            ->get();
+
+        // Check if characters exist
+        if (count($characters) < 1) {
+            return response()->json(
+                [
+                    "message" => "No characters found",
+                ],
+                404
+            );
+        }
+        return response()->json($characters);
+    }
+
+    /**
      * Get a character
      *
      * @OA\Get(

@@ -1,10 +1,10 @@
 <template>
-    <details class="crops" open>
-        <summary class="crops__header">Crops</summary>
-        <ul class="crops__list" v-for="crop in crops">
-            <li class="crops__list-item" v-if="crop">
+    <details class="category" open>
+        <summary class="category__header">Crops</summary>
+        <ul class="category__list" v-for="crop in crops">
+            <li class="category__list-item" v-if="crop">
                 <img
-                    class="crops__list-item-img"
+                    class="category__list-item-img"
                     :src="crop.crop.resource.icon"
                     alt="crop"
                 />
@@ -15,37 +15,67 @@
 </template>
 <script>
 /**
- * @vue-prop {String} season - Estación seleccionada
- * @vue-data {Array} [crops = []] - Lista de personas
- * @vue-event {Array} fetchCrops - Llama a la api para adquirir la lista de cultivos
+ * @module Crops
+ * @description This module represents the Crops component.
+ */
+
+import apiServiceMixin from "@/services/apiServiceMixin.js";
+
+/**
+ * @vue-component
+ * @name Crops
+ * @description This component displays a list of crops.
+ * @vue-prop {String} season - The current season.
+ * @mixes apiServiceMixin
  */
 export default {
     name: "Crops",
+    mixins: [apiServiceMixin],
     props: {
+        /**
+         * @vue-prop {String} season - The current season.
+         */
         season: {
             type: String,
             required: true,
         },
     },
     data() {
+        /**
+         * @vue-data {Array} crops - List of crops.
+         */
         return {
             crops: [],
-            API_URL: "http://localhost/api",
         };
     },
     async mounted() {
         await this.fetchCrops();
     },
     methods: {
+        /**
+         * @vue-method fetchCrops
+         * @description Fetches the crops for the current season.
+         * @returns {void}
+         */
         async fetchCrops() {
-            const response = await fetch(
-                `${this.API_URL}/crops/season/${this.season}`,
-            );
-            const data = await response.json();
-            this.crops = data;
+            while (!this.apiService) {
+                await new Promise((resolve) => setTimeout(resolve, 100));
+            }
+            try {
+                const response = await this.apiService.getSeasonalCrops(
+                    this.season,
+                );
+                this.crops = response.data;
+            } catch (error) {
+                console.error(error);
+            }
         },
     },
     watch: {
+        /**
+         * @vue-watch season
+         * @description Watches for changes in the season prop and fetches new crops.
+         */
         season: {
             handler: "fetchCrops",
             immediate: true,
@@ -53,53 +83,3 @@ export default {
     },
 };
 </script>
-<style lang="scss">
-.crops {
-    display: flex;
-    width: 266.833px;
-    flex-direction: column;
-    align-items: center;
-    &__header {
-        color: var(--resources-category-text, #110300);
-
-        /* PC/P */
-        font-family: Quicksand;
-        font-size: 28px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-        display: flex;
-        width: 266.833px;
-        padding: var(--dropdown-vertical-padding, 12px)
-            var(--dropdown-horizontal-padding, 19px);
-        justify-content: space-between;
-        align-items: flex-start;
-        border-radius: var(--dropdown-radio, 5px);
-        border: 2px solid var(--resources-item-border, #135c7d);
-        background: var(--resources-category-dropdown, #94b755);
-    }
-    &__list {
-        display: flex;
-        width: 266.833px;
-        padding: var(--dropdown-item-vpadding, 12px)
-            var(--dropdown-item-hpadding, 19px);
-        justify-content: space-between;
-        align-items: flex-start;
-        border-top: 1px solid var(--resources-item-border, #135c7d);
-        border-bottom: 1px solid var(--resources-item-border, #135c7d);
-        background: var(--resources-item, #0892b6);
-        color: var(--resources-item-text, #110300);
-
-        /* PC/P */
-        font-family: Quicksand;
-        font-size: 28px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-        img {
-            width: 28px;
-            height: 100%;
-        }
-    }
-}
-</style>

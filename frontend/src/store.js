@@ -27,8 +27,8 @@ export default createStore({
         profile: null,
     },
     mutations: {
-        changeLoggedState(state) {
-            state.isLogged = isLogged;
+        changeLoggedState(state, value) {
+            state.isLogged = value;
         },
         changeUser(state, user) {
             state.user = user;

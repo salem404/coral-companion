@@ -1,29 +1,49 @@
 <template>
-    <div class="people">
-        <h2 class="people__header">People</h2>
-        <ul class="people__list" v-for="person in people">
-            <li class="people__list-item" v-if="person.season_id == season">
+    <details class="category" open>
+        <summary class="category__header">Characters</summary>
+        <ul class="category__list" v-for="person in people">
+            <li class="category__list-item" v-if="person">
+                <img
+                    class="category__list-item-img"
+                    :src="person.icon"
+                    alt="crop"
+                />
                 {{ person.name }}
-                {{ person.day }}
             </li>
         </ul>
-    </div>
+    </details>
 </template>
 <script>
 /**
- * @vue-prop {String} season - Estación seleccionada
- * @vue-data {Array} [people = []] - Lista de personas
- * @vue-event {Array} fetchPeople - Llama a la api para adquirir la lista de personas
+ * @module People
+ * @description This module represents the People component.
+ */
+
+import apiServiceMixin from "@/services/apiServiceMixin.js";
+
+/**
+ * @vue-component
+ * @name People
+ * @description This component displays a list of people.
+ * @vue-prop {String} season - The selected season.
+ * @mixes apiServiceMixin
  */
 export default {
     name: "People",
+    mixins: [apiServiceMixin],
     props: {
+        /**
+         * @vue-prop {String} season - The selected season.
+         */
         season: {
             type: String,
             required: true,
         },
     },
     data() {
+        /**
+         * @vue-data {Array} people - List of people.
+         */
         return {
             people: [],
         };
@@ -32,40 +52,34 @@ export default {
         await this.fetchPeople();
     },
     methods: {
+        /**
+         * @vue-method fetchPeople
+         * @description Fetches the people for the selected season.
+         * @returns {void}
+         */
         async fetchPeople() {
-            const response = await fetch(`${API_URL}/characters`, {
-                method: "GET",
-                headers: { Connection: "Keep-Alive" },
-            });
-            if (response.ok) {
-                const data = await response.json();
-                this.people = data;
+            while (!this.apiService) {
+                await new Promise((resolve) => setTimeout(resolve, 100));
             }
+            try {
+                const response = await this.apiService.getSeasonalCharacters(
+                    this.season,
+                );
+                this.people = response.data;
+            } catch (error) {
+                console.error(error);
+            }
+        },
+    },
+    watch: {
+        /**
+         * @vue-watch season
+         * @description Watches for changes in the season prop and fetches new people.
+         */
+        season: {
+            handler: "fetchPeople",
+            immediate: true,
         },
     },
 };
 </script>
-<style lang="scss">
-.people {
-    background: var(--white);
-    border: 8px solid var(--dark-blue);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 40px;
-    padding: 1em;
-    min-width: 130%;
-    max-height: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-items: center;
-    &__header {
-        font-size: 2em;
-        margin: 0;
-        color: var(--black);
-        margin-bottom: 10px;
-    }
-    &__list {
-        list-style: circle;
-        padding-left: 2em;
-    }
-}
-</style>
