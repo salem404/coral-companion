@@ -13,14 +13,13 @@
         flex-shrink: 0;
         text-align: left;
     }
-    @include mq($from: desktop) {
-    }
     h1 {
         flex-shrink: 0;
         width: 100%;
         padding: 0 4rem;
         color: var(--text-secondary);
         text-align: center;
+        text-shadow: 1px 1px $color-negro;
         @include mq($from: tablet) {
             padding: 0;
         }
@@ -43,10 +42,9 @@
         gap: 0.75rem;
         padding: 0.4375rem 12.5rem;
     }
-    @include mq($from: desktop) {
-    }
     &__title {
         color: var(--text-primary);
+        text-shadow: 1px 1px $color-negro;
     }
     &__container {
         display: flex;
@@ -92,6 +90,7 @@
         gap: 3.75rem;
         justify-content: flex-start;
         height: 30rem;
+        flex-wrap: nowrap;
     }
     &__info {
         display: flex;
@@ -107,10 +106,14 @@
             width: 100%;
             overflow-y: scroll;
             overflow-x: hidden;
+            border-radius: 2rem;
+            background-color: var(--fondo-capa2);
         }
         @include mq($from: desktop) {
-            width: 18.75rem;
-            height: 100%;
+            justify-content: space-around;
+            width: 25%;
+            height: auto;
+            max-height: 100%;
             border-radius: var(--radio, 2.5rem);
             box-shadow: 0px 20px 34px 0px rgba(17, 3, 0, 0.65);
             outline: 28px solid var(--borde-borde, #135c7d);

@@ -2,7 +2,6 @@
     font-family: General Sans;
     font-style: normal;
     line-height: normal;
-    text-shadow: 1px 1px $color-negro;
     &1 {
         @extend .title;
         font-size: 2.88rem;
@@ -36,7 +35,6 @@ h {
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    text-shadow: 1px 1px $color-negro;
     &1 {
         @extend h;
         font-size: 2rem;

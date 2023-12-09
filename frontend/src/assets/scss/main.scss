@@ -1,7 +1,6 @@
 // Import all scss files here
 
 @import "utilities/variables";
-@import "utilities/functions";
 @import "utilities/mixins";
 @import "utilities/theming";
 
@@ -20,7 +19,6 @@
 
 @import "components/button";
 @import "components/dropdown";
-@import "components/fieldset";
 @import "components/session";
 @import "components/task";
 @import "components/list";

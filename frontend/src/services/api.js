@@ -193,4 +193,32 @@ export default class apiService {
         this.setToken();
         return this.api.get(`/characters/season/${season_id}`);
     }
+
+    async getTasksByProfileId(profile_id) {
+        this.setToken();
+        return this.api.get(`/profile/${profile_id}/tasks`);
+    }
+
+    async createTask(profile_id, description, isCompleted) {
+        this.setToken();
+        return this.api.post(`/tasks`, {
+            description,
+            profile_id,
+            isCompleted,
+        });
+    }
+
+    async updateTask(task_id, profile_id, description, isCompleted) {
+        this.setToken();
+        return this.api.put(`/tasks/${task_id}`, {
+            profile_id,
+            description,
+            isCompleted,
+        });
+    }
+
+    async deleteTask(task_id) {
+        this.setToken();
+        return this.api.delete(`/tasks/${task_id}`);
+    }
 }
