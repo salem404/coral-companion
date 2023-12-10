@@ -21,6 +21,7 @@
                                 v-model="farmerName"
                                 id="farmerName"
                                 placeholder="Farmer Name"
+                                required
                             />
                         </fieldset>
                         <fieldset>
@@ -31,6 +32,7 @@
                                 v-model="farmName"
                                 id="farmName"
                                 placeholder="Farm Name"
+                                required
                             />
                         </fieldset>
                     </div>
@@ -56,6 +58,7 @@
                         </fieldset>
                     </div>
                 </section>
+                <p v-if="error" class="error">{{ error }}</p>
                 <section class="settings__bottom">
                     <button type="submit" class="settings__btn">Save</button>
                     <RouterLink
@@ -184,6 +187,7 @@ export default {
             farmName: "",
             email: "",
             selectedProfile: null,
+            error: "",
         };
     },
     async mounted() {
@@ -231,6 +235,12 @@ export default {
             if (!this.selectedProfile) {
                 return;
             }
+
+            if (!this.farmerName || !this.farmName) {
+                this.error = "Please fill all the fields";
+                return;
+            }
+
             this.apiService
                 .updateProfile(
                     this.selectedProfile,

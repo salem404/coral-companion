@@ -96,6 +96,7 @@
                         id="newFarmerName"
                         placeholder="Farmer name"
                         v-model="newFarmerName"
+                        required
                     />
                 </fieldset>
                 <fieldset>
@@ -106,9 +107,11 @@
                         id="newFarmName"
                         placeholder="Farm Name"
                         v-model="newFarmName"
+                        required
                     />
                 </fieldset>
             </div>
+            <p v-if="error" class="error">{{ error }}</p>
             <div class="btns-container">
                 <button class="btn-danger" type="submit">Create</button>
                 <button type="button" class="btn" @click="closeModal">
@@ -246,6 +249,10 @@ export default {
          * @description Handles the creation of a profile. Creates a new profile and updates the selected profile
          */
         async handleProfileCreation() {
+            if (!this.newFarmerName || !this.newFarmName) {
+                this.error = "Please fill all the fields";
+                return;
+            }
             try {
                 const response = await this.apiService.createProfile(
                     this.newFarmerName,
