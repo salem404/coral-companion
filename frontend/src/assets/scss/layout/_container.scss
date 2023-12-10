@@ -197,6 +197,7 @@
         display: contents;
         @include mq($from: tablet) {
             display: block;
+            width: 100%;
         }
     }
 
