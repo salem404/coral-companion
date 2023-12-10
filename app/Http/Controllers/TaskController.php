@@ -354,13 +354,14 @@ class TaskController extends Controller
      */
     public function updateTask(Request $request, int $id): JsonResponse
     {
-        // Check if the profile belongs to the user or is Admin
+        $task = Task::find($id);
+        // Check if the profile belongs to the user
         $user = Auth::user();
-        $profile = Profile::find($request->profile_id);
+        $profile = Profile::find($task->profile_id);
         if ($profile->user_id !== $user->id and !$user->isAdmin) {
             return response()->json(
                 [
-                    "message" => "You are not authorized to update this task",
+                    "message" => "You are not authorized to delete this task",
                 ],
                 401
             );
@@ -388,30 +389,8 @@ class TaskController extends Controller
             );
         }
 
-        // Check if character exists
-        $character = Character::find($request->character_id);
-        if (!$character) {
-            return response()->json(
-                [
-                    "message" => "Character with id $request->character_id not found",
-                ],
-                400
-            );
-        }
-
-        // Check if item exists
-        $item = Resource::find($request->resource_id);
-        if (!$item) {
-            return response()->json(
-                [
-                    "message" => "Resource with id $request->item_id not found",
-                ],
-                400
-            );
-        }
-
         // Update task
-        $task = Task::find($id);
+
         $task->update([
             "profile_id" => $request->profile_id,
             "description" => $request->description,
@@ -480,20 +459,18 @@ class TaskController extends Controller
             );
         }
 
-        // Check if the profile belongs to the user or is Admin
+        // Check if the profile belongs to the user
         $user = Auth::user();
-        if (!$user->isAdmin) {
-            $profile = Profile::find($request->profile_id);
-            if ($profile->user_id !== $user->id) {
-                return response()->json(
-                    [
-                        "message" =>
-                            "You are not authorized to delete this task",
-                    ],
-                    401
-                );
-            }
+        $profile = Profile::find($task->profile_id);
+        if ($profile->user_id !== $user->id and !$user->isAdmin) {
+            return response()->json(
+                [
+                    "message" => "You are not authorized to delete this task",
+                ],
+                401
+            );
         }
+
         // Delete task
         $task->delete();
         return response()->json([

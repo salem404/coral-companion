@@ -39,6 +39,33 @@
         transform: translateY(2px);
     }
 
+    &-edit {
+        display: flex;
+        width: 2.125rem;
+        height: 1.625rem;
+        padding: 0.1875rem 0.4375rem;
+        justify-content: center;
+        align-items: center;
+        border-radius: var(--button-radio, 2.5rem);
+        border: 1px solid var(--color-dark-transparency, rgba(17, 3, 0, 0.82));
+        background: var(--task-btn, #94b755);
+
+        /* sombra */
+        box-shadow: 0px 4px 4px 0px rgba(17, 3, 0, 0.25);
+        @include mq($from: desktop) {
+            width: 3.125rem;
+            height: 2.5rem;
+            padding: 0.25rem 0.625rem;
+        }
+        span {
+            @include screen-reader-focusable;
+        }
+    }
+    &-delete {
+        @extend .btn-edit;
+        background: var(--button-fondo-icono-danger, #d96575);
+    }
+
     &-danger {
         @extend .btn;
         background: var(--button-fondo-danger);

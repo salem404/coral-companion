@@ -217,8 +217,8 @@ export default class apiService {
         });
     }
 
-    async deleteTask(task_id) {
+    async deleteTask(id) {
         this.setToken();
-        return this.api.delete(`/tasks/${task_id}`);
+        return this.api.delete(`/tasks/${id}`);
     }
 }
