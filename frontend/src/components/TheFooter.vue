@@ -5,7 +5,6 @@
             alt="GitHub Repository"
         >
             <picture class="btn-UIgithub">
-                <!-- TODO: Add png image fallback -->
                 <img src="@/assets/img/GitHubIcon.svg" alt="Github" />
             </picture>
         </a>
@@ -13,6 +12,7 @@
             v-if="isLogged"
             class="btn-UIlogOut"
             @click="openModal"
+            title="Log Out"
         ></button>
         <Modal v-if="showModal" @closeModal="closeModal">
             <svg

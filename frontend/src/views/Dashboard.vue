@@ -28,7 +28,11 @@
     </svg>
     <div class="dashboard">
         <header class="dashboard__header">
-            <select class="dropdown" v-model="selectedSeason">
+            <select
+                class="dropdown"
+                v-model="selectedSeason"
+                aria-label="Select seasonc"
+            >
                 <option
                     v-for="season in seasons"
                     :value="season.value"

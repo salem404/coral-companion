@@ -171,8 +171,6 @@ export default {
          */
         handleLogin() {
             this.error = "";
-            // TODO: Show front errors
-            // If there are no errors, submit the form
             this.login();
         },
         /**

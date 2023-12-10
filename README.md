@@ -30,10 +30,11 @@
 
 ## Features
 
-- Multiple profiles
-- Task list
-- Seasonal dashboard
-- Resources information
+- Account creation and login
+- Different profiles for each account
+- Character and item seasonal overview
+- Todo list
+- Dark mode
 
 ## Documentation
 
@@ -81,12 +82,30 @@ Create the database and seed it with data
 
 ## Resources
 
-| Resource                 | Name     | Author                                             | Source                                         | License                                     |
-| :----------------------- | :------- | :------------------------------------------------- | :--------------------------------------------- | :------------------------------------------ |
-| Application logo         | logo.svg | [Paula Rumeu](https://github.com/salem404)         | Own creation                                   | [![CC BY-SA 4.0][cc-by-sa-image]][cc-by-sa] |
-| Character and Item icons |          | [Stairway Games](https://www.stairwaygames.com)    | [Coral Island Wiki](https://coralisland.wiki/) | [![CC BY-SA 4.0][cc-by-sa-image]][cc-by-sa] |
-| Icon -                   |          | [Abhimanyu Rana](https://github.com/planetabhi)    | [SargamIcons](https://sargamicons.com)         | [![CC BY 4.0][cc-by-image]][cc-by]          |
-| Trash icon               |          | [Mikhail Kolomietc](https://www.figma.com/@demiko) | [Figma](https://www.figma.com)                 | [![CC BY 4.0][cc-by-image]][cc-by]          |
+| Resource                 | Name            | Author                                             | Source                                         | License                                     |
+| :----------------------- | :-------------- | :------------------------------------------------- | :--------------------------------------------- | :------------------------------------------ |
+| Application logo         | logo.svg        | [Paula Rumeu](https://github.com/salem404)         | Own creation                                   | [![CC BY-SA 4.0][cc-by-sa-image]][cc-by-sa] |
+| Application logo         | logo-color.svg  | [Paula Rumeu](https://github.com/salem404)         | Own creation                                   | [![CC BY-SA 4.0][cc-by-sa-image]][cc-by-sa] |
+| Background waves         | wave1.svg       | [Paula Rumeu](https://github.com/salem404)         | Own creation                                   | [![CC BY-SA 4.0][cc-by-sa-image]][cc-by-sa] |
+| Background waves         | wave2.svg       | [Paula Rumeu](https://github.com/salem404)         | Own creation                                   | [![CC BY-SA 4.0][cc-by-sa-image]][cc-by-sa] |
+| Background foam          | foam.svg        | [Paula Rumeu](https://github.com/salem404)         | Own creation                                   | [![CC BY-SA 4.0][cc-by-sa-image]][cc-by-sa] |
+| Background foam          | foam2.svg       | [Paula Rumeu](https://github.com/salem404)         | Own creation                                   | [![CC BY-SA 4.0][cc-by-sa-image]][cc-by-sa] |
+| Gnome                    | gnome.svg       | [Paula Rumeu](https://github.com/salem404)         | Own creation                                   | [![CC BY-SA 4.0][cc-by-sa-image]][cc-by-sa] |
+| Gnome                    | gnome0.svg      | [Paula Rumeu](https://github.com/salem404)         | Own creation                                   | [![CC BY-SA 4.0][cc-by-sa-image]][cc-by-sa] |
+| Gnome                    | gnome1.svg      | [Paula Rumeu](https://github.com/salem404)         | Own creation                                   | [![CC BY-SA 4.0][cc-by-sa-image]][cc-by-sa] |
+| Gnome                    | gnome2.svg      | [Paula Rumeu](https://github.com/salem404)         | Own creation                                   | [![CC BY-SA 4.0][cc-by-sa-image]][cc-by-sa] |
+| Character and Item icons |                 | [Stairway Games](https://www.stairwaygames.com)    | [Coral Island Wiki](https://coralisland.wiki/) | [![CC BY-SA 4.0][cc-by-sa-image]][cc-by-sa] |
+| Sign Out Icon            | si_Sign_out.svg | [Abhimanyu Rana](https://github.com/planetabhi)    | [SargamIcons](https://sargamicons.com)         | [![CC BY 4.0][cc-by-image]][cc-by]          |
+| Sun Icon                 | si_Sun.svg      | [Abhimanyu Rana](https://github.com/planetabhi)    | [SargamIcons](https://sargamicons.com)         | [![CC BY 4.0][cc-by-image]][cc-by]          |
+| Swap Icon                | si_Swap_horiz   | [Abhimanyu Rana](https://github.com/planetabhi)    | [SargamIcons](https://sargamicons.com)         | [![CC BY 4.0][cc-by-image]][cc-by]          |
+| Moon Icon                | moon.svg        | [Abhimanyu Rana](https://github.com/planetabhi)    | [SargamIcons](https://sargamicons.com)         | [![CC BY 4.0][cc-by-image]][cc-by]          |
+| Alert Icon               |                 | [Abhimanyu Rana](https://github.com/planetabhi)    | [SargamIcons](https://sargamicons.com)         | [![CC BY 4.0][cc-by-image]][cc-by]          |
+| Check Icon               |                 | [Abhimanyu Rana](https://github.com/planetabhi)    | [SargamIcons](https://sargamicons.com)         | [![CC BY 4.0][cc-by-image]][cc-by]          |
+| Trash icon               |                 | [Mikhail Kolomietc](https://www.figma.com/@demiko) | [Figma](https://www.figma.com)                 | [![CC BY 4.0][cc-by-image]][cc-by]          |
+| Edit icon                |                 | [Mikhail Kolomietc](https://www.figma.com/@demiko) | [Figma](https://www.figma.com)                 | [![CC BY 4.0][cc-by-image]][cc-by]          |
+| OpenEye icon             |                 | [Mikhail Kolomietc](https://www.figma.com/@demiko) | [Figma](https://www.figma.com)                 | [![CC BY 4.0][cc-by-image]][cc-by]          |
+| ClosedEye icon           |                 | [Mikhail Kolomietc](https://www.figma.com/@demiko) | [Figma](https://www.figma.com)                 | [![CC BY 4.0][cc-by-image]][cc-by]          |
+| GitHub Icon              | GitHubIcon.svg  | Github                                             | [GitHub](https://github.com)                   | [![CC BY 4.0][cc-by-image]][cc-by]          |
 
 ## Tech Stack
 
