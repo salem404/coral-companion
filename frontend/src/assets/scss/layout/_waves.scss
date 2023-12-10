@@ -2,9 +2,6 @@ body {
     color: var(--text-primary);
     background: var(--bg-color);
     overflow-x: hidden;
-    @include mq($from: desktop) {
-        overflow-y: hidden;
-    }
 }
 
 #app {
