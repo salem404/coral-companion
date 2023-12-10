@@ -108,6 +108,13 @@
             overflow-x: hidden;
             border-radius: 2rem;
             background-color: var(--fondo-capa2);
+
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+
+            &::-webkit-scrollbar {
+                width: 0.5rem;
+            }
         }
         @include mq($from: desktop) {
             justify-content: space-around;

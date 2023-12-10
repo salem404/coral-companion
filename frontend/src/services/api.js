@@ -17,7 +17,7 @@ export default class apiService {
     /**
      * @property {string} API_URL - The base URL for the API service.
      */
-    API_URL = "http://localhost/api";
+    API_URL = "http://192.168.1.35/api";
 
     /**
      * Create a new API service.

@@ -3,12 +3,16 @@
         <summary class="category__header">Characters</summary>
         <ul class="category__list" v-for="person in people">
             <li class="category__list-item" v-if="person">
-                <img
-                    class="category__list-item-img"
-                    :src="person.icon"
-                    alt="crop"
-                />
-                {{ person.name }}
+                <span>
+                    <img
+                        class="category__list-item-img"
+                        :src="person.icon"
+                        alt="crop"
+                    />
+                    {{ person.name }}
+                </span>
+
+                {{ person.birthday }}
             </li>
         </ul>
     </details>
@@ -65,7 +69,9 @@ export default {
                 const response = await this.apiService.getSeasonalCharacters(
                     this.season,
                 );
-                this.people = response.data;
+                this.people = response.data.sort(
+                    (a, b) => new Date(a.birthday) - new Date(b.birthday),
+                );
             } catch (error) {
                 console.error(error);
             }

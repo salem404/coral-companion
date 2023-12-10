@@ -21,8 +21,9 @@
                 <span
                     v-if="!task.isEditing"
                     :class="{ dashed: task.isCompleted }"
-                    >{{ task.description }}</span
                 >
+                    {{ task.description }}
+                </span>
                 <input v-else v-model="task.description" type="text" />
                 <div class="btns">
                     <button
@@ -33,6 +34,7 @@
                         "
                     >
                         <svg
+                            v-if="!task.isEditing"
                             xmlns="http://www.w3.org/2000/svg"
                             width="29"
                             height="29"
@@ -52,6 +54,22 @@
                                 stroke-opacity="0.82"
                                 stroke-width="2.61194"
                                 stroke-linecap="round"
+                            />
+                        </svg>
+                        <svg
+                            v-else
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="80"
+                            height="80"
+                            viewBox="0 0 80 80"
+                            fill="none"
+                        >
+                            <path
+                                d="M16.6667 43.3333L33.3333 60L63.3333 23.3333"
+                                stroke="black"
+                                stroke-width="5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
                             />
                         </svg>
                         <span>
@@ -140,9 +158,7 @@ export default {
                     this.profile.id,
                 );
                 this.tasks = response.data;
-                if (this.tasks.length > 0) {
-                    this.isEmpty = false;
-                }
+                this.isEmpty = this.tasks.length === 0;
             } catch (error) {
                 console.error(error);
             }

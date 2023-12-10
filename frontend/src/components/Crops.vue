@@ -3,12 +3,14 @@
         <summary class="category__header">Crops</summary>
         <ul class="category__list" v-for="crop in crops">
             <li class="category__list-item" v-if="crop">
-                <img
-                    class="category__list-item-img"
-                    :src="crop.crop.resource.icon"
-                    alt="crop"
-                />
-                {{ crop.crop.resource.name }}
+                <span>
+                    <img
+                        class="category__list-item-img"
+                        :src="crop.crop.resource.icon"
+                        alt="crop"
+                    />
+                    {{ crop.crop.resource.name }}
+                </span>
             </li>
         </ul>
     </details>

@@ -21,7 +21,7 @@
                     name="password"
                     :type="type1"
                     placeholder="Password"
-                    min="6"
+                    minlength="6"
                     class="session__input"
                     autocomplete="off"
                 />
@@ -94,6 +94,7 @@
                     min="6"
                     class="session__input"
                     autocomplete="off"
+                    minlength="6"
                 />
                 <button type="button" @click="changeVisibility2">
                     <svg

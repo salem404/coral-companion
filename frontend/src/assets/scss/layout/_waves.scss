@@ -1,6 +1,10 @@
 body {
     color: var(--text-primary);
     background: var(--bg-color);
+    overflow-x: hidden;
+    @include mq($from: desktop) {
+        overflow-y: hidden;
+    }
 }
 
 #app {
@@ -8,7 +12,6 @@ body {
     flex-direction: column;
     justify-content: space-between;
     min-height: 100vh;
-    overflow-x: hidden;
 }
 
 @keyframes MoveUpDown {
@@ -41,10 +44,9 @@ body {
 
 .arena {
     color: var(--fondo-arena, #b7977a);
-    width: 1500px;
     z-index: -1;
     position: fixed;
-    bottom: -41rem;
+    bottom: -47rem;
     @include mq($from: desktop) {
         right: 0;
     }

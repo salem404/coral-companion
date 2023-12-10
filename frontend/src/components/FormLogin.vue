@@ -21,7 +21,7 @@
                     name="password"
                     :type="type"
                     placeholder="Password"
-                    min="6"
+                    minlength="6"
                     class="session__input"
                     autocomplete="off"
                 />
