@@ -27,8 +27,9 @@ import apiServiceMixin from "@/services/apiServiceMixin.js";
 
 /**
  * @vue-component
- * @name People
+ * @module People
  * @description This component displays a list of people.
+ * @vue-data {Array} people - List of people.
  * @vue-prop {String} season - The selected season.
  * @mixes apiServiceMixin
  */
@@ -36,18 +37,12 @@ export default {
     name: "People",
     mixins: [apiServiceMixin],
     props: {
-        /**
-         * @vue-prop {String} season - The selected season.
-         */
         season: {
             type: String,
             required: true,
         },
     },
     data() {
-        /**
-         * @vue-data {Array} people - List of people.
-         */
         return {
             people: [],
         };
@@ -78,10 +73,7 @@ export default {
         },
     },
     watch: {
-        /**
-         * @vue-watch season
-         * @description Watches for changes in the season prop and fetches new people.
-         */
+        //Watches for changes in the season prop and fetches new people.
         season: {
             handler: "fetchPeople",
             immediate: true,

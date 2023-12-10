@@ -123,8 +123,11 @@ import People from "@/components/People.vue";
 import { mapState } from "vuex";
 
 /**
+ * @vue-component
  * @vue-data {String} selectedSeasons - Estación seleccionada
  * @vue-computed {Prop} componentProps - Devuelve el prop de la estación seleccionada
+ * @vue-data {Array} seasons - Array de estaciones
+ * @description Este componente muestra la lista de tareas, los cultivos y las personas
  */
 export default {
     name: "Dashboard",
