@@ -39,7 +39,7 @@ class CharacterSeeder extends Seeder
             "gender" => "Female",
             "isRomanceable" => "1",
             "icon" =>
-                "https://static.wikia.nocookie.net/coralisland/images/f/fc/Alice_icon.png/",
+                "https://static.wikia.nocookie.net/coralisland/images/f/fc/Alice_icon.png",
         ]);
 
         // Anne
@@ -129,7 +129,7 @@ class CharacterSeeder extends Seeder
 
         // Charles
         Character::create([
-            "name" => "Name",
+            "name" => "Charles",
             "birthday" => "4",
             "season_id" => "4",
             "gender" => "Male",
@@ -166,7 +166,7 @@ class CharacterSeeder extends Seeder
             "occupation" => "Painter",
             "isRomanceable" => "0",
             "icon" =>
-                "ichttps://static.wikia.nocookie.net/coralisland/images/6/69/Dippa_icon.png/",
+                "https://static.wikia.nocookie.net/coralisland/images/6/69/Dippa_icon.png",
         ]);
 
         // Eleanor
@@ -457,7 +457,7 @@ class CharacterSeeder extends Seeder
             "occupation" => "Blacksmith",
             "isRomanceable" => "1",
             "icon" =>
-                "https://static.wikia.nocookie.net/coralisland/images/6/62/Rafael_icon.png/revision/",
+                "https://static.wikia.nocookie.net/coralisland/images/6/62/Rafael_icon.png",
         ]);
 
         // Raina
@@ -620,7 +620,7 @@ class CharacterSeeder extends Seeder
 
         // Yuri
         Character::create([
-            "name" => "Name",
+            "name" => "Yuri",
             "birthday" => "28",
             "season_id" => "2",
             "gender" => "Female",

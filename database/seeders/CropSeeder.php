@@ -12,34 +12,10 @@ class CropSeeder extends Seeder
      */
     public function run(): void
     {
-        // Almond
-        Crop::create([
-            "resource_id" => 1,
-        ]);
-
-        // Carrot
-        Crop::create([
-            "resource_id" => 2,
-        ]);
-
-        // Cotton
-        Crop::create([
-            "resource_id" => 3,
-        ]);
-
-        // Cauliflower
-        Crop::create([
-            "resource_id" => 4,
-        ]);
-
-        // Corn
-        Crop::create([
-            "resource_id" => 5,
-        ]);
-
-        // Melon
-        Crop::create([
-            "resource_id" => 6,
-        ]);
+        for ($i = 1; $i < 56; $i++) {
+            Crop::create([
+                "resource_id" => $i,
+            ]);
+        }
     }
 }
